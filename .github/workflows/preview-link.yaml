@@ -2,9 +2,10 @@ name: Preview Link
 
 on:
   pull_request:
-  workflow_dispatch:
-  schedule:
-    - cron: '0 0 5 * *'
+    branches:
+      - test
+      - stage
+      - main
 
 jobs:
   build:
@@ -14,17 +15,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-      - name: Wait for Vercel Preview URL
+      - run: sleep 30
+      - name: vercel-preview-url
+        uses: zentered/vercel-preview-url@v1.1.9
         id: vercel_preview_url
-        uses: zentered/vercel-preview-url@v1.2.0
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          GITHUB_REF: 
-            - 'main'
-            - 'dev'
-          GITHUB_REPOSITORY: 'DiegoRSM03/drsm'
         with:
+          vercel_project_id: 'prj_TUolilnu5LZHaGjp3UgnrCijWjYr'
           vercel_app: 'drsm'
+      - name: Get URL
+        run: echo "https://${{ steps.vercel_preview_url.outputs.preview_url }}"
       - name: Get URL
         run:
           echo "https://${{steps.vercel_preview_url.outputs.preview_url}}"
