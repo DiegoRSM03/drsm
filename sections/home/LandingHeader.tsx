@@ -42,7 +42,7 @@ export const LandingHeader = () => {
           <p className="max-w-[650px] mt-5 mb-10 leading-7 text-gray">
             {LANDING_HEADER_TEXT}
           </p>
-          <Button href={LANDING_HEADER_BUTTON_HREF}>
+          <Button href={LANDING_HEADER_BUTTON_HREF} target="_blank">
             {LANDING_HEADER_BUTTON_TEXT}
           </Button>
         </div>

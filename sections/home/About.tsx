@@ -1,23 +1,14 @@
+// Libs
+import Image from "next/image"
 // Utils
 import {
   WRAPPER_CHILD_STYLES,
   WRAPPER_STYLES,
   ABOUT_INNER_SECTIONS,
+  renderDescription,
 } from "@/utils"
-import Image from "next/image"
 
 const SECTION_TITLE = "About"
-
-const renderInnerSectionDescription = (
-  innerSectionKey: string,
-  text: string
-) => {
-  return text.split("\n").map((paragraph, index) => (
-    <p key={`${innerSectionKey}-paragraph-${index}`} className="even:mt-3">
-      {paragraph}
-    </p>
-  ))
-}
 
 export const About = () => {
   return (
@@ -60,10 +51,7 @@ export const About = () => {
                   </div>
                 </h3>
                 <div className="text-sm leading-6 text-gray xl:text-base xl:leading-7">
-                  {renderInnerSectionDescription(
-                    innerSectionKey,
-                    innerSection.description
-                  )}
+                  {renderDescription(innerSectionKey, innerSection.description)}
                 </div>
               </div>
             </div>
