@@ -1,10 +1,11 @@
 // Sections
-import { LandingHeader } from "@/sections"
+import { About, LandingHeader } from "@/sections"
 
 export default function Home() {
   return (
     <>
       <LandingHeader />
+      <About />
     </>
   )
 }
