@@ -1,6 +1,6 @@
-// Libs
-import Link from "next/link"
-import { Button } from "./"
+// Components
+import { Button } from "@/components"
+import { WRAPPER_CHILD_STYLES, WRAPPER_STYLES } from "@/utils"
 
 interface NavItem {
   title: string
@@ -27,8 +27,10 @@ const NAV_ITEMS: NavItem[] = [
 
 export const Navbar = () => {
   return (
-    <nav className="fixed top-0 left-0 flex items-center justify-center w-full h-16 bg-black1">
-      <div className="flex items-center justify-between w-full px-20 max-w-screen-2xl">
+    <nav className={`${WRAPPER_STYLES} z-50 fixed top-0 left-0 h-16 bg-black1`}>
+      <div
+        className={`${WRAPPER_CHILD_STYLES} flex items-center justify-between`}
+      >
         {/* LOGO */}
         <div className="text-4xl text-white font-jacquard">{LOGO_TEXT}</div>
 
@@ -37,7 +39,7 @@ export const Navbar = () => {
           {NAV_ITEMS.map((navItem) => (
             <li
               key={navItem.href}
-              className="hover:text-white hover:cursor-pointer"
+              className="text-sm hover:text-white hover:cursor-pointer"
             >
               {navItem.title}
             </li>

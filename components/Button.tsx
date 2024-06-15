@@ -7,12 +7,12 @@ export type Props = LinkProps &
     children: ReactNode
   }
 
-export const Button = ({ href, children, ...props }: Props) => {
+export const Button = ({ href, children, className, ...props }: Props) => {
   return (
-    <div className="relative cursor-pointer p-3px group">
+    <div className={`relative cursor-pointer py-1 group w-min ${className}`}>
       {/* SHADOW EFFECT */}
-      <div className="absolute left-0 w-full bottom-3px h-2px bg-secondary group-hover:h-3px group-hover:bg-tertiary" />
-      <div className="absolute bottom-0 h-full right-3px w-2px bg-secondary group-hover:w-3px group-hover:bg-tertiary" />
+      <div className="absolute left-0 w-full h-1 bottom-3px bg-secondary group-hover:h-[5px] group-hover:bg-tertiary" />
+      <div className="absolute bottom-0 w-1 h-full right-3px bg-secondary group-hover:w-[5px] group-hover:bg-tertiary" />
 
       {/* WHITE LINES */}
       <div className="absolute top-0 left-3px w-[calc(100%-6px)] bg-white h-3px" />
@@ -24,7 +24,7 @@ export const Button = ({ href, children, ...props }: Props) => {
       <Link
         href={href}
         {...props}
-        className="px-5 py-1 text-2xl text-white font-jacquard bg-primary group-hover:bg-secondary"
+        className="-mt-[1px] mb-[3px] inline-flex w-full py-2 text-2xl leading-none text-white px-12 h-9 font-jacquard bg-primary group-hover:bg-secondary"
       >
         {children}
       </Link>
