@@ -1,9 +1,11 @@
-import { Navbar } from "@/components";
+// Sections
+import { About, LandingHeader } from "@/sections"
 
 export default function Home() {
   return (
-    <main className="w-screen min-h-screen">
-      <Navbar />
-    </main>
-  );
+    <>
+      <LandingHeader />
+      <About />
+    </>
+  )
 }
