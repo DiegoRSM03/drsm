@@ -12,7 +12,7 @@ const SECTION_TITLE = "About"
 
 export const About = () => {
   return (
-    <div className={`${WRAPPER_STYLES} relative z-20 -mt-[15rem]`}>
+    <div className={`${WRAPPER_STYLES} relative z-20 -mt-64 pt-20`} id="about">
       <div className={`${WRAPPER_CHILD_STYLES} flex flex-col gap-40`}>
         {Object.entries(ABOUT_INNER_SECTIONS).map(
           ([innerSectionKey, innerSection], index) => (
@@ -30,7 +30,7 @@ export const About = () => {
                   quality={100}
                   className="relative"
                 />
-                <div className="absolute w-full h-full top-0 left-0 bg-gradient-to-b from-black1/0 from-60% to-black1">
+                <div className="absolute w-full h-full top-0 left-0 bg-gradient-to-b from-black/0 from-60% to-black">
                   <div className="absolute bottom-5 left-5">
                     {innerSection.icon}
                   </div>

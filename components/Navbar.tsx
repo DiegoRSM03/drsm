@@ -2,6 +2,7 @@
 import { Button } from "@/components"
 // Utils
 import { WRAPPER_CHILD_STYLES, WRAPPER_STYLES } from "@/utils"
+import Link from "next/link"
 
 export interface NavItem {
   title: string
@@ -14,21 +15,21 @@ const CTA_LINK_URL = "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/"
 const NAV_ITEMS: NavItem[] = [
   {
     title: "Home",
-    href: "/",
+    href: "#home",
   },
   {
     title: "About",
-    href: "/about",
+    href: "#about",
   },
   {
     title: "Experience",
-    href: "/experience",
+    href: "#work-experience",
   },
 ]
 
 export const Navbar = () => {
   return (
-    <nav className={`${WRAPPER_STYLES} z-50 fixed top-0 left-0 h-16 bg-black1`}>
+    <nav className={`${WRAPPER_STYLES} z-50 fixed top-0 left-0 h-16 bg-black`}>
       <div
         className={`${WRAPPER_CHILD_STYLES} flex items-center justify-between`}
       >
@@ -42,13 +43,13 @@ export const Navbar = () => {
               key={navItem.href}
               className="text-sm hover:text-white hover:cursor-pointer"
             >
-              {navItem.title}
+              <Link href={navItem.href}>{navItem.title}</Link>
             </li>
           ))}
         </ul>
 
         {/* CALL TO ACTION */}
-        <Button href={CTA_LINK_URL} target="_blank">
+        <Button variant="secondary" href={CTA_LINK_URL} target="_blank">
           {CTA_LINK_TEXT}
         </Button>
       </div>
