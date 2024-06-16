@@ -1,31 +1,43 @@
-import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss"
 
 const config: Config = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./sections/**/*.{js,ts,jsx,tsx,mdx}",
+    "./utils/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     screens: {
-      sm: '480px',
-      md: '768px',
-      lg: '976px',
-      xl: '1440px',
+      sm: "480px",
+      md: "768px",
+      lg: "976px",
+      xl: "1440px",
     },
     colors: {
-      black1: '#111111',
-      black2: '#1C1C1C',
-      white: '#FFFFFF',
-      gray: '#BFBFBF',
-      primary: '#CFC700',
-      secondary: '#A59F00',
+      black1: "#111111",
+      black2: "#1C1C1C",
+      black3: "#262626",
+      white: "#FFFFFF",
+      gray: "#BFBFBF",
+      primary: "#CBC300",
+      secondary: "#A59F00",
+      tertiary: "#8D8800",
     },
     fontFamily: {
-      roboto: ['var(--font-roboto-serif)', 'serif'],
-      jacquard: ['var(--font-jacquard)', 'serif'],
+      roboto: ["var(--font-roboto-serif)", "serif"],
+      jacquard: ["var(--font-jacquard)", "serif"],
+    },
+    extend: {
+      spacing: {
+        "2px": "2px",
+        "3px": "3px",
+        "4px": "4px",
+        "5px": "5px",
+      },
     },
   },
   plugins: [],
-};
-export default config;
+}
+
+export default config

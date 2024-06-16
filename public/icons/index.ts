@@ -1,0 +1,6 @@
+export * from "./component/UserIcon"
+export * from "./component/UsersIcon"
+export * from "./component/PetIcon"
+export * from "./component/HomeIcon"
+export * from "./component/AndroidIcon"
+export * from "./component/BriefcaseIcon"
