@@ -1,7 +1,7 @@
 // Libs
 import Image from "next/image"
 // Components
-import { Button } from "@/components"
+import { AnimateOnScroll, Button } from "@/components"
 // Utils
 import {
   WORK_EXPERIENCES,
@@ -22,7 +22,7 @@ export const WorkExperience = () => {
       id="work-experience"
     >
       <div className={`${WRAPPER_CHILD_STYLES} flex flex-col`}>
-        <div className="flex justify-between w-full">
+        <AnimateOnScroll duration={0.8} className="flex justify-between w-full">
           <h2 className="text-4xl md:text-5xl xl:text-6xl font-jacquard">
             {WORK_EXPERIENCE_TITLE}
           </h2>
@@ -33,7 +33,7 @@ export const WorkExperience = () => {
           >
             {WORK_EXPERIENCE_BUTTON_TEXT}
           </Button>
-        </div>
+        </AnimateOnScroll>
 
         <div className="flex flex-col gap-10 mt-16 mb-16 xl:mb-20 xl:mt-20 xl:gap-20">
           {Object.entries(WORK_EXPERIENCES).map(
