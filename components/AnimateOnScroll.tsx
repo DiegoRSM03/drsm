@@ -41,7 +41,6 @@ export const AnimateOnScroll = ({
 
   useEffect(() => {
     const isDesktopViewport = window.innerWidth >= 1440
-    console.log({ isDesktopViewport })
     setIsDesktop(isDesktopViewport)
   }, [])
 

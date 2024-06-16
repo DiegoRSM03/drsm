@@ -35,7 +35,7 @@ export const WorkExperience = () => {
           </Button>
         </AnimateOnScroll>
 
-        <div className="flex flex-col gap-10 mt-16 mb-16 xl:mb-20 xl:mt-20 xl:gap-20">
+        <div className="flex flex-col gap-10 mt-10 md:mt-16 mb-16 xl:mb-20 xl:mt-20 xl:gap-20">
           {Object.entries(WORK_EXPERIENCES).map(
             ([workExperienceKey, workExperience]) => (
               <div
@@ -45,7 +45,7 @@ export const WorkExperience = () => {
                 <Image
                   alt={`Work experience in ${workExperienceKey}`}
                   src={workExperience.companyImage}
-                  className="h-[120px] xl:h-[200px] w-auto"
+                  className="h-[120px] xl:h-[200px] w-min"
                   width={120}
                   height={120}
                   quality={85}

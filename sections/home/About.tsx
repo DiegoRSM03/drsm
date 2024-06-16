@@ -22,7 +22,6 @@ export const About = () => {
           ([innerSectionKey, innerSection], index) => {
             const isFirstInnerSection = index === 0
             const isEvenInnerSection = !!(index % 2)
-            console.log(index % 2)
 
             return (
               <AnimateOnScroll
@@ -69,7 +68,7 @@ export const About = () => {
                       {innerSection.backgroundIcon}
                     </div>
                   </h3>
-                  <div className="text-xs leading-[21px] md:leading-6 md:text-sm text-gray xl:text-base xl:leading-7">
+                  <div className="text-xs leading-[21px] md:leading-6 lg:text-sm text-gray xl:text-base xl:leading-7">
                     {renderDescription(
                       innerSectionKey,
                       innerSection.description
