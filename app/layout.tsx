@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" id="home">
       <body
         className={`${jacquard.variable} ${robotoSerif.variable} font-roboto`}
       >

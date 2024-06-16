@@ -26,7 +26,7 @@ export const LandingHeader = () => {
         className="object-cover h-svh"
         quality={85}
       />
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black1/60 via-black1/90 to-black1" />
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/60 via-black/90 to-black" />
 
       {/* CONTENT */}
       <div className={`${WRAPPER_STYLES} h-full absolute top-0 left-0`}>

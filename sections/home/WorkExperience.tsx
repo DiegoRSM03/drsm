@@ -17,7 +17,7 @@ const WORK_EXPERIENCE_BUTTON_HREF =
 
 export const WorkExperience = () => {
   return (
-    <div className={`${WRAPPER_STYLES} mt-52`}>
+    <div className={`${WRAPPER_STYLES} mt-52 pt-20`} id="work-experience">
       <div className={`${WRAPPER_CHILD_STYLES} flex flex-col`}>
         <div className="flex justify-between w-full">
           <h2 className="text-6xl font-jacquard">{WORK_EXPERIENCE_TITLE}</h2>
