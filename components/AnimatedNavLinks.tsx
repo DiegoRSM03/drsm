@@ -13,6 +13,7 @@ interface Props {
   listClassName?: string
   itemClassName?: string
   animateOnce?: boolean
+  itemOnClick?: () => void
 }
 
 const LIST_DEFAULT_STYLES = "flex flex-col justify-center gap-5 mt-10 w-min"
@@ -23,6 +24,7 @@ export const AnimatedNavLinks = ({
   listClassName,
   itemClassName,
   animateOnce = true,
+  itemOnClick,
 }: Props) => {
   const listStyles = listClassName ?? LIST_DEFAULT_STYLES
   const itemStyles = itemClassName ?? ITEM_DEFAULT_STYLES
@@ -38,7 +40,11 @@ export const AnimatedNavLinks = ({
     >
       {navItems.map((navItem) => (
         <motion.li key={navItem.href} variants={FADE_UP} className="w-min">
-          <Link href={navItem.href} className={itemStyles}>
+          <Link
+            href={navItem.href}
+            className={itemStyles}
+            onClick={itemOnClick}
+          >
             {navItem.icon}
             {navItem.title}
           </Link>
