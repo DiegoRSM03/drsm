@@ -13,7 +13,7 @@ interface Props {
 export const Slider = ({ images, section }: Props) => {
   return (
     <Swiper
-      autoplay={{ delay: 2500 }}
+      autoplay={{ delay: 3500 }}
       className="w-full h-full"
       modules={[Autoplay]}
       loop
