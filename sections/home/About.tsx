@@ -12,7 +12,10 @@ const SECTION_TITLE = "About"
 
 export const About = () => {
   return (
-    <div className={`${WRAPPER_STYLES} relative z-20 -mt-64 pt-20`} id="about">
+    <div
+      className={`${WRAPPER_STYLES} relative z-20 -mt-[300px] md:-mt-64 pt-20`}
+      id="about"
+    >
       <div className={`${WRAPPER_CHILD_STYLES} flex flex-col gap-20 xl:gap-40`}>
         {Object.entries(ABOUT_INNER_SECTIONS).map(
           ([innerSectionKey, innerSection], index) => (
@@ -22,7 +25,7 @@ export const About = () => {
             >
               {/* IMAGE SLIDER */}
               {index === 0 && (
-                <h2 className="w-full -mb-8 text-5xl font-jacquard xl:hidden">
+                <h2 className="w-full -mb-8 text-4xl md:text-5xl font-jacquard xl:hidden">
                   {SECTION_TITLE}
                 </h2>
               )}
@@ -49,13 +52,13 @@ export const About = () => {
                     {SECTION_TITLE}
                   </h2>
                 )}
-                <h3 className="relative mb-2 text-4xl xl:mb-6 xl:text-5xl font-jacquard">
+                <h3 className="relative mb-2 text-3xl md:text-4xl xl:mb-6 xl:text-5xl font-jacquard">
                   {innerSection.title}
                   <div className="absolute top-0 right-0 xl:-top-6">
                     {innerSection.backgroundIcon}
                   </div>
                 </h3>
-                <div className="text-sm leading-6 text-gray xl:text-base xl:leading-7">
+                <div className="text-xs leading-[21px] md:leading-6 md:text-sm text-gray xl:text-base xl:leading-7">
                   {renderDescription(innerSectionKey, innerSection.description)}
                 </div>
               </div>

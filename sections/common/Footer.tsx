@@ -1,5 +1,6 @@
 // Libs
 import { ReactNode } from "react"
+import Link from "next/link"
 // Components
 import { Button, NavItem } from "@/components"
 // Utils
@@ -10,7 +11,6 @@ import {
 } from "@/utils"
 // Icons
 import { AndroidIcon, BriefcaseIcon, HomeIcon } from "@/public/icons"
-import Link from "next/link"
 
 interface FooterNavItem extends NavItem {
   icon: ReactNode
@@ -43,10 +43,10 @@ export const Footer = () => {
   return (
     <div className={`${WRAPPER_STYLES} bg-black3 py-16 xl:py-28`}>
       <div className={`${WRAPPER_CHILD_STYLES} flex flex-col items-center`}>
-        <p className="text-6xl text-center text-white font-jacquard">
+        <p className="text-3xl text-center text-white md:text-5xl xl:text-6xl font-jacquard">
           {FOOTER_SECTION_TITLE}
         </p>
-        <div className="mt-8 text-sm text-center text-gray xl:text-base">
+        <div className="mt-8 text-xs text-center md:text-sm text-gray xl:text-base">
           {renderDescription("footer", FOOTER_SECTION_TEXT)}
         </div>
         <ul className="flex flex-col justify-center gap-5 mt-10 w-min">
@@ -54,7 +54,7 @@ export const Footer = () => {
             <li key={navItem.href} className="w-min">
               <Link
                 href={navItem.href}
-                className="flex gap-3 text-sm xl:text-base"
+                className="flex gap-3 text-xs md:text-sm xl:text-base"
               >
                 {navItem.icon}
                 {navItem.title}
