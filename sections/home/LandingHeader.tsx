@@ -23,7 +23,7 @@ export const LandingHeader = () => {
       <Image
         src={HomeWallpaper}
         alt={LANDING_HEADER_WALLPAPER_ALT}
-        className="object-cover h-svh"
+        className="object-cover h-svh md:h-[900px]"
         quality={85}
       />
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/60 via-black/90 to-black" />
@@ -31,15 +31,15 @@ export const LandingHeader = () => {
       {/* CONTENT */}
       <div className={`${WRAPPER_STYLES} h-full absolute top-0 left-0`}>
         <div
-          className={`${WRAPPER_CHILD_STYLES} h-full flex flex-col justify-start pt-48`}
+          className={`${WRAPPER_CHILD_STYLES} h-full flex flex-col justify-start pt-32 md:pt-48 2xl:pt-40`}
         >
-          <h1 className="m-0 text-6xl text-white font-jacquard">
+          <h1 className="m-0 text-4xl text-white md:text-5xl xl:text-6xl font-jacquard">
             {LANDING_HEADER_TITLE}
           </h1>
-          <h2 className="mt-2 text-4xl text-gray font-jacquard">
+          <h2 className="mt-2 text-2xl md:text-3xl xl:text-4xl text-gray font-jacquard">
             {LANDING_HEADER_SUBTITLE}
           </h2>
-          <p className="max-w-[650px] mt-5 mb-10 leading-7 text-gray">
+          <p className="w-full mt-5 mb-10 text-sm leading:6 md:leading-7 xl:max-w-screen-wrapper text-gray md:text-base">
             {LANDING_HEADER_TEXT}
           </p>
           <Button href={LANDING_HEADER_BUTTON_HREF} target="_blank">

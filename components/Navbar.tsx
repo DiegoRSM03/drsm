@@ -34,10 +34,12 @@ export const Navbar = () => {
         className={`${WRAPPER_CHILD_STYLES} flex items-center justify-between`}
       >
         {/* LOGO */}
-        <div className="text-4xl text-white font-jacquard">{LOGO_TEXT}</div>
+        <div className="text-2xl text-white sm:text-3xl md:text-4xl font-jacquard">
+          {LOGO_TEXT}
+        </div>
 
         {/* NAV ITEMS */}
-        <ul className="flex items-center gap-8 text-gray">
+        <ul className="items-center hidden gap-8 text-gray lg:flex">
           {NAV_ITEMS.map((navItem) => (
             <li
               key={navItem.href}
@@ -49,7 +51,12 @@ export const Navbar = () => {
         </ul>
 
         {/* CALL TO ACTION */}
-        <Button variant="secondary" href={CTA_LINK_URL} target="_blank">
+        <Button
+          variant="secondary"
+          href={CTA_LINK_URL}
+          target="_blank"
+          className="hidden lg:block"
+        >
           {CTA_LINK_TEXT}
         </Button>
       </div>
