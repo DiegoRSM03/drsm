@@ -1,5 +1,6 @@
 // Libs
 import type { Metadata } from "next"
+import "swiper/css"
 // Styles
 import "./globals.css"
 // Fonts
