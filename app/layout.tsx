@@ -5,7 +5,7 @@ import "./globals.css"
 // Fonts
 import { jacquard, robotoSerif } from "../public/fonts/fonts"
 // Components
-import { Navbar } from "@/components"
+import { MobileNavbar, Navbar } from "@/components"
 
 export const metadata: Metadata = {
   title: "DRSM",
@@ -24,6 +24,7 @@ export default function RootLayout({
       >
         <main className="w-full min-h-screen mt-16">
           <Navbar />
+          <MobileNavbar />
           {children}
         </main>
       </body>

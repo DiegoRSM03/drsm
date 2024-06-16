@@ -12,7 +12,7 @@ import {
 // Icons
 import { AndroidIcon, BriefcaseIcon, HomeIcon } from "@/public/icons"
 
-interface FooterNavItem extends NavItem {
+export interface FooterNavItem extends NavItem {
   icon: ReactNode
 }
 
