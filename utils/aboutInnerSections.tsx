@@ -74,7 +74,7 @@ export const ABOUT_INNER_SECTIONS: { [t in InnerSectionId]: InnerSection } = {
   pets: {
     title: "Mori & Ron",
     description:
-      "They’re my pets. I’d love to have them both in a single picture but they don’t get along haha. Anyway, they’re the priority in the house.\nMori comes from “Moribundo” (moribund) because I found him in a tough night.\nAnd Ron comes from “Ronroneo” (purring) because he always starts purring at the slightest contact.",
+      "They’re my pets. I’d love to have them both in a single picture but they don’t get along haha. Anyway, they’re the priority in the house.\nMori comes from “Moribundo” (moribund) since I found him in a tough night.\nAnd Ron comes from “Ronroneo” (purring) because he always starts purring at the slightest contact.",
     icon: <PetIcon />,
     backgroundIcon: (
       <PetIcon width={150} height={125} color="rgba(255, 255, 255, 0.04)" />
