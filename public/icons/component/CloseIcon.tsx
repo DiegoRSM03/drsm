@@ -1,22 +1,22 @@
 // Utils
 import { SvgProps } from "@/utils"
 
-export const BriefcaseIcon = ({
+export const CloseIcon = ({
   width = 20,
-  height = 18,
+  height = 20,
   color = "white",
 }: SvgProps) => (
   <svg
     width={width}
-    height={height}
-    viewBox="0 0 20 18"
+    height={width}
+    viewBox="0 0 18 18"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M14 0H6V4H0V18H10V16H2V6H18V8H20V4H14V0ZM12 4H8V2H12V4ZM18 10H12V16H18V18H20V16H18V10ZM14 14V12H16V14H14Z"
+      d="M4 0H0V4H4V0ZM4 14H0V18H4V14ZM14 0H18V4H14V0ZM18 14H14V18H18V14ZM5 5H7V7H5V5ZM9 7H7V9V11H5V13H7V11H9H11V13H13V11H11V9V7H13V5H11V7H9Z"
       fill={color}
     />
   </svg>

@@ -4,15 +4,12 @@ import { Roboto_Serif } from "next/font/google"
 const jacquard = localFont({
   src: "./Jacquard12-Regular.ttf",
   display: "swap",
-  variable: "--font-jacquard"
+  variable: "--font-jacquard",
 })
 
-const robotoSerif = Roboto_Serif({ 
+const robotoSerif = Roboto_Serif({
   subsets: ["latin"],
-  variable: "--font-roboto-serif"
-});
+  variable: "--font-roboto-serif",
+})
 
-export {
-  jacquard,
-  robotoSerif
-}
+export { jacquard, robotoSerif }

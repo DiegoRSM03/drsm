@@ -13,6 +13,7 @@
  */
 
 html {
+  scroll-behavior: smooth;
   line-height: 1.15;
   -webkit-font-smoothing: antialiased;
   /* 1 */
@@ -31,7 +32,6 @@ body {
   margin: 0;
   background-color: #111;
   color: white;
-  scroll-behavior: smooth;
 }
 
 /**
