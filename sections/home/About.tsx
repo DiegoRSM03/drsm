@@ -13,7 +13,7 @@ const SECTION_TITLE = "About"
 export const About = () => {
   return (
     <div
-      className={`${WRAPPER_STYLES} relative z-20 -mt-[300px] md:-mt-64 pt-20`}
+      className={`${WRAPPER_STYLES} relative z-20 -mt-[300px] pt-20`}
       id="about"
     >
       <div className={`${WRAPPER_CHILD_STYLES} flex flex-col gap-20 xl:gap-40`}>
@@ -21,7 +21,7 @@ export const About = () => {
           ([innerSectionKey, innerSection], index) => (
             <div
               key={innerSectionKey}
-              className="flex flex-col items-center w-full xl:items-start gap-14 xl:gap-20 xl:odd:flex-row xl:even:flex-row-reverse"
+              className="flex flex-col items-center w-full group/innerSection xl:items-end gap-14 xl:gap-20 xl:odd:flex-row xl:even:flex-row-reverse"
             >
               {/* IMAGE SLIDER */}
               {index === 0 && (
@@ -29,7 +29,7 @@ export const About = () => {
                   {SECTION_TITLE}
                 </h2>
               )}
-              <div className="relative w-full max-w-screen-wrapper xl:max-w-screen-sm shrink-0">
+              <div className="relative w-full xl:w-3/5 max-w-screen-wrapper shrink-0">
                 <div className="absolute w-full h-full top-5 left-5 bg-black2" />
                 <Image
                   alt={`Image for about ${innerSectionKey} inner section`}
@@ -39,7 +39,7 @@ export const About = () => {
                   className="relative"
                 />
                 <div className="absolute w-full h-full top-0 left-0 bg-gradient-to-b from-black/0 from-60% to-black">
-                  <div className="absolute bottom-5 left-5">
+                  <div className="absolute group-odd/innerSection:left-5 group-even/innerSection:right-5 bottom-5">
                     {innerSection.icon}
                   </div>
                 </div>
@@ -48,7 +48,7 @@ export const About = () => {
               {/* CONTENT */}
               <div className="flex flex-col justify-end">
                 {index === 0 && (
-                  <h2 className="hidden mb-20 text-6xl font-jacquard xl:visible">
+                  <h2 className="hidden mb-20 text-6xl font-jacquard xl:block">
                     {SECTION_TITLE}
                   </h2>
                 )}

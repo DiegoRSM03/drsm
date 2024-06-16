@@ -23,7 +23,7 @@ export const LandingHeader = () => {
       <Image
         src={HomeWallpaper}
         alt={LANDING_HEADER_WALLPAPER_ALT}
-        className="object-cover h-svh md:h-[900px] 2xl:h-[800px]"
+        className="object-cover h-svh md:h-[900px]"
         quality={85}
       />
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/60 via-black/90 to-black" />

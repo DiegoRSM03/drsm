@@ -45,8 +45,9 @@ export const WorkExperience = () => {
                 <Image
                   alt={`Work experience in ${workExperienceKey}`}
                   src={workExperience.companyImage}
-                  className="h-[120px] xl:h-[200px]"
+                  className="h-[120px] xl:h-[200px] w-auto"
                   width={120}
+                  height={120}
                   quality={85}
                 />
 
