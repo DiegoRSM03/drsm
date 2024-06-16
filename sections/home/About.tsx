@@ -7,14 +7,14 @@ import {
   ABOUT_INNER_SECTIONS,
   renderDescription,
 } from "@/utils"
-import { AnimateOnScroll } from "@/components"
+import { AnimateOnScroll, Slider } from "@/components"
 
 const SECTION_TITLE = "About"
 
 export const About = () => {
   return (
     <div
-      className={`${WRAPPER_STYLES} relative z-20 -mt-[350px] md:-mt-[300px] xl:-mt-[250px] pt-20`}
+      className={`${WRAPPER_STYLES} relative z-20 -mt-[350px] md:-mt-[300px] xl:-mt-[280px] pt-20`}
       id="about"
     >
       <div className={`${WRAPPER_CHILD_STYLES} flex flex-col gap-20 xl:gap-40`}>
@@ -41,14 +41,10 @@ export const About = () => {
                 {/* IMAGE SLIDER */}
                 <div className="relative w-full xl:w-3/5 max-w-screen-wrapper shrink-0">
                   <div className="absolute w-full h-full top-5 left-5 bg-black2" />
-                  <Image
-                    alt={`Image for about ${innerSectionKey} inner section`}
-                    src={innerSection.images[0]}
-                    width={700}
-                    quality={100}
-                    className="relative"
-                  />
-                  <div className="absolute w-full h-full top-0 left-0 bg-gradient-to-b from-black/0 from-60% to-black">
+
+                  <Slider images={innerSection.images} section="about" />
+
+                  <div className="absolute z-50 w-full h-full top-0 left-0 bg-gradient-to-b from-black/0 from-60% to-black">
                     <div className="absolute group-odd/innerSection:left-5 group-even/innerSection:right-5 bottom-5">
                       {innerSection.icon}
                     </div>
