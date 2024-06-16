@@ -33,13 +33,13 @@ export const LandingHeader = () => {
         <div
           className={`${WRAPPER_CHILD_STYLES} h-full flex flex-col justify-start pt-48`}
         >
-          <h1 className="m-0 text-6xl text-white font-jacquard">
+          <h1 className="m-0 text-5xl text-white lg:text-6xl font-jacquard">
             {LANDING_HEADER_TITLE}
           </h1>
-          <h2 className="mt-2 text-4xl text-gray font-jacquard">
+          <h2 className="mt-2 text-3xl lg:text-4xl text-gray font-jacquard">
             {LANDING_HEADER_SUBTITLE}
           </h2>
-          <p className="max-w-[650px] mt-5 mb-10 leading-7 text-gray">
+          <p className="w-full lg:max-w-[650px] mt-5 mb-10 leading-7 text-gray md:text-base">
             {LANDING_HEADER_TEXT}
           </p>
           <Button href={LANDING_HEADER_BUTTON_HREF} target="_blank">

@@ -41,18 +41,21 @@ const NAV_ITEMS: FooterNavItem[] = [
 
 export const Footer = () => {
   return (
-    <div className={`${WRAPPER_STYLES} bg-black3 py-28`}>
+    <div className={`${WRAPPER_STYLES} bg-black3 py-16 lg:py-28`}>
       <div className={`${WRAPPER_CHILD_STYLES} flex flex-col items-center`}>
         <p className="text-6xl text-center text-white font-jacquard">
           {FOOTER_SECTION_TITLE}
         </p>
-        <div className="mt-8 text-center text-gray">
+        <div className="mt-8 text-sm text-center text-gray lg:text-base">
           {renderDescription("footer", FOOTER_SECTION_TEXT)}
         </div>
         <ul className="flex flex-col justify-center gap-5 mt-10 w-min">
           {NAV_ITEMS.map((navItem) => (
             <li key={navItem.href} className="w-min">
-              <Link href={navItem.href} className="flex gap-3">
+              <Link
+                href={navItem.href}
+                className="flex gap-3 text-sm lg:text-base"
+              >
                 {navItem.icon}
                 {navItem.title}
               </Link>

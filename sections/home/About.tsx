@@ -13,20 +13,25 @@ const SECTION_TITLE = "About"
 export const About = () => {
   return (
     <div className={`${WRAPPER_STYLES} relative z-20 -mt-64 pt-20`} id="about">
-      <div className={`${WRAPPER_CHILD_STYLES} flex flex-col gap-40`}>
+      <div className={`${WRAPPER_CHILD_STYLES} flex flex-col gap-20 lg:gap-40`}>
         {Object.entries(ABOUT_INNER_SECTIONS).map(
           ([innerSectionKey, innerSection], index) => (
             <div
               key={innerSectionKey}
-              className="flex w-full gap-20 odd:flex-row even:flex-row-reverse"
+              className="flex flex-col items-center w-full lg:items-start gap-14 lg:gap-20 lg:odd:flex-row lg:even:flex-row-reverse"
             >
               {/* IMAGE SLIDER */}
-              <div className="relative w-[650px] shrink-0">
+              {index === 0 && (
+                <h2 className="w-full -mb-8 text-5xl font-jacquard lg:hidden">
+                  {SECTION_TITLE}
+                </h2>
+              )}
+              <div className="relative w-full max-w-[650px] shrink-0">
                 <div className="absolute w-full h-full top-5 left-5 bg-black2" />
                 <Image
                   alt={`Image for about ${innerSectionKey} inner section`}
                   src={innerSection.images[0]}
-                  width={650}
+                  width={700}
                   quality={100}
                   className="relative"
                 />
@@ -40,13 +45,13 @@ export const About = () => {
               {/* CONTENT */}
               <div className="flex flex-col justify-end">
                 {index === 0 && (
-                  <h2 className="mb-20 text-6xl font-jacquard">
+                  <h2 className="hidden mb-20 text-6xl font-jacquard lg:visible">
                     {SECTION_TITLE}
                   </h2>
                 )}
-                <h3 className="relative mb-6 text-5xl font-jacquard">
+                <h3 className="relative mb-2 text-4xl lg:mb-6 lg:text-5xl font-jacquard">
                   {innerSection.title}
-                  <div className="absolute right-0 -top-6">
+                  <div className="absolute top-0 right-0 lg:-top-6">
                     {innerSection.backgroundIcon}
                   </div>
                 </h3>

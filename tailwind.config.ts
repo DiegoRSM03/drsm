@@ -11,8 +11,11 @@ const config: Config = {
     screens: {
       sm: "480px",
       md: "768px",
-      lg: "976px",
-      xl: "1440px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1440px",
+      "3xl": "1536px",
+      wrapper: "700px",
     },
     colors: {
       black: "#111111",
