@@ -20,8 +20,8 @@ export const PetIcon = ({
     <path d="M7.33335 17H4.00002V7.00004H7.33335V17Z" fill={color} />
     <path d="M10.6667 20.3334H7.33335V17H10.6667V20.3334Z" fill={color} />
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M14 23.6667V20.3334H10.6667V23.6667H4.00002V20.3334H0.666687V23.6667H4.00002V27H10.6667V33.6667H14V27H17.3334V23.6667H14ZM14 23.6667V27H10.6667V23.6667H14Z"
       fill={color}
     />

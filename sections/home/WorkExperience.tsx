@@ -44,12 +44,12 @@ export const WorkExperience = () => {
                   <h4 className="mb-5 text-3xl text-gray font-jacquard">
                     {workExperience.duration}
                   </h4>
-                  <p className="leading-7 text-gray">
+                  <div className="leading-7 text-gray">
                     {renderDescription(
                       workExperienceKey,
                       workExperience.description
                     )}
-                  </p>
+                  </div>
                 </div>
               </div>
             )

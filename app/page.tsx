@@ -1,5 +1,5 @@
 // Sections
-import { About, LandingHeader, WorkExperience } from "@/sections"
+import { About, Footer, LandingHeader, WorkExperience } from "@/sections"
 
 export default function Home() {
   return (
@@ -7,6 +7,7 @@ export default function Home() {
       <LandingHeader />
       <About />
       <WorkExperience />
+      <Footer />
     </>
   )
 }
