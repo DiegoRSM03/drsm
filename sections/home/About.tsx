@@ -14,7 +14,7 @@ const SECTION_TITLE = "About"
 export const About = () => {
   return (
     <div
-      className={`${WRAPPER_STYLES} relative z-20 -mt-[300px] pt-20`}
+      className={`${WRAPPER_STYLES} relative z-20 -mt-[350px] md:-mt-[300px] xl:-mt-[250px] pt-20`}
       id="about"
     >
       <div className={`${WRAPPER_CHILD_STYLES} flex flex-col gap-20 xl:gap-40`}>
@@ -29,7 +29,7 @@ export const About = () => {
                 delay={isFirstInnerSection ? 0.8 : 0}
                 duration={1}
                 key={innerSectionKey}
-                className="flex flex-col items-center w-full group/innerSection xl:items-end gap-14 xl:gap-20 xl:odd:flex-row xl:even:flex-row-reverse"
+                className="relative flex flex-col items-center w-full group/innerSection xl:items-end gap-14 xl:gap-20 xl:odd:flex-row xl:even:flex-row-reverse"
               >
                 {/* SECTION HEADER FOR TABLET AND MOBILE */}
                 {isFirstInnerSection && (
@@ -58,7 +58,7 @@ export const About = () => {
                 {/* CONTENT */}
                 <div className="flex flex-col justify-end">
                   {isFirstInnerSection && (
-                    <h2 className="hidden mb-20 text-6xl font-jacquard xl:block">
+                    <h2 className="hidden mb-20 text-6xl font-jacquard xl:block xl:max-2xl:absolute xl:max-2xl:-top-20 xl:max-2xl:left-0 2xl:relative">
                       {SECTION_TITLE}
                     </h2>
                   )}
