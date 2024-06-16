@@ -1,8 +1,12 @@
 // Libs
 import { ReactNode } from "react"
-import Link from "next/link"
 // Components
-import { Button, NavItem } from "@/components"
+import {
+  AnimateOnScroll,
+  AnimatedNavLinks,
+  Button,
+  NavItem,
+} from "@/components"
 // Utils
 import {
   WRAPPER_CHILD_STYLES,
@@ -43,25 +47,17 @@ export const Footer = () => {
   return (
     <div className={`${WRAPPER_STYLES} bg-black3 py-16 xl:py-28`}>
       <div className={`${WRAPPER_CHILD_STYLES} flex flex-col items-center`}>
-        <p className="text-3xl text-center text-white md:text-5xl xl:text-6xl font-jacquard">
-          {FOOTER_SECTION_TITLE}
-        </p>
-        <div className="mt-8 text-xs text-center md:text-sm text-gray xl:text-base">
-          {renderDescription("footer", FOOTER_SECTION_TEXT)}
-        </div>
-        <ul className="flex flex-col justify-center gap-5 mt-10 w-min">
-          {NAV_ITEMS.map((navItem) => (
-            <li key={navItem.href} className="w-min">
-              <Link
-                href={navItem.href}
-                className="flex gap-3 text-xs md:text-sm xl:text-base"
-              >
-                {navItem.icon}
-                {navItem.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <AnimateOnScroll duration={0.8}>
+          <p className="text-3xl text-center text-white md:text-5xl xl:text-6xl font-jacquard">
+            {FOOTER_SECTION_TITLE}
+          </p>
+          <div className="mt-8 text-xs text-center md:text-sm text-gray xl:text-base">
+            {renderDescription("footer", FOOTER_SECTION_TEXT)}
+          </div>
+        </AnimateOnScroll>
+
+        <AnimatedNavLinks navItems={NAV_ITEMS} />
+
         <Button href={CTA_LINK_URL} target="_blank" className="mt-10">
           {CTA_LINK_TEXT}
         </Button>

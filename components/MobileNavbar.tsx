@@ -4,7 +4,7 @@
 import { useState } from "react"
 import Link from "next/link"
 // Components
-import { Button } from "@/components/Button"
+import { AnimatedNavLinks, Button } from "@/components"
 // Icons
 import {
   AndroidIcon,
@@ -77,21 +77,12 @@ export const MobileNavbar = () => {
       >
         <div className={`${WRAPPER_CHILD_STYLES} flex flex-col items-center`}>
           <p className="mb-10 text-5xl font-jacquard">{SIDEBAR_TITLE}</p>
-          <ul
-            className={`${WRAPPER_CHILD_STYLES} flex flex-col items-center gap-5 mx-0 mb-20`}
-          >
-            {NAV_ITEMS.map((navItem) => (
-              <li key={navItem.href} className="w-min">
-                <Link
-                  href={navItem.href}
-                  className="flex items-center gap-3 text-xl xl:text-base"
-                >
-                  {navItem.icon}
-                  {navItem.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <AnimatedNavLinks
+            navItems={NAV_ITEMS}
+            listClassName={`${WRAPPER_CHILD_STYLES} flex flex-col items-center gap-5 mx-0 mb-20`}
+            itemClassName="flex gap-3 w-full"
+            animateOnce={false}
+          />
           <Button href={CTA_LINK_URL} target="_blank">
             {CTA_LINK_TEXT}
           </Button>
