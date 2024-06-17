@@ -1,16 +1,34 @@
 // Libs
 import type { Metadata } from "next"
-import "swiper/css"
 // Styles
 import "./globals.css"
-// Fonts
-import { jacquard, robotoSerif } from "../public/fonts/fonts"
+import "swiper/css"
 // Components
 import { MobileNavbar, Navbar } from "@/components"
+// Fonts
+import { jacquard, robotoSerif } from "@/public/fonts/fonts"
+// Images
+import OpenGraphImage from "@/public/images/original/open-graph-image.png"
 
 export const metadata: Metadata = {
   title: "DRSM",
   description: "Diego Rodrigo Sanchez Moreno personal website",
+  openGraph: {
+    title: "DRSM",
+    description: "Diego Rodrigo Sanchez Moreno personal website",
+    url: "https://drsm.vercel.app/#home",
+    siteName: "DRSM",
+    type: "website",
+    locale: "en_US",
+    images: [
+      {
+        url: OpenGraphImage.src,
+        width: 1200,
+        height: 630,
+        alt: "DRSM Open Graph image",
+      },
+    ],
+  },
 }
 
 export default function RootLayout({
