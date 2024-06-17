@@ -29,7 +29,7 @@ export const Slider = ({ images, section }: Props) => {
             width={700}
             height={430}
             quality={100}
-            className="h-[430px] max-w-[700px] object-cover"
+            className="h-[220px] max-w-full md:h-[430px] md:w-[700px] md:max-w-[700px] object-cover"
           />
         </SwiperSlide>
       ))}

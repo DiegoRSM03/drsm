@@ -2,8 +2,8 @@
 import { SvgProps } from "@/utils"
 
 export const PetIcon = ({
-  width = 33,
-  height = 33,
+  width = 30,
+  height = 30,
   color = "white",
 }: SvgProps) => (
   <svg
