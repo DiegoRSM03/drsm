@@ -14,7 +14,7 @@ const SECTION_TITLE = "About"
 export const About = () => {
   return (
     <div
-      className={`${WRAPPER_STYLES} relative z-20 -mt-[350px] md:-mt-[300px] xl:-mt-[280px] pt-20`}
+      className={`${WRAPPER_STYLES} relative z-20 -mt-[200px] md:-mt-[300px] xl:-mt-[280px] pt-20`}
       id="about"
     >
       <div className={`${WRAPPER_CHILD_STYLES} flex flex-col gap-20 xl:gap-40`}>
@@ -27,6 +27,7 @@ export const About = () => {
               <AnimateOnScroll
                 type={isEvenInnerSection ? "slideFromRight" : "slideFromLeft"}
                 delay={isFirstInnerSection ? 0.8 : 0}
+                mobileIntersectionAmount={!isFirstInnerSection ? 0.5 : 0}
                 duration={1}
                 key={innerSectionKey}
                 className="relative flex flex-col items-center w-full gap-8 group/innerSection xl:items-end md:gap-14 xl:gap-20 xl:odd:flex-row xl:even:flex-row-reverse"

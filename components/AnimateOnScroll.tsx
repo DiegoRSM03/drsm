@@ -17,6 +17,8 @@ interface Props {
   duration?: number
   staggerChildren?: number
   className?: string
+  desktopIntersectionAmount?: number
+  mobileIntersectionAmount?: number
 }
 
 const ANIMATIONS: { [a in Type]: Variants } = {
@@ -34,6 +36,8 @@ export const AnimateOnScroll = ({
   duration = 0.2,
   staggerChildren = 0,
   className = "",
+  desktopIntersectionAmount = 0.4,
+  mobileIntersectionAmount = 0,
 }: Props) => {
   const [isDesktop, setIsDesktop] = useState(false)
   const animation = ANIMATIONS[type]
@@ -51,7 +55,12 @@ export const AnimateOnScroll = ({
       whileInView="visible"
       variants={animation}
       transition={{ delay, duration, staggerChildren }}
-      viewport={{ once: true, amount: isDesktop ? 0.4 : 0 }}
+      viewport={{
+        once: true,
+        amount: isDesktop
+          ? desktopIntersectionAmount
+          : mobileIntersectionAmount,
+      }}
       // @ts-ignore
       className={className}
     >
