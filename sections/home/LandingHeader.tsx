@@ -27,7 +27,7 @@ export const LandingHeader = () => {
         quality={85}
         priority
       />
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/60 via-black/90 to-black" />
+      <div className="absolute left-0 w-full h-[calc(100%+1px)] -bottom-px bg-gradient-to-b from-black/60 via-black/90 to-black" />
 
       {/* CONTENT */}
       <div className={`${WRAPPER_STYLES} h-full absolute top-0 left-0`}>
