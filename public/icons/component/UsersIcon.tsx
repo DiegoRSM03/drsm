@@ -2,8 +2,8 @@
 import { SvgProps } from "@/utils"
 
 export const UsersIcon = ({
-  width = 40,
-  height = 33,
+  width = 30,
+  height = 25,
   color = "white",
 }: SvgProps) => (
   <svg
