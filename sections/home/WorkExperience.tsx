@@ -55,7 +55,8 @@ export const WorkExperience = () => {
                     className="w-full h-full"
                     width={120}
                     height={120}
-                    quality={85}
+                    quality={100}
+                    loading="lazy"
                   />
                 </AnimateOnScroll>
 

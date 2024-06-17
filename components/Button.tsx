@@ -71,10 +71,10 @@ export const Button = ({
     >
       {/* SHADOW EFFECT */}
       <div
-        className={`absolute left-0 w-full h-1 bottom-3px group-hover:h-[5px] ${styles.hover.shadowColor} ${styles.still.shadowColor}`}
+        className={`absolute left-0 w-full h-[5px] bottom-3px group-hover:h-[6px] ${styles.hover.shadowColor} ${styles.still.shadowColor}`}
       />
       <div
-        className={`absolute bottom-0 w-1 h-full right-3px group-hover:w-[5px] ${styles.hover.shadowColor} ${styles.still.shadowColor}`}
+        className={`absolute bottom-0 w-[5px] h-full right-3px group-hover:w-[6px] ${styles.hover.shadowColor} ${styles.still.shadowColor}`}
       />
 
       {/* BORDER LINES */}

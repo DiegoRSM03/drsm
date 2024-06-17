@@ -25,9 +25,9 @@ const config: Config = {
       gray: "#BFBFBF",
       gray2: "#4A4A4A",
       gray3: "#3D3D3D",
-      primary: "#CBC300",
-      secondary: "#A59F00",
-      tertiary: "#8D8800",
+      primary: "#0064E2",
+      secondary: "#004DAE",
+      tertiary: "#00306C",
     },
     fontFamily: {
       roboto: ["var(--font-roboto-serif)", "serif"],

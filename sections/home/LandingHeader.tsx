@@ -25,6 +25,7 @@ export const LandingHeader = () => {
         alt={LANDING_HEADER_WALLPAPER_ALT}
         className="object-cover h-svh md:h-[900px]"
         quality={85}
+        sizes="(max-width: 480px) 480px, (max-width: 768px) 50vw, 100vw"
         priority
       />
       <div className="absolute left-0 w-full h-[calc(100%+1px)] -bottom-px bg-gradient-to-b from-black/60 via-black/90 to-black" />

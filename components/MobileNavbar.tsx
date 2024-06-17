@@ -53,7 +53,6 @@ export const MobileNavbar = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   const handleMenuClick = () => {
-    console.log("click")
     const html = document.querySelector("html")
     const body = document.querySelector("body")
 
