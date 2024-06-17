@@ -35,21 +35,29 @@ export const WorkExperience = () => {
           </Button>
         </AnimateOnScroll>
 
-        <div className="flex flex-col gap-10 mt-10 md:mt-16 mb-16 xl:mb-20 xl:mt-20 xl:gap-20">
+        <div className="flex flex-col gap-10 mt-10 mb-16 md:mt-16 xl:mb-20 xl:mt-20 xl:gap-20">
           {Object.entries(WORK_EXPERIENCES).map(
             ([workExperienceKey, workExperience]) => (
               <div
                 key={workExperienceKey}
                 className="flex flex-col gap-6 md:flex-row xl:gap-14"
               >
-                <Image
-                  alt={`Work experience in ${workExperienceKey}`}
-                  src={workExperience.companyImage}
-                  className="h-[120px] xl:h-[200px] w-min"
-                  width={120}
-                  height={120}
-                  quality={85}
-                />
+                <AnimateOnScroll
+                  delay={0.3}
+                  duration={0.8}
+                  desktopIntersectionAmount={1}
+                  mobileIntersectionAmount={0.5}
+                  className="h-[120px] w-[120px] xl:h-[200px] xl:w-[200px] shrink-0"
+                >
+                  <Image
+                    alt={`Work experience in ${workExperienceKey}`}
+                    src={workExperience.companyImage}
+                    className="w-full h-full"
+                    width={120}
+                    height={120}
+                    quality={85}
+                  />
+                </AnimateOnScroll>
 
                 <div className="flex flex-col">
                   <h3 className="text-2xl text-white md:text-3xl xl:text-4xl font-jacquard">

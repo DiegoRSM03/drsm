@@ -26,11 +26,11 @@ export const About = () => {
             return (
               <AnimateOnScroll
                 type={isEvenInnerSection ? "slideFromRight" : "slideFromLeft"}
-                delay={isFirstInnerSection ? 0.8 : 0}
+                delay={isFirstInnerSection ? 1.2 : 0}
                 mobileIntersectionAmount={!isFirstInnerSection ? 0.5 : 0}
                 duration={1}
                 key={innerSectionKey}
-                className="relative flex flex-col items-center w-full gap-8 group/innerSection xl:items-end md:gap-14 xl:gap-20 xl:odd:flex-row xl:even:flex-row-reverse"
+                className="relative flex flex-col items-center w-full gap-8 group/innerSection xl:items-end md:gap-14 xl:gap-8 2xl:gap-12 xl:odd:flex-row xl:even:flex-row-reverse"
               >
                 {/* SECTION HEADER FOR TABLET AND MOBILE */}
                 {isFirstInnerSection && (
