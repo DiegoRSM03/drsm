@@ -35,7 +35,9 @@ body {
   cursor: url("../public/cursors/resized/astro_arrow.png"), default;
 }
 
-a, button, .cursor-pointer {
+a,
+button,
+.cursor-pointer {
   cursor: url("../public/cursors/resized/astro_link.png"), pointer !important;
 }
 
