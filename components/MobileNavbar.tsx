@@ -49,6 +49,11 @@ const ANDROID_ICON_ANIMATION: Variants = {
   },
 }
 
+const LINKEDIN_URL = "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/"
+const CV_URL =
+  "https://drive.google.com/file/d/1vX9XwE8roAbu_dKkjEBUaoQCdQ1v0ox-/view?usp=sharing"
+const MAIL_TO_URL = "mailto:diegorsm03@gmail.com"
+
 export const MobileNavbar = () => {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -102,7 +107,7 @@ export const MobileNavbar = () => {
           />
         </motion.div>
         <div className={`${WRAPPER_CHILD_STYLES} flex flex-col items-center`}>
-          <p className="mb-10 text-3xl font-pixelated">{SIDEBAR_TITLE}</p>
+          <p className="mb-20 text-3xl font-pixelated">{SIDEBAR_TITLE}</p>
           <AnimatedNavLinks
             navItems={NAV_ITEMS}
             listClassName={`${WRAPPER_CHILD_STYLES} flex flex-col items-center gap-5 mx-0 mb-20`}
@@ -110,9 +115,22 @@ export const MobileNavbar = () => {
             itemOnClick={handleMenuClick}
             animateOnce={false}
           />
-          <Button href={CTA_LINK_URL} target="_blank" onClick={handleMenuClick}>
-            {CTA_LINK_TEXT}
-          </Button>
+
+          <div className="flex flex-col min-[385px]:flex-row items-center gap-5 mt-10 lg:flex-row md:mt-14">
+            <Button
+              href={LINKEDIN_URL}
+              target="_blank"
+              onClick={handleMenuClick}
+            >
+              Linkedin
+            </Button>
+            <Button href={CV_URL} target="_blank" variant="drive">
+              Curriculum
+            </Button>
+            <Button href={MAIL_TO_URL} target="_blank" variant="secondary">
+              Mail
+            </Button>
+          </div>
         </div>
       </div>
     </>

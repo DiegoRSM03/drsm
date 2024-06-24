@@ -29,9 +29,9 @@ const config: Config = {
       primary: "#0064E2",
       secondary: "#004DAE",
       tertiary: "#00306C",
-      drive: "#07A50B",
-      drive2: "#169719",
-      drive3: "#117713",
+      drive: "#019E05",
+      drive2: "#009004",
+      drive3: "#007403",
     },
     fontFamily: {
       roboto: ["var(--font-roboto)", "serif"],
