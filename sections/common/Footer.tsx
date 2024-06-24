@@ -20,8 +20,10 @@ export interface FooterNavItem extends NavItem {
   icon: ReactNode
 }
 
-const CTA_LINK_TEXT = "Linkedin"
-const CTA_LINK_URL = "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/"
+const LINKEDIN_URL = "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/"
+const CV_URL =
+  "https://drive.google.com/file/d/1vX9XwE8roAbu_dKkjEBUaoQCdQ1v0ox-/view?usp=sharing"
+const MAIL_TO_URL = "mailto:diegorsm03@gmail.com"
 const FOOTER_SECTION_TITLE = "Have a Nice Day!"
 const FOOTER_SECTION_TEXT =
   "That’s it! Thanks for reading my personal website, hope you have a nice day!\nMade with ❤️ by DRSM."
@@ -56,11 +58,21 @@ export const Footer = () => {
           </div>
         </AnimateOnScroll>
 
-        <AnimatedNavLinks navItems={NAV_ITEMS} />
+        <div className="flex items-center w-full justify-evenly md:flex-col md:w-auto">
+          <AnimatedNavLinks navItems={NAV_ITEMS} />
 
-        <Button href={CTA_LINK_URL} target="_blank" className="mt-8 md:mt-14">
-          {CTA_LINK_TEXT}
-        </Button>
+          <div className="flex flex-col items-center gap-5 mt-10 lg:flex-row md:mt-14">
+            <Button href={LINKEDIN_URL} target="_blank">
+              Linkedin
+            </Button>
+            <Button href={CV_URL} target="_blank" variant="drive">
+              Curriculum
+            </Button>
+            <Button href={MAIL_TO_URL} target="_blank" variant="secondary">
+              Mail
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   )
