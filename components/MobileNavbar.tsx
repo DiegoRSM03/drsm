@@ -73,7 +73,9 @@ export const MobileNavbar = () => {
           className={`${WRAPPER_CHILD_STYLES} flex items-center justify-between`}
         >
           {/* LOGO */}
-          <div className="text-2xl text-white font-jacquard">{LOGO_TEXT}</div>
+          <div className="-mb-1 text-base text-white sm:text-xl font-pixelated">
+            {LOGO_TEXT}
+          </div>
 
           {/* MENU */}
           <div onClick={handleMenuClick}>
@@ -84,7 +86,7 @@ export const MobileNavbar = () => {
 
       {/* SIDEBAR */}
       <div
-        className={`${WRAPPER_STYLES} mt-2px transition transform fixed z-40 top-0 left-0 w-full bg-black h-svh ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+        className={`${WRAPPER_STYLES} mt-2px transition transform fixed z-40 top-0 left-0 w-full bg-black h-screen ${isOpen ? "translate-x-0" : "translate-x-full"}`}
       >
         <motion.div
           initial="hidden"
@@ -100,11 +102,11 @@ export const MobileNavbar = () => {
           />
         </motion.div>
         <div className={`${WRAPPER_CHILD_STYLES} flex flex-col items-center`}>
-          <p className="mb-10 text-5xl font-jacquard">{SIDEBAR_TITLE}</p>
+          <p className="mb-10 text-3xl font-pixelated">{SIDEBAR_TITLE}</p>
           <AnimatedNavLinks
             navItems={NAV_ITEMS}
             listClassName={`${WRAPPER_CHILD_STYLES} flex flex-col items-center gap-5 mx-0 mb-20`}
-            itemClassName="flex gap-3 w-full"
+            itemClassName="flex gap-3 w-full font-pixelated text-sm"
             itemOnClick={handleMenuClick}
             animateOnce={false}
           />

@@ -37,16 +37,18 @@ export const Navbar = () => {
         className={`${WRAPPER_CHILD_STYLES} flex items-center justify-between`}
       >
         {/* LOGO */}
-        <div className="text-3xl text-white md:text-4xl font-jacquard">
-          {LOGO_TEXT}
-        </div>
+        <Link href="#home">
+          <div className="text-lg text-white md:text-xl font-pixelated md:-mb-1">
+            {LOGO_TEXT}
+          </div>
+        </Link>
 
         {/* NAV ITEMS */}
         <ul className="flex items-center gap-8 text-gray">
           {NAV_ITEMS.map((navItem) => (
             <li
               key={navItem.href}
-              className="text-sm hover:text-white hover:cursor-pointer"
+              className="text-sm xl:text-base hover:text-white hover:cursor-pointer"
             >
               <Link href={navItem.href}>{navItem.title}</Link>
             </li>

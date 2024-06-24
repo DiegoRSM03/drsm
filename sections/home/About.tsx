@@ -1,5 +1,3 @@
-// Libs
-import Image from "next/image"
 // Utils
 import {
   WRAPPER_CHILD_STYLES,
@@ -34,7 +32,8 @@ export const About = () => {
               >
                 {/* SECTION HEADER FOR TABLET AND MOBILE */}
                 {isFirstInnerSection && (
-                  <h2 className="w-full -mb-2 text-4xl md:text-5xl font-jacquard xl:hidden">
+                  <h2 className="w-full -mb-2 text-xl md:-mb-8 md:text-2xl font-pixelated xl:hidden">
+                    <span className="mr-2 text-xl text-primary">#</span>
                     {SECTION_TITLE}
                   </h2>
                 )}
@@ -55,17 +54,18 @@ export const About = () => {
                 {/* CONTENT */}
                 <div className="flex flex-col justify-end">
                   {isFirstInnerSection && (
-                    <h2 className="hidden mb-20 text-6xl font-jacquard xl:block xl:max-2xl:absolute xl:max-2xl:-top-20 xl:max-2xl:left-0 2xl:relative">
+                    <h2 className="hidden mb-20 text-2xl font-pixelated xl:block xl:max-2xl:absolute xl:max-2xl:-top-20 xl:max-2xl:left-0 2xl:relative">
+                      <span className="mr-2 xl:text-2xl text-primary">#</span>
                       {SECTION_TITLE}
                     </h2>
                   )}
-                  <h3 className="relative mb-2 text-3xl md:text-4xl xl:mb-6 xl:text-5xl font-jacquard">
+                  <h3 className="relative mb-4 text-base md:mb-2 md:text-xl xl:mb-3 xl:text-xl font-pixelated">
                     {innerSection.title}
-                    <div className="absolute top-0 right-0 xl:-top-6">
+                    <div className="absolute top-0 right-0 xl:-top-10">
                       {innerSection.backgroundIcon}
                     </div>
                   </h3>
-                  <div className="text-xs leading-[21px] md:leading-6 lg:text-sm text-gray xl:text-base xl:leading-7">
+                  <div className="text-sm md:text-base leading-[21px] md:leading-5 lg:text-sm text-gray xl:text-base xl:leading-6">
                     {renderDescription(
                       innerSectionKey,
                       innerSection.description

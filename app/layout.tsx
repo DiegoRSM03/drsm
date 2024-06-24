@@ -6,7 +6,7 @@ import "swiper/css"
 // Components
 import { MobileNavbar, Navbar } from "@/components"
 // Fonts
-import { jacquard, robotoSerif } from "@/public/fonts/fonts"
+import { pixelated, robotoSerif } from "@/public/fonts/fonts"
 // Images
 import OpenGraphImage from "@/public/images/original/open-graph-image.png"
 
@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en" id="home">
       <body
-        className={`${jacquard.variable} ${robotoSerif.variable} font-roboto`}
+        className={`${pixelated.variable} ${robotoSerif.variable} font-roboto`}
       >
         <main className="w-full min-h-screen mt-16">
           <Navbar />

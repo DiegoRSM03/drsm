@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss"
+import { pixelated } from "./public/fonts/fonts"
 
 const config: Config = {
   content: [
@@ -30,8 +31,8 @@ const config: Config = {
       tertiary: "#00306C",
     },
     fontFamily: {
-      roboto: ["var(--font-roboto-serif)", "serif"],
-      jacquard: ["var(--font-jacquard)", "serif"],
+      roboto: ["var(--font-roboto)", "serif"],
+      pixelated: ["var(--font-pixelated)", "serif"],
     },
     extend: {
       spacing: {
