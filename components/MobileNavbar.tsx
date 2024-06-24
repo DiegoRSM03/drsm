@@ -19,7 +19,7 @@ import { WRAPPER_STYLES, WRAPPER_CHILD_STYLES } from "@/utils"
 import { FooterNavItem } from "@/sections"
 
 const LOGO_TEXT = "DRSM"
-const SIDEBAR_TITLE = "Navbar"
+const SIDEBAR_TITLE = "Navigate"
 const CTA_LINK_TEXT = "Linkedin"
 const CTA_LINK_URL = "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/"
 const NAV_ITEMS: FooterNavItem[] = [

@@ -35,7 +35,7 @@ export const About = () => {
               >
                 {/* SECTION HEADER FOR TABLET AND MOBILE */}
                 {isFirstInnerSection && (
-                  <Link href={LINK_HREF}>
+                  <Link href={LINK_HREF} className="w-full">
                     <h2 className="w-full -mb-2 text-xl md:-mb-8 md:text-2xl font-pixelated xl:hidden">
                       <span className="mr-2 text-xl text-primary">#</span>
                       {SECTION_TITLE}

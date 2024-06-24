@@ -49,14 +49,14 @@ export const WorkExperience = () => {
                   duration={0.8}
                   desktopIntersectionAmount={1}
                   mobileIntersectionAmount={0.5}
-                  className="h-[120px] w-[120px] xl:h-[200px] xl:w-[200px] shrink-0"
+                  className="h-[100px] w-[100px] xl:h-[150px] xl:w-[150px] shrink-0"
                 >
                   <Image
                     alt={`Work experience in ${workExperienceKey}`}
                     src={workExperience.companyImage}
                     className="w-full h-full"
-                    width={120}
-                    height={120}
+                    width={100}
+                    height={100}
                     quality={100}
                     loading="lazy"
                   />
