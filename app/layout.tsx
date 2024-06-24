@@ -12,10 +12,12 @@ import OpenGraphImage from "@/public/images/open-graph-image.png"
 
 export const metadata: Metadata = {
   title: "DRSM",
-  description: "Diego Rodrigo Sanchez Moreno personal website",
+  description:
+    "Hi all! This is my personal porfolio. Here you'll find a bit more of information about me, my pets, my previous work experience, and what can I achieve in a few days project.",
   openGraph: {
-    title: "DRSM",
-    description: "Diego Rodrigo Sanchez Moreno personal website",
+    title: "DRSM's personal website",
+    description:
+      "Hi all! This is my personal porfolio. Here you'll find a bit more of information about me, my pets, my previous work experience, and what can I achieve in a few days project.",
     url: "https://drsm.vercel.app/#home",
     siteName: "DRSM",
     type: "website",
