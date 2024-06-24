@@ -1,7 +1,7 @@
 // Libs
 import Image from "next/image"
 // Images
-import HomeWallpaper from "@/public/images/compressed/home-wallpaper.jpg"
+import HomeWallpaper from "@/public/images/home-wallpaper.jpg"
 // Utils
 import { WRAPPER_CHILD_STYLES, WRAPPER_STYLES } from "@/utils/styles"
 // Components

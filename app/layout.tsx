@@ -8,7 +8,7 @@ import { MobileNavbar, Navbar } from "@/components"
 // Fonts
 import { pixelated, robotoSerif } from "@/public/fonts/fonts"
 // Images
-import OpenGraphImage from "@/public/images/original/open-graph-image.png"
+import OpenGraphImage from "@/public/images/open-graph-image.png"
 
 export const metadata: Metadata = {
   title: "DRSM",

@@ -16,7 +16,8 @@ interface Props {
   itemOnClick?: () => void
 }
 
-const LIST_DEFAULT_STYLES = "flex flex-col justify-center gap-5 mt-10 w-min"
+const LIST_DEFAULT_STYLES =
+  "flex flex-col justify-center gap-5 mt-10 md:mt-14 w-min"
 const ITEM_DEFAULT_STYLES =
   "flex gap-3 text-xs md:text-xs xl:text-sm font-pixelated"
 
