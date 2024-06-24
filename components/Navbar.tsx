@@ -12,8 +12,9 @@ export interface NavItem {
 
 const LINK_HREF = "#home"
 const LOGO_TEXT = "DRSM"
-const CTA_LINK_TEXT = "Linkedin"
-const CTA_LINK_URL = "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/"
+const CTA_LINK_TEXT = "Curriculum"
+const CTA_LINK_URL =
+  "https://drive.google.com/file/d/1vX9XwE8roAbu_dKkjEBUaoQCdQ1v0ox-/view?usp=sharing"
 const NAV_ITEMS: NavItem[] = [
   {
     title: "Home",
@@ -57,7 +58,12 @@ export const Navbar = () => {
         </ul>
 
         {/* CALL TO ACTION */}
-        <Button variant="secondary" href={CTA_LINK_URL} target="_blank">
+        <Button
+          variant="drive"
+          href={CTA_LINK_URL}
+          target="_blank"
+          className="cursor-pointer"
+        >
           {CTA_LINK_TEXT}
         </Button>
       </div>

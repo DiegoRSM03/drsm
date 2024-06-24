@@ -2,7 +2,7 @@
 import { AnchorHTMLAttributes, ReactNode } from "react"
 import Link, { LinkProps } from "next/link"
 
-type Variant = "primary" | "secondary"
+type Variant = "primary" | "secondary" | "drive"
 
 export type Props = LinkProps &
   AnchorHTMLAttributes<HTMLAnchorElement> & {
@@ -52,6 +52,20 @@ const BUTTON_STYLE: { [v in Variant]: ButtonStyle } = {
       shadowColor: "group-hover:bg-gray3",
       borderColor: "group-hover:bg-white",
       backgroundColor: "group-hover:bg-gray2",
+    },
+  },
+  drive: {
+    still: {
+      textColor: "text-white",
+      shadowColor: "bg-drive2",
+      borderColor: "bg-white",
+      backgroundColor: "bg-drive",
+    },
+    hover: {
+      textColor: "group-hover:text-white",
+      shadowColor: "group-hover:bg-drive3",
+      borderColor: "group-hover:bg-white",
+      backgroundColor: "group-hover:bg-drive2",
     },
   },
 }
