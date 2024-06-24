@@ -1,15 +1,15 @@
-import localFont from "next/font/local"
-import { Roboto_Serif } from "next/font/google"
+import { Roboto, Press_Start_2P } from "next/font/google"
 
-const jacquard = localFont({
-  src: "./Jacquard12-Regular.ttf",
-  display: "swap",
-  variable: "--font-jacquard",
-})
-
-const robotoSerif = Roboto_Serif({
+const pixelated = Press_Start_2P({
+  weight: "400",
   subsets: ["latin"],
-  variable: "--font-roboto-serif",
+  variable: "--font-pixelated",
 })
 
-export { jacquard, robotoSerif }
+const robotoSerif = Roboto({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-roboto",
+})
+
+export { pixelated, robotoSerif }

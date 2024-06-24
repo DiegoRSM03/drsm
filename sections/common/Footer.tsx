@@ -38,7 +38,7 @@ const NAV_ITEMS: FooterNavItem[] = [
   },
   {
     title: "Experience",
-    href: "#work-experience",
+    href: "#experience",
     icon: <BriefcaseIcon />,
   },
 ]
@@ -48,17 +48,17 @@ export const Footer = () => {
     <div className={`${WRAPPER_STYLES} bg-black3 py-16 xl:py-28`}>
       <div className={`${WRAPPER_CHILD_STYLES} flex flex-col items-center`}>
         <AnimateOnScroll duration={0.8}>
-          <p className="text-3xl text-center text-white md:text-5xl xl:text-6xl font-jacquard">
+          <p className="text-lg text-center text-white md:text-xl xl:text-2xl font-pixelated">
             {FOOTER_SECTION_TITLE}
           </p>
-          <div className="mt-8 text-xs text-center md:text-sm text-gray xl:text-base">
+          <div className="mt-4 text-sm text-center md:mt-10 md:text-base xl:text-lg xl:leading-4 text-gray">
             {renderDescription("footer", FOOTER_SECTION_TEXT)}
           </div>
         </AnimateOnScroll>
 
         <AnimatedNavLinks navItems={NAV_ITEMS} />
 
-        <Button href={CTA_LINK_URL} target="_blank" className="mt-10">
+        <Button href={CTA_LINK_URL} target="_blank" className="mt-8 md:mt-14">
           {CTA_LINK_TEXT}
         </Button>
       </div>

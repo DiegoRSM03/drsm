@@ -95,7 +95,7 @@ export const Button = ({
       <Link
         href={href}
         {...props}
-        className={`-mt-[1px] mb-[3px] transition-colors inline-flex w-full py-2 text-2xl leading-none px-10 h-9 font-jacquard ${styles.hover.backgroundColor} ${styles.hover.textColor} ${styles.still.backgroundColor} ${styles.still.textColor}`}
+        className={`-mt-[1px] mb-[3px] text-[9px] py-3 px-5 transition-colors inline-flex w-full xl:py-3 xl:text-[11px] leading-none xl:px-8 font-pixelated ${styles.hover.backgroundColor} ${styles.hover.textColor} ${styles.still.backgroundColor} ${styles.still.textColor}`}
       >
         {children}
       </Link>

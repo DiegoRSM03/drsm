@@ -1,9 +1,9 @@
 // Libs
 import { StaticImageData } from "next/image"
 // Images
-import LiteboxCompanyImage from "@/public/images/original/workExperienceLitebox.png"
-import AxonCompanyImage from "@/public/images/original/workExperienceAxon.png"
-import BCCompanyImage from "@/public/images/original/workExperienceBC.png"
+import LiteboxCompanyImage from "@/public/images/workExperienceLitebox.png"
+import AxonCompanyImage from "@/public/images/workExperienceAxon.png"
+import BCCompanyImage from "@/public/images/workExperienceBC.png"
 
 type WorkExperienceId = "litebox" | "axon" | "bc"
 

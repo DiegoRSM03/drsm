@@ -1,7 +1,7 @@
 // Libs
 import Image from "next/image"
 // Images
-import HomeWallpaper from "@/public/images/compressed/home-wallpaper.jpg"
+import HomeWallpaper from "@/public/images/home-wallpaper.jpg"
 // Utils
 import { WRAPPER_CHILD_STYLES, WRAPPER_STYLES } from "@/utils/styles"
 // Components
@@ -23,7 +23,7 @@ export const LandingHeader = () => {
       <Image
         src={HomeWallpaper}
         alt={LANDING_HEADER_WALLPAPER_ALT}
-        className="object-cover h-svh md:h-[900px]"
+        className="object-cover h-screen md:h-[900px]"
         quality={85}
         sizes="(max-width: 480px) 480px, (max-width: 768px) 50vw, 100vw"
         priority
@@ -36,19 +36,19 @@ export const LandingHeader = () => {
           className={`${WRAPPER_CHILD_STYLES} h-full flex flex-col justify-start pt-32 md:pt-48 xl:pt-56`}
         >
           <AnimateOnScroll duration={1}>
-            <h1 className="m-0 text-4xl text-white md:text-5xl xl:text-6xl font-jacquard">
+            <h1 className="m-0 text-base text-white md:text-xl xl:text-2xl font-pixelated">
               {LANDING_HEADER_TITLE}
             </h1>
-            <h2 className="mt-2 text-2xl md:text-3xl xl:text-4xl text-gray font-jacquard">
+            <h2 className="mt-2 text-xs md:mt-3 md:text-sm text-gray font-pixelated">
               {LANDING_HEADER_SUBTITLE}
             </h2>
           </AnimateOnScroll>
-          <AnimateOnScroll delay={0.3} duration={1}>
-            <p className="w-full mt-5 mb-10 text-sm leading:6 md:leading-7 xl:max-w-screen-wrapper text-gray md:text-base">
+          <AnimateOnScroll delay={0.25} duration={1}>
+            <p className="w-full mt-5 mb-10 text-sm leading-5 md:text-base xl:text-lg xl:max-w-screen-wrapper text-gray">
               {LANDING_HEADER_TEXT}
             </p>
           </AnimateOnScroll>
-          <AnimateOnScroll delay={0.8} duration={1}>
+          <AnimateOnScroll delay={0.5} duration={1}>
             <Button href={LANDING_HEADER_BUTTON_HREF} target="_blank">
               {LANDING_HEADER_BUTTON_TEXT}
             </Button>
