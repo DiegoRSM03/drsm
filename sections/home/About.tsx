@@ -31,12 +31,12 @@ export const About = () => {
                 mobileIntersectionAmount={!isFirstInnerSection ? 0.5 : 0}
                 duration={1}
                 key={innerSectionKey}
-                className="relative flex flex-col items-center w-full gap-8 group/innerSection xl:items-end md:gap-14 xl:gap-8 2xl:gap-12 xl:odd:flex-row xl:even:flex-row-reverse"
+                className="relative flex flex-col items-center w-full gap-10 group/innerSection xl:items-end md:gap-14 xl:gap-8 2xl:gap-12 xl:odd:flex-row xl:even:flex-row-reverse"
               >
                 {/* SECTION HEADER FOR TABLET AND MOBILE */}
                 {isFirstInnerSection && (
-                  <Link href={LINK_HREF} className="w-full">
-                    <h2 className="w-full -mb-2 text-xl md:-mb-8 md:text-2xl font-pixelated xl:hidden">
+                  <Link href={LINK_HREF} className="w-full xl:hidden">
+                    <h2 className="w-full -mb-2 text-xl md:-mb-8 md:text-2xl font-pixelated">
                       <span className="mr-2 text-xl text-primary">#</span>
                       {SECTION_TITLE}
                     </h2>
@@ -44,12 +44,12 @@ export const About = () => {
                 )}
 
                 {/* IMAGE SLIDER */}
-                <div className="relative w-full overflow-hidden xl:w-3/5 max-w-screen-wrapper shrink-1 md:shrink-0">
-                  <div className="absolute w-full h-full top-5 left-5 bg-black2" />
+                <div className="relative w-full xl:w-3/5 max-w-screen-wrapper shrink-1 md:shrink-0">
+                  <div className="absolute w-full h-full rounded-md top-5 left-5 bg-black2/50" />
 
                   <Slider images={innerSection.images} section="about" />
 
-                  <div className="absolute z-50 w-[calc(100%+1px)] h-[calc(100%+1px)] -bottom-px -right-px bg-gradient-to-b from-black/0 from-30% md:from-60% to-black">
+                  <div className="rounded-md overflow-hidden absolute z-50 w-[calc(100%+1px)] h-[calc(100%+1px)] -bottom-px -right-px bg-gradient-to-b from-black/0 from-60% md:from-80% to-tertiary">
                     <div className="absolute right-5 xl:group-odd/innerSection:left-5 xl:group-even/innerSection:right-5 bottom-5">
                       {innerSection.icon}
                     </div>
@@ -59,8 +59,8 @@ export const About = () => {
                 {/* CONTENT */}
                 <div className="flex flex-col justify-end">
                   {isFirstInnerSection && (
-                    <Link href={LINK_HREF}>
-                      <h2 className="hidden mb-20 text-2xl font-pixelated xl:block xl:max-2xl:absolute xl:max-2xl:-top-20 xl:max-2xl:left-0 2xl:relative">
+                    <Link href={LINK_HREF} className="hidden xl:block">
+                      <h2 className="mb-20 text-2xl font-pixelated xl:max-2xl:absolute xl:max-2xl:-top-20 xl:max-2xl:left-0 2xl:relative">
                         <span className="mr-2 xl:text-2xl text-primary">#</span>
                         {SECTION_TITLE}
                       </h2>

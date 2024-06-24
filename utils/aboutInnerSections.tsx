@@ -45,8 +45,8 @@ export const ABOUT_INNER_SECTIONS: { [t in InnerSectionId]: InnerSection } = {
       <UserIcon width={120} height={150} color="rgba(255, 255, 255, 0.04)" />
     ),
     images: [
-      AboutDiegoImage,
       AboutDiegoImage2,
+      AboutDiegoImage,
       AboutDiegoImage3,
       AboutDiegoImage4,
       AboutDiegoImage5,

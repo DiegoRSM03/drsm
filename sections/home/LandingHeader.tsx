@@ -36,19 +36,19 @@ export const LandingHeader = () => {
           className={`${WRAPPER_CHILD_STYLES} h-full flex flex-col justify-start pt-32 md:pt-48 xl:pt-56`}
         >
           <AnimateOnScroll duration={1}>
-            <h1 className="m-0 text-base text-white md:text-xl xl:text-3xl font-pixelated">
+            <h1 className="m-0 text-base text-white md:text-xl xl:text-2xl font-pixelated">
               {LANDING_HEADER_TITLE}
             </h1>
             <h2 className="mt-2 text-xs md:mt-3 md:text-sm text-gray font-pixelated">
               {LANDING_HEADER_SUBTITLE}
             </h2>
           </AnimateOnScroll>
-          <AnimateOnScroll delay={0.3} duration={1}>
+          <AnimateOnScroll delay={0.25} duration={1}>
             <p className="w-full mt-5 mb-10 text-sm leading-5 md:text-base xl:text-lg xl:max-w-screen-wrapper text-gray">
               {LANDING_HEADER_TEXT}
             </p>
           </AnimateOnScroll>
-          <AnimateOnScroll delay={0.8} duration={1}>
+          <AnimateOnScroll delay={0.5} duration={1}>
             <Button href={LANDING_HEADER_BUTTON_HREF} target="_blank">
               {LANDING_HEADER_BUTTON_TEXT}
             </Button>
