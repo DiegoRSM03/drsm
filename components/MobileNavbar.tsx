@@ -35,7 +35,7 @@ const NAV_ITEMS: FooterNavItem[] = [
   },
   {
     title: "Experience",
-    href: "#work-experience",
+    href: "#experience",
     icon: <BriefcaseIcon />,
   },
 ]

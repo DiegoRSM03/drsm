@@ -10,6 +10,7 @@ export interface NavItem {
   href: string
 }
 
+const LINK_HREF = "#home"
 const LOGO_TEXT = "DRSM"
 const CTA_LINK_TEXT = "Linkedin"
 const CTA_LINK_URL = "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/"
@@ -24,7 +25,7 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     title: "Experience",
-    href: "#work-experience",
+    href: "#experience",
   },
 ]
 
@@ -37,7 +38,7 @@ export const Navbar = () => {
         className={`${WRAPPER_CHILD_STYLES} flex items-center justify-between`}
       >
         {/* LOGO */}
-        <Link href="#home">
+        <Link href={LINK_HREF}>
           <div className="text-lg text-white md:text-xl font-pixelated md:-mb-1">
             {LOGO_TEXT}
           </div>

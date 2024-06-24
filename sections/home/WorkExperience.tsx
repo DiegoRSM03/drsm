@@ -1,5 +1,6 @@
 // Libs
 import Image from "next/image"
+import Link from "next/link"
 // Components
 import { AnimateOnScroll, Button } from "@/components"
 // Utils
@@ -10,6 +11,7 @@ import {
   renderDescription,
 } from "@/utils"
 
+const LINK_HREF = "#experience"
 const WORK_EXPERIENCE_TITLE = "Experience"
 const WORK_EXPERIENCE_BUTTON_TEXT = "Linkedin"
 const WORK_EXPERIENCE_BUTTON_HREF =
@@ -17,16 +19,15 @@ const WORK_EXPERIENCE_BUTTON_HREF =
 
 export const WorkExperience = () => {
   return (
-    <div
-      className={`${WRAPPER_STYLES} mt-10 xl:mt-52 pt-20`}
-      id="work-experience"
-    >
+    <div className={`${WRAPPER_STYLES} mt-10 xl:mt-52 pt-20`} id="experience">
       <div className={`${WRAPPER_CHILD_STYLES} flex flex-col`}>
         <AnimateOnScroll duration={0.8} className="flex justify-between w-full">
-          <h2 className="text-xl md:text-xl xl:text-2xl font-pixelated">
-            <span className="mr-2 text:xl xl:text-2xl text-primary">#</span>
-            {WORK_EXPERIENCE_TITLE}
-          </h2>
+          <Link href={LINK_HREF}>
+            <h2 className="text-xl md:text-xl xl:text-2xl font-pixelated">
+              <span className="mr-2 text:xl xl:text-2xl text-primary">#</span>
+              {WORK_EXPERIENCE_TITLE}
+            </h2>
+          </Link>
           <Button
             href={WORK_EXPERIENCE_BUTTON_HREF}
             target="_blank"
@@ -36,7 +37,7 @@ export const WorkExperience = () => {
           </Button>
         </AnimateOnScroll>
 
-        <div className="flex flex-col gap-10 mt-10 mb-16 md:mt-16 xl:mb-20 xl:mt-20 xl:gap-20">
+        <div className="flex flex-col gap-10 mt-10 mb-16 md:mt-16 xl:mb-20 xl:mt-14 xl:gap-20">
           {Object.entries(WORK_EXPERIENCES).map(
             ([workExperienceKey, workExperience]) => (
               <div
@@ -62,10 +63,10 @@ export const WorkExperience = () => {
                 </AnimateOnScroll>
 
                 <div className="flex flex-col">
-                  <h3 className="mb-4 text-xs leading-5 text-white sm:mb-2 md:leading-normal md:mb-1 xl:text-lg font-pixelated">
+                  <h3 className="mb-4 text-xs leading-5 text-white sm:mb-2 md:leading-normal xl:text-lg font-pixelated">
                     {workExperience.position}
                   </h3>
-                  <h4 className="mb-5 text-[10px] text-gray font-pixelated">
+                  <h4 className="mb-5 text-[12px] text-gray font-pixelated">
                     {workExperience.duration}
                   </h4>
                   <div className="text-sm leading-[21px] md:leading-5 md:text-sm xl:leading-6 text-gray xl:text-base">

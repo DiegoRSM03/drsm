@@ -1,3 +1,5 @@
+// Libs
+import Link from "next/link"
 // Utils
 import {
   WRAPPER_CHILD_STYLES,
@@ -8,11 +10,12 @@ import {
 import { AnimateOnScroll, Slider } from "@/components"
 
 const SECTION_TITLE = "About"
+const LINK_HREF = "#about"
 
 export const About = () => {
   return (
     <div
-      className={`${WRAPPER_STYLES} relative z-20 -mt-[200px] md:-mt-[300px] xl:-mt-[280px] pt-20`}
+      className={`${WRAPPER_STYLES} relative z-20 -mt-[200px] sm:-mt-[350px] md:-mt-[300px] xl:-mt-[280px] pt-20`}
       id="about"
     >
       <div className={`${WRAPPER_CHILD_STYLES} flex flex-col gap-20 xl:gap-40`}>
@@ -24,7 +27,7 @@ export const About = () => {
             return (
               <AnimateOnScroll
                 type={isEvenInnerSection ? "slideFromRight" : "slideFromLeft"}
-                delay={isFirstInnerSection ? 1.2 : 0}
+                delay={isFirstInnerSection ? 1 : 0}
                 mobileIntersectionAmount={!isFirstInnerSection ? 0.5 : 0}
                 duration={1}
                 key={innerSectionKey}
@@ -32,10 +35,12 @@ export const About = () => {
               >
                 {/* SECTION HEADER FOR TABLET AND MOBILE */}
                 {isFirstInnerSection && (
-                  <h2 className="w-full -mb-2 text-xl md:-mb-8 md:text-2xl font-pixelated xl:hidden">
-                    <span className="mr-2 text-xl text-primary">#</span>
-                    {SECTION_TITLE}
-                  </h2>
+                  <Link href={LINK_HREF}>
+                    <h2 className="w-full -mb-2 text-xl md:-mb-8 md:text-2xl font-pixelated xl:hidden">
+                      <span className="mr-2 text-xl text-primary">#</span>
+                      {SECTION_TITLE}
+                    </h2>
+                  </Link>
                 )}
 
                 {/* IMAGE SLIDER */}
@@ -54,10 +59,12 @@ export const About = () => {
                 {/* CONTENT */}
                 <div className="flex flex-col justify-end">
                   {isFirstInnerSection && (
-                    <h2 className="hidden mb-20 text-2xl font-pixelated xl:block xl:max-2xl:absolute xl:max-2xl:-top-20 xl:max-2xl:left-0 2xl:relative">
-                      <span className="mr-2 xl:text-2xl text-primary">#</span>
-                      {SECTION_TITLE}
-                    </h2>
+                    <Link href={LINK_HREF}>
+                      <h2 className="hidden mb-20 text-2xl font-pixelated xl:block xl:max-2xl:absolute xl:max-2xl:-top-20 xl:max-2xl:left-0 2xl:relative">
+                        <span className="mr-2 xl:text-2xl text-primary">#</span>
+                        {SECTION_TITLE}
+                      </h2>
+                    </Link>
                   )}
                   <h3 className="relative mb-4 text-base md:mb-2 md:text-xl xl:mb-3 xl:text-xl font-pixelated">
                     {innerSection.title}

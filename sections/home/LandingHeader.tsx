@@ -36,10 +36,10 @@ export const LandingHeader = () => {
           className={`${WRAPPER_CHILD_STYLES} h-full flex flex-col justify-start pt-32 md:pt-48 xl:pt-56`}
         >
           <AnimateOnScroll duration={1}>
-            <h1 className="m-0 text-base text-white md:text-xl xl:text-2xl font-pixelated">
+            <h1 className="m-0 text-base text-white md:text-xl xl:text-3xl font-pixelated">
               {LANDING_HEADER_TITLE}
             </h1>
-            <h2 className="mt-2 text-xs md:text-base xl:text-lg text-gray font-pixelated">
+            <h2 className="mt-2 text-xs md:mt-3 md:text-sm text-gray font-pixelated">
               {LANDING_HEADER_SUBTITLE}
             </h2>
           </AnimateOnScroll>
