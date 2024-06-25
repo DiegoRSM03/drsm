@@ -11,7 +11,7 @@ const LANDING_HEADER_WALLPAPER_ALT = "DRSM website home wallpaper"
 const LANDING_HEADER_TITLE = "Diego Rodrigo Sanchez Moreno"
 const LANDING_HEADER_SUBTITLE = "Software Engineer"
 const LANDING_HEADER_TEXT =
-  "Currently working as a software engineer covering various roles for different kinds of projects. I have a proven track record of the several skills that I needed to develop."
+  "What's up? 👨‍💻 I'm a web developer who doesn't shy away from big challenges, I consider them the key for a nice growth. I have a proven track record of the several skills that I've been working out during these years."
 const LANDING_HEADER_BUTTON_TEXT = "Linkedin"
 const LANDING_HEADER_BUTTON_HREF =
   "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/"

@@ -30,17 +30,17 @@ const FOOTER_SECTION_TEXT =
 const NAV_ITEMS: FooterNavItem[] = [
   {
     title: "Home",
-    href: "#home",
+    href: "/#home",
     icon: <HomeIcon />,
   },
   {
     title: "About",
-    href: "#about",
+    href: "/#about",
     icon: <AndroidIcon />,
   },
   {
     title: "Experience",
-    href: "#experience",
+    href: "/#experience",
     icon: <BriefcaseIcon />,
   },
 ]
