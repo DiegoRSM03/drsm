@@ -18,15 +18,15 @@ const CTA_LINK_URL =
 const NAV_ITEMS: NavItem[] = [
   {
     title: "Home",
-    href: "#home",
+    href: "/#home",
   },
   {
     title: "About",
-    href: "#about",
+    href: "/#about",
   },
   {
     title: "Experience",
-    href: "#experience",
+    href: "/#experience",
   },
 ]
 
