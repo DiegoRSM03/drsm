@@ -26,7 +26,7 @@ const CV_URL =
 const MAIL_TO_URL = "mailto:diegorsm03@gmail.com"
 const FOOTER_SECTION_TITLE = "Have a Nice Day!"
 const FOOTER_SECTION_TEXT =
-  "That’s it! Thanks for reading my personal website, hope you have a nice day!\nMade with ❤️ by DRSM."
+  "That's it! Thanks for reading my personal website, I hope you have a nice day!\nMade with ❤️ by DRSM."
 const NAV_ITEMS: FooterNavItem[] = [
   {
     title: "Home",

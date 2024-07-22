@@ -56,7 +56,7 @@ export const ABOUT_INNER_SECTIONS: { [t in InnerSectionId]: InnerSection } = {
   theJob: {
     title: "The Job",
     description:
-      "I love what I do, and some of the things that make me say that are the flexibility, working from home, providing solutions to dedicated clients, and most importantly, the people you can meet.\nLuckily I found really nice people in my career so far, and I’m glad to be in touch with many of them even when we’re no longer coworkers. You can easily find people who are polite, devoted to work, competent and pretty wise.",
+      "I love what I do, and some of the things that make me say that are the flexibility, working from home, providing solutions to dedicated clients, and most importantly, the people you can meet.\nLuckily I have found really nice people in my career so far, and I’m glad to be in touch with many of them even when we’re no longer coworkers. I feel I can easily find people who are polite, devoted to work, competent and pretty wise.",
     icon: <UsersIcon />,
     backgroundIcon: (
       <UsersIcon width={125} height={125} color="rgba(255, 255, 255, 0.04)" />
@@ -74,7 +74,7 @@ export const ABOUT_INNER_SECTIONS: { [t in InnerSectionId]: InnerSection } = {
   pets: {
     title: "Mori & Ron",
     description:
-      "They’re my pets. I’d love to have them both in a single picture but they don’t get along haha. Anyway, they’re the priority in the house.\nMori comes from “Moribundo” (moribund) since I found him in a tough night.\nAnd Ron comes from “Ronroneo” (purring) because he always starts purring at the slightest contact.",
+      "They're my pets. I'd love to have them both in a single picture but they don't get along haha. Anyway, they're the priority in my house.\nMori comes from “Moribundo” (moribund) since I found him in a tough night.\nAnd Ron comes from “Ronroneo” (purring) because he always starts purring at the slightest contact.",
     icon: <PetIcon />,
     backgroundIcon: (
       <PetIcon width={150} height={125} color="rgba(255, 255, 255, 0.04)" />
