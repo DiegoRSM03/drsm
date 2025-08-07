@@ -39,7 +39,7 @@ export const ABOUT_INNER_SECTIONS: { [t in InnerSectionId]: InnerSection } = {
   diego: {
     title: "Diego",
     description:
-      "I’m an Argentinian software developer who’s always looking for big challenges.\nI discovered coding years ago and since then I’ve been amazed at the enormous amount of solutions someone can offer just by having a laptop, and that’s why I’ve never stopped learning about new technologies, good practices, and how to be a nice teammate.",
+      "I'm an Argentinian software developer who's always looking for big challenges.\nI discovered coding years ago and since then I've been amazed at the enormous amount of solutions someone can offer just by having a laptop, and that's why I've never stopped learning about new technologies, good practices, and how to be a nice teammate.",
     icon: <UserIcon />,
     backgroundIcon: (
       <UserIcon width={120} height={150} color="rgba(255, 255, 255, 0.04)" />
@@ -74,7 +74,7 @@ export const ABOUT_INNER_SECTIONS: { [t in InnerSectionId]: InnerSection } = {
   pets: {
     title: "Mori & Ron",
     description:
-      "They're my pets. I'd love to have them both in a single picture but they don't get along haha. Anyway, they're the priority in my house.\nMori comes from “Moribundo” (moribund) since I found him in a tough night.\nAnd Ron comes from “Ronroneo” (purring) because he always starts purring at the slightest contact.",
+      "They're my pets. I'd love to have them both in a single picture but they don't get along haha. Anyway, they're the priority in my house.\nMori comes from “Moribundo” (moribund) and Ron comes from “Ronroneo” (purring) 'cause he always starts purring at the slightest contact.",
     icon: <PetIcon />,
     backgroundIcon: (
       <PetIcon width={150} height={125} color="rgba(255, 255, 255, 0.04)" />
