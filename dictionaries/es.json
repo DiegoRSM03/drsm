@@ -1,0 +1,14 @@
+{
+  "home": {
+    "landing": {
+      "header": {
+        "title": "Diego Rodrigo Sanchez Moreno",
+        "subtitle": "Software Engineer",
+        "text": "How's it going? 👨‍💻 I'm a software engineer who doesn't shy away from challenges, they're key for growth and learning. I have a proven track record of the several skills that I've been working out during these years.",
+        "buttonText": "LinkedIn",
+        "buttonHref": "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/",
+        "wallpaperAlt": "DRSM website home wallpaper"
+      }
+    }
+  }
+}

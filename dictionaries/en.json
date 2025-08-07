@@ -1,0 +1,77 @@
+{
+  "home": {
+    "landing": {
+      "header": {
+        "title": "Diego Rodrigo Sanchez Moreno",
+        "subtitle": "Software Engineer",
+        "text": "How's it going? 👨‍💻 I'm a software engineer who doesn't shy away from challenges, they're key for growth and learning. I have a proven track record of the several skills that I've been working out during these years.",
+        "buttonText": "LinkedIn",
+        "buttonHref": "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/",
+        "wallpaperAlt": "DRSM website home wallpaper"
+      },
+      "about": {
+        "title": "About",
+        "linkHref": "#about",
+        "innerSections": {
+          "diego": {
+            "title": "About Diego",
+            "description": "I'm a software engineer who doesn't shy away from challenges, they're key for growth and learning. I have a proven track record of the several skills that I've been working out during these years.",
+            "icon": "👨‍💻"
+          },
+          "theJob": {
+            "title": "The Job",
+            "description": "I love what I do, and some of the things that make me say that are the flexibility, working from home, providing solutions to dedicated clients, and most importantly, the people you can meet.\nLuckily I have found really nice people in my career so far, and I'm glad to be in touch with all of them even when we're no longer coworkers.",
+            "icon": "💼"
+          },
+          "pets": {
+            "title": "Mori & Ron",
+            "description": "They're my pets. I'd love to have them both in a single picture but they don't get along haha. Anyway, they're the priority in my house.\nMori comes from “Moribundo” (moribund) and Ron comes from “Ronroneo” (purring) 'cause he always starts purring at the slightest contact.",
+            "icon": "🐶"
+          }
+        }
+      },
+      "workExperience": {
+        "title": "Experience",
+        "linkHref": "#experience",
+        "buttonText": "Linkedin",
+        "buttonHref": "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/",
+        "experiences": {
+          "litebox": {
+            "position": "Software Engineer at Litebox",
+            "duration": "Sep 2022 - Present",
+            "description": "At Litebox, a boutique software company focused on high-quality product and code, I contributed in the projects working with technologies such as Strapi, Next.js (App and Pages Router), NestJS, Tailwind and Framer Motion.\nOne of my key projects was to create an internal CLI tool to streamline Strapi/Next.js blog setup, and managed form handling with server actions, useActionState, and react-hook-form. I implemented complex state management using Context, Zustand, and other React state management patterns, while also reviewing code, documenting components in Notion.\nEvery time I needed to create a marketing website I worked on ensuring accessibility (WCAG 2), strong SEO practices (structured data, Open Graph, Twitter Cards), and consistently achieving Lighthouse scores above 90. Additionally, I integrated marketing tools like Marketo, Hotjar, and FB Pixel, and handled deployments using AWS services (ECR, ECS, EC2, S3). I also set up dev tooling (Prettier, ESLint, Turbo, and Husky), wrote backend tests with SuperTest, and enforced CI/CD via GitHub Actions. Styling was done with Tailwind, Styled Components, or CSS Modules, depending on the project needs.\nBesides my frontend background here, I also worked on a big real-state project more backend-focused based on NestJS, SQL, TypeORM, Typescript, Next, React and Tailwind. Form handling was managed using react-hook-forms and useActionState hooks. For role handling we based our logic in RBAC rules."
+          },
+          "axon": {
+            "position": "Software Engineer at Axon",
+            "duration": "Sep 2021 - Sep 2022",
+            "description": "At Axon, an institute with an internal IT team and multiple back-office systems, I contributed to both frontend and backend development across various applications.\nI enhanced the marketing website by building new pages, improving performance scores, and incorporating accessibility features to ensure a better user experience.\nSome of my key projects were, developing a CRM application for the sales team using Next.js, React TypeScript in the frontend, and SQL, PHP, Composer in the backend. I also took part in maintaining and refactoring the institute's broader suite of back-office applications.\nThe other project involved the need of a WhatsApp bot to sending automated reminders, notifications, and academic updates to students based on their enrollment and progress, helping improve communication and engagement."
+          }
+        }
+      }
+    }
+  },
+  "footer": {
+    "title": "Have a Nice Day!",
+    "description": "That's it! Thanks for reading my personal website, I hope you have a nice day!\nMade with ❤️ by DRSM.",
+    "linkedinButton": "Linkedin",
+    "linkedinButtonHref": "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/",
+    "resumeButton": "Resume",
+    "resumeButtonHref": "https://drive.google.com/file/d/1vX9XwE8roAbu_dKkjEBUaoQCdQ1v0ox-/view?usp=sharing",
+    "mailButton": "Mail",
+    "mailButtonHref": "mailto:diegorsm03@gmail.com",
+    "navItems": [
+      {
+        "title": "Home",
+        "href": "#home"
+      },
+      {
+        "title": "About",
+        "href": "#about"
+      },
+      {
+        "title": "Experience",
+        "href": "#experience"
+      }
+    ]
+  }
+}
