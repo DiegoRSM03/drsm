@@ -1,12 +1,5 @@
-// Libs
-import { ReactNode } from "react"
 // Components
-import {
-  AnimateOnScroll,
-  AnimatedNavLinks,
-  Button,
-  NavItem,
-} from "@/components"
+import { AnimateOnScroll, AnimatedNavLinks, Button } from "@/components"
 // Utils
 import {
   WRAPPER_CHILD_STYLES,
@@ -16,10 +9,6 @@ import {
 import { Dictionary } from "@/dictionaries/types"
 // Icons
 import { AndroidIcon, BriefcaseIcon, HomeIcon } from "@/public/icons"
-
-export interface FooterNavItem extends NavItem {
-  icon: ReactNode
-}
 
 const NAV_ITEMS_ICONS = {
   home: <HomeIcon />,
@@ -33,13 +22,11 @@ interface FooterProps {
 
 export const Footer = ({ dictionary }: FooterProps) => {
   const { footer, lang } = dictionary
-  const i18nNavItems = Object.entries(footer.navItems).map(
-    ([key, navItem]) => ({
-      ...navItem,
-      icon: NAV_ITEMS_ICONS[key as keyof typeof NAV_ITEMS_ICONS],
-      href: `${lang}${navItem.href}`,
-    })
-  )
+  const navItems = Object.entries(footer.navItems).map(([key, navItem]) => ({
+    ...navItem,
+    icon: NAV_ITEMS_ICONS[key as keyof typeof NAV_ITEMS_ICONS],
+    href: `${lang}${navItem.href}`,
+  }))
 
   return (
     <div className={`${WRAPPER_STYLES} bg-black3 py-16 xl:py-28`}>
@@ -54,7 +41,7 @@ export const Footer = ({ dictionary }: FooterProps) => {
         </AnimateOnScroll>
 
         <div className="flex items-center w-full justify-evenly md:flex-col md:w-auto">
-          <AnimatedNavLinks navItems={i18nNavItems} />
+          <AnimatedNavLinks navItems={navItems} />
 
           <div className="flex flex-col items-center gap-5 mt-10 lg:flex-row md:mt-14">
             <Button href={footer.linkedinButtonHref} target="_blank">

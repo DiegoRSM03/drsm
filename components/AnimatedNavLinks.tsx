@@ -3,13 +3,15 @@
 // Libs
 import Link from "next/link"
 import { motion } from "framer-motion"
-// Sections
-import { FooterNavItem } from "@/sections"
 // Utils
 import { FADE_UP } from "@/utils"
 
 interface Props {
-  navItems: FooterNavItem[]
+  navItems: {
+    title: string
+    href: string
+    icon?: React.ReactNode
+  }[]
   listClassName?: string
   itemClassName?: string
   animateOnce?: boolean
