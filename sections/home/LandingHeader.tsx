@@ -2,27 +2,25 @@
 import Image from "next/image"
 // Images
 import HomeWallpaper from "@/public/images/home-wallpaper.jpg"
-// Utils
-import { WRAPPER_CHILD_STYLES, WRAPPER_STYLES } from "@/utils/styles"
 // Components
 import { AnimateOnScroll, Button } from "@/components"
+// Utils
+import { WRAPPER_CHILD_STYLES, WRAPPER_STYLES } from "@/utils/styles"
+import { Dictionary } from "@/dictionaries/types"
 
-const LANDING_HEADER_WALLPAPER_ALT = "DRSM website home wallpaper"
-const LANDING_HEADER_TITLE = "Diego Rodrigo Sanchez Moreno"
-const LANDING_HEADER_SUBTITLE = "Software Engineer"
-const LANDING_HEADER_TEXT =
-  "What's up? 👨‍💻 I'm a web developer who doesn't shy away from big challenges, I consider them the key for a nice growth. I have a proven track record of the several skills that I've been working out during these years."
-const LANDING_HEADER_BUTTON_TEXT = "Linkedin"
-const LANDING_HEADER_BUTTON_HREF =
-  "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/"
+interface LandingHeaderProps {
+  dictionary: Dictionary
+}
 
-export const LandingHeader = () => {
+export const LandingHeader = ({ dictionary }: LandingHeaderProps) => {
+  const { header } = dictionary.home.landing
+
   return (
     <div className="relative">
       {/* BACKGROUND */}
       <Image
         src={HomeWallpaper}
-        alt={LANDING_HEADER_WALLPAPER_ALT}
+        alt={header.wallpaperAlt}
         className="object-cover h-screen md:h-[900px]"
         quality={85}
         sizes="(max-width: 480px) 480px, (max-width: 768px) 50vw, 100vw"
@@ -37,20 +35,20 @@ export const LandingHeader = () => {
         >
           <AnimateOnScroll duration={1}>
             <h1 className="m-0 text-base text-white md:text-xl xl:text-2xl font-pixelated">
-              {LANDING_HEADER_TITLE}
+              {header.title}
             </h1>
             <h2 className="mt-2 text-xs md:mt-3 md:text-sm text-gray font-pixelated">
-              {LANDING_HEADER_SUBTITLE}
+              {header.subtitle}
             </h2>
           </AnimateOnScroll>
           <AnimateOnScroll delay={0.25} duration={1}>
             <p className="w-full mt-5 mb-10 text-sm leading-5 md:text-base xl:text-lg xl:max-w-screen-wrapper text-gray">
-              {LANDING_HEADER_TEXT}
+              {header.text}
             </p>
           </AnimateOnScroll>
           <AnimateOnScroll delay={0.5} duration={1}>
-            <Button href={LANDING_HEADER_BUTTON_HREF} target="_blank">
-              {LANDING_HEADER_BUTTON_TEXT}
+            <Button href={header.buttonHref} target="_blank">
+              {header.buttonText}
             </Button>
           </AnimateOnScroll>
         </div>

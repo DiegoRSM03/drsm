@@ -1,0 +1,110 @@
+{
+  "lang": "es",
+  "navbar": {
+    "logoText": "DRSM",
+    "logoHref": "/#home",
+    "ctas": {
+      "linkedin": {
+        "text": "Linkedin",
+        "href": "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/",
+        "target": "_blank"
+      },
+      "resume": {
+        "text": "Currículum",
+        "href": "https://drive.google.com/file/d/1vX9XwE8roAbu_dKkjEBUaoQCdQ1v0ox-/view?usp=sharing",
+        "target": "_blank"
+      },
+      "mail": {
+        "text": "Mail",
+        "href": "mailto:diegorsm03@gmail.com",
+        "target": "_blank"
+      }
+    },
+    "navItems": {
+      "home": {
+        "title": "Inicio",
+        "href": "/#home"
+      },
+      "about": {
+        "title": "Acerca",
+        "href": "/#about"
+      },
+      "experience": {
+        "title": "Experiencia",
+        "href": "/#experience"
+      }
+    }
+  },
+  "home": {
+    "landing": {
+      "header": {
+        "title": "Diego Rodrigo Sanchez Moreno",
+        "subtitle": "Ingeniero de Software",
+        "text": "Buenas! 👨‍💻 Soy un ingeniero de software que no le teme a los desafíos, son clave para el crecimiento y el aprendizaje. Tengo un historial comprobado de varias habilidades que he ido desarrollando durante estos años.",
+        "buttonText": "LinkedIn",
+        "buttonHref": "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/",
+        "wallpaperAlt": "Fondo de pantalla de inicio del sitio web de DRSM"
+      },
+      "about": {
+        "title": "Acerca",
+        "linkHref": "#about",
+        "innerSections": {
+          "diego": {
+            "title": "Sobre Diego",
+            "description": "Soy un ingeniero de software que no le teme a los desafíos, son clave para el crecimiento y el aprendizaje. Tengo un historial comprobado de varias habilidades que he ido desarrollando durante estos años."
+          },
+          "theJob": {
+            "title": "El Trabajo",
+            "description": "Amo lo que hago, y algunas de las cosas que me hacen decir eso son la flexibilidad, trabajar desde casa, brindar soluciones a clientes dedicados, y lo más importante, las personas que puedes conocer.\nPor suerte he encontrado personas muy agradables en mi carrera hasta ahora, y me alegra seguir en contacto con todas ellas incluso cuando ya no somos compañeros de trabajo."
+          },
+          "pets": {
+            "title": "Mori & Ron",
+            "description": "Son mis mascotas. Me encantaría tenerlos a ambos en una sola foto pero no se llevan bien jaja. De todos modos, son la prioridad en mi casa.\nMori viene de “Moribundo” y Ron viene de “Ronroneo” porque siempre empieza a ronronear con el más mínimo contacto."
+          }
+        }
+      },
+      "workExperience": {
+        "title": "Experiencia",
+        "linkHref": "#experience",
+        "buttonText": "LinkedIn",
+        "buttonHref": "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/",
+        "experiences": {
+          "litebox": {
+            "position": "Ingeniero de Software en Litebox",
+            "duration": "Sep 2022 - Presente",
+            "description": "En Litebox, una empresa boutique de software enfocada en productos y código de alta calidad, contribuí a los proyectos trabajando con tecnologías como Strapi, Next.js (App y Pages Router), NestJS, Tailwind y Framer Motion.\nUno de mis proyectos clave fue crear una herramienta CLI interna para agilizar la configuración de blogs con Strapi/Next.js, y gestioné formularios con acciones del servidor, useActionState y react-hook-form. Implementé una gestión de estados compleja usando Context, Zustand y otros patrones de gestión de estado en React, además de revisar código y documentar componentes en Notion.\n\nCada vez que necesitaba crear un sitio web de marketing, me aseguraba de cumplir con accesibilidad (WCAG 2), buenas prácticas de SEO (datos estructurados, Open Graph, Twitter Cards), y obtener puntajes de Lighthouse superiores a 90. Además, integré herramientas de marketing como Marketo, Hotjar y FB Pixel, y realicé despliegues utilizando servicios de AWS (ECR, ECS, EC2, S3). También configuré herramientas de desarrollo (Prettier, ESLint, Turbo y Husky), escribí pruebas de backend con SuperTest, y apliqué CI/CD a través de GitHub Actions. El estilo fue realizado con Tailwind, Styled Components o CSS Modules, dependiendo de las necesidades del proyecto.\n\nAdemás de mi experiencia en frontend aquí, también trabajé en un gran proyecto inmobiliario más enfocado en backend, basado en NestJS, SQL, TypeORM, Typescript, Next, React y Tailwind. La gestión de formularios se realizó con react-hook-forms y hooks useActionState. Para el manejo de roles basamos nuestra lógica en reglas RBAC."
+          },
+          "axon": {
+            "position": "Ingeniero de Software en Axon",
+            "duration": "Sep 2021 - Sep 2022",
+            "description": "En Axon, un instituto con un equipo interno de TI y múltiples sistemas de back-office, contribuí tanto al desarrollo frontend como backend en diversas aplicaciones.\nMejoré el sitio web de marketing creando nuevas páginas, mejorando los puntajes de rendimiento e incorporando funciones de accesibilidad para asegurar una mejor experiencia de usuario.\nAlgunos de mis proyectos clave fueron el desarrollo de una aplicación CRM para el equipo de ventas usando Next.js, React TypeScript en el frontend, y SQL, PHP, Composer en el backend. También participé en el mantenimiento y refactorización del conjunto más amplio de aplicaciones de back-office del instituto.\nOtro proyecto consistió en la necesidad de un bot de WhatsApp para enviar recordatorios automatizados, notificaciones y actualizaciones académicas a los estudiantes según su inscripción y progreso, ayudando a mejorar la comunicación y el compromiso."
+          }
+        }
+      }
+    }
+  },
+  "footer": {
+    "title": "¡Que tengas un buen día!",
+    "description": "¡Eso es todo! Gracias por leer mi sitio web personal, ¡espero que tengas un buen día!\nHecho con ❤️ por DRSM.",
+    "linkedinButton": "LinkedIn",
+    "linkedinButtonHref": "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/",
+    "resumeButton": "Currículum",
+    "resumeButtonHref": "https://drive.google.com/file/d/1vX9XwE8roAbu_dKkjEBUaoQCdQ1v0ox-/view?usp=sharing",
+    "mailButton": "Correo",
+    "mailButtonHref": "mailto:diegorsm03@gmail.com",
+    "navItems": {
+      "home": {
+        "title": "Inicio",
+        "href": "#home"
+      },
+      "about": {
+        "title": "Acerca",
+        "href": "#about"
+      },
+      "experience": {
+        "title": "Experiencia",
+        "href": "#experience"
+      }
+    }
+  }
+}

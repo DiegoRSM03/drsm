@@ -10,35 +10,36 @@ import {
   WRAPPER_STYLES,
   renderDescription,
 } from "@/utils"
+import { Dictionary } from "@/dictionaries/types"
 
-const LINK_HREF = "#experience"
-const WORK_EXPERIENCE_TITLE = "Experience"
-const WORK_EXPERIENCE_BUTTON_TEXT = "Linkedin"
-const WORK_EXPERIENCE_BUTTON_HREF =
-  "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/"
+interface WorkExperienceProps {
+  dictionary: Dictionary
+}
 
-export const WorkExperience = () => {
+export const WorkExperience = ({ dictionary }: WorkExperienceProps) => {
+  const { workExperience } = dictionary.home.landing
+
   return (
     <div className={`${WRAPPER_STYLES} mt-10 xl:mt-52 pt-20`} id="experience">
       <div className={`${WRAPPER_CHILD_STYLES} flex flex-col`}>
         <AnimateOnScroll duration={0.8} className="flex justify-between w-full">
-          <Link href={LINK_HREF}>
+          <Link href={workExperience.linkHref}>
             <h2 className="text-xl md:text-xl xl:text-2xl font-pixelated">
               <span className="mr-2 text:xl xl:text-2xl text-primary">#</span>
-              {WORK_EXPERIENCE_TITLE}
+              {workExperience.title}
             </h2>
           </Link>
           <Button
-            href={WORK_EXPERIENCE_BUTTON_HREF}
+            href={workExperience.buttonHref}
             target="_blank"
             className="hidden md:block"
           >
-            {WORK_EXPERIENCE_BUTTON_TEXT}
+            {workExperience.buttonText}
           </Button>
         </AnimateOnScroll>
 
         <div className="flex flex-col gap-10 mt-10 mb-16 md:mt-16 xl:mb-20 xl:mt-14 xl:gap-20">
-          {Object.entries(WORK_EXPERIENCES).map(
+          {Object.entries(workExperience.experiences).map(
             ([workExperienceKey, workExperience]) => (
               <div
                 key={workExperienceKey}
@@ -53,7 +54,11 @@ export const WorkExperience = () => {
                 >
                   <Image
                     alt={`Work experience in ${workExperienceKey}`}
-                    src={workExperience.companyImage}
+                    src={
+                      WORK_EXPERIENCES[
+                        workExperienceKey as keyof typeof WORK_EXPERIENCES
+                      ].companyImage
+                    }
                     className="w-full h-full"
                     width={100}
                     height={100}
