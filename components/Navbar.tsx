@@ -4,33 +4,15 @@ import Link from "next/link"
 import { Button } from "@/components"
 // Utils
 import { WRAPPER_CHILD_STYLES, WRAPPER_STYLES } from "@/utils"
+import { Dictionary } from "@/dictionaries/types"
 
-export interface NavItem {
-  title: string
-  href: string
+interface NavbarProps {
+  dictionary: Dictionary
 }
 
-const LINK_HREF = "#home"
-const LOGO_TEXT = "DRSM"
-const CTA_LINK_TEXT = "Resume"
-const CTA_LINK_URL =
-  "https://drive.google.com/file/d/1vX9XwE8roAbu_dKkjEBUaoQCdQ1v0ox-/view?usp=sharing"
-const NAV_ITEMS: NavItem[] = [
-  {
-    title: "Home",
-    href: "/#home",
-  },
-  {
-    title: "About",
-    href: "/#about",
-  },
-  {
-    title: "Experience",
-    href: "/#experience",
-  },
-]
+export const Navbar = ({ dictionary }: NavbarProps) => {
+  const { navbar, lang } = dictionary
 
-export const Navbar = () => {
   return (
     <nav
       className={`${WRAPPER_STYLES} z-50 fixed top-0 left-0 h-16 bg-black hidden lg:flex`}
@@ -39,20 +21,20 @@ export const Navbar = () => {
         className={`${WRAPPER_CHILD_STYLES} flex items-center justify-between`}
       >
         {/* LOGO */}
-        <Link href={LINK_HREF}>
+        <Link href={navbar.logoHref}>
           <div className="text-lg text-white md:text-xl font-pixelated md:-mb-1">
-            {LOGO_TEXT}
+            {navbar.logoText}
           </div>
         </Link>
 
         {/* NAV ITEMS */}
         <ul className="flex items-center gap-8 text-gray">
-          {NAV_ITEMS.map((navItem) => (
+          {Object.entries(navbar.navItems).map(([key, navItem]) => (
             <li
-              key={navItem.href}
+              key={key}
               className="text-sm xl:text-base hover:text-white hover:cursor-pointer"
             >
-              <Link href={navItem.href}>{navItem.title}</Link>
+              <Link href={`${lang}${navItem.href}`}>{navItem.title}</Link>
             </li>
           ))}
         </ul>
@@ -60,11 +42,11 @@ export const Navbar = () => {
         {/* CALL TO ACTION */}
         <Button
           variant="drive"
-          href={CTA_LINK_URL}
+          href={navbar.ctas.resume.href}
           target="_blank"
           className="cursor-pointer"
         >
-          {CTA_LINK_TEXT}
+          {navbar.ctas.resume.text}
         </Button>
       </div>
     </nav>

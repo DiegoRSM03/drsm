@@ -1,5 +1,7 @@
 // Libs
 import Link from "next/link"
+// Components
+import { AnimateOnScroll, Slider } from "@/components"
 // Utils
 import {
   WRAPPER_CHILD_STYLES,
@@ -8,8 +10,6 @@ import {
   renderDescription,
 } from "@/utils"
 import { Dictionary } from "@/dictionaries/types"
-// Components
-import { AnimateOnScroll, Slider } from "@/components"
 
 interface AboutProps {
   dictionary: Dictionary

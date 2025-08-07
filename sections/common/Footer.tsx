@@ -21,30 +21,25 @@ export interface FooterNavItem extends NavItem {
   icon: ReactNode
 }
 
-const NAV_ITEMS: FooterNavItem[] = [
-  {
-    title: "Home",
-    href: "/#home",
-    icon: <HomeIcon />,
-  },
-  {
-    title: "About",
-    href: "/#about",
-    icon: <AndroidIcon />,
-  },
-  {
-    title: "Experience",
-    href: "/#experience",
-    icon: <BriefcaseIcon />,
-  },
-]
+const NAV_ITEMS_ICONS = {
+  home: <HomeIcon />,
+  about: <AndroidIcon />,
+  experience: <BriefcaseIcon />,
+}
 
 interface FooterProps {
   dictionary: Dictionary
 }
 
 export const Footer = ({ dictionary }: FooterProps) => {
-  const { footer } = dictionary
+  const { footer, lang } = dictionary
+  const i18nNavItems = Object.entries(footer.navItems).map(
+    ([key, navItem]) => ({
+      ...navItem,
+      icon: NAV_ITEMS_ICONS[key as keyof typeof NAV_ITEMS_ICONS],
+      href: `${lang}${navItem.href}`,
+    })
+  )
 
   return (
     <div className={`${WRAPPER_STYLES} bg-black3 py-16 xl:py-28`}>
@@ -59,7 +54,7 @@ export const Footer = ({ dictionary }: FooterProps) => {
         </AnimateOnScroll>
 
         <div className="flex items-center w-full justify-evenly md:flex-col md:w-auto">
-          <AnimatedNavLinks navItems={NAV_ITEMS} />
+          <AnimatedNavLinks navItems={i18nNavItems} />
 
           <div className="flex flex-col items-center gap-5 mt-10 lg:flex-row md:mt-14">
             <Button href={footer.linkedinButtonHref} target="_blank">
@@ -77,7 +72,7 @@ export const Footer = ({ dictionary }: FooterProps) => {
               target="_blank"
               variant="secondary"
             >
-              Mail
+              {footer.mailButton}
             </Button>
           </div>
         </div>

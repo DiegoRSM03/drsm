@@ -44,9 +44,29 @@ export type Footer = {
   mailButton: string
   mailButtonHref: string
   navItems: {
-    title: string
-    href: string
-  }[]
+    [key: string]: {
+      title: string
+      href: string
+    }
+  }
+}
+
+export type Navbar = {
+  logoText: string
+  logoHref: string
+  ctas: {
+    [key: string]: {
+      text: string
+      href: string
+      target: string
+    }
+  }
+  navItems: {
+    [key: string]: {
+      title: string
+      href: string
+    }
+  }
 }
 
 export type Landing = {
@@ -56,8 +76,10 @@ export type Landing = {
 }
 
 export type Dictionary = {
+  lang: string
   home: {
     landing: Landing
   }
+  navbar: Navbar
   footer: Footer
 }

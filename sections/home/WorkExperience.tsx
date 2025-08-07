@@ -1,6 +1,8 @@
 // Libs
 import Image from "next/image"
 import Link from "next/link"
+// Components
+import { AnimateOnScroll, Button } from "@/components"
 // Utils
 import {
   WORK_EXPERIENCES,
@@ -9,8 +11,6 @@ import {
   renderDescription,
 } from "@/utils"
 import { Dictionary } from "@/dictionaries/types"
-// Components
-import { AnimateOnScroll, Button } from "@/components"
 
 interface WorkExperienceProps {
   dictionary: Dictionary

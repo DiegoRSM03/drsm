@@ -2,11 +2,11 @@
 import Image from "next/image"
 // Images
 import HomeWallpaper from "@/public/images/home-wallpaper.jpg"
+// Components
+import { AnimateOnScroll, Button } from "@/components"
 // Utils
 import { WRAPPER_CHILD_STYLES, WRAPPER_STYLES } from "@/utils/styles"
 import { Dictionary } from "@/dictionaries/types"
-// Components
-import { AnimateOnScroll, Button } from "@/components"
 
 interface LandingHeaderProps {
   dictionary: Dictionary

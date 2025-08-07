@@ -1,4 +1,40 @@
 {
+  "lang": "es",
+  "navbar": {
+    "logoText": "DRSM",
+    "logoHref": "/#home",
+    "ctas": {
+      "linkedin": {
+        "text": "Linkedin",
+        "href": "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/",
+        "target": "_blank"
+      },
+      "resume": {
+        "text": "Currículum",
+        "href": "https://drive.google.com/file/d/1vX9XwE8roAbu_dKkjEBUaoQCdQ1v0ox-/view?usp=sharing",
+        "target": "_blank"
+      },
+      "mail": {
+        "text": "Mail",
+        "href": "mailto:diegorsm03@gmail.com",
+        "target": "_blank"
+      }
+    },
+    "navItems": {
+      "home": {
+        "title": "Inicio",
+        "href": "/#home"
+      },
+      "about": {
+        "title": "Acerca",
+        "href": "/#about"
+      },
+      "experience": {
+        "title": "Experiencia",
+        "href": "/#experience"
+      }
+    }
+  },
   "home": {
     "landing": {
       "header": {
@@ -10,7 +46,7 @@
         "wallpaperAlt": "Fondo de pantalla de inicio del sitio web de DRSM"
       },
       "about": {
-        "title": "Acerca de",
+        "title": "Acerca",
         "linkHref": "#about",
         "innerSections": {
           "diego": {
@@ -36,7 +72,7 @@
           "litebox": {
             "position": "Ingeniero de Software en Litebox",
             "duration": "Sep 2022 - Presente",
-            "description": "En Litebox, una empresa boutique de software enfocada en productos y código de alta calidad, contribuí a los proyectos trabajando con tecnologías como Strapi, Next.js (App y Pages Router), NestJS, Tailwind y Framer Motion.\nUno de mis proyectos clave fue crear una herramienta CLI interna para agilizar la configuración de blogs con Strapi/Next.js, y gestioné formularios con acciones del servidor, useActionState y react-hook-form. Implementé una gestión de estados compleja usando Context, Zustand y otros patrones de gestión de estado en React, además de revisar código y documentar componentes en Notion.\nCada vez que necesitaba crear un sitio web de marketing, me aseguraba de cumplir con accesibilidad (WCAG 2), buenas prácticas de SEO (datos estructurados, Open Graph, Twitter Cards), y obtener puntajes de Lighthouse superiores a 90. Además, integré herramientas de marketing como Marketo, Hotjar y FB Pixel, y realicé despliegues utilizando servicios de AWS (ECR, ECS, EC2, S3). También configuré herramientas de desarrollo (Prettier, ESLint, Turbo y Husky), escribí pruebas de backend con SuperTest, y apliqué CI/CD a través de GitHub Actions. El estilo fue realizado con Tailwind, Styled Components o CSS Modules, dependiendo de las necesidades del proyecto.\nAdemás de mi experiencia en frontend aquí, también trabajé en un gran proyecto inmobiliario más enfocado en backend, basado en NestJS, SQL, TypeORM, Typescript, Next, React y Tailwind. La gestión de formularios se realizó con react-hook-forms y hooks useActionState. Para el manejo de roles basamos nuestra lógica en reglas RBAC."
+            "description": "En Litebox, una empresa boutique de software enfocada en productos y código de alta calidad, contribuí a los proyectos trabajando con tecnologías como Strapi, Next.js (App y Pages Router), NestJS, Tailwind y Framer Motion.\nUno de mis proyectos clave fue crear una herramienta CLI interna para agilizar la configuración de blogs con Strapi/Next.js, y gestioné formularios con acciones del servidor, useActionState y react-hook-form. Implementé una gestión de estados compleja usando Context, Zustand y otros patrones de gestión de estado en React, además de revisar código y documentar componentes en Notion.\n\nCada vez que necesitaba crear un sitio web de marketing, me aseguraba de cumplir con accesibilidad (WCAG 2), buenas prácticas de SEO (datos estructurados, Open Graph, Twitter Cards), y obtener puntajes de Lighthouse superiores a 90. Además, integré herramientas de marketing como Marketo, Hotjar y FB Pixel, y realicé despliegues utilizando servicios de AWS (ECR, ECS, EC2, S3). También configuré herramientas de desarrollo (Prettier, ESLint, Turbo y Husky), escribí pruebas de backend con SuperTest, y apliqué CI/CD a través de GitHub Actions. El estilo fue realizado con Tailwind, Styled Components o CSS Modules, dependiendo de las necesidades del proyecto.\n\nAdemás de mi experiencia en frontend aquí, también trabajé en un gran proyecto inmobiliario más enfocado en backend, basado en NestJS, SQL, TypeORM, Typescript, Next, React y Tailwind. La gestión de formularios se realizó con react-hook-forms y hooks useActionState. Para el manejo de roles basamos nuestra lógica en reglas RBAC."
           },
           "axon": {
             "position": "Ingeniero de Software en Axon",
@@ -52,23 +88,23 @@
     "description": "¡Eso es todo! Gracias por leer mi sitio web personal, ¡espero que tengas un buen día!\nHecho con ❤️ por DRSM.",
     "linkedinButton": "LinkedIn",
     "linkedinButtonHref": "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/",
-    "resumeButton": "CV",
+    "resumeButton": "Currículum",
     "resumeButtonHref": "https://drive.google.com/file/d/1vX9XwE8roAbu_dKkjEBUaoQCdQ1v0ox-/view?usp=sharing",
     "mailButton": "Correo",
     "mailButtonHref": "mailto:diegorsm03@gmail.com",
-    "navItems": [
-      {
+    "navItems": {
+      "home": {
         "title": "Inicio",
         "href": "#home"
       },
-      {
-        "title": "Acerca de",
+      "about": {
+        "title": "Acerca",
         "href": "#about"
       },
-      {
+      "experience": {
         "title": "Experiencia",
         "href": "#experience"
       }
-    ]
+    }
   }
 }

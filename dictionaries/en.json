@@ -1,4 +1,40 @@
 {
+  "lang": "en",
+  "navbar": {
+    "logoText": "DRSM",
+    "logoHref": "/#home",
+    "ctas": {
+      "linkedin": {
+        "text": "Linkedin",
+        "href": "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/",
+        "target": "_blank"
+      },
+      "resume": {
+        "text": "Resume",
+        "href": "https://drive.google.com/file/d/1vX9XwE8roAbu_dKkjEBUaoQCdQ1v0ox-/view?usp=sharing",
+        "target": "_blank"
+      },
+      "mail": {
+        "text": "Mail",
+        "href": "mailto:diegorsm03@gmail.com",
+        "target": "_blank"
+      }
+    },
+    "navItems": {
+      "home": {
+        "title": "Home",
+        "href": "/#home"
+      },
+      "about": {
+        "title": "About",
+        "href": "/#about"
+      },
+      "experience": {
+        "title": "Experience",
+        "href": "/#experience"
+      }
+    }
+  },
   "home": {
     "landing": {
       "header": {
@@ -56,19 +92,19 @@
     "resumeButtonHref": "https://drive.google.com/file/d/1vX9XwE8roAbu_dKkjEBUaoQCdQ1v0ox-/view?usp=sharing",
     "mailButton": "Mail",
     "mailButtonHref": "mailto:diegorsm03@gmail.com",
-    "navItems": [
-      {
+    "navItems": {
+      "home": {
         "title": "Home",
         "href": "#home"
       },
-      {
+      "about": {
         "title": "About",
         "href": "#about"
       },
-      {
+      "experience": {
         "title": "Experience",
         "href": "#experience"
       }
-    ]
+    }
   }
 }

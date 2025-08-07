@@ -15,30 +15,15 @@ import {
 } from "@/public/icons"
 // Utils
 import { WRAPPER_STYLES, WRAPPER_CHILD_STYLES } from "@/utils"
-// Sections
-import { FooterNavItem } from "@/sections"
+import { Dictionary } from "@/dictionaries/types"
 
-const LOGO_TEXT = "DRSM"
 const SIDEBAR_TITLE = "Navigate"
-const CTA_LINK_TEXT = "Linkedin"
-const CTA_LINK_URL = "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/"
-const NAV_ITEMS: FooterNavItem[] = [
-  {
-    title: "Home",
-    href: "/#home",
-    icon: <HomeIcon />,
-  },
-  {
-    title: "About",
-    href: "/#about",
-    icon: <AndroidIcon />,
-  },
-  {
-    title: "Experience",
-    href: "/#experience",
-    icon: <BriefcaseIcon />,
-  },
-]
+
+const NAV_ITEMS_ICONS = {
+  home: <HomeIcon />,
+  about: <AndroidIcon />,
+  experience: <BriefcaseIcon />,
+}
 
 const ANDROID_ICON_ANIMATION: Variants = {
   hidden: {
@@ -54,8 +39,19 @@ const CV_URL =
   "https://drive.google.com/file/d/1vX9XwE8roAbu_dKkjEBUaoQCdQ1v0ox-/view?usp=sharing"
 const MAIL_TO_URL = "mailto:diegorsm03@gmail.com"
 
-export const MobileNavbar = () => {
+interface MobileNavbarProps {
+  dictionary: Dictionary
+}
+
+export const MobileNavbar = ({ dictionary }: MobileNavbarProps) => {
+  const { navbar, lang } = dictionary
   const [isOpen, setIsOpen] = useState(false)
+
+  const navItems = Object.entries(navbar.navItems).map(([key, navItem]) => ({
+    ...navItem,
+    icon: NAV_ITEMS_ICONS[key as keyof typeof NAV_ITEMS_ICONS],
+    href: `${lang}${navItem.href}`,
+  }))
 
   const handleMenuClick = () => {
     const html = document.querySelector("html")
@@ -79,7 +75,7 @@ export const MobileNavbar = () => {
         >
           {/* LOGO */}
           <div className="-mb-1 text-base text-white sm:text-xl font-pixelated">
-            {LOGO_TEXT}
+            {navbar.logoText}
           </div>
 
           {/* MENU */}
@@ -109,7 +105,7 @@ export const MobileNavbar = () => {
         <div className={`${WRAPPER_CHILD_STYLES} flex flex-col items-center`}>
           <p className="mb-20 text-3xl font-pixelated">{SIDEBAR_TITLE}</p>
           <AnimatedNavLinks
-            navItems={NAV_ITEMS}
+            navItems={navItems}
             listClassName={`${WRAPPER_CHILD_STYLES} flex flex-col items-center gap-5 mx-0 mb-20`}
             itemClassName="flex gap-3 w-full font-pixelated text-sm"
             itemOnClick={handleMenuClick}
@@ -118,17 +114,25 @@ export const MobileNavbar = () => {
 
           <div className="flex flex-col min-[385px]:flex-row items-center gap-5 mt-10 lg:flex-row md:mt-14">
             <Button
-              href={LINKEDIN_URL}
+              href={navbar.ctas.linkedin.href}
               target="_blank"
               onClick={handleMenuClick}
             >
-              Linkedin
+              {navbar.ctas.linkedin.text}
             </Button>
-            <Button href={CV_URL} target="_blank" variant="drive">
-              Resume
+            <Button
+              href={navbar.ctas.resume.href}
+              target="_blank"
+              variant="drive"
+            >
+              {navbar.ctas.resume.text}
             </Button>
-            <Button href={MAIL_TO_URL} target="_blank" variant="secondary">
-              Mail
+            <Button
+              href={navbar.ctas.mail.href}
+              target="_blank"
+              variant="secondary"
+            >
+              {navbar.ctas.mail.text}
             </Button>
           </div>
         </div>
