@@ -1,7 +1,7 @@
 // Libs
 import type { Metadata } from "next"
 // Styles
-import "./globals.css"
+import "../globals.css"
 import "swiper/css"
 // Components
 import { MobileNavbar, Navbar } from "@/components"
@@ -9,6 +9,8 @@ import { MobileNavbar, Navbar } from "@/components"
 import { pixelated, robotoSerif } from "@/public/fonts/fonts"
 // Images
 import OpenGraphImage from "@/public/images/open-graph-image.png"
+// Utils
+import { getDictionary, Locale } from "@/dictionaries/dictionaries"
 
 export const metadata: Metadata = {
   title: "DRSM",
@@ -33,19 +35,24 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode
+  params: Promise<{ lang: string }>
 }>) {
+  const { lang } = await params
+  const dictionary = await getDictionary(lang as Locale)
+
   return (
-    <html lang="en" id="home">
+    <html lang={lang} id="home">
       <body
         className={`${pixelated.variable} ${robotoSerif.variable} font-roboto`}
       >
         <main className="w-full min-h-screen mt-16">
-          <Navbar />
-          <MobileNavbar />
+          <Navbar dictionary={dictionary} />
+          <MobileNavbar dictionary={dictionary} />
           {children}
         </main>
       </body>
