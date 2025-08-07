@@ -12,7 +12,7 @@ export interface NavItem {
 
 const LINK_HREF = "#home"
 const LOGO_TEXT = "DRSM"
-const CTA_LINK_TEXT = "Curriculum"
+const CTA_LINK_TEXT = "Resume"
 const CTA_LINK_URL =
   "https://drive.google.com/file/d/1vX9XwE8roAbu_dKkjEBUaoQCdQ1v0ox-/view?usp=sharing"
 const NAV_ITEMS: NavItem[] = [

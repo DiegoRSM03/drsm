@@ -125,7 +125,7 @@ export const MobileNavbar = () => {
               Linkedin
             </Button>
             <Button href={CV_URL} target="_blank" variant="drive">
-              Curriculum
+              Resume
             </Button>
             <Button href={MAIL_TO_URL} target="_blank" variant="secondary">
               Mail

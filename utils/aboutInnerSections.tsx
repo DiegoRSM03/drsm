@@ -39,7 +39,7 @@ export const ABOUT_INNER_SECTIONS: { [t in InnerSectionId]: InnerSection } = {
   diego: {
     title: "Diego",
     description:
-      "I'm an Argentinian software developer who's always looking for big challenges.\nI discovered coding years ago and since then I've been amazed at the enormous amount of solutions someone can offer just by having a laptop, and that's why I've never stopped learning about new technologies, good practices, and how to be a nice teammate.",
+      "I'm an Argentinian software engineer who's always looking for big challenges.\nI discovered coding years ago and since then I've been amazed at the enormous amount of solutions someone can offer just by having a laptop, and that's why I've never stopped learning about new technologies, good practices, and how to be a nice teammate.",
     icon: <UserIcon />,
     backgroundIcon: (
       <UserIcon width={120} height={150} color="rgba(255, 255, 255, 0.04)" />
@@ -56,7 +56,7 @@ export const ABOUT_INNER_SECTIONS: { [t in InnerSectionId]: InnerSection } = {
   theJob: {
     title: "The Job",
     description:
-      "I love what I do, and some of the things that make me say that are the flexibility, working from home, providing solutions to dedicated clients, and most importantly, the people you can meet.\nLuckily I have found really nice people in my career so far, and I’m glad to be in touch with many of them even when we’re no longer coworkers. I feel I can easily find people who are polite, devoted to work, competent and pretty wise.",
+      "I love what I do, and some of the things that make me say that are the flexibility, working from home, providing solutions to dedicated clients, and most importantly, the people you can meet.\nLuckily I have found really nice people in my career so far, and I'm glad to be in touch with all of them even when we're no longer coworkers.",
     icon: <UsersIcon />,
     backgroundIcon: (
       <UsersIcon width={125} height={125} color="rgba(255, 255, 255, 0.04)" />
