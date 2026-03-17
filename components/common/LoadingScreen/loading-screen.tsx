@@ -22,6 +22,7 @@ export function LoadingScreen({
     const hasLoaded = sessionStorage.getItem("drsm-loaded");
 
     if (hasLoaded) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: skip loading if already loaded
       setIsLoading(false);
       onComplete?.();
       return;
