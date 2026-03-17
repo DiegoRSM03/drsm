@@ -4,7 +4,7 @@ import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/contexts";
 import { LenisProvider } from "@/components/custom/LenisProvider";
 import { CustomCursor } from "@/components/custom/CustomCursor";
-import { LoadingScreen } from "@/components/custom/LoadingScreen";
+import { LoadingScreen } from "@/components/common/LoadingScreen";
 import { ToastProvider } from "@/components/common/Toast";
 
 import "./globals.css";

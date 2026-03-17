@@ -18,3 +18,4 @@ export { Skeleton, SkeletonText, SkeletonCard, SkeletonAvatar } from "./Skeleton
 export { Avatar } from "./Avatar";
 export { Badge } from "./Badge";
 export { Divider } from "./Divider";
+export { LoadingScreen } from "./LoadingScreen";

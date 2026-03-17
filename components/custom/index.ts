@@ -9,7 +9,6 @@ export {
 export { MagneticButton } from "./MagneticButton";
 export { HoverCard } from "./HoverCard";
 export { AnimatedLink } from "./AnimatedLink";
-export { LoadingScreen } from "./LoadingScreen";
 export { ThemeToggle } from "./ThemeToggle";
 export { PageTransition, PageTransitionItem } from "./PageTransition";
 export * from "./home";
