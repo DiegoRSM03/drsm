@@ -363,3 +363,5 @@ Before submitting any UI component, verify:
 - **Don't** skip the container wrapper on sections
 - **Don't** add new dependencies without asking
 - **Don't** use glass morphism or blur effects on cards
+- **Don't** use L-shaped corner brackets as decorative framing elements
+- **Don't** use hollow/bordered boxes (thin stroke squares) as decorative elements — use solid fills instead
