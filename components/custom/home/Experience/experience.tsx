@@ -377,19 +377,11 @@ function ExperienceCard({
   const isDark = theme === "dark";
   const useParallax = enableParallax && !shouldReduceMotion;
 
-  const numberY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    useParallax ? [50 * (index + 1), -100 * (index + 1)] : [0, 0]
-  );
-  const springNumberY = useSpring(numberY, { stiffness: 100, damping: 30 });
+  const numberY = useTransform(scrollYProgress, [0, 1], useParallax ? [100, -160] : [0, 0]);
+  const springNumberY = useSpring(numberY, { stiffness: 80, damping: 25 });
 
-  const cardY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    useParallax ? [30 * (index + 1), -60 * (index + 1)] : [0, 0]
-  );
-  const springCardY = useSpring(cardY, { stiffness: 120, damping: 25 });
+  const cardY = useTransform(scrollYProgress, [0, 1], useParallax ? [50, -80] : [0, 0]);
+  const springCardY = useSpring(cardY, { stiffness: 100, damping: 22 });
 
   return (
     <article
@@ -666,67 +658,18 @@ export default function Experience() {
               viewport={{ once: true }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
-              <span className="mb-4 block font-mono text-xs text-white/60 xl:text-sm">
-                SECTION 01
-              </span>
               <h2
                 id="experience-heading"
-                className="text-4xl font-black xl:text-5xl 2xl:text-6xl"
+                className="text-5xl font-black xl:text-6xl 2xl:text-7xl"
                 style={{ fontFamily: "var(--font-display)" }}
               >
                 <span className="text-white">WORK</span>
                 <br />
                 <span className="text-black">HISTORY</span>
               </h2>
-
-              <nav
-                className="mt-8 space-y-3 xl:mt-12 xl:space-y-4"
-                aria-label="Experience navigation"
-              >
-                {EXPERIENCES.map((exp, i) => (
-                  <motion.button
-                    key={i}
-                    type="button"
-                    className="flex w-full cursor-pointer items-center gap-3 p-1 text-left xl:gap-4"
-                    animate={{
-                      opacity: activeSection === i ? 1 : 0.4,
-                      x: shouldReduceMotion ? 0 : activeSection === i ? 10 : 0,
-                    }}
-                    transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-                    onClick={() => {
-                      const card = document.querySelector(`[data-experience-card="${i}"]`);
-                      card?.scrollIntoView({ behavior: "smooth", block: "center" });
-                    }}
-                    aria-current={activeSection === i ? "true" : undefined}
-                    aria-label={`Go to ${exp.company} experience`}
-                  >
-                    <motion.span
-                      className="h-3 w-3 shrink-0 xl:h-4 xl:w-4"
-                      style={{
-                        backgroundColor: activeSection === i ? "#fff" : "transparent",
-                        border: "2px solid #fff",
-                        transform: "rotate(45deg)",
-                      }}
-                      animate={{ scale: activeSection === i ? 1.2 : 1 }}
-                      transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
-                      aria-hidden="true"
-                    />
-                    <span
-                      className="text-xs font-semibold tracking-wide text-white xl:text-sm"
-                      style={{ fontFamily: "var(--font-display)" }}
-                    >
-                      {exp.company}
-                    </span>
-                    <motion.span
-                      className="h-px flex-1 bg-white"
-                      initial={{ scaleX: 0, originX: 0 }}
-                      animate={{ scaleX: activeSection === i ? 1 : 0 }}
-                      transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-                      aria-hidden="true"
-                    />
-                  </motion.button>
-                ))}
-              </nav>
+              <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/70 xl:mt-6 xl:text-base">
+                Production code, frontend architecture, and cross-functional collaboration.
+              </p>
             </motion.div>
           </div>
         </aside>
@@ -748,42 +691,16 @@ export default function Experience() {
           </div>
 
           <header className="relative z-10 px-4 pt-20 sm:px-6 sm:pt-24 lg:hidden">
-            <span
-              className="mb-2 block font-mono text-xs opacity-50 sm:text-sm"
-              style={{ color: "#8B5CF6" }}
-            >
-              SECTION 01
-            </span>
             <h2
               id="experience-heading-mobile"
-              className="text-3xl font-black sm:text-4xl md:text-5xl"
+              className="text-3xl font-black sm:text-4xl md:text-5xl lg:text-6xl"
               style={{ fontFamily: "var(--font-display)", color: "#8B5CF6" }}
             >
               WORK HISTORY
             </h2>
-
-            <nav className="mt-6 flex flex-wrap gap-2 sm:gap-3" aria-label="Experience navigation">
-              {EXPERIENCES.map((exp, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => {
-                    const card = document.querySelector(`[data-experience-card="${i}"]`);
-                    card?.scrollIntoView({ behavior: "smooth", block: "center" });
-                  }}
-                  className="px-3 py-2 text-xs font-medium transition-colors sm:px-4 sm:text-sm"
-                  style={{
-                    backgroundColor: activeSection === i ? exp.color : "transparent",
-                    color: activeSection === i ? "#fff" : exp.color,
-                    border: `2px solid ${exp.color}`,
-                  }}
-                  aria-current={activeSection === i ? "true" : undefined}
-                  aria-label={`Go to ${exp.company} experience`}
-                >
-                  {exp.company}
-                </button>
-              ))}
-            </nav>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-white/60 sm:mt-4 sm:text-base">
+              Production code, frontend architecture, and cross-functional collaboration.
+            </p>
           </header>
 
           <div

@@ -58,115 +58,6 @@ export const PROJECTS: ProjectData[] = [
   },
 ];
 
-const SHAPE_COLORS = ["#8B5CF6", "#06B6D4", "#EC4899", "#F59E0B", "#10B981"];
-
-interface FloatingShape {
-  type: "square" | "diamond" | "circle" | "triangle";
-  top: string;
-  left: string;
-  size: number;
-  filled: boolean;
-  delay: number;
-  duration: number;
-  color: string;
-  opacity: number;
-}
-
-function getShapesForProject(_color: string, index: number): FloatingShape[] {
-  const isEven = index % 2 === 0;
-  const c = SHAPE_COLORS;
-  return [
-    {
-      type: "diamond",
-      top: "-10%",
-      left: isEven ? "12%" : "78%",
-      size: 40,
-      filled: true,
-      delay: 0.6,
-      duration: 5,
-      color: c[0],
-      opacity: 0.45,
-    },
-    {
-      type: "circle",
-      top: "8%",
-      left: isEven ? "88%" : "2%",
-      size: 56,
-      filled: false,
-      delay: 0.9,
-      duration: 7,
-      color: c[1],
-      opacity: 0.3,
-    },
-    {
-      type: "square",
-      top: "78%",
-      left: isEven ? "92%" : "-2%",
-      size: 32,
-      filled: true,
-      delay: 0.7,
-      duration: 6,
-      color: c[2],
-      opacity: 0.4,
-    },
-    {
-      type: "triangle",
-      top: "92%",
-      left: isEven ? "22%" : "68%",
-      size: 36,
-      filled: false,
-      delay: 1.0,
-      duration: 8,
-      color: c[3],
-      opacity: 0.35,
-    },
-    {
-      type: "circle",
-      top: "45%",
-      left: isEven ? "-6%" : "96%",
-      size: 24,
-      filled: true,
-      delay: 0.5,
-      duration: 6,
-      color: c[4],
-      opacity: 0.5,
-    },
-    {
-      type: "diamond",
-      top: "-6%",
-      left: isEven ? "58%" : "32%",
-      size: 18,
-      filled: false,
-      delay: 1.1,
-      duration: 7,
-      color: c[0],
-      opacity: 0.35,
-    },
-    {
-      type: "square",
-      top: "30%",
-      left: isEven ? "-8%" : "98%",
-      size: 48,
-      filled: false,
-      delay: 0.8,
-      duration: 5.5,
-      color: c[1],
-      opacity: 0.25,
-    },
-    {
-      type: "triangle",
-      top: "-12%",
-      left: isEven ? "80%" : "10%",
-      size: 28,
-      filled: true,
-      delay: 1.2,
-      duration: 6.5,
-      color: c[2],
-      opacity: 0.4,
-    },
-  ];
-}
-
 const BRAND_PURPLE = "#8B5CF6";
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -201,7 +92,7 @@ function SectionHeader() {
         style={{ fontFamily: "var(--font-display)" }}
       >
         {titleWords.map((word, i) => (
-          <span key={i} className="inline-block overflow-clip">
+          <span key={i} className={`inline-block overflow-clip${i === 0 ? "mr-3 sm:mr-4" : ""}`}>
             <motion.span
               className="inline-block"
               style={{ color: i === 1 ? BRAND_PURPLE : "inherit" }}
@@ -212,7 +103,6 @@ function SectionHeader() {
             >
               {word}
             </motion.span>
-            {i === 0 && " "}
           </span>
         ))}
       </h2>
@@ -235,7 +125,6 @@ function ProjectCard({ project, index }: { project: ProjectData; index: number }
   const shouldReduceMotion = useReducedMotion();
 
   const isEven = index % 2 === 0;
-  const shapes = getShapesForProject(project.color, index);
 
   return (
     <div className="sticky top-0 flex h-screen items-center" role="listitem">
@@ -278,87 +167,6 @@ function ProjectCard({ project, index }: { project: ProjectData; index: number }
                 </motion.span>
               </div>
             </div>
-
-            {/* Floating geometric shapes */}
-            {shapes.map((shape, i) => (
-              <motion.div
-                key={i}
-                className="absolute"
-                style={{ top: shape.top, left: shape.left }}
-                initial={{ scale: 0, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: shape.opacity }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: shape.delay, ease }}
-                aria-hidden="true"
-              >
-                <motion.div
-                  animate={shouldReduceMotion ? {} : { y: [0, -8, 0] }}
-                  transition={{ duration: shape.duration, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  {shape.type === "square" && (
-                    <div
-                      style={{
-                        width: shape.size,
-                        height: shape.size,
-                        ...(shape.filled
-                          ? { backgroundColor: shape.color }
-                          : { border: `2px solid ${shape.color}`, backgroundColor: "transparent" }),
-                      }}
-                    />
-                  )}
-                  {shape.type === "diamond" && (
-                    <div
-                      style={{
-                        width: shape.size,
-                        height: shape.size,
-                        transform: "rotate(45deg)",
-                        ...(shape.filled
-                          ? { backgroundColor: shape.color }
-                          : { border: `2px solid ${shape.color}`, backgroundColor: "transparent" }),
-                      }}
-                    />
-                  )}
-                  {shape.type === "circle" && (
-                    <div
-                      style={{
-                        width: shape.size,
-                        height: shape.size,
-                        borderRadius: "50%",
-                        ...(shape.filled
-                          ? { backgroundColor: shape.color }
-                          : { border: `2px solid ${shape.color}`, backgroundColor: "transparent" }),
-                      }}
-                    />
-                  )}
-                  {shape.type === "triangle" && shape.filled && (
-                    <div
-                      style={{
-                        width: 0,
-                        height: 0,
-                        borderLeft: `${shape.size / 2}px solid transparent`,
-                        borderRight: `${shape.size / 2}px solid transparent`,
-                        borderBottom: `${shape.size}px solid ${shape.color}`,
-                      }}
-                    />
-                  )}
-                  {shape.type === "triangle" && !shape.filled && (
-                    <svg
-                      width={shape.size}
-                      height={shape.size}
-                      viewBox={`0 0 ${shape.size} ${shape.size}`}
-                      fill="none"
-                    >
-                      <polygon
-                        points={`${shape.size / 2},0 ${shape.size},${shape.size} 0,${shape.size}`}
-                        stroke={shape.color}
-                        strokeWidth="2"
-                        fill="none"
-                      />
-                    </svg>
-                  )}
-                </motion.div>
-              </motion.div>
-            ))}
           </motion.div>
 
           {/* Content */}
