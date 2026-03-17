@@ -365,12 +365,26 @@ function Hero() {
 function MagneticPill({ tech, index }: { tech: TechItem; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
   const springConfig = { stiffness: 200, damping: 20 };
   const springX = useSpring(x, springConfig);
   const springY = useSpring(y, springConfig);
+
+  useEffect(() => {
+    const checkTheme = () => {
+      setIsDark(document.documentElement.getAttribute("data-theme") !== "light");
+    };
+    checkTheme();
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+    return () => observer.disconnect();
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!ref.current) return;
@@ -387,7 +401,50 @@ function MagneticPill({ tech, index }: { tech: TechItem; index: number }) {
     setIsHovered(false);
   };
 
-  const hoverColor = tech.color === "#ffffff" ? "#000000" : "#ffffff";
+  const isNextJs = tech.color === "#ffffff";
+
+  const getBorderColor = () => {
+    if (isHovered && isNextJs) {
+      return isDark ? "#ffffff" : "#000000";
+    }
+    if (isNextJs) {
+      return isDark ? "#ffffff" : "#000000";
+    }
+    return tech.color;
+  };
+
+  const getIconColor = () => {
+    if (isHovered) {
+      if (isNextJs) {
+        return isDark ? "#000000" : "#ffffff";
+      }
+      return "#ffffff";
+    }
+    if (isNextJs) {
+      return isDark ? "#ffffff" : "#000000";
+    }
+    return tech.color;
+  };
+
+  const getTextColor = () => {
+    if (isHovered) {
+      if (isNextJs) {
+        return isDark ? "#000000" : "#ffffff";
+      }
+      return "#ffffff";
+    }
+    return isDark ? "var(--color-foreground)" : "#000000";
+  };
+
+  const getBackgroundColor = () => {
+    if (isHovered) {
+      if (isNextJs) {
+        return isDark ? "#ffffff" : "#000000";
+      }
+      return tech.color;
+    }
+    return "var(--color-background)";
+  };
 
   return (
     <motion.div
@@ -402,30 +459,42 @@ function MagneticPill({ tech, index }: { tech: TechItem; index: number }) {
       transition={{ delay: 0.6 + index * 0.1, duration: 0.4 }}
     >
       <motion.div
-        className="bg-background flex cursor-pointer items-center gap-2 rounded-full border-2 px-4 py-2"
-        style={{ borderColor: tech.color }}
-        whileHover={{ scale: 1.05, backgroundColor: tech.color }}
+        className="flex cursor-pointer items-center gap-2 rounded-full border-2 px-4 py-2"
+        initial={false}
+        animate={{
+          borderColor: getBorderColor(),
+          backgroundColor: getBackgroundColor(),
+          scale: isHovered ? 1.05 : 1,
+        }}
         whileTap={{ scale: 0.98 }}
+        transition={{ duration: 0.2 }}
       >
         {tech.icon ? (
-          <tech.icon
-            className="h-4 w-4 transition-colors duration-200"
-            style={{ color: isHovered ? hoverColor : tech.color }}
-          />
+          <motion.div
+            initial={false}
+            animate={{ color: getIconColor() }}
+            transition={{ duration: 0.2 }}
+          >
+            <tech.icon className="h-4 w-4" />
+          </motion.div>
         ) : (
-          <span
-            className="text-sm font-bold transition-colors duration-200"
-            style={{ color: isHovered ? "#ffffff" : tech.color }}
+          <motion.span
+            className="text-sm font-bold"
+            initial={false}
+            animate={{ color: isHovered ? "#ffffff" : tech.color }}
+            transition={{ duration: 0.2 }}
           >
             {tech.label.charAt(0)}
-          </span>
+          </motion.span>
         )}
-        <span
-          className="text-sm font-semibold transition-colors duration-200"
-          style={{ color: isHovered ? hoverColor : "var(--foreground)" }}
+        <motion.span
+          className="text-sm font-semibold"
+          initial={false}
+          animate={{ color: getTextColor() }}
+          transition={{ duration: 0.2 }}
         >
           {tech.label}
-        </span>
+        </motion.span>
       </motion.div>
     </motion.div>
   );
