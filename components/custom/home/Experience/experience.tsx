@@ -1,0 +1,808 @@
+"use client";
+
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  useMotionValue,
+  useReducedMotion,
+  MotionValue,
+} from "framer-motion";
+import { useState, useRef, useCallback, useEffect, useSyncExternalStore } from "react";
+import { useTheme } from "@/contexts";
+
+function useIsTouchDevice() {
+  const getSnapshot = () => "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  const getServerSnapshot = () => false;
+  const subscribe = (callback: () => void) => {
+    window.addEventListener("touchstart", callback, { once: true });
+    return () => window.removeEventListener("touchstart", callback);
+  };
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+}
+
+interface ExperienceData {
+  company: string;
+  role: string;
+  period: string;
+  duration: string;
+  description: string;
+  highlights: string[];
+  skills: string[];
+  color: string;
+  numberColorDark: string;
+  numberColorLight: string;
+}
+
+const EXPERIENCES: ExperienceData[] = [
+  {
+    company: "Inaza",
+    role: "Software Engineer",
+    period: "Jan 2026 - Present",
+    duration: "3 mos",
+    description:
+      "Insurance technology company building modern solutions for the insurance industry.",
+    highlights: [
+      "Developed frontend features for insurance platform",
+      "Collaborated with cross-functional teams",
+      "Implemented responsive UI components",
+    ],
+    skills: ["React", "TypeScript", "REST APIs", "CSS"],
+    color: "#EC4899",
+    numberColorDark: "#5C2A45",
+    numberColorLight: "#FCE7F3",
+  },
+  {
+    company: "Litebox",
+    role: "Software Engineer",
+    period: "Sep 2022 - Jan 2026",
+    duration: "3.5 yrs",
+    description:
+      "Boutique software company focused on highly customized marketing websites and scalable back-office applications for American startup companies.",
+    highlights: [
+      "Built multiple marketing websites with perfect SEO, eye-catching animations, and 95+ Lighthouse scores",
+      "Architected entire project infrastructure using AWS, Vercel, and EC2",
+      "Created a CLI to automate project scaffolding with Next.js and Strapi",
+      "Built back-office apps with React Hook Form, Google Maps API, and OpenAI",
+    ],
+    skills: ["Next.js", "AWS", "GSAP", "Framer Motion", "TypeScript", "Strapi"],
+    color: "#8B5CF6",
+    numberColorDark: "#3D2A5C",
+    numberColorLight: "#E9E0FF",
+  },
+  {
+    company: "Axon",
+    role: "Software Engineer",
+    period: "Sep 2021 - Sep 2022",
+    duration: "1 yr",
+    description:
+      "Remote coaching school for athletes and professional leaders. One of the best-known coaching schools in LatAm.",
+    highlights: [
+      "Built a CRM application from scratch for the sales department",
+      "Created a WhatsApp Bot for sales reminders and payment notifications",
+      "Implemented CI/CD workflow using GitHub Actions",
+      "Ensured cross-browser compatibility and security standards",
+    ],
+    skills: ["React", "Node.js", "WhatsApp API", "GitHub Actions", "PostgreSQL"],
+    color: "#06B6D4",
+    numberColorDark: "#134E5A",
+    numberColorLight: "#CFFAFE",
+  },
+];
+
+interface ShapeConfig {
+  x: string;
+  y: string;
+  size: number;
+  color: string;
+  type: "square" | "circle" | "triangle";
+  rotation: number;
+  factorX: number;
+  factorY: number;
+  stiffness: number;
+  damping: number;
+}
+
+const SIDEBAR_SHAPES: ShapeConfig[] = [
+  {
+    x: "15%",
+    y: "15%",
+    size: 50,
+    color: "#ffffff",
+    type: "square",
+    rotation: 45,
+    factorX: 0.05,
+    factorY: 0.04,
+    stiffness: 60,
+    damping: 20,
+  },
+  {
+    x: "75%",
+    y: "25%",
+    size: 40,
+    color: "#ffffff",
+    type: "circle",
+    rotation: 0,
+    factorX: -0.04,
+    factorY: 0.05,
+    stiffness: 80,
+    damping: 18,
+  },
+  {
+    x: "25%",
+    y: "75%",
+    size: 55,
+    color: "#ffffff",
+    type: "square",
+    rotation: 15,
+    factorX: 0.045,
+    factorY: -0.035,
+    stiffness: 70,
+    damping: 20,
+  },
+  {
+    x: "70%",
+    y: "80%",
+    size: 35,
+    color: "#ffffff",
+    type: "triangle",
+    rotation: 0,
+    factorX: -0.06,
+    factorY: 0.045,
+    stiffness: 75,
+    damping: 16,
+  },
+];
+
+const CONTENT_SHAPES: ShapeConfig[] = [
+  {
+    x: "85%",
+    y: "5%",
+    size: 45,
+    color: "#06B6D4",
+    type: "circle",
+    rotation: 0,
+    factorX: -0.05,
+    factorY: 0.04,
+    stiffness: 70,
+    damping: 18,
+  },
+  {
+    x: "10%",
+    y: "12%",
+    size: 50,
+    color: "#EC4899",
+    type: "square",
+    rotation: 20,
+    factorX: 0.045,
+    factorY: -0.05,
+    stiffness: 60,
+    damping: 20,
+  },
+  {
+    x: "92%",
+    y: "22%",
+    size: 38,
+    color: "#F59E0B",
+    type: "triangle",
+    rotation: 0,
+    factorX: -0.04,
+    factorY: 0.06,
+    stiffness: 80,
+    damping: 16,
+  },
+  {
+    x: "8%",
+    y: "38%",
+    size: 40,
+    color: "#10B981",
+    type: "circle",
+    rotation: 0,
+    factorX: 0.055,
+    factorY: 0.035,
+    stiffness: 65,
+    damping: 18,
+  },
+  {
+    x: "88%",
+    y: "48%",
+    size: 55,
+    color: "#8B5CF6",
+    type: "square",
+    rotation: 45,
+    factorX: -0.035,
+    factorY: -0.045,
+    stiffness: 55,
+    damping: 22,
+  },
+  {
+    x: "12%",
+    y: "62%",
+    size: 45,
+    color: "#06B6D4",
+    type: "square",
+    rotation: 15,
+    factorX: 0.05,
+    factorY: 0.04,
+    stiffness: 75,
+    damping: 18,
+  },
+  {
+    x: "90%",
+    y: "72%",
+    size: 35,
+    color: "#EC4899",
+    type: "circle",
+    rotation: 0,
+    factorX: -0.06,
+    factorY: -0.04,
+    stiffness: 85,
+    damping: 15,
+  },
+  {
+    x: "15%",
+    y: "85%",
+    size: 42,
+    color: "#F59E0B",
+    type: "triangle",
+    rotation: 180,
+    factorX: 0.04,
+    factorY: -0.055,
+    stiffness: 70,
+    damping: 18,
+  },
+];
+
+function ExperienceShape({
+  shape,
+  centerX,
+  centerY,
+  filled = true,
+  opacity = 1,
+  enableMotion = true,
+  scaleFactor = 1,
+}: {
+  shape: ShapeConfig;
+  centerX: MotionValue<number>;
+  centerY: MotionValue<number>;
+  filled?: boolean;
+  opacity?: number;
+  enableMotion?: boolean;
+  scaleFactor?: number;
+}) {
+  const shouldReduceMotion = useReducedMotion();
+  const isMotionDisabled = shouldReduceMotion || !enableMotion;
+
+  const offsetX = useTransform(centerX, (v) => (isMotionDisabled ? 0 : v * shape.factorX));
+  const offsetY = useTransform(centerY, (v) => (isMotionDisabled ? 0 : v * shape.factorY));
+  const springX = useSpring(offsetX, { stiffness: shape.stiffness, damping: shape.damping });
+  const springY = useSpring(offsetY, { stiffness: shape.stiffness, damping: shape.damping });
+
+  const scaledSize = shape.size * scaleFactor;
+
+  const renderShape = () => {
+    const baseOpacity = filled ? opacity * 0.8 : opacity * 0.5;
+    if (shape.type === "circle") {
+      return (
+        <div
+          aria-hidden="true"
+          style={{
+            width: scaledSize,
+            height: scaledSize,
+            backgroundColor: filled ? shape.color : "transparent",
+            border: filled ? "none" : `2px solid ${shape.color}`,
+            borderRadius: "50%",
+            opacity: baseOpacity,
+          }}
+        />
+      );
+    }
+    if (shape.type === "triangle") {
+      if (filled) {
+        return (
+          <div
+            aria-hidden="true"
+            style={{
+              width: 0,
+              height: 0,
+              borderLeft: `${scaledSize / 2}px solid transparent`,
+              borderRight: `${scaledSize / 2}px solid transparent`,
+              borderBottom: `${scaledSize}px solid ${shape.color}`,
+              opacity: baseOpacity,
+            }}
+          />
+        );
+      }
+      return (
+        <svg
+          aria-hidden="true"
+          width={scaledSize}
+          height={scaledSize}
+          viewBox="0 0 100 100"
+          style={{ opacity: baseOpacity }}
+        >
+          <polygon points="50,10 90,90 10,90" fill="none" stroke={shape.color} strokeWidth="3" />
+        </svg>
+      );
+    }
+    return (
+      <div
+        aria-hidden="true"
+        style={{
+          width: scaledSize,
+          height: scaledSize,
+          backgroundColor: filled ? shape.color : "transparent",
+          border: filled ? "none" : `2px solid ${shape.color}`,
+          transform: `rotate(${shape.rotation}deg)`,
+          opacity: baseOpacity,
+        }}
+      />
+    );
+  };
+
+  return (
+    <motion.div
+      className="pointer-events-none absolute"
+      aria-hidden="true"
+      style={{
+        left: shape.x,
+        top: shape.y,
+        x: isMotionDisabled ? 0 : springX,
+        y: isMotionDisabled ? 0 : springY,
+        translateX: "-50%",
+        translateY: "-50%",
+      }}
+    >
+      {renderShape()}
+    </motion.div>
+  );
+}
+
+function ExperienceCard({
+  exp,
+  index,
+  isActive,
+  scrollYProgress,
+  enableParallax = true,
+}: {
+  exp: ExperienceData;
+  index: number;
+  isActive: boolean;
+  scrollYProgress: MotionValue<number>;
+  enableParallax?: boolean;
+}) {
+  const shouldReduceMotion = useReducedMotion();
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+  const useParallax = enableParallax && !shouldReduceMotion;
+
+  const numberY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    useParallax ? [50 * (index + 1), -100 * (index + 1)] : [0, 0]
+  );
+  const springNumberY = useSpring(numberY, { stiffness: 100, damping: 30 });
+
+  const cardY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    useParallax ? [30 * (index + 1), -60 * (index + 1)] : [0, 0]
+  );
+  const springCardY = useSpring(cardY, { stiffness: 120, damping: 25 });
+
+  return (
+    <article
+      data-experience-card={index}
+      className="group relative"
+      aria-labelledby={`exp-${index}-title`}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 80 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.8, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <motion.div className="relative" style={{ y: useParallax ? springNumberY : 0 }}>
+          <motion.span
+            className="pointer-events-none block text-[6rem] leading-none font-black sm:text-[8rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]"
+            style={{
+              fontFamily: "var(--font-display)",
+              color: isDark ? exp.numberColorDark : exp.numberColorLight,
+            }}
+            animate={{ scale: shouldReduceMotion ? 1 : isActive ? 1.02 : 1 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+            aria-hidden="true"
+          >
+            {String(index + 1).padStart(2, "0")}
+          </motion.span>
+        </motion.div>
+
+        <motion.div
+          className="border-border bg-background/95 relative -mt-12 border-2 p-4 backdrop-blur-sm sm:-mt-14 sm:p-6 md:-mt-16 md:p-8 lg:-mt-20 lg:ml-4 xl:ml-8"
+          style={{
+            borderColor: isActive
+              ? exp.color
+              : isDark
+                ? "rgba(139, 92, 246, 0.2)"
+                : "rgba(139, 92, 246, 0.3)",
+            y: useParallax ? springCardY : 0,
+          }}
+          animate={{ x: shouldReduceMotion ? 0 : isActive ? 10 : 0 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+        >
+          <div
+            className="absolute top-4 right-4 hidden items-center gap-2 sm:top-6 sm:right-6 sm:flex"
+            aria-hidden="true"
+          >
+            <div className="bg-foreground/30 h-px w-8 sm:w-12" />
+            <div
+              className="bg-foreground/50 h-1.5 w-1.5 sm:h-2 sm:w-2"
+              style={{ transform: "rotate(45deg)" }}
+            />
+          </div>
+
+          <div className="relative mb-2 inline-block sm:mb-3">
+            <motion.span
+              className="absolute -inset-x-2 -inset-y-1 sm:-inset-x-4 sm:-inset-y-2"
+              style={{ backgroundColor: exp.color, originX: 0 }}
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: shouldReduceMotion || isActive ? 1 : 0 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
+              aria-hidden="true"
+            />
+            <h3
+              id={`exp-${index}-title`}
+              className="relative z-10 text-xl font-black sm:text-2xl md:text-3xl lg:text-4xl"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              <motion.span
+                animate={{
+                  color:
+                    shouldReduceMotion || isActive
+                      ? "#fff"
+                      : isDark
+                        ? "var(--color-foreground)"
+                        : "#1a1a1a",
+                }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+              >
+                {exp.company.toUpperCase()}
+              </motion.span>
+            </h3>
+          </div>
+
+          <p className="text-foreground mb-1 text-base font-medium sm:mb-2 sm:text-lg">
+            {exp.role}
+          </p>
+          <p className="mb-4 font-mono text-xs sm:mb-6 sm:text-sm" style={{ color: exp.color }}>
+            <time>{exp.period}</time>
+            <span aria-hidden="true"> · </span>
+            <span>{exp.duration}</span>
+          </p>
+
+          <p className="text-foreground/70 mb-4 text-sm sm:mb-6 sm:text-base">{exp.description}</p>
+
+          <motion.div
+            className="overflow-hidden"
+            initial={{
+              height: shouldReduceMotion ? "auto" : 0,
+              opacity: shouldReduceMotion ? 1 : 0,
+            }}
+            animate={{
+              height: shouldReduceMotion || isActive ? "auto" : 0,
+              opacity: shouldReduceMotion || isActive ? 1 : 0,
+            }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.4 }}
+          >
+            <ul className="mb-4 space-y-2 sm:mb-6 sm:space-y-3" role="list">
+              {exp.highlights.map((h, i) => (
+                <motion.li
+                  key={i}
+                  className="text-foreground flex items-start gap-2 text-xs sm:gap-3 sm:text-sm"
+                  initial={{ x: shouldReduceMotion ? 0 : -20, opacity: shouldReduceMotion ? 1 : 0 }}
+                  animate={{
+                    x: shouldReduceMotion || isActive ? 0 : -20,
+                    opacity: shouldReduceMotion || isActive ? 1 : 0,
+                  }}
+                  transition={{ delay: shouldReduceMotion ? 0 : i * 0.05 }}
+                >
+                  <span
+                    className="bg-foreground mt-1 h-1.5 w-1.5 shrink-0 sm:mt-1.5 sm:h-2 sm:w-2"
+                    style={{ transform: "rotate(45deg)" }}
+                    aria-hidden="true"
+                  />
+                  {h}
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+
+          <div className="mb-3 flex items-center gap-2 sm:mb-4 sm:gap-3" aria-hidden="true">
+            <div className="bg-foreground/20 h-px flex-1" />
+            <span className="text-foreground/40 text-[10px] font-medium tracking-wider uppercase sm:text-xs">
+              Stack
+            </span>
+            <div className="bg-foreground/20 h-px flex-1" />
+          </div>
+
+          <ul
+            className="flex flex-wrap gap-1.5 sm:gap-2"
+            role="list"
+            aria-label="Technologies used"
+          >
+            {exp.skills.map((skill, i) => (
+              <motion.li
+                key={skill}
+                className="text-foreground border px-2 py-1 text-[10px] font-medium sm:px-3 sm:text-xs"
+                style={{
+                  borderColor: `${exp.color}80`,
+                  backgroundColor: isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.03)",
+                }}
+                initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: shouldReduceMotion ? 0 : 0.3 + i * 0.05 }}
+                whileHover={
+                  shouldReduceMotion ? {} : { backgroundColor: `${exp.color}30`, scale: 1.05 }
+                }
+              >
+                {skill}
+              </motion.li>
+            ))}
+          </ul>
+        </motion.div>
+      </motion.div>
+    </article>
+  );
+}
+
+export default function Experience() {
+  const [activeSection, setActiveSection] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+  const isTouch = useIsTouchDevice();
+
+  const centerX = useMotionValue(0);
+  const centerY = useMotionValue(0);
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent) => {
+      if (isTouch) return;
+      centerX.set(e.clientX - window.innerWidth / 2);
+      centerY.set(e.clientY - window.innerHeight / 2);
+    },
+    [centerX, centerY, isTouch]
+  );
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!contentRef.current) return;
+      const cards = contentRef.current.querySelectorAll("[data-experience-card]");
+      cards.forEach((card, index) => {
+        const rect = card.getBoundingClientRect();
+        const viewportMiddle = window.innerHeight / 2;
+        if (rect.top < viewportMiddle && rect.bottom > viewportMiddle) {
+          setActiveSection(index);
+        }
+      });
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const enableShapeMotion = !isTouch && !shouldReduceMotion;
+
+  return (
+    <section
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      className="bg-background relative"
+      aria-labelledby="experience-heading"
+    >
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="experience-grid" width="100" height="100" patternUnits="userSpaceOnUse">
+              <path
+                d="M 100 0 L 0 0 0 100"
+                fill="none"
+                stroke="rgba(139, 92, 246, 0.2)"
+                strokeWidth="1"
+              />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#experience-grid)" />
+        </svg>
+      </div>
+
+      <div className="relative flex flex-col lg:flex-row">
+        <aside
+          className="sticky top-0 hidden h-screen w-full shrink-0 overflow-hidden lg:block lg:w-2/5"
+          style={{ backgroundColor: "#8B5CF6" }}
+          aria-label="Work history navigation"
+        >
+          <div className="absolute inset-0" aria-hidden="true">
+            <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="sidebar-grid" width="100" height="100" patternUnits="userSpaceOnUse">
+                  <path
+                    d="M 100 0 L 0 0 0 100"
+                    fill="none"
+                    stroke="rgba(255, 255, 255, 0.15)"
+                    strokeWidth="1"
+                  />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#sidebar-grid)" />
+            </svg>
+          </div>
+
+          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+            {SIDEBAR_SHAPES.map((shape, i) => (
+              <ExperienceShape
+                key={`sidebar-${i}`}
+                shape={shape}
+                centerX={centerX}
+                centerY={centerY}
+                filled={i % 2 === 0}
+                opacity={0.9}
+                enableMotion={enableShapeMotion}
+              />
+            ))}
+          </div>
+
+          <div className="relative z-10 flex h-full flex-col justify-center p-8 xl:p-12">
+            <motion.div
+              initial={{ x: shouldReduceMotion ? 0 : -50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <span className="mb-4 block font-mono text-xs text-white/60 xl:text-sm">
+                SECTION 01
+              </span>
+              <h2
+                id="experience-heading"
+                className="text-4xl font-black xl:text-5xl 2xl:text-6xl"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
+                <span className="text-white">WORK</span>
+                <br />
+                <span className="text-black">HISTORY</span>
+              </h2>
+
+              <nav
+                className="mt-8 space-y-3 xl:mt-12 xl:space-y-4"
+                aria-label="Experience navigation"
+              >
+                {EXPERIENCES.map((exp, i) => (
+                  <motion.button
+                    key={i}
+                    type="button"
+                    className="flex w-full cursor-pointer items-center gap-3 p-1 text-left xl:gap-4"
+                    animate={{
+                      opacity: activeSection === i ? 1 : 0.4,
+                      x: shouldReduceMotion ? 0 : activeSection === i ? 10 : 0,
+                    }}
+                    transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+                    onClick={() => {
+                      const card = document.querySelector(`[data-experience-card="${i}"]`);
+                      card?.scrollIntoView({ behavior: "smooth", block: "center" });
+                    }}
+                    aria-current={activeSection === i ? "true" : undefined}
+                    aria-label={`Go to ${exp.company} experience`}
+                  >
+                    <motion.span
+                      className="h-3 w-3 shrink-0 xl:h-4 xl:w-4"
+                      style={{
+                        backgroundColor: activeSection === i ? "#fff" : "transparent",
+                        border: "2px solid #fff",
+                        transform: "rotate(45deg)",
+                      }}
+                      animate={{ scale: activeSection === i ? 1.2 : 1 }}
+                      transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
+                      aria-hidden="true"
+                    />
+                    <span
+                      className="text-xs font-semibold tracking-wide text-white xl:text-sm"
+                      style={{ fontFamily: "var(--font-display)" }}
+                    >
+                      {exp.company}
+                    </span>
+                    <motion.span
+                      className="h-px flex-1 bg-white"
+                      initial={{ scaleX: 0, originX: 0 }}
+                      animate={{ scaleX: activeSection === i ? 1 : 0 }}
+                      transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+                      aria-hidden="true"
+                    />
+                  </motion.button>
+                ))}
+              </nav>
+            </motion.div>
+          </div>
+        </aside>
+
+        <div className="relative w-full lg:w-3/5">
+          <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+            {CONTENT_SHAPES.slice(0, isTouch ? 4 : CONTENT_SHAPES.length).map((shape, i) => (
+              <ExperienceShape
+                key={`content-${i}`}
+                shape={shape}
+                centerX={centerX}
+                centerY={centerY}
+                filled={i % 2 === 0}
+                opacity={0.7}
+                enableMotion={enableShapeMotion}
+                scaleFactor={isTouch ? 0.7 : 1}
+              />
+            ))}
+          </div>
+
+          <header className="relative z-10 px-4 pt-20 sm:px-6 sm:pt-24 lg:hidden">
+            <span
+              className="mb-2 block font-mono text-xs opacity-50 sm:text-sm"
+              style={{ color: "#8B5CF6" }}
+            >
+              SECTION 01
+            </span>
+            <h2
+              id="experience-heading-mobile"
+              className="text-3xl font-black sm:text-4xl md:text-5xl"
+              style={{ fontFamily: "var(--font-display)", color: "#8B5CF6" }}
+            >
+              WORK HISTORY
+            </h2>
+
+            <nav className="mt-6 flex flex-wrap gap-2 sm:gap-3" aria-label="Experience navigation">
+              {EXPERIENCES.map((exp, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => {
+                    const card = document.querySelector(`[data-experience-card="${i}"]`);
+                    card?.scrollIntoView({ behavior: "smooth", block: "center" });
+                  }}
+                  className="px-3 py-2 text-xs font-medium transition-colors sm:px-4 sm:text-sm"
+                  style={{
+                    backgroundColor: activeSection === i ? exp.color : "transparent",
+                    color: activeSection === i ? "#fff" : exp.color,
+                    border: `2px solid ${exp.color}`,
+                  }}
+                  aria-current={activeSection === i ? "true" : undefined}
+                  aria-label={`Go to ${exp.company} experience`}
+                >
+                  {exp.company}
+                </button>
+              ))}
+            </nav>
+          </header>
+
+          <div
+            ref={contentRef}
+            className="relative z-10 space-y-20 px-4 py-16 sm:space-y-24 sm:px-6 sm:py-20 md:space-y-32 md:py-24 lg:space-y-40 lg:px-10 lg:py-32 xl:space-y-48 xl:px-12 xl:py-40"
+          >
+            {EXPERIENCES.map((exp, index) => (
+              <ExperienceCard
+                key={exp.company}
+                exp={exp}
+                index={index}
+                isActive={activeSection === index}
+                scrollYProgress={scrollYProgress}
+                enableParallax={!shouldReduceMotion && !isTouch}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

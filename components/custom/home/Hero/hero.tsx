@@ -1,31 +1,43 @@
 "use client";
 
-import { useRef, useCallback, useEffect, useState } from "react";
+import { useRef, useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import {
   motion,
   useScroll,
   useTransform,
   useSpring,
   useMotionValue,
+  useReducedMotion,
   MotionValue,
 } from "framer-motion";
 import { Download, ArrowRight } from "lucide-react";
 import { SiReact, SiTypescript, SiNextdotjs, SiTailwindcss, SiJest } from "react-icons/si";
 import { MagneticButton } from "@/components/custom/MagneticButton";
 
+function useIsTouchDevice() {
+  const getSnapshot = () => "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  const getServerSnapshot = () => false;
+  const subscribe = (callback: () => void) => {
+    window.addEventListener("touchstart", callback, { once: true });
+    return () => window.removeEventListener("touchstart", callback);
+  };
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+}
+
 interface TechItem {
   icon: typeof SiReact | null;
   label: string;
   color: string;
+  showOnMobile: boolean;
 }
 
 const TECH_STACK: TechItem[] = [
-  { icon: SiReact, label: "React", color: "#61DAFB" },
-  { icon: SiNextdotjs, label: "Next.js", color: "#ffffff" },
-  { icon: SiTypescript, label: "TypeScript", color: "#3178C6" },
-  { icon: SiTailwindcss, label: "Tailwind", color: "#06B6D4" },
-  { icon: SiJest, label: "Jest", color: "#C21325" },
-  { icon: null, label: "Claude", color: "#D97757" },
+  { icon: SiReact, label: "React", color: "#61DAFB", showOnMobile: true },
+  { icon: SiNextdotjs, label: "Next.js", color: "#ffffff", showOnMobile: true },
+  { icon: SiTypescript, label: "TypeScript", color: "#3178C6", showOnMobile: false },
+  { icon: SiTailwindcss, label: "Tailwind", color: "#06B6D4", showOnMobile: false },
+  { icon: SiJest, label: "Jest", color: "#C21325", showOnMobile: false },
+  { icon: null, label: "Claude", color: "#D97757", showOnMobile: true },
 ];
 
 interface ShapeConfig {
@@ -216,51 +228,59 @@ const BORDERED_SHAPES: ShapeConfig[] = [
 ];
 
 const CURSOR_SHAPES: CursorShapeConfig[] = [
-  { offsetX: -45, offsetY: -60, size: 14, stiffness: 400, damping: 25 },
-  { offsetX: 50, offsetY: -55, size: 11, stiffness: 250, damping: 20 },
-  { offsetX: 55, offsetY: 35, size: 16, stiffness: 150, damping: 30 },
-  { offsetX: -40, offsetY: 40, size: 12, stiffness: 100, damping: 18 },
+  { offsetX: -45, offsetY: -50, size: 12, stiffness: 300, damping: 22 },
+  { offsetX: 50, offsetY: 45, size: 10, stiffness: 180, damping: 18 },
 ];
 
 function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+  const isTouch = useIsTouchDevice();
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
   });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -300]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -150]);
-  const y3 = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const enableParallax = !shouldReduceMotion && !isTouch;
+
+  const y1 = useTransform(scrollYProgress, [0, 1], enableParallax ? [0, -300] : [0, 0]);
+  const y2 = useTransform(scrollYProgress, [0, 1], enableParallax ? [0, -150] : [0, 0]);
+  const y3 = useTransform(scrollYProgress, [0, 1], enableParallax ? [0, -50] : [0, 0]);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const centerX = useMotionValue(0);
   const centerY = useMotionValue(0);
 
+  const enableMotion = !shouldReduceMotion && !isTouch;
+
   const handleMouseMove = useCallback(
     (e: React.MouseEvent) => {
+      if (!enableMotion) return;
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
       centerX.set(e.clientX - window.innerWidth / 2);
       centerY.set(e.clientY - window.innerHeight / 2);
     },
-    [mouseX, mouseY, centerX, centerY]
+    [mouseX, mouseY, centerX, centerY, enableMotion]
   );
 
   return (
     <section
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="bg-background fixed inset-0 flex h-screen w-screen items-center justify-center overflow-hidden"
+      className="bg-background relative flex h-screen w-full items-center justify-center overflow-hidden"
+      aria-label="Hero section introducing Diego Sanchez"
     >
-      <GridBackground mouseX={mouseX} mouseY={mouseY} />
+      <GridBackground mouseX={mouseX} mouseY={mouseY} enableMotion={enableMotion} />
       <ReactiveShapes
         shapes={SOLID_SHAPES}
         centerX={centerX}
         centerY={centerY}
         scrollY={scrollYProgress}
         filled
+        enableMotion={enableMotion}
       />
       <ReactiveShapes
         shapes={BORDERED_SHAPES}
@@ -268,22 +288,34 @@ function Hero() {
         centerY={centerY}
         scrollY={scrollYProgress}
         filled={false}
+        enableMotion={enableMotion}
       />
-      <CursorShapes mouseX={mouseX} mouseY={mouseY} />
+      {!isTouch && <CursorShapes mouseX={mouseX} mouseY={mouseY} enableMotion={enableMotion} />}
 
       <motion.div
-        className="relative z-10 flex flex-col items-center px-6 text-center"
+        className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center px-6 text-center"
         style={{ y: y1 }}
       >
         <motion.div
           className="mb-8 flex flex-wrap justify-center gap-3"
           style={{ y: y2 }}
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
+          transition={{
+            delay: shouldReduceMotion ? 0 : 0.5,
+            duration: shouldReduceMotion ? 0 : 0.6,
+          }}
+          role="list"
+          aria-label="Technology stack"
         >
           {TECH_STACK.map((tech, index) => (
-            <MagneticPill key={tech.label} tech={tech} index={index} />
+            <MagneticPill
+              key={tech.label}
+              tech={tech}
+              index={index}
+              enableMotion={enableMotion}
+              className={tech.showOnMobile ? "" : "hidden sm:flex"}
+            />
           ))}
         </motion.div>
 
@@ -291,26 +323,40 @@ function Hero() {
           <motion.h1
             className="text-foreground mb-2 text-6xl font-black tracking-tight sm:text-7xl md:text-8xl lg:text-9xl"
             style={{ fontFamily: "var(--font-display)" }}
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            transition={{
+              delay: shouldReduceMotion ? 0 : 0.8,
+              duration: shouldReduceMotion ? 0 : 0.8,
+              ease: [0.22, 1, 0.36, 1],
+            }}
           >
             DIEGO
           </motion.h1>
           <motion.h1
             className="mb-6 text-6xl font-black tracking-tight sm:text-7xl md:text-8xl lg:text-9xl"
             style={{ fontFamily: "var(--font-display)" }}
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            transition={{
+              delay: shouldReduceMotion ? 0 : 0.9,
+              duration: shouldReduceMotion ? 0 : 0.8,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            aria-label="Sanchez"
           >
             <span className="relative inline-block">
               <span className="text-background relative z-10">SANCHEZ</span>
               <motion.span
                 className="bg-accent absolute -inset-x-4 inset-y-0"
-                initial={{ scaleX: 0, originX: 0 }}
+                initial={{ scaleX: shouldReduceMotion ? 1 : 0, originX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{ delay: 1.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                transition={{
+                  delay: shouldReduceMotion ? 0 : 1.2,
+                  duration: shouldReduceMotion ? 0 : 0.6,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                aria-hidden="true"
               />
             </span>
           </motion.h1>
@@ -319,40 +365,49 @@ function Hero() {
         <motion.p
           className="text-foreground/80 mb-12 max-w-lg text-xl md:text-2xl md:whitespace-nowrap"
           style={{ fontFamily: "var(--font-display)" }}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 0.6 }}
+          transition={{
+            delay: shouldReduceMotion ? 0 : 1.6,
+            duration: shouldReduceMotion ? 0 : 0.6,
+          }}
         >
           Obsessed with making <span className="text-accent font-bold">ideas breathe</span>
         </motion.p>
 
         <motion.div
           className="flex flex-wrap items-center justify-center gap-4"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.8, duration: 0.6 }}
+          transition={{
+            delay: shouldReduceMotion ? 0 : 1.8,
+            duration: shouldReduceMotion ? 0 : 0.6,
+          }}
         >
           <MagneticButton variant="primary" size="lg">
-            <Download className="mr-2 h-5 w-5" />
+            <Download className="mr-2 h-5 w-5" aria-hidden="true" />
             Download Resume
           </MagneticButton>
           <MagneticButton variant="ghost" size="lg">
             View Projects
-            <ArrowRight className="ml-2 h-5 w-5" />
+            <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
           </MagneticButton>
         </motion.div>
       </motion.div>
 
       <motion.div
         className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2"
-        initial={{ opacity: 0 }}
+        initial={{ opacity: shouldReduceMotion ? 1 : 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.2 }}
+        transition={{ delay: shouldReduceMotion ? 0 : 2.2 }}
+        aria-hidden="true"
       >
         <motion.div
           className="text-muted flex flex-col items-center gap-2"
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          animate={shouldReduceMotion ? {} : { y: [0, 8, 0] }}
+          transition={
+            shouldReduceMotion ? {} : { repeat: Infinity, duration: 2, ease: "easeInOut" }
+          }
         >
           <span className="text-xs tracking-widest uppercase">Scroll</span>
           <div className="from-muted h-8 w-px bg-gradient-to-b to-transparent" />
@@ -362,16 +417,29 @@ function Hero() {
   );
 }
 
-function MagneticPill({ tech, index }: { tech: TechItem; index: number }) {
+function MagneticPill({
+  tech,
+  index,
+  enableMotion = true,
+  className = "",
+}: {
+  tech: TechItem;
+  index: number;
+  enableMotion?: boolean;
+  className?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isDark, setIsDark] = useState(true);
+  const shouldReduceMotion = useReducedMotion();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
   const springConfig = { stiffness: 200, damping: 20 };
   const springX = useSpring(x, springConfig);
   const springY = useSpring(y, springConfig);
+
+  const shouldAnimate = enableMotion && !shouldReduceMotion;
 
   useEffect(() => {
     const checkTheme = () => {
@@ -387,7 +455,7 @@ function MagneticPill({ tech, index }: { tech: TechItem; index: number }) {
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!ref.current) return;
+    if (!ref.current || !shouldAnimate) return;
     const rect = ref.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
@@ -449,31 +517,38 @@ function MagneticPill({ tech, index }: { tech: TechItem; index: number }) {
   return (
     <motion.div
       ref={ref}
-      className="magnetic"
-      style={{ x: springX, y: springY }}
+      className={`magnetic ${className}`}
+      role="listitem"
+      style={{ x: shouldAnimate ? springX : 0, y: shouldAnimate ? springY : 0 }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
-      initial={{ opacity: 0, scale: 0.8 }}
+      initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 0.6 + index * 0.1, duration: 0.4 }}
+      transition={{
+        delay: shouldReduceMotion ? 0 : 0.6 + index * 0.1,
+        duration: shouldReduceMotion ? 0 : 0.4,
+      }}
     >
       <motion.div
-        className="flex cursor-pointer items-center gap-2 rounded-full border-2 px-4 py-2"
+        className="focus-visible:ring-accent focus-visible:ring-offset-background flex cursor-pointer items-center gap-2 border-2 px-4 py-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+        tabIndex={0}
         initial={false}
         animate={{
           borderColor: getBorderColor(),
           backgroundColor: getBackgroundColor(),
-          scale: isHovered ? 1.05 : 1,
+          scale: shouldAnimate && isHovered ? 1.05 : 1,
         }}
-        whileTap={{ scale: 0.98 }}
-        transition={{ duration: 0.2 }}
+        whileTap={shouldAnimate ? { scale: 0.98 } : {}}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
+        aria-label={tech.label}
       >
         {tech.icon ? (
           <motion.div
             initial={false}
             animate={{ color: getIconColor() }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
+            aria-hidden="true"
           >
             <tech.icon className="h-4 w-4" />
           </motion.div>
@@ -482,7 +557,8 @@ function MagneticPill({ tech, index }: { tech: TechItem; index: number }) {
             className="text-sm font-bold"
             initial={false}
             animate={{ color: isHovered ? "#ffffff" : tech.color }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
+            aria-hidden="true"
           >
             {tech.label.charAt(0)}
           </motion.span>
@@ -491,7 +567,7 @@ function MagneticPill({ tech, index }: { tech: TechItem; index: number }) {
           className="text-sm font-semibold"
           initial={false}
           animate={{ color: getTextColor() }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
         >
           {tech.label}
         </motion.span>
@@ -503,15 +579,17 @@ function MagneticPill({ tech, index }: { tech: TechItem; index: number }) {
 function GridBackground({
   mouseX,
   mouseY,
+  enableMotion = true,
 }: {
   mouseX: MotionValue<number>;
   mouseY: MotionValue<number>;
+  enableMotion?: boolean;
 }) {
   const smoothX = useSpring(mouseX, { stiffness: 100, damping: 30 });
   const smoothY = useSpring(mouseY, { stiffness: 100, damping: 30 });
 
   return (
-    <div className="pointer-events-none absolute inset-0">
+    <div className="pointer-events-none absolute inset-0" aria-hidden="true">
       <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="hero-grid" width="100" height="100" patternUnits="userSpaceOnUse">
@@ -526,17 +604,19 @@ function GridBackground({
         <rect width="100%" height="100%" fill="url(#hero-grid)" />
       </svg>
 
-      <motion.div
-        className="pointer-events-none absolute h-[600px] w-[600px] rounded-full"
-        style={{
-          left: smoothX,
-          top: smoothY,
-          x: "-50%",
-          y: "-50%",
-          background:
-            "radial-gradient(circle, rgba(139, 92, 246, 0.13) 0%, rgba(139, 92, 246, 0.04) 45%, transparent 60%)",
-        }}
-      />
+      {enableMotion && (
+        <motion.div
+          className="pointer-events-none absolute h-[600px] w-[600px] rounded-full"
+          style={{
+            left: smoothX,
+            top: smoothY,
+            x: "-50%",
+            y: "-50%",
+            background:
+              "radial-gradient(circle, rgba(139, 92, 246, 0.13) 0%, rgba(139, 92, 246, 0.04) 45%, transparent 60%)",
+          }}
+        />
+      )}
     </div>
   );
 }
@@ -547,15 +627,17 @@ function ReactiveShapes({
   centerY,
   scrollY,
   filled,
+  enableMotion = true,
 }: {
   shapes: ShapeConfig[];
   centerX: MotionValue<number>;
   centerY: MotionValue<number>;
   scrollY: MotionValue<number>;
   filled: boolean;
+  enableMotion?: boolean;
 }) {
   return (
-    <div className="pointer-events-none absolute inset-0">
+    <div className="pointer-events-none absolute inset-0" aria-hidden="true">
       {shapes.map((shape, i) => (
         <ReactiveShape
           key={i}
@@ -565,6 +647,7 @@ function ReactiveShapes({
           scrollY={scrollY}
           index={i}
           filled={filled}
+          enableMotion={enableMotion}
         />
       ))}
     </div>
@@ -578,6 +661,7 @@ function ReactiveShape({
   scrollY,
   index,
   filled,
+  enableMotion = true,
 }: {
   shape: ShapeConfig;
   centerX: MotionValue<number>;
@@ -585,8 +669,12 @@ function ReactiveShape({
   scrollY: MotionValue<number>;
   index: number;
   filled: boolean;
+  enableMotion?: boolean;
 }) {
   const [isMobile, setIsMobile] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
+
+  const shouldAnimate = enableMotion && !shouldReduceMotion;
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -597,9 +685,13 @@ function ReactiveShape({
 
   const hiddenClass = shape.hideOnMobile ? "hidden md:block" : "";
 
-  const offsetX = useTransform(centerX, (v) => v * shape.factorX);
-  const offsetY = useTransform(centerY, (v) => v * shape.factorY);
-  const scrollOffset = useTransform(scrollY, [0, 1], [0, shape.scrollFactor]);
+  const offsetX = useTransform(centerX, (v) => (shouldAnimate ? v * shape.factorX : 0));
+  const offsetY = useTransform(centerY, (v) => (shouldAnimate ? v * shape.factorY : 0));
+  const scrollOffset = useTransform(
+    scrollY,
+    [0, 1],
+    shouldAnimate ? [0, shape.scrollFactor] : [0, 0]
+  );
 
   const springX = useSpring(offsetX, { stiffness: shape.stiffness, damping: shape.damping });
   const springY = useSpring(offsetY, { stiffness: shape.stiffness, damping: shape.damping });
@@ -614,14 +706,17 @@ function ReactiveShape({
       style={{
         left: posX,
         top: posY,
-        x: isMobile ? 0 : springX,
-        y: isMobile ? scrollOffset : springY,
+        x: isMobile || !shouldAnimate ? 0 : springX,
+        y: isMobile ? scrollOffset : shouldAnimate ? springY : 0,
         translateX: "-50%",
         translateY: "-50%",
       }}
-      initial={{ opacity: 0, scale: 0 }}
+      initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0 }}
       animate={{ opacity: isMobile ? 0.6 : 1, scale: 1 }}
-      transition={{ delay: 0.3 + index * 0.08, duration: 0.5 }}
+      transition={{
+        delay: shouldReduceMotion ? 0 : 0.3 + index * 0.08,
+        duration: shouldReduceMotion ? 0 : 0.5,
+      }}
     >
       <Shape
         type={shape.type}
@@ -650,6 +745,7 @@ function Shape({
   if (type === "circle") {
     return (
       <div
+        aria-hidden="true"
         style={{
           width: size,
           height: size,
@@ -665,6 +761,7 @@ function Shape({
     if (filled) {
       return (
         <div
+          aria-hidden="true"
           style={{
             width: 0,
             height: 0,
@@ -676,7 +773,7 @@ function Shape({
       );
     }
     return (
-      <svg width={size} height={size} viewBox="0 0 100 100">
+      <svg width={size} height={size} viewBox="0 0 100 100" aria-hidden="true">
         <polygon points="50,10 90,90 10,90" fill="none" stroke={color} strokeWidth="3" />
       </svg>
     );
@@ -684,6 +781,7 @@ function Shape({
 
   return (
     <div
+      aria-hidden="true"
       style={{
         width: size,
         height: size,
@@ -698,12 +796,18 @@ function Shape({
 function CursorShapes({
   mouseX,
   mouseY,
+  enableMotion = true,
 }: {
   mouseX: MotionValue<number>;
   mouseY: MotionValue<number>;
+  enableMotion?: boolean;
 }) {
+  const shouldReduceMotion = useReducedMotion();
+
+  if (shouldReduceMotion || !enableMotion) return null;
+
   return (
-    <div className="pointer-events-none fixed inset-0 z-[15]">
+    <div className="pointer-events-none fixed inset-0 z-[15]" aria-hidden="true">
       {CURSOR_SHAPES.map((shape, i) => (
         <CursorFollower key={i} mouseX={mouseX} mouseY={mouseY} shape={shape} index={i} />
       ))}
@@ -722,6 +826,8 @@ function CursorFollower({
   shape: CursorShapeConfig;
   index: number;
 }) {
+  const shouldReduceMotion = useReducedMotion();
+
   const targetX = useTransform(mouseX, (v) => v + shape.offsetX - shape.size / 2);
   const targetY = useTransform(mouseY, (v) => v + shape.offsetY - shape.size / 2);
 
@@ -732,9 +838,13 @@ function CursorFollower({
     <motion.div
       className="border-accent/40 absolute top-0 left-0 border-2"
       style={{ width: shape.size, height: shape.size, x, y, rotate: 45 }}
-      initial={{ opacity: 0, scale: 0 }}
+      initial={{ opacity: shouldReduceMotion ? 0.5 : 0, scale: shouldReduceMotion ? 1 : 0 }}
       animate={{ opacity: 0.5, scale: 1 }}
-      transition={{ delay: 1 + index * 0.1, duration: 0.3 }}
+      transition={{
+        delay: shouldReduceMotion ? 0 : 1 + index * 0.1,
+        duration: shouldReduceMotion ? 0 : 0.3,
+      }}
+      aria-hidden="true"
     />
   );
 }

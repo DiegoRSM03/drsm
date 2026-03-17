@@ -23,8 +23,26 @@ jest.mock("framer-motion", () => {
       onMouseEnter?: () => void;
       onMouseLeave?: () => void;
       style?: object;
+      role?: string;
+      "aria-label"?: string;
+      "aria-hidden"?: boolean | "true" | "false";
+      tabIndex?: number;
     }
-  >(function MockDiv({ children, className, onClick, onMouseEnter, onMouseLeave, style }, ref) {
+  >(function MockDiv(
+    {
+      children,
+      className,
+      onClick,
+      onMouseEnter,
+      onMouseLeave,
+      style,
+      role,
+      "aria-label": ariaLabel,
+      "aria-hidden": ariaHidden,
+      tabIndex,
+    },
+    ref
+  ) {
     return (
       <div
         ref={ref}
@@ -33,6 +51,10 @@ jest.mock("framer-motion", () => {
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         style={style}
+        role={role}
+        aria-label={ariaLabel}
+        aria-hidden={ariaHidden}
+        tabIndex={tabIndex}
       >
         {children}
       </div>
@@ -81,6 +103,7 @@ jest.mock("framer-motion", () => {
     useTransform: () => 0,
     useSpring: () => ({ set: jest.fn(), get: () => 0 }),
     useMotionValue: () => ({ set: jest.fn(), get: () => 0 }),
+    useReducedMotion: () => false,
     MotionValue: class {},
   };
 });
@@ -169,5 +192,22 @@ describe("Hero", () => {
     render(<Hero />);
     const magneticButtons = screen.getAllByTestId("magnetic-button");
     expect(magneticButtons.length).toBe(2);
+  });
+
+  it("section has accessible aria-label", () => {
+    render(<Hero />);
+    expect(screen.getByLabelText(/hero section introducing/i)).toBeInTheDocument();
+  });
+
+  it("tech stack has role list and accessible label", () => {
+    render(<Hero />);
+    const techStackList = screen.getByRole("list", { name: /technology stack/i });
+    expect(techStackList).toBeInTheDocument();
+  });
+
+  it("renders tech pill items with listitem role", () => {
+    render(<Hero />);
+    const listItems = screen.getAllByRole("listitem");
+    expect(listItems.length).toBe(6);
   });
 });

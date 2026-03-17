@@ -231,7 +231,7 @@ export function CustomCursor() {
   return (
     <>
       <motion.div
-        className="bg-accent pointer-events-none fixed top-0 left-0 z-[9999] rounded-full mix-blend-difference"
+        className="bg-accent pointer-events-none fixed top-0 left-0 z-[9999] mix-blend-difference"
         style={{
           x: dotX,
           y: dotY,
@@ -247,12 +247,13 @@ export function CustomCursor() {
       />
 
       <motion.div
-        className="border-accent/50 pointer-events-none fixed top-0 left-0 z-[9998] rounded-full border-2 mix-blend-difference"
+        className="border-accent/50 pointer-events-none fixed top-0 left-0 z-[9998] border-2 mix-blend-difference"
         style={{
           x: circleX,
           y: circleY,
           translateX: "-50%",
           translateY: "-50%",
+          rotate: 45,
         }}
         animate={{
           width: getCircleSize(),

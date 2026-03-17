@@ -1,10 +1,28 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
+import { useState, useRef, useEffect, useSyncExternalStore } from "react";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  AnimatePresence,
+  useReducedMotion,
+} from "framer-motion";
+import Link from "next/link";
 import { Globe } from "lucide-react";
 import { ThemeToggle } from "@/components/custom/ThemeToggle";
 import { useTheme } from "@/contexts";
+
+function useIsTouchDevice() {
+  const getSnapshot = () => "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  const getServerSnapshot = () => false;
+  const subscribe = (callback: () => void) => {
+    window.addEventListener("touchstart", callback, { once: true });
+    return () => window.removeEventListener("touchstart", callback);
+  };
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+}
 
 const NAV_ITEMS = ["About", "Projects", "Experience", "Links"];
 
@@ -14,52 +32,48 @@ function MagneticLetter({
   isHovered,
   mouseX,
   mouseY,
+  enableMotion = true,
 }: {
   letter: string;
   index: number;
   isHovered: boolean;
   mouseX: ReturnType<typeof useMotionValue<number>>;
   mouseY: ReturnType<typeof useMotionValue<number>>;
+  enableMotion?: boolean;
 }) {
-  // Diagonal positions when hovered:
-  // D   S     (D top-left, S top-right)
-  //   R   M   (R bottom-left, M bottom-right)
   const positions = [
-    { x: -6, y: -7 }, // D - top left
-    { x: 0, y: 7 }, // R - bottom left (offset right a bit)
-    { x: 12, y: -7 }, // S - top right
-    { x: 18, y: 7 }, // M - bottom right
+    { x: -6, y: -7 },
+    { x: 0, y: 7 },
+    { x: 12, y: -7 },
+    { x: 18, y: 7 },
   ];
 
-  // Each letter reacts differently to mouse movement (magnetic intensity)
   const factors = [
-    { x: 0.25, y: 0.3 }, // D - strong vertical
-    { x: 0.35, y: 0.2 }, // R - strong horizontal
-    { x: 0.2, y: 0.35 }, // S - strong vertical
-    { x: 0.3, y: 0.25 }, // M - balanced
+    { x: 0.25, y: 0.3 },
+    { x: 0.35, y: 0.2 },
+    { x: 0.2, y: 0.35 },
+    { x: 0.3, y: 0.25 },
   ];
 
   const factor = factors[index];
   const position = positions[index];
 
-  // Different spring configs for each letter - varied for organic feel
   const springConfig = { stiffness: 150 - index * 20, damping: 15 + index * 2 };
 
   const springX = useSpring(mouseX, springConfig);
   const springY = useSpring(mouseY, springConfig);
 
-  // Reactive transforms that update as mouse moves
-  const magneticX = useTransform(springX, (val) => val * factor.x);
-  const magneticY = useTransform(springY, (val) => val * factor.y);
+  const magneticX = useTransform(springX, (val) => (enableMotion ? val * factor.x : 0));
+  const magneticY = useTransform(springY, (val) => (enableMotion ? val * factor.y : 0));
 
   return (
     <motion.span
       className="inline-block"
       animate={{
-        x: isHovered ? position.x : 0,
-        y: isHovered ? position.y : 0,
+        x: enableMotion && isHovered ? position.x : 0,
+        y: enableMotion && isHovered ? position.y : 0,
       }}
-      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: enableMotion ? 0.35 : 0, ease: [0.22, 1, 0.36, 1] }}
     >
       <motion.span
         className="inline-block"
@@ -78,12 +92,16 @@ function MagneticLogo() {
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const letters = ["D", "R", "S", "M"];
+  const shouldReduceMotion = useReducedMotion();
+  const isTouch = useIsTouchDevice();
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
+  const enableMotion = !shouldReduceMotion && !isTouch;
+
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || !enableMotion) return;
     const rect = containerRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
@@ -104,10 +122,12 @@ function MagneticLogo() {
       onMouseEnter={() => setIsHovered(true)}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      aria-label="DRSM - Home"
     >
       <motion.div
         className="text-foreground flex items-center text-2xl font-black tracking-tight"
         style={{ fontFamily: "var(--font-display)" }}
+        aria-hidden="true"
       >
         {letters.map((letter, i) => (
           <MagneticLetter
@@ -117,6 +137,7 @@ function MagneticLogo() {
             isHovered={isHovered}
             mouseX={mouseX}
             mouseY={mouseY}
+            enableMotion={enableMotion}
           />
         ))}
       </motion.div>
@@ -132,6 +153,8 @@ interface LanguageToggleProps {
 function LanguageToggle({ className = "", isMenuOpen = false }: LanguageToggleProps) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { theme } = useTheme();
+  const shouldReduceMotion = useReducedMotion();
+  const isTouch = useIsTouchDevice();
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -139,8 +162,10 @@ function LanguageToggle({ className = "", isMenuOpen = false }: LanguageTogglePr
   const springX = useSpring(x, springConfig);
   const springY = useSpring(y, springConfig);
 
+  const enableMotion = !shouldReduceMotion && !isTouch;
+
   const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!buttonRef.current) return;
+    if (!buttonRef.current || !enableMotion) return;
     const rect = buttonRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
@@ -160,17 +185,23 @@ function LanguageToggle({ className = "", isMenuOpen = false }: LanguageTogglePr
       ref={buttonRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={`magnetic flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${
+      className={`magnetic focus-visible:ring-accent focus-visible:ring-offset-background flex h-11 w-11 items-center justify-center rounded-full border transition-all duration-300 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none ${
         isMenuOpen
           ? theme === "dark"
             ? "bg-accent hover:bg-accent/90 border-white/50 hover:border-white"
             : "bg-accent hover:bg-accent/90 border-black/30 hover:border-black/50"
           : "border-border bg-surface text-foreground hover:border-accent hover:bg-elevated"
       } ${className}`}
-      whileTap={{ scale: 0.95 }}
+      whileTap={enableMotion ? { scale: 0.95 } : {}}
       aria-label="Toggle language"
     >
-      <motion.div style={{ x: springX, y: springY, color: menuIconColor }}>
+      <motion.div
+        style={{
+          x: enableMotion ? springX : 0,
+          y: enableMotion ? springY : 0,
+          color: menuIconColor,
+        }}
+      >
         <Globe className="h-5 w-5" />
       </motion.div>
     </motion.button>
@@ -183,27 +214,34 @@ interface HamburgerProps {
 }
 
 function Hamburger({ isOpen, onClick }: HamburgerProps) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <motion.button
-      className="relative flex flex-col items-center justify-center gap-1.5 p-2"
+      className="focus-visible:ring-accent focus-visible:ring-offset-background relative flex h-11 w-11 flex-col items-center justify-center gap-1.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
       onClick={onClick}
-      whileTap={{ scale: 0.95 }}
+      whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
       aria-label={isOpen ? "Close menu" : "Open menu"}
+      aria-expanded={isOpen}
+      aria-controls="main-menu"
     >
       <motion.span
         className="bg-foreground block h-0.5 w-6"
         animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 8 : 0 }}
-        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.3, ease: [0.22, 1, 0.36, 1] }}
+        aria-hidden="true"
       />
       <motion.span
         className="bg-foreground block h-0.5 w-6"
         animate={{ opacity: isOpen ? 0 : 1, scaleX: isOpen ? 0 : 1 }}
-        transition={{ duration: 0.2 }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
+        aria-hidden="true"
       />
       <motion.span
         className="bg-foreground block h-0.5 w-6"
         animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -8 : 0 }}
-        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.3, ease: [0.22, 1, 0.36, 1] }}
+        aria-hidden="true"
       />
     </motion.button>
   );
@@ -216,47 +254,63 @@ interface MenuItemsProps {
 
 function MenuItems({ onClose, textColor }: MenuItemsProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const { theme } = useTheme();
+  const shouldReduceMotion = useReducedMotion();
 
   const highlightColor = theme === "dark" ? textColor : "#1a1a1a";
   const hoverTextColor = theme === "dark" ? "#ffffff" : "#ffffff";
 
+  const isHighlighted = (i: number) => hoveredIndex === i || focusedIndex === i;
+
   return (
-    <div className="flex flex-col items-center justify-center gap-8">
-      {NAV_ITEMS.map((item, i) => (
-        <motion.a
-          key={item}
-          href={`#${item.toLowerCase()}`}
-          className="group relative"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ delay: 0.15 + i * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          onMouseEnter={() => setHoveredIndex(i)}
-          onMouseLeave={() => setHoveredIndex(null)}
-          onClick={onClose}
-        >
-          <span className="relative inline-block">
-            <motion.span
-              className="relative z-10 block text-5xl font-black md:text-6xl"
-              style={{ fontFamily: "var(--font-display)" }}
-              initial={false}
-              animate={{ color: hoveredIndex === i ? hoverTextColor : textColor }}
-              transition={{ duration: 0.3 }}
+    <nav aria-label="Main navigation">
+      <ul className="flex flex-col items-center justify-center gap-8" role="list">
+        {NAV_ITEMS.map((item, i) => (
+          <motion.li
+            key={item}
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -20 }}
+            transition={{
+              delay: shouldReduceMotion ? 0 : 0.15 + i * 0.08,
+              duration: shouldReduceMotion ? 0 : 0.5,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            <a
+              href={`#${item.toLowerCase()}`}
+              className="group relative block focus-visible:outline-none"
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              onFocus={() => setFocusedIndex(i)}
+              onBlur={() => setFocusedIndex(null)}
+              onClick={onClose}
             >
-              {item}
-            </motion.span>
-            <motion.span
-              className="absolute -inset-x-5 -inset-y-2 -z-0"
-              style={{ backgroundColor: highlightColor, originX: 0 }}
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: hoveredIndex === i ? 1 : 0 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            />
-          </span>
-        </motion.a>
-      ))}
-    </div>
+              <span className="relative inline-block">
+                <motion.span
+                  className="relative z-10 block text-5xl font-black md:text-6xl"
+                  style={{ fontFamily: "var(--font-display)" }}
+                  initial={false}
+                  animate={{ color: isHighlighted(i) ? hoverTextColor : textColor }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+                >
+                  {item}
+                </motion.span>
+                <motion.span
+                  className="absolute -inset-x-5 -inset-y-2 -z-0"
+                  style={{ backgroundColor: highlightColor, originX: 0 }}
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: isHighlighted(i) ? 1 : 0 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  aria-hidden="true"
+                />
+              </span>
+            </a>
+          </motion.li>
+        ))}
+      </ul>
+    </nav>
   );
 }
 
@@ -264,14 +318,21 @@ function CurvedBottom({ color }: { color: string }) {
   const [path, setPath] = useState("M0,120 C480,20 960,20 1440,120 L1440,120 L0,120 Z");
   const [isReady, setIsReady] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+  const isTouch = useIsTouchDevice();
+
+  const enableMotion = !shouldReduceMotion && !isTouch;
 
   useEffect(() => {
+    if (!enableMotion) return;
     const timer = setTimeout(() => setIsReady(true), 900);
     return () => clearTimeout(timer);
-  }, []);
+  }, [enableMotion]);
+
+  const effectiveIsReady = !enableMotion || isReady;
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isReady || !containerRef.current) return;
+    if (!effectiveIsReady || !containerRef.current || !enableMotion) return;
 
     const rect = containerRef.current.getBoundingClientRect();
     const x = e.clientX;
@@ -295,7 +356,7 @@ function CurvedBottom({ color }: { color: string }) {
   };
 
   const handleMouseLeave = () => {
-    if (!isReady) return;
+    if (!effectiveIsReady || !enableMotion) return;
     setPath("M0,120 C480,20 960,20 1440,120 L1440,120 L0,120 Z");
   };
 
@@ -306,21 +367,23 @@ function CurvedBottom({ color }: { color: string }) {
       style={{ height: "150px" }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      aria-hidden="true"
     >
       <svg
         className="absolute bottom-0 left-0 w-full"
         viewBox="0 0 1440 120"
         preserveAspectRatio="none"
         style={{ height: "80px" }}
+        aria-hidden="true"
       >
         <motion.path
           fill={color}
           initial={{ d: "M0,120 C480,120 960,120 1440,120 L1440,120 L0,120 Z" }}
           animate={{ d: path }}
           transition={{
-            duration: isReady ? 0.15 : 0.6,
+            duration: enableMotion ? (isReady ? 0.15 : 0.6) : 0,
             ease: isReady ? "easeOut" : [0.22, 1, 0.36, 1],
-            delay: isReady ? 0 : 0.3,
+            delay: enableMotion && !isReady ? 0.3 : 0,
           }}
         />
       </svg>
@@ -336,8 +399,10 @@ interface FloatingShape {
 }
 
 function FloatingShapes({ shapes, color }: { shapes: FloatingShape[]; color: string }) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
-    <>
+    <div aria-hidden="true">
       {shapes.map((shape, i) => (
         <motion.div
           key={i}
@@ -350,16 +415,20 @@ function FloatingShapes({ shapes, color }: { shapes: FloatingShape[]; color: str
             backgroundColor: color,
             rotate: shape.type === "square" ? 45 : 0,
           }}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1, y: [0, -12, 0] }}
-          exit={{ opacity: 0, scale: 0 }}
+          initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0 }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            y: shouldReduceMotion ? 0 : [0, -12, 0],
+          }}
+          exit={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0 }}
           transition={{
-            delay: 0.3 + i * 0.1,
-            y: { repeat: Infinity, duration: 4 + i, ease: "easeInOut" },
+            delay: shouldReduceMotion ? 0 : 0.3 + i * 0.1,
+            y: shouldReduceMotion ? {} : { repeat: Infinity, duration: 4 + i, ease: "easeInOut" },
           }}
         />
       ))}
-    </>
+    </div>
   );
 }
 
@@ -383,8 +452,8 @@ interface NavbarProps {
 function Navbar({ className }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
-  // Handle scroll state
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -394,44 +463,66 @@ function Navbar({ className }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   return (
     <>
-      {/* Navbar */}
-      <motion.nav
-        className={`fixed top-0 right-0 left-0 z-50 flex h-20 items-center justify-between px-6 transition-all duration-500 ${
+      <header
+        className={`fixed top-0 right-0 left-0 z-50 flex h-20 items-center px-6 transition-all duration-500 ${
           scrolled && !isOpen ? "bg-surface" : "bg-transparent"
         } ${className}`}
+        role="banner"
       >
         <motion.div
           className="bg-border absolute right-0 bottom-0 left-0 h-px"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: scrolled && !isOpen ? 1 : 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
+          aria-hidden="true"
         />
 
-        <MagneticLogo />
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
+          <Link
+            href="/"
+            className="focus-visible:ring-accent focus-visible:ring-offset-background focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+          >
+            <MagneticLogo />
+          </Link>
 
-        <div className="flex items-center gap-2">
-          <ThemeToggle magnetic isMenuOpen={isOpen} />
-          <LanguageToggle isMenuOpen={isOpen} />
-          <Hamburger isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
+          <div className="flex items-center gap-2">
+            <ThemeToggle magnetic isMenuOpen={isOpen} />
+            <LanguageToggle isMenuOpen={isOpen} />
+            <Hamburger isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
+          </div>
         </div>
-      </motion.nav>
+      </header>
 
-      {/* Curtain Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="main-menu"
             className="bg-accent fixed inset-0 z-40"
             initial={{ clipPath: "inset(0 0 100% 0)" }}
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
           >
             <CurvedBottom color="var(--color-background)" />
             <FloatingShapes shapes={SHAPES_CONFIG} color="rgba(255,255,255,0.15)" />
 
-            <div className="flex h-full items-center justify-center">
+            <div className="flex h-full items-center justify-center pt-20">
               <MenuItems onClose={() => setIsOpen(false)} textColor="var(--color-background)" />
             </div>
           </motion.div>
