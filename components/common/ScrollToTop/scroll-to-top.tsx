@@ -34,7 +34,7 @@ function ScrollToTop({ threshold = 400, className }: ScrollToTopProps) {
         <motion.button
           onClick={scrollToTop}
           className={cn(
-            "magnetic fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full border border-border bg-surface shadow-lg transition-colors hover:border-accent hover:bg-elevated",
+            "magnetic border-border bg-surface hover:border-accent hover:bg-elevated fixed right-6 bottom-6 z-40 flex h-12 w-12 items-center justify-center rounded-full border shadow-lg transition-colors",
             className
           )}
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -56,7 +56,7 @@ function ScrollToTop({ threshold = 400, className }: ScrollToTopProps) {
               ease: "easeInOut",
             }}
           >
-            <ArrowUp className="h-5 w-5 text-accent" />
+            <ArrowUp className="text-accent h-5 w-5" />
           </motion.div>
         </motion.button>
       )}

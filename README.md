@@ -40,12 +40,12 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 
 ## Scripts
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start development server |
-| `pnpm build` | Create production build |
+| Command      | Description                    |
+| ------------ | ------------------------------ |
+| `pnpm dev`   | Start development server       |
+| `pnpm build` | Create production build        |
 | `pnpm start` | Serve production build locally |
-| `pnpm lint` | Run ESLint |
+| `pnpm lint`  | Run ESLint                     |
 
 ## Project Structure
 

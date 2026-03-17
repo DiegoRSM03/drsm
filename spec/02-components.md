@@ -8,17 +8,17 @@ A minimal, purposeful component library for the DRSM portfolio. Every component 
 
 ## 1. Component Categories
 
-| Category | Components |
-|----------|------------|
-| **Layout** | Container, Section, Grid, Spacer |
-| **Typography** | Heading, Text, GradientText, Code |
-| **Navigation** | Navbar, NavLink, MobileMenu, Footer |
+| Category        | Components                                             |
+| --------------- | ------------------------------------------------------ |
+| **Layout**      | Container, Section, Grid, Spacer                       |
+| **Typography**  | Heading, Text, GradientText, Code                      |
+| **Navigation**  | Navbar, NavLink, MobileMenu, Footer                    |
 | **Interactive** | MagneticButton, AnimatedLink, ThemeToggle, ScrollToTop |
-| **Cards** | HoverCard, ProjectCard, ExperienceCard, SkillCard |
-| **Feedback** | LoadingScreen, Skeleton, Toast |
-| **Animation** | FadeIn, AnimatedText, StaggerContainer, PageTransition |
-| **Media** | Image, Avatar, Icon |
-| **Form** | Input, Textarea, ContactForm |
+| **Cards**       | HoverCard, ProjectCard, ExperienceCard, SkillCard      |
+| **Feedback**    | LoadingScreen, Skeleton, Toast                         |
+| **Animation**   | FadeIn, AnimatedText, StaggerContainer, PageTransition |
+| **Media**       | Image, Avatar, Icon                                    |
+| **Form**        | Input, Textarea, ContactForm                           |
 
 ---
 
@@ -36,12 +36,12 @@ interface ContainerProps {
 }
 ```
 
-| Size | Max Width |
-|------|-----------|
-| `sm` | 640px |
-| `md` | 768px |
-| `lg` | 1024px |
-| `full` | 100% |
+| Size   | Max Width |
+| ------ | --------- |
+| `sm`   | 640px     |
+| `md`   | 768px     |
+| `lg`   | 1024px    |
+| `full` | 100%      |
 
 ### Section
 
@@ -57,11 +57,11 @@ interface SectionProps {
 }
 ```
 
-| Padding | Value |
-|---------|-------|
-| `sm` | 48px / 3rem |
-| `md` | 96px / 6rem |
-| `lg` | 144px / 9rem |
+| Padding | Value        |
+| ------- | ------------ |
+| `sm`    | 48px / 3rem  |
+| `md`    | 96px / 6rem  |
+| `lg`    | 144px / 9rem |
 
 ### Grid
 
@@ -95,13 +95,13 @@ interface HeadingProps {
 }
 ```
 
-| Size | Font Size | Line Height |
-|------|-----------|-------------|
-| `display` | 72px | 1.0 |
-| `xl` | 48px | 1.1 |
-| `lg` | 36px | 1.2 |
-| `md` | 24px | 1.3 |
-| `sm` | 20px | 1.4 |
+| Size      | Font Size | Line Height |
+| --------- | --------- | ----------- |
+| `display` | 72px      | 1.0         |
+| `xl`      | 48px      | 1.1         |
+| `lg`      | 36px      | 1.2         |
+| `md`      | 24px      | 1.3         |
+| `sm`      | 20px      | 1.4         |
 
 ### Text
 
@@ -145,6 +145,7 @@ interface NavbarProps {
 ```
 
 **Features:**
+
 - Logo (DRSM) on left
 - Nav links center or right
 - Theme toggle
@@ -153,6 +154,7 @@ interface NavbarProps {
 - Hide on scroll down, show on scroll up
 
 **Animation:**
+
 - Fade in on load
 - Background blur transitions on scroll
 - Link hover underline slide
@@ -170,6 +172,7 @@ interface NavLinkProps {
 ```
 
 **States:**
+
 - Default: `text-muted`
 - Hover: `text-foreground` + underline slide
 - Active: `text-accent`
@@ -187,6 +190,7 @@ interface MobileMenuProps {
 ```
 
 **Animation:**
+
 - Clip-path reveal from hamburger position
 - Staggered link reveal
 - Backdrop blur
@@ -202,6 +206,7 @@ interface FooterProps {
 ```
 
 **Sections:**
+
 - Logo + tagline
 - Navigation links
 - Social links (GitHub, LinkedIn, Twitter/X, Email)
@@ -227,6 +232,7 @@ interface ProjectCardProps {
 ```
 
 **Features:**
+
 - Image with hover zoom
 - Title + description
 - Tech stack tags
@@ -234,6 +240,7 @@ interface ProjectCardProps {
 - Hover lift + glow
 
 **Animation:**
+
 - FadeIn on scroll
 - Image scale on hover (1.05)
 - Card lift (Y -8px) + border glow
@@ -254,6 +261,7 @@ interface ExperienceCardProps {
 ```
 
 **Layout:**
+
 - Timeline dot on left
 - Company logo (optional)
 - Role + period
@@ -274,6 +282,7 @@ interface SkillCardProps {
 ```
 
 **Features:**
+
 - Icon
 - Name
 - Optional proficiency indicator
@@ -306,6 +315,7 @@ interface ScrollToTopProps {
 ```
 
 **Features:**
+
 - Hidden at top
 - Fade in after threshold
 - Magnetic hover
@@ -333,6 +343,7 @@ interface SkeletonProps {
 ```
 
 **Animation:**
+
 - Gradient shimmer sweep (left to right)
 - Duration: 1.5s
 - Infinite loop
@@ -350,6 +361,7 @@ interface ToastProps {
 ```
 
 **Animation:**
+
 - Slide in from bottom right
 - Auto-dismiss after duration
 - Manual dismiss on click
@@ -359,6 +371,7 @@ interface ToastProps {
 ## 8. Animation Components ✓
 
 Already implemented:
+
 - `FadeIn`
 - `AnimatedText`
 - `StaggerContainer`
@@ -386,6 +399,7 @@ interface ImageProps {
 ```
 
 **Features:**
+
 - Next.js Image optimization
 - Skeleton while loading
 - Optional hover zoom
@@ -405,11 +419,11 @@ interface AvatarProps {
 ```
 
 | Size | Dimensions |
-|------|------------|
-| `sm` | 32px |
-| `md` | 48px |
-| `lg` | 64px |
-| `xl` | 96px |
+| ---- | ---------- |
+| `sm` | 32px       |
+| `md` | 48px       |
+| `lg` | 64px       |
+| `xl` | 96px       |
 
 ### Icon
 
@@ -445,12 +459,14 @@ interface InputProps {
 ```
 
 **States:**
+
 - Default: `border-border`
 - Focus: `border-accent` + glow
 - Error: `border-red-500`
 - Disabled: `opacity-50`
 
 **Animation:**
+
 - Label float on focus
 - Border glow pulse on focus
 
@@ -486,6 +502,7 @@ interface ContactData {
 ```
 
 **Features:**
+
 - Name, email, message fields
 - Client-side validation
 - Loading state on submit
@@ -557,12 +574,7 @@ interface ButtonProps {
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ children, variant = "primary", ...props }, ref) => {
     return (
-      <motion.button
-        ref={ref}
-        className={/* variants */}
-        whileTap={{ scale: 0.97 }}
-        {...props}
-      >
+      <motion.button ref={ref} className={/* variants */} whileTap={{ scale: 0.97 }} {...props}>
         {children}
       </motion.button>
     );
@@ -578,12 +590,12 @@ export { Button };
 
 ## 13. Implementation Priority
 
-| Phase | Components |
-|-------|------------|
+| Phase       | Components                                        |
+| ----------- | ------------------------------------------------- |
 | **Phase 1** | Container, Section, Heading, Text, Navbar, Footer |
-| **Phase 2** | ProjectCard, ExperienceCard, SkillCard, Image |
-| **Phase 3** | Input, Textarea, ContactForm, Toast |
-| **Phase 4** | MobileMenu, ScrollToTop, Skeleton |
+| **Phase 2** | ProjectCard, ExperienceCard, SkillCard, Image     |
+| **Phase 3** | Input, Textarea, ContactForm, Toast               |
+| **Phase 4** | MobileMenu, ScrollToTop, Skeleton                 |
 
 ---
 
@@ -591,29 +603,29 @@ export { Button };
 
 Already implemented in `/components/custom/`:
 
-| Component | Status |
-|-----------|--------|
-| CustomCursor | ✓ |
-| LenisProvider | ✓ |
-| LoadingScreen | ✓ |
-| ThemeToggle | ✓ |
-| MagneticButton | ✓ |
-| HoverCard | ✓ |
-| AnimatedLink | ✓ |
-| AnimatedText | ✓ |
-| FadeIn | ✓ |
-| StaggerContainer | ✓ |
-| StaggerItem | ✓ |
-| PageTransition | ✓ |
+| Component        | Status |
+| ---------------- | ------ |
+| CustomCursor     | ✓      |
+| LenisProvider    | ✓      |
+| LoadingScreen    | ✓      |
+| ThemeToggle      | ✓      |
+| MagneticButton   | ✓      |
+| HoverCard        | ✓      |
+| AnimatedLink     | ✓      |
+| AnimatedText     | ✓      |
+| FadeIn           | ✓      |
+| StaggerContainer | ✓      |
+| StaggerItem      | ✓      |
+| PageTransition   | ✓      |
 
 ---
 
 ## 15. Dependencies
 
-| Package | Purpose |
-|---------|---------|
-| `lucide-react` | Icon library |
-| `clsx` | Conditional classnames |
+| Package          | Purpose                |
+| ---------------- | ---------------------- |
+| `lucide-react`   | Icon library           |
+| `clsx`           | Conditional classnames |
 | `tailwind-merge` | Merge Tailwind classes |
 
 ---

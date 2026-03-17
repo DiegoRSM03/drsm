@@ -39,10 +39,7 @@ function MobileMenu({ isOpen, onClose, links, className }: MobileMenuProps) {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className={cn(
-            "fixed inset-0 z-50 flex flex-col bg-background",
-            className
-          )}
+          className={cn("bg-background fixed inset-0 z-50 flex flex-col", className)}
           initial={{ clipPath: "circle(0% at calc(100% - 40px) 40px)" }}
           animate={{ clipPath: "circle(150% at calc(100% - 40px) 40px)" }}
           exit={{ clipPath: "circle(0% at calc(100% - 40px) 40px)" }}
@@ -63,7 +60,7 @@ function MobileMenu({ isOpen, onClose, links, className }: MobileMenuProps) {
           <div className="flex items-center justify-end p-6">
             <motion.button
               onClick={onClose}
-              className="magnetic rounded-full p-2 text-foreground transition-colors hover:bg-surface"
+              className="magnetic text-foreground hover:bg-surface rounded-full p-2 transition-colors"
               initial={{ rotate: -90, opacity: 0 }}
               animate={{ rotate: 0, opacity: 1 }}
               exit={{ rotate: 90, opacity: 0 }}
@@ -90,12 +87,12 @@ function MobileMenu({ isOpen, onClose, links, className }: MobileMenuProps) {
                 <Link
                   href={link.href}
                   onClick={onClose}
-                  className="group relative text-4xl font-bold tracking-tight transition-colors hover:text-accent md:text-5xl"
+                  className="group hover:text-accent relative text-4xl font-bold tracking-tight transition-colors md:text-5xl"
                   style={{ fontFamily: "var(--font-display)" }}
                 >
                   {link.label}
                   <motion.span
-                    className="absolute -bottom-2 left-0 h-0.5 bg-accent"
+                    className="bg-accent absolute -bottom-2 left-0 h-0.5"
                     initial={{ width: 0 }}
                     whileHover={{ width: "100%" }}
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
@@ -112,9 +109,7 @@ function MobileMenu({ isOpen, onClose, links, className }: MobileMenuProps) {
             exit={{ opacity: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <p className="text-sm text-muted">
-              Let&apos;s build something amazing together.
-            </p>
+            <p className="text-muted text-sm">Let&apos;s build something amazing together.</p>
           </motion.div>
         </motion.div>
       )}

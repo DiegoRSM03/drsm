@@ -22,22 +22,8 @@ const sizeClasses = {
 };
 
 const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
-  (
-    {
-      children,
-      as = "h2",
-      size = "lg",
-      gradient = false,
-      animate = false,
-      className,
-    },
-    ref
-  ) => {
-    const baseClasses = cn(
-      "font-bold tracking-tight",
-      sizeClasses[size],
-      className
-    );
+  ({ children, as = "h2", size = "lg", gradient = false, animate = false, className }, ref) => {
+    const baseClasses = cn("font-bold tracking-tight", sizeClasses[size], className);
 
     if (animate && typeof children === "string") {
       return (
@@ -59,10 +45,7 @@ const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
     return (
       <Tag
         ref={ref}
-        className={cn(
-          baseClasses,
-          gradient && "bg-gradient-brand bg-clip-text text-transparent"
-        )}
+        className={cn(baseClasses, gradient && "bg-gradient-brand bg-clip-text text-transparent")}
         style={{ fontFamily: "var(--font-display)" }}
       >
         {children}

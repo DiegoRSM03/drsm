@@ -1,6 +1,1 @@
-export {
-  AnimatedText,
-  FadeIn,
-  StaggerContainer,
-  StaggerItem,
-} from "./text-reveal";
+export { AnimatedText, FadeIn, StaggerContainer, StaggerItem } from "./text-reveal";

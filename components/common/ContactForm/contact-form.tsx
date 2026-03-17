@@ -95,9 +95,7 @@ function ContactForm({ onSubmit, className }: ContactFormProps) {
     }
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name as keyof FormErrors]) {
@@ -108,13 +106,7 @@ function ContactForm({ onSubmit, className }: ContactFormProps) {
   return (
     <form onSubmit={handleSubmit} className={cn("flex flex-col gap-6", className)}>
       {/* Honeypot field for spam protection */}
-      <input
-        type="text"
-        name="website"
-        className="hidden"
-        tabIndex={-1}
-        autoComplete="off"
-      />
+      <input type="text" name="website" className="hidden" tabIndex={-1} autoComplete="off" />
 
       <Input
         label="Name"
@@ -153,7 +145,7 @@ function ContactForm({ onSubmit, className }: ContactFormProps) {
         type="submit"
         disabled={isSubmitting}
         className={cn(
-          "magnetic flex items-center justify-center gap-2 rounded-lg bg-accent px-6 py-3 font-medium text-white transition-colors",
+          "magnetic bg-accent flex items-center justify-center gap-2 rounded-lg px-6 py-3 font-medium text-white transition-colors",
           "hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
         )}
         whileTap={{ scale: 0.98 }}

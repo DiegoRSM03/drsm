@@ -26,10 +26,7 @@ const sizeClasses = {
 };
 
 const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
-  (
-    { children, variant = "default", size = "md", className, animated = false },
-    ref
-  ) => {
+  ({ children, variant = "default", size = "md", className, animated = false }, ref) => {
     const Component = animated ? motion.span : "span";
 
     return (

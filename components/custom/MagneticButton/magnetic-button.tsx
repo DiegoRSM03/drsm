@@ -67,8 +67,7 @@ const MagneticButton = forwardRef<HTMLButtonElement, MagneticButtonProps>(
 
     const variants = {
       primary: "bg-accent text-white hover:bg-accent-hover active:bg-accent",
-      secondary:
-        "border-2 border-accent text-accent hover:bg-accent hover:text-white",
+      secondary: "border-2 border-accent text-accent hover:bg-accent hover:text-white",
       ghost: "text-foreground hover:bg-elevated hover:text-accent",
     };
 

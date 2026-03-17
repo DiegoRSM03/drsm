@@ -17,19 +17,10 @@ const roundedClasses = {
   full: "rounded-full",
 };
 
-function Skeleton({
-  width,
-  height,
-  rounded = "md",
-  className,
-}: SkeletonProps) {
+function Skeleton({ width, height, rounded = "md", className }: SkeletonProps) {
   return (
     <div
-      className={cn(
-        "relative overflow-hidden bg-elevated",
-        roundedClasses[rounded],
-        className
-      )}
+      className={cn("bg-elevated relative overflow-hidden", roundedClasses[rounded], className)}
       style={{
         width: typeof width === "number" ? `${width}px` : width,
         height: typeof height === "number" ? `${height}px` : height,
@@ -46,22 +37,11 @@ function Skeleton({
   );
 }
 
-function SkeletonText({
-  lines = 3,
-  className,
-}: {
-  lines?: number;
-  className?: string;
-}) {
+function SkeletonText({ lines = 3, className }: { lines?: number; className?: string }) {
   return (
     <div className={cn("flex flex-col gap-2", className)}>
       {Array.from({ length: lines }).map((_, i) => (
-        <Skeleton
-          key={i}
-          height={16}
-          width={i === lines - 1 ? "60%" : "100%"}
-          rounded="sm"
-        />
+        <Skeleton key={i} height={16} width={i === lines - 1 ? "60%" : "100%"} rounded="sm" />
       ))}
     </div>
   );
@@ -69,12 +49,7 @@ function SkeletonText({
 
 function SkeletonCard({ className }: { className?: string }) {
   return (
-    <div
-      className={cn(
-        "rounded-xl border border-border bg-surface p-6",
-        className
-      )}
-    >
+    <div className={cn("border-border bg-surface rounded-xl border p-6", className)}>
       <Skeleton height={200} rounded="lg" className="mb-4" />
       <Skeleton height={24} width="70%" rounded="sm" className="mb-2" />
       <SkeletonText lines={2} />
@@ -101,14 +76,7 @@ function SkeletonAvatar({
     xl: 96,
   };
 
-  return (
-    <Skeleton
-      width={sizes[size]}
-      height={sizes[size]}
-      rounded="full"
-      className={className}
-    />
-  );
+  return <Skeleton width={sizes[size]} height={sizes[size]} rounded="full" className={className} />;
 }
 
 export { Skeleton, SkeletonText, SkeletonCard, SkeletonAvatar };

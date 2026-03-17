@@ -44,20 +44,13 @@ function Image({
 
   return (
     <div
-      className={cn(
-        "relative overflow-hidden",
-        roundedClasses[rounded],
-        containerClassName
-      )}
+      className={cn("relative overflow-hidden", roundedClasses[rounded], containerClassName)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {!isLoaded && (
         <div
-          className={cn(
-            "absolute inset-0 animate-pulse bg-elevated",
-            roundedClasses[rounded]
-          )}
+          className={cn("bg-elevated absolute inset-0 animate-pulse", roundedClasses[rounded])}
         />
       )}
 

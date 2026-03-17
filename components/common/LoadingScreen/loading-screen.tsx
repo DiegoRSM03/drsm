@@ -10,10 +10,7 @@ interface LoadingScreenProps {
 
 const letters = ["D", "R", "S", "M"];
 
-export function LoadingScreen({
-  onComplete,
-  minimumLoadTime = 2200,
-}: LoadingScreenProps) {
+export function LoadingScreen({ onComplete, minimumLoadTime = 2200 }: LoadingScreenProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [isExiting, setIsExiting] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -61,7 +58,7 @@ export function LoadingScreen({
     <AnimatePresence>
       {isLoading && (
         <motion.div
-          className="fixed inset-0 z-[10000] flex h-screen w-screen items-center justify-center bg-background"
+          className="bg-background fixed inset-0 z-[10000] flex h-screen w-screen items-center justify-center"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
@@ -104,7 +101,7 @@ export function LoadingScreen({
 
           {/* Center glow */}
           <motion.div
-            className="absolute w-[400px] h-[400px] rounded-full pointer-events-none"
+            className="pointer-events-none absolute h-[400px] w-[400px] rounded-full"
             style={{
               background: "radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 60%)",
             }}
@@ -134,9 +131,7 @@ export function LoadingScreen({
                       clipPath: `inset(0 ${100}% 0 0)`,
                     }}
                     animate={{
-                      clipPath: isExiting
-                        ? `inset(0 100% 0 0)`
-                        : `inset(0 0% 0 0)`,
+                      clipPath: isExiting ? `inset(0 100% 0 0)` : `inset(0 0% 0 0)`,
                     }}
                     transition={{
                       duration: 0.6,
@@ -149,7 +144,7 @@ export function LoadingScreen({
 
                   {/* Solid letter that fades in after trace */}
                   <motion.span
-                    className="relative text-6xl font-black tracking-tight text-foreground md:text-8xl"
+                    className="text-foreground relative text-6xl font-black tracking-tight md:text-8xl"
                     style={{ fontFamily: "var(--font-display)" }}
                     initial={{ opacity: 0 }}
                     animate={{
@@ -169,7 +164,7 @@ export function LoadingScreen({
 
             {/* Tagline teaser */}
             <motion.p
-              className="text-sm text-muted/80 tracking-wide md:text-base"
+              className="text-muted/80 text-sm tracking-wide md:text-base"
               initial={{ opacity: 0, y: 10 }}
               animate={{
                 opacity: isExiting ? 0 : 1,
@@ -186,9 +181,9 @@ export function LoadingScreen({
           </div>
 
           {/* Progress bar at bottom */}
-          <div className="absolute bottom-0 left-0 right-0 h-2 bg-accent/10">
+          <div className="bg-accent/10 absolute right-0 bottom-0 left-0 h-2">
             <motion.div
-              className="h-full bg-accent"
+              className="bg-accent h-full"
               initial={{ width: "0%" }}
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.1, ease: "linear" }}

@@ -4,8 +4,7 @@ import { forwardRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-interface AnimatedLinkProps
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+interface AnimatedLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   children: React.ReactNode;
   href: string;
   external?: boolean;
@@ -14,19 +13,10 @@ interface AnimatedLinkProps
 
 const AnimatedLink = forwardRef<HTMLAnchorElement, AnimatedLinkProps>(
   (
-    {
-      children,
-      href,
-      external = false,
-      underlineStyle = "slide",
-      className = "",
-      ...props
-    },
+    { children, href, external = false, underlineStyle = "slide", className = "", ...props },
     ref
   ) => {
-    const linkProps = external
-      ? { target: "_blank", rel: "noopener noreferrer" }
-      : {};
+    const linkProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
 
     const baseStyles =
       "relative inline-flex items-center gap-1 text-accent transition-colors hover:text-accent-hover";
