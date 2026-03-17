@@ -11,6 +11,8 @@ import {
 } from "framer-motion";
 import { useState, useRef, useCallback, useEffect, useSyncExternalStore } from "react";
 import { useTheme } from "@/contexts";
+import { ProximityShape } from "@/components/custom/ProximityShape";
+import type { ProximityShapeData } from "@/components/custom/ProximityShape";
 
 function useIsTouchDevice() {
   const getSnapshot = () => "ontouchstart" in window || navigator.maxTouchPoints > 0;
@@ -254,6 +256,132 @@ const CONTENT_SHAPES: ShapeConfig[] = [
   },
 ];
 
+const SIDEBAR_PROXIMITY_SHAPES: ProximityShapeData[] = [
+  {
+    type: "diamond",
+    x: "15%",
+    y: "15%",
+    size: 50,
+    color: "#ffffff",
+    filled: true,
+    floatDuration: 6,
+    floatDelay: 0,
+  },
+  {
+    type: "circle",
+    x: "75%",
+    y: "25%",
+    size: 40,
+    color: "#ffffff",
+    filled: false,
+    floatDuration: 7,
+    floatDelay: 0.5,
+  },
+  {
+    type: "square",
+    x: "25%",
+    y: "75%",
+    size: 55,
+    color: "#ffffff",
+    filled: true,
+    floatDuration: 5.5,
+    floatDelay: 1,
+  },
+  {
+    type: "triangle",
+    x: "70%",
+    y: "80%",
+    size: 35,
+    color: "#ffffff",
+    filled: false,
+    floatDuration: 8,
+    floatDelay: 0.3,
+  },
+];
+
+const CONTENT_PROXIMITY_SHAPES: ProximityShapeData[] = [
+  {
+    type: "circle",
+    x: "85%",
+    y: "5%",
+    size: 45,
+    color: "#06B6D4",
+    filled: true,
+    floatDuration: 7,
+    floatDelay: 0.4,
+  },
+  {
+    type: "square",
+    x: "10%",
+    y: "12%",
+    size: 50,
+    color: "#EC4899",
+    filled: false,
+    floatDuration: 5.5,
+    floatDelay: 0.8,
+  },
+  {
+    type: "triangle",
+    x: "92%",
+    y: "22%",
+    size: 38,
+    color: "#F59E0B",
+    filled: true,
+    floatDuration: 8,
+    floatDelay: 0.2,
+  },
+  {
+    type: "circle",
+    x: "8%",
+    y: "38%",
+    size: 40,
+    color: "#10B981",
+    filled: false,
+    floatDuration: 6.5,
+    floatDelay: 1.0,
+  },
+  {
+    type: "diamond",
+    x: "88%",
+    y: "48%",
+    size: 55,
+    color: "#8B5CF6",
+    filled: true,
+    floatDuration: 5,
+    floatDelay: 0.6,
+  },
+  {
+    type: "square",
+    x: "12%",
+    y: "62%",
+    size: 45,
+    color: "#06B6D4",
+    filled: false,
+    floatDuration: 7,
+    floatDelay: 0.3,
+  },
+  {
+    type: "circle",
+    x: "90%",
+    y: "72%",
+    size: 35,
+    color: "#EC4899",
+    filled: true,
+    floatDuration: 6,
+    floatDelay: 0.9,
+  },
+  {
+    type: "triangle",
+    x: "15%",
+    y: "85%",
+    size: 42,
+    color: "#F59E0B",
+    filled: false,
+    floatDuration: 7.5,
+    floatDelay: 0.5,
+  },
+];
+
 function ExperienceShape({
   shape,
   centerX,
@@ -400,13 +528,13 @@ function ExperienceCard({
             className="pointer-events-none block text-[6rem] leading-none font-black sm:text-[8rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]"
             style={{
               fontFamily: "var(--font-display)",
-              color: isDark ? exp.numberColorDark : exp.numberColorLight,
+              color: isDark ? "rgba(255, 255, 255, 0.06)" : "rgba(0, 0, 0, 0.06)",
             }}
             animate={{ scale: shouldReduceMotion ? 1 : isActive ? 1.02 : 1 }}
             transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
             aria-hidden="true"
           >
-            {String(index + 1).padStart(2, "0")}
+            {String(EXPERIENCES.length - index).padStart(2, "0")}
           </motion.span>
         </motion.div>
 
@@ -414,10 +542,10 @@ function ExperienceCard({
           className="border-border bg-background/95 relative -mt-12 border-2 p-4 backdrop-blur-sm sm:-mt-14 sm:p-6 md:-mt-16 md:p-8 lg:-mt-20 lg:ml-4 xl:ml-8"
           style={{
             borderColor: isActive
-              ? exp.color
+              ? "rgba(139, 92, 246, 0.5)"
               : isDark
-                ? "rgba(139, 92, 246, 0.2)"
-                : "rgba(139, 92, 246, 0.3)",
+                ? "rgba(139, 92, 246, 0.15)"
+                : "rgba(139, 92, 246, 0.2)",
             y: useParallax ? springCardY : 0,
           }}
           animate={{ x: shouldReduceMotion ? 0 : isActive ? 10 : 0 }}
@@ -437,7 +565,7 @@ function ExperienceCard({
           <div className="relative mb-2 inline-block sm:mb-3">
             <motion.span
               className="absolute -inset-x-2 -inset-y-1 sm:-inset-x-4 sm:-inset-y-2"
-              style={{ backgroundColor: exp.color, originX: 0 }}
+              style={{ backgroundColor: "#8B5CF6", originX: 0 }}
               initial={{ scaleX: 0 }}
               animate={{ scaleX: shouldReduceMotion || isActive ? 1 : 0 }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -467,7 +595,7 @@ function ExperienceCard({
           <p className="text-foreground mb-1 text-base font-medium sm:mb-2 sm:text-lg">
             {exp.role}
           </p>
-          <p className="mb-4 font-mono text-xs sm:mb-6 sm:text-sm" style={{ color: exp.color }}>
+          <p className="text-foreground/50 mb-4 font-mono text-xs sm:mb-6 sm:text-sm">
             <time>{exp.period}</time>
             <span aria-hidden="true"> · </span>
             <span>{exp.duration}</span>
@@ -528,7 +656,7 @@ function ExperienceCard({
                 key={skill}
                 className="text-foreground border px-2 py-1 text-[10px] font-medium sm:px-3 sm:text-xs"
                 style={{
-                  borderColor: `${exp.color}80`,
+                  borderColor: isDark ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.15)",
                   backgroundColor: isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.03)",
                 }}
                 initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.8 }}
@@ -536,7 +664,9 @@ function ExperienceCard({
                 viewport={{ once: true }}
                 transition={{ delay: shouldReduceMotion ? 0 : 0.3 + i * 0.05 }}
                 whileHover={
-                  shouldReduceMotion ? {} : { backgroundColor: `${exp.color}30`, scale: 1.05 }
+                  shouldReduceMotion
+                    ? {}
+                    : { backgroundColor: "rgba(139, 92, 246, 0.15)", scale: 1.05 }
                 }
               >
                 {skill}
@@ -556,16 +686,20 @@ export default function Experience() {
   const shouldReduceMotion = useReducedMotion();
   const isTouch = useIsTouchDevice();
 
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
   const centerX = useMotionValue(0);
   const centerY = useMotionValue(0);
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent) => {
       if (isTouch) return;
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
       centerX.set(e.clientX - window.innerWidth / 2);
       centerY.set(e.clientY - window.innerHeight / 2);
     },
-    [centerX, centerY, isTouch]
+    [mouseX, mouseY, centerX, centerY, isTouch]
   );
 
   const { scrollYProgress } = useScroll({
@@ -637,19 +771,18 @@ export default function Experience() {
             </svg>
           </div>
 
-          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-            {SIDEBAR_SHAPES.map((shape, i) => (
-              <ExperienceShape
-                key={`sidebar-${i}`}
-                shape={shape}
-                centerX={centerX}
-                centerY={centerY}
-                filled={i % 2 === 0}
-                opacity={0.9}
-                enableMotion={enableShapeMotion}
-              />
-            ))}
-          </div>
+          {!isTouch && (
+            <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+              {SIDEBAR_PROXIMITY_SHAPES.map((shape, i) => (
+                <ProximityShape
+                  key={`sidebar-${i}`}
+                  shape={shape}
+                  mouseX={mouseX}
+                  mouseY={mouseY}
+                />
+              ))}
+            </div>
+          )}
 
           <div className="relative z-10 flex h-full flex-col justify-center p-8 xl:p-12">
             <motion.div
@@ -675,20 +808,21 @@ export default function Experience() {
         </aside>
 
         <div className="relative w-full lg:w-3/5">
-          <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-            {CONTENT_SHAPES.slice(0, isTouch ? 4 : CONTENT_SHAPES.length).map((shape, i) => (
-              <ExperienceShape
-                key={`content-${i}`}
-                shape={shape}
-                centerX={centerX}
-                centerY={centerY}
-                filled={i % 2 === 0}
-                opacity={0.7}
-                enableMotion={enableShapeMotion}
-                scaleFactor={isTouch ? 0.7 : 1}
-              />
-            ))}
-          </div>
+          {!isTouch && (
+            <div
+              className="pointer-events-none absolute inset-0 overflow-hidden"
+              aria-hidden="true"
+            >
+              {CONTENT_PROXIMITY_SHAPES.map((shape, i) => (
+                <ProximityShape
+                  key={`content-${i}`}
+                  shape={shape}
+                  mouseX={mouseX}
+                  mouseY={mouseY}
+                />
+              ))}
+            </div>
+          )}
 
           <header className="relative z-10 px-4 pt-20 sm:px-6 sm:pt-24 lg:hidden">
             <h2

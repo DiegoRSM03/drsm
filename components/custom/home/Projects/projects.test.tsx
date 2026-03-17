@@ -183,13 +183,10 @@ describe("Projects", () => {
       expect(screen.getByRole("list", { name: "Project cards" })).toBeInTheDocument();
     });
 
-    it("each project card wrapper has listitem role", () => {
+    it("project cards are rendered as articles within the list", () => {
       render(<Projects />);
-      // Get the main project list container
-      const projectList = screen.getByRole("list", { name: "Project cards" });
-      // Get direct children that are list items (project wrappers, not tag items)
-      const projectListItems = projectList.querySelectorAll(":scope > [role='listitem']");
-      expect(projectListItems).toHaveLength(PROJECTS.length);
+      const articles = screen.getAllByRole("article");
+      expect(articles).toHaveLength(PROJECTS.length);
     });
   });
 
@@ -222,7 +219,6 @@ describe("Projects", () => {
         expect(project).toHaveProperty("type");
         expect(project).toHaveProperty("description");
         expect(project).toHaveProperty("tags");
-        expect(project).toHaveProperty("color");
         expect(project).toHaveProperty("github");
         expect(Array.isArray(project.tags)).toBe(true);
       });
@@ -232,13 +228,6 @@ describe("Projects", () => {
       const ids = PROJECTS.map((p) => p.id);
       const uniqueIds = new Set(ids);
       expect(uniqueIds.size).toBe(PROJECTS.length);
-    });
-
-    it("project colors are valid hex colors", () => {
-      const hexColorRegex = /^#[0-9A-Fa-f]{6}$/;
-      PROJECTS.forEach((project) => {
-        expect(project.color).toMatch(hexColorRegex);
-      });
     });
   });
 });

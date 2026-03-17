@@ -13,6 +13,8 @@ import {
 import { Download, ArrowRight } from "lucide-react";
 import { SiReact, SiTypescript, SiNextdotjs, SiTailwindcss, SiJest } from "react-icons/si";
 import { MagneticButton } from "@/components/custom/MagneticButton";
+import { ProximityShape } from "@/components/custom/ProximityShape";
+import type { ProximityShapeData } from "@/components/custom/ProximityShape";
 
 function useIsTouchDevice() {
   const getSnapshot = () => "ontouchstart" in window || navigator.maxTouchPoints > 0;
@@ -232,6 +234,109 @@ const CURSOR_SHAPES: CursorShapeConfig[] = [
   { offsetX: 50, offsetY: 45, size: 10, stiffness: 180, damping: 18 },
 ];
 
+const HERO_SHAPES: ProximityShapeData[] = [
+  {
+    type: "diamond",
+    x: "8%",
+    y: "18%",
+    size: 55,
+    color: "#8B5CF6",
+    filled: true,
+    floatDuration: 6,
+    floatDelay: 0,
+  },
+  {
+    type: "circle",
+    x: "92%",
+    y: "15%",
+    size: 45,
+    color: "#06B6D4",
+    filled: true,
+    floatDuration: 7.5,
+    floatDelay: 0.4,
+  },
+  {
+    type: "square",
+    x: "5%",
+    y: "55%",
+    size: 40,
+    color: "#EC4899",
+    filled: true,
+    floatDuration: 5.5,
+    floatDelay: 0.8,
+  },
+  {
+    type: "triangle",
+    x: "95%",
+    y: "50%",
+    size: 35,
+    color: "#F59E0B",
+    filled: true,
+    floatDuration: 8,
+    floatDelay: 0.2,
+  },
+  {
+    type: "circle",
+    x: "12%",
+    y: "82%",
+    size: 50,
+    color: "#10B981",
+    filled: true,
+    floatDuration: 6.5,
+    floatDelay: 1.0,
+  },
+  {
+    type: "diamond",
+    x: "88%",
+    y: "85%",
+    size: 48,
+    color: "#8B5CF6",
+    filled: true,
+    floatDuration: 5,
+    floatDelay: 0.6,
+  },
+  {
+    type: "square",
+    x: "18%",
+    y: "25%",
+    size: 70,
+    color: "#8B5CF6",
+    filled: false,
+    floatDuration: 7,
+    floatDelay: 0.3,
+  },
+  {
+    type: "circle",
+    x: "82%",
+    y: "28%",
+    size: 55,
+    color: "#06B6D4",
+    filled: false,
+    floatDuration: 6,
+    floatDelay: 0.9,
+  },
+  {
+    type: "square",
+    x: "75%",
+    y: "72%",
+    size: 65,
+    color: "#EC4899",
+    filled: false,
+    floatDuration: 8,
+    floatDelay: 0.5,
+  },
+  {
+    type: "circle",
+    x: "22%",
+    y: "68%",
+    size: 50,
+    color: "#F59E0B",
+    filled: false,
+    floatDuration: 7,
+    floatDelay: 1.1,
+  },
+];
+
 function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -274,22 +379,13 @@ function Hero() {
       aria-label="Hero section introducing Diego Sanchez"
     >
       <GridBackground mouseX={mouseX} mouseY={mouseY} enableMotion={enableMotion} />
-      <ReactiveShapes
-        shapes={SOLID_SHAPES}
-        centerX={centerX}
-        centerY={centerY}
-        scrollY={scrollYProgress}
-        filled
-        enableMotion={enableMotion}
-      />
-      <ReactiveShapes
-        shapes={BORDERED_SHAPES}
-        centerX={centerX}
-        centerY={centerY}
-        scrollY={scrollYProgress}
-        filled={false}
-        enableMotion={enableMotion}
-      />
+      {!isTouch && (
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          {HERO_SHAPES.map((shape, i) => (
+            <ProximityShape key={`hero-shape-${i}`} shape={shape} mouseX={mouseX} mouseY={mouseY} />
+          ))}
+        </div>
+      )}
       {!isTouch && (
         <CursorShapes
           mouseX={mouseX}
