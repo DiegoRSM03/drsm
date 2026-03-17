@@ -311,8 +311,11 @@ cp .env.example .env.local
 
 - **Strategy**: Git Flow
 - **Main branch**: `main`
-- **Feature branches**: `feature/branch-name`
-- **Merge strategy**: Squash merge
+- **Development branch**: `dev`
+- **NEVER commit directly to `main` or `dev`** — always use feature or fix branches
+- **Feature branches**: `feature/branch-name` (for new features)
+- **Fix branches**: `fix/branch-name` (for bug fixes)
+- **Merge strategy**: Squash merge via PR
 - **Commits**: Conventional commits (no co-authors)
 
 ```

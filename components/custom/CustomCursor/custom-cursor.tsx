@@ -247,7 +247,7 @@ export function CustomCursor() {
       />
 
       <motion.div
-        className="border-accent/50 pointer-events-none fixed top-0 left-0 z-[9998] rounded-full border-2"
+        className="border-accent/50 pointer-events-none fixed top-0 left-0 z-[9998] rounded-full border-2 mix-blend-difference"
         style={{
           x: circleX,
           y: circleY,

@@ -1,16 +1,42 @@
 "use client";
 
 import { useRef, useCallback } from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useTheme } from "@/contexts";
 
 interface ThemeToggleProps {
   className?: string;
+  magnetic?: boolean;
+  isMenuOpen?: boolean;
 }
 
-export function ThemeToggle({ className = "" }: ThemeToggleProps) {
+export function ThemeToggle({
+  className = "",
+  magnetic = false,
+  isMenuOpen = false,
+}: ThemeToggleProps) {
   const { theme, toggleTheme } = useTheme();
   const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springConfig = { stiffness: 200, damping: 20 };
+  const springX = useSpring(x, springConfig);
+  const springY = useSpring(y, springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!magnetic || !buttonRef.current) return;
+    const rect = buttonRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    x.set((e.clientX - centerX) * 0.3);
+    y.set((e.clientY - centerY) * 0.3);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
 
   const handleToggle = useCallback(() => {
     if (!buttonRef.current) {
@@ -96,7 +122,15 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
     <motion.button
       ref={buttonRef}
       onClick={handleToggle}
-      className={`magnetic border-border bg-surface hover:border-accent hover:bg-elevated relative flex h-10 w-10 items-center justify-center rounded-full border transition-colors ${className}`}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={`magnetic relative flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${
+        isMenuOpen
+          ? theme === "dark"
+            ? "bg-accent hover:bg-accent/90 border-white/50 hover:border-white"
+            : "bg-accent hover:bg-accent/90 border-black/30 hover:border-black/50"
+          : "border-border bg-surface hover:border-accent hover:bg-elevated"
+      } ${className}`}
       whileTap={{ scale: 0.95 }}
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
     >
@@ -105,10 +139,11 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
         initial={false}
         animate={{ rotate: theme === "dark" ? 0 : 180 }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        style={magnetic ? { x: springX, y: springY } : undefined}
       >
         {/* Sun */}
         <motion.svg
-          className="text-foreground absolute inset-0 h-5 w-5"
+          className="absolute inset-0 h-5 w-5"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -119,6 +154,11 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
           animate={{
             opacity: theme === "dark" ? 0 : 1,
             scale: theme === "dark" ? 0.5 : 1,
+            color: isMenuOpen
+              ? theme === "dark"
+                ? "#ffffff"
+                : "#000000"
+              : "var(--color-foreground)",
           }}
           transition={{ duration: 0.3 }}
         >
@@ -135,7 +175,7 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
 
         {/* Moon */}
         <motion.svg
-          className="text-foreground absolute inset-0 h-5 w-5"
+          className="absolute inset-0 h-5 w-5"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -146,6 +186,11 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
           animate={{
             opacity: theme === "dark" ? 1 : 0,
             scale: theme === "dark" ? 1 : 0.5,
+            color: isMenuOpen
+              ? theme === "dark"
+                ? "#ffffff"
+                : "#000000"
+              : "var(--color-foreground)",
           }}
           transition={{ duration: 0.3 }}
         >
