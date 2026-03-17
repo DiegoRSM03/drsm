@@ -290,7 +290,14 @@ function Hero() {
         filled={false}
         enableMotion={enableMotion}
       />
-      {!isTouch && <CursorShapes mouseX={mouseX} mouseY={mouseY} enableMotion={enableMotion} />}
+      {!isTouch && (
+        <CursorShapes
+          mouseX={mouseX}
+          mouseY={mouseY}
+          enableMotion={enableMotion}
+          scrollProgress={scrollYProgress}
+        />
+      )}
 
       <motion.div
         className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center px-6 text-center"
@@ -797,21 +804,28 @@ function CursorShapes({
   mouseX,
   mouseY,
   enableMotion = true,
+  scrollProgress,
 }: {
   mouseX: MotionValue<number>;
   mouseY: MotionValue<number>;
   enableMotion?: boolean;
+  scrollProgress: MotionValue<number>;
 }) {
   const shouldReduceMotion = useReducedMotion();
+  const opacity = useTransform(scrollProgress, [0, 0.3], [1, 0]);
 
   if (shouldReduceMotion || !enableMotion) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[15]" aria-hidden="true">
+    <motion.div
+      className="pointer-events-none fixed inset-0 z-[15]"
+      style={{ opacity }}
+      aria-hidden="true"
+    >
       {CURSOR_SHAPES.map((shape, i) => (
         <CursorFollower key={i} mouseX={mouseX} mouseY={mouseY} shape={shape} index={i} />
       ))}
-    </div>
+    </motion.div>
   );
 }
 

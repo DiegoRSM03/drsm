@@ -1,15 +1,7 @@
 "use client";
 
 import { useRef, useCallback, useSyncExternalStore } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  useMotionValue,
-  useReducedMotion,
-  MotionValue,
-} from "framer-motion";
+import { motion, useMotionValue, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, Github } from "lucide-react";
 import { MagneticButton } from "@/components/custom/MagneticButton";
 
@@ -39,9 +31,9 @@ export const PROJECTS: ProjectData[] = [
     title: "Nexus Platform",
     type: "Enterprise SaaS Dashboard",
     description:
-      "A real-time analytics platform with WebSocket data streaming, complex data visualizations, and role-based access control.",
+      "A real-time analytics platform built for enterprise teams managing large-scale data pipelines. Features WebSocket-powered live data streaming, interactive D3.js visualizations with drill-down capabilities, and granular role-based access control. The dashboard processes over 2M events per minute while maintaining sub-200ms render times across all chart types.",
     tags: ["React", "TypeScript", "D3.js", "WebSocket", "Node.js"],
-    color: "#10B981",
+    color: "#059669",
     github: null,
   },
   {
@@ -49,9 +41,9 @@ export const PROJECTS: ProjectData[] = [
     title: "Velocity",
     type: "Performance Monitoring Tool",
     description:
-      "Developer-focused performance monitoring with real-time metrics, custom alerts, and CI/CD integration for frontend applications.",
+      "A developer-first performance monitoring suite designed to catch regressions before they hit production. Tracks Core Web Vitals, custom metrics, and bundle sizes across every deploy with automated CI/CD integration. Features a Rust-powered ingestion layer that handles thousands of metric payloads per second, paired with a Next.js dashboard for real-time alerting and historical trend analysis.",
     tags: ["Next.js", "Rust", "PostgreSQL", "Redis", "Docker"],
-    color: "#06B6D4",
+    color: "#0891B2",
     github: "https://github.com/example/velocity",
   },
   {
@@ -59,15 +51,123 @@ export const PROJECTS: ProjectData[] = [
     title: "Artemis",
     type: "Design System Framework",
     description:
-      "A comprehensive design system with 50+ components, dark mode support, and automatic accessibility auditing built-in.",
+      "A comprehensive design system powering consistent UI across multiple product lines. Ships 50+ accessible components with full dark mode support, automatic WCAG auditing, and a Figma-to-code pipeline that keeps design and engineering in sync. Adopted by three product teams and reduced UI development time by 40% while eliminating visual inconsistencies across applications.",
     tags: ["React", "Storybook", "Figma API", "Testing Library"],
-    color: "#EC4899",
+    color: "#DB2777",
     github: null,
   },
 ];
 
+const SHAPE_COLORS = ["#8B5CF6", "#06B6D4", "#EC4899", "#F59E0B", "#10B981"];
+
+interface FloatingShape {
+  type: "square" | "diamond" | "circle" | "triangle";
+  top: string;
+  left: string;
+  size: number;
+  filled: boolean;
+  delay: number;
+  duration: number;
+  color: string;
+  opacity: number;
+}
+
+function getShapesForProject(_color: string, index: number): FloatingShape[] {
+  const isEven = index % 2 === 0;
+  const c = SHAPE_COLORS;
+  return [
+    {
+      type: "diamond",
+      top: "-10%",
+      left: isEven ? "12%" : "78%",
+      size: 40,
+      filled: true,
+      delay: 0.6,
+      duration: 5,
+      color: c[0],
+      opacity: 0.45,
+    },
+    {
+      type: "circle",
+      top: "8%",
+      left: isEven ? "88%" : "2%",
+      size: 56,
+      filled: false,
+      delay: 0.9,
+      duration: 7,
+      color: c[1],
+      opacity: 0.3,
+    },
+    {
+      type: "square",
+      top: "78%",
+      left: isEven ? "92%" : "-2%",
+      size: 32,
+      filled: true,
+      delay: 0.7,
+      duration: 6,
+      color: c[2],
+      opacity: 0.4,
+    },
+    {
+      type: "triangle",
+      top: "92%",
+      left: isEven ? "22%" : "68%",
+      size: 36,
+      filled: false,
+      delay: 1.0,
+      duration: 8,
+      color: c[3],
+      opacity: 0.35,
+    },
+    {
+      type: "circle",
+      top: "45%",
+      left: isEven ? "-6%" : "96%",
+      size: 24,
+      filled: true,
+      delay: 0.5,
+      duration: 6,
+      color: c[4],
+      opacity: 0.5,
+    },
+    {
+      type: "diamond",
+      top: "-6%",
+      left: isEven ? "58%" : "32%",
+      size: 18,
+      filled: false,
+      delay: 1.1,
+      duration: 7,
+      color: c[0],
+      opacity: 0.35,
+    },
+    {
+      type: "square",
+      top: "30%",
+      left: isEven ? "-8%" : "98%",
+      size: 48,
+      filled: false,
+      delay: 0.8,
+      duration: 5.5,
+      color: c[1],
+      opacity: 0.25,
+    },
+    {
+      type: "triangle",
+      top: "-12%",
+      left: isEven ? "80%" : "10%",
+      size: 28,
+      filled: true,
+      delay: 1.2,
+      duration: 6.5,
+      color: c[2],
+      opacity: 0.4,
+    },
+  ];
+}
+
 const BRAND_PURPLE = "#8B5CF6";
-const CARD_COUNT = PROJECTS.length;
 const ease = [0.22, 1, 0.36, 1] as const;
 
 function SectionHeader() {
@@ -131,52 +231,17 @@ function SectionHeader() {
   );
 }
 
-function ProjectCard({
-  project,
-  index,
-  progress,
-  range,
-  targetScale,
-}: {
-  project: ProjectData;
-  index: number;
-  progress: MotionValue<number>;
-  range: [number, number];
-  targetScale: number;
-}) {
-  const imageRef = useRef<HTMLDivElement>(null);
+function ProjectCard({ project, index }: { project: ProjectData; index: number }) {
   const shouldReduceMotion = useReducedMotion();
 
-  const scale = useTransform(progress, range, [1, targetScale]);
-  const springScale = useSpring(scale, { stiffness: 100, damping: 30 });
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const imgSpringX = useSpring(mouseX, { stiffness: 100, damping: 20 });
-  const imgSpringY = useSpring(mouseY, { stiffness: 100, damping: 20 });
-
-  const handleImageMouseMove = (e: React.MouseEvent) => {
-    if (!imageRef.current || shouldReduceMotion) return;
-    const rect = imageRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left - rect.width / 2) * 0.06;
-    const y = (e.clientY - rect.top - rect.height / 2) * 0.06;
-    mouseX.set(x);
-    mouseY.set(y);
-  };
-
-  const handleImageMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
-
   const isEven = index % 2 === 0;
+  const shapes = getShapesForProject(project.color, index);
 
   return (
     <div className="sticky top-0 flex h-screen items-center" role="listitem">
       <motion.article
         className="relative w-full origin-top bg-black"
         style={{
-          scale: shouldReduceMotion ? 1 : springScale,
           top: `calc(-5vh + ${index * 28}px)`,
         }}
         aria-labelledby={`project-title-${project.id}`}
@@ -186,13 +251,9 @@ function ProjectCard({
             isEven ? "" : "lg:flex-row-reverse"
           }`}
         >
-          {/* Image placeholder */}
+          {/* Image placeholder with floating shapes */}
           <motion.div
-            ref={imageRef}
             className="relative aspect-[4/3] w-full lg:w-[45%]"
-            style={{ x: imgSpringX }}
-            onMouseMove={handleImageMouseMove}
-            onMouseLeave={handleImageMouseLeave}
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10%" }}
@@ -200,13 +261,13 @@ function ProjectCard({
             role="img"
             aria-label={`${project.title} project preview`}
           >
-            <motion.div className="absolute inset-0 overflow-clip" style={{ y: imgSpringY }}>
-              <div className="absolute inset-0" style={{ backgroundColor: `${project.color}20` }} />
+            <div className="absolute inset-0 overflow-clip">
+              <div className="absolute inset-0 bg-white/[0.04]" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <motion.span
                   className="text-6xl font-black sm:text-7xl md:text-8xl lg:text-9xl"
                   style={{
-                    color: `${project.color}30`,
+                    color: "rgba(255, 255, 255, 0.06)",
                     fontFamily: "var(--font-display)",
                   }}
                   aria-hidden="true"
@@ -216,62 +277,92 @@ function ProjectCard({
                   {project.title.charAt(0)}
                 </motion.span>
               </div>
-            </motion.div>
+            </div>
 
-            {/* Decorative accent block */}
-            <motion.div
-              className="absolute h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20"
-              style={{
-                backgroundColor: project.color,
-                bottom: "-1rem",
-                [isEven ? "right" : "left"]: "-1rem",
-              }}
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.6, ease }}
-              aria-hidden="true"
-            />
-
-            {/* Decorative diamond accent */}
-            <motion.div
-              className="absolute h-4 w-4 rotate-45 sm:h-5 sm:w-5 md:h-6 md:w-6"
-              style={{
-                backgroundColor: project.color,
-                top: "-0.5rem",
-                [isEven ? "left" : "right"]: "20%",
-              }}
-              initial={{ scale: 0, rotate: 45 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.8, ease }}
-              aria-hidden="true"
-            />
+            {/* Floating geometric shapes */}
+            {shapes.map((shape, i) => (
+              <motion.div
+                key={i}
+                className="absolute"
+                style={{ top: shape.top, left: shape.left }}
+                initial={{ scale: 0, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: shape.opacity }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: shape.delay, ease }}
+                aria-hidden="true"
+              >
+                <motion.div
+                  animate={shouldReduceMotion ? {} : { y: [0, -8, 0] }}
+                  transition={{ duration: shape.duration, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  {shape.type === "square" && (
+                    <div
+                      style={{
+                        width: shape.size,
+                        height: shape.size,
+                        ...(shape.filled
+                          ? { backgroundColor: shape.color }
+                          : { border: `2px solid ${shape.color}`, backgroundColor: "transparent" }),
+                      }}
+                    />
+                  )}
+                  {shape.type === "diamond" && (
+                    <div
+                      style={{
+                        width: shape.size,
+                        height: shape.size,
+                        transform: "rotate(45deg)",
+                        ...(shape.filled
+                          ? { backgroundColor: shape.color }
+                          : { border: `2px solid ${shape.color}`, backgroundColor: "transparent" }),
+                      }}
+                    />
+                  )}
+                  {shape.type === "circle" && (
+                    <div
+                      style={{
+                        width: shape.size,
+                        height: shape.size,
+                        borderRadius: "50%",
+                        ...(shape.filled
+                          ? { backgroundColor: shape.color }
+                          : { border: `2px solid ${shape.color}`, backgroundColor: "transparent" }),
+                      }}
+                    />
+                  )}
+                  {shape.type === "triangle" && shape.filled && (
+                    <div
+                      style={{
+                        width: 0,
+                        height: 0,
+                        borderLeft: `${shape.size / 2}px solid transparent`,
+                        borderRight: `${shape.size / 2}px solid transparent`,
+                        borderBottom: `${shape.size}px solid ${shape.color}`,
+                      }}
+                    />
+                  )}
+                  {shape.type === "triangle" && !shape.filled && (
+                    <svg
+                      width={shape.size}
+                      height={shape.size}
+                      viewBox={`0 0 ${shape.size} ${shape.size}`}
+                      fill="none"
+                    >
+                      <polygon
+                        points={`${shape.size / 2},0 ${shape.size},${shape.size} 0,${shape.size}`}
+                        stroke={shape.color}
+                        strokeWidth="2"
+                        fill="none"
+                      />
+                    </svg>
+                  )}
+                </motion.div>
+              </motion.div>
+            ))}
           </motion.div>
 
           {/* Content */}
           <div className="w-full lg:w-[55%]">
-            {/* Decorative project number */}
-            <motion.div
-              className="mb-4 flex items-center gap-4 sm:mb-6"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              aria-hidden="true"
-            >
-              <span
-                className="text-5xl font-black sm:text-6xl md:text-7xl"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  color: project.color,
-                  opacity: 0.3,
-                }}
-              >
-                {String(index + 1).padStart(2, "0")}
-              </span>
-            </motion.div>
-
             {/* Type badge */}
             <motion.div
               className="mb-3 sm:mb-4"
@@ -396,12 +487,6 @@ export function Projects() {
     [centerX, centerY, isTouch]
   );
 
-  // Single scroll progress for the entire section
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
   return (
     <section
       id="projects"
@@ -413,22 +498,10 @@ export function Projects() {
     >
       <SectionHeader />
 
-      {/* Stacked cards - no overflow hidden! */}
       <div role="list" aria-label="Project cards">
-        {PROJECTS.map((project, index) => {
-          const targetScale = 1 - (CARD_COUNT - index) * 0.04;
-          const rangeStart = index * (1 / CARD_COUNT);
-          return (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              index={index}
-              progress={scrollYProgress}
-              range={[rangeStart, 1]}
-              targetScale={targetScale}
-            />
-          );
-        })}
+        {PROJECTS.map((project, index) => (
+          <ProjectCard key={project.id} project={project} index={index} />
+        ))}
       </div>
     </section>
   );

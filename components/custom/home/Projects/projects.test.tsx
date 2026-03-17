@@ -41,9 +41,6 @@ jest.mock("framer-motion", () => ({
       </h3>
     )),
   },
-  useScroll: () => ({ scrollYProgress: { get: () => 0 } }),
-  useTransform: () => ({ get: () => 1 }),
-  useSpring: () => ({ get: () => 0 }),
   useMotionValue: () => ({ get: () => 0, set: jest.fn() }),
   useReducedMotion: () => false,
 }));
@@ -79,13 +76,6 @@ describe("Projects", () => {
         expect(screen.getByText(project.description)).toBeInTheDocument();
         expect(screen.getByText(project.type.toUpperCase())).toBeInTheDocument();
       });
-    });
-
-    it("renders project numbers", () => {
-      render(<Projects />);
-      expect(screen.getByText("01")).toBeInTheDocument();
-      expect(screen.getByText("02")).toBeInTheDocument();
-      expect(screen.getByText("03")).toBeInTheDocument();
     });
 
     it("renders all technology tags for each project", () => {
@@ -167,14 +157,6 @@ describe("Projects", () => {
         expect(
           screen.getByRole("img", { name: `${project.title} project preview` })
         ).toBeInTheDocument();
-      });
-    });
-
-    it("decorative elements have aria-hidden", () => {
-      render(<Projects />);
-      const decorativeNumbers = screen.getAllByText(/^0[1-3]$/);
-      decorativeNumbers.forEach((num) => {
-        expect(num.closest("[aria-hidden='true']")).toBeInTheDocument();
       });
     });
 
