@@ -288,7 +288,6 @@ function CurvedBottom({ color }: { color: string }) {
     const rightControlY = baseY + (relativeX >= 720 ? dragAmount * ((relativeX - 720) / 720) : 0);
 
     const peakX = relativeX;
-    const peakY = baseY + dragAmount;
 
     setPath(
       `M0,120 C${Math.max(200, peakX - 400)},${leftControlY} ${Math.min(1240, peakX + 400)},${rightControlY} 1440,120 L1440,120 L0,120 Z`
@@ -410,7 +409,7 @@ function Navbar({ className }: NavbarProps) {
           transition={{ duration: 0.5 }}
         />
 
-        <MagneticLogo variant="scatter" />
+        <MagneticLogo />
 
         <div className="flex items-center gap-2">
           <ThemeToggle magnetic isMenuOpen={isOpen} />

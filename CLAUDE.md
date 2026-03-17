@@ -268,9 +268,10 @@ export function generateStaticParams() {
 
 ## Testing
 
-- **Framework**: Jest
+- **Framework**: Jest + React Testing Library
 - **Scope**: Unit tests only
 - **Location**: Colocated with component (`button.test.tsx`)
+- **ALWAYS write unit tests** for every component you create or modify
 
 ```tsx
 // components/common/Button/button.test.tsx
