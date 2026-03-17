@@ -10,13 +10,7 @@ import {
   MotionValue,
 } from "framer-motion";
 import { Download, ArrowRight } from "lucide-react";
-import {
-  SiReact,
-  SiTypescript,
-  SiNextdotjs,
-  SiTailwindcss,
-  SiJest,
-} from "react-icons/si";
+import { SiReact, SiTypescript, SiNextdotjs, SiTailwindcss, SiJest } from "react-icons/si";
 import { MagneticButton } from "@/components/custom/MagneticButton";
 
 interface TechItem {
@@ -61,19 +55,164 @@ interface CursorShapeConfig {
 }
 
 const SOLID_SHAPES: ShapeConfig[] = [
-  { x: "8%", y: "18%", mobileX: "10%", mobileY: "12%", size: 55, mobileSize: 35, color: "#8B5CF6", type: "square", rotation: 45, factorX: 0.015, factorY: 0.015, stiffness: 50, damping: 20, hideOnMobile: false, scrollFactor: -30 },
-  { x: "92%", y: "15%", size: 45, color: "#06B6D4", type: "circle", rotation: 0, factorX: -0.025, factorY: -0.025, stiffness: 200, damping: 15, hideOnMobile: true, scrollFactor: 0 },
-  { x: "5%", y: "55%", size: 40, color: "#EC4899", type: "square", rotation: 12, factorX: 0.02, factorY: 0, stiffness: 100, damping: 25, hideOnMobile: true, scrollFactor: 0 },
-  { x: "95%", y: "50%", mobileX: "88%", mobileY: "15%", size: 35, mobileSize: 28, color: "#F59E0B", type: "triangle", rotation: 0, factorX: 0, factorY: 0.03, stiffness: 80, damping: 30, hideOnMobile: false, scrollFactor: 50 },
-  { x: "12%", y: "82%", size: 50, color: "#10B981", type: "circle", rotation: 0, factorX: 0.012, factorY: -0.012, stiffness: 60, damping: 25, hideOnMobile: true, scrollFactor: 0 },
-  { x: "88%", y: "85%", mobileX: "85%", mobileY: "88%", size: 48, mobileSize: 32, color: "#8B5CF6", type: "square", rotation: 20, factorX: 0.035, factorY: 0.035, stiffness: 300, damping: 20, hideOnMobile: false, scrollFactor: -60 },
+  {
+    x: "8%",
+    y: "18%",
+    mobileX: "10%",
+    mobileY: "12%",
+    size: 55,
+    mobileSize: 35,
+    color: "#8B5CF6",
+    type: "square",
+    rotation: 45,
+    factorX: 0.015,
+    factorY: 0.015,
+    stiffness: 50,
+    damping: 20,
+    hideOnMobile: false,
+    scrollFactor: -30,
+  },
+  {
+    x: "92%",
+    y: "15%",
+    size: 45,
+    color: "#06B6D4",
+    type: "circle",
+    rotation: 0,
+    factorX: -0.025,
+    factorY: -0.025,
+    stiffness: 200,
+    damping: 15,
+    hideOnMobile: true,
+    scrollFactor: 0,
+  },
+  {
+    x: "5%",
+    y: "55%",
+    size: 40,
+    color: "#EC4899",
+    type: "square",
+    rotation: 12,
+    factorX: 0.02,
+    factorY: 0,
+    stiffness: 100,
+    damping: 25,
+    hideOnMobile: true,
+    scrollFactor: 0,
+  },
+  {
+    x: "95%",
+    y: "50%",
+    mobileX: "88%",
+    mobileY: "15%",
+    size: 35,
+    mobileSize: 28,
+    color: "#F59E0B",
+    type: "triangle",
+    rotation: 0,
+    factorX: 0,
+    factorY: 0.03,
+    stiffness: 80,
+    damping: 30,
+    hideOnMobile: false,
+    scrollFactor: 50,
+  },
+  {
+    x: "12%",
+    y: "82%",
+    size: 50,
+    color: "#10B981",
+    type: "circle",
+    rotation: 0,
+    factorX: 0.012,
+    factorY: -0.012,
+    stiffness: 60,
+    damping: 25,
+    hideOnMobile: true,
+    scrollFactor: 0,
+  },
+  {
+    x: "88%",
+    y: "85%",
+    mobileX: "85%",
+    mobileY: "88%",
+    size: 48,
+    mobileSize: 32,
+    color: "#8B5CF6",
+    type: "square",
+    rotation: 20,
+    factorX: 0.035,
+    factorY: 0.035,
+    stiffness: 300,
+    damping: 20,
+    hideOnMobile: false,
+    scrollFactor: -60,
+  },
 ];
 
 const BORDERED_SHAPES: ShapeConfig[] = [
-  { x: "18%", y: "25%", size: 70, color: "#8B5CF6", type: "square", rotation: 15, factorX: -0.012, factorY: 0.02, stiffness: 70, damping: 25, hideOnMobile: true, scrollFactor: 0 },
-  { x: "82%", y: "28%", mobileX: "12%", mobileY: "85%", size: 55, mobileSize: 40, color: "#06B6D4", type: "circle", rotation: 0, factorX: 0.015, factorY: -0.015, stiffness: 120, damping: 20, hideOnMobile: false, scrollFactor: 40 },
-  { x: "75%", y: "72%", size: 65, color: "#EC4899", type: "square", rotation: 30, factorX: -0.02, factorY: -0.012, stiffness: 90, damping: 22, hideOnMobile: true, scrollFactor: 0 },
-  { x: "22%", y: "68%", mobileX: "8%", mobileY: "50%", size: 50, mobileSize: 35, color: "#F59E0B", type: "circle", rotation: 0, factorX: 0.025, factorY: 0.008, stiffness: 150, damping: 18, hideOnMobile: false, scrollFactor: -45 },
+  {
+    x: "18%",
+    y: "25%",
+    size: 70,
+    color: "#8B5CF6",
+    type: "square",
+    rotation: 15,
+    factorX: -0.012,
+    factorY: 0.02,
+    stiffness: 70,
+    damping: 25,
+    hideOnMobile: true,
+    scrollFactor: 0,
+  },
+  {
+    x: "82%",
+    y: "28%",
+    mobileX: "12%",
+    mobileY: "85%",
+    size: 55,
+    mobileSize: 40,
+    color: "#06B6D4",
+    type: "circle",
+    rotation: 0,
+    factorX: 0.015,
+    factorY: -0.015,
+    stiffness: 120,
+    damping: 20,
+    hideOnMobile: false,
+    scrollFactor: 40,
+  },
+  {
+    x: "75%",
+    y: "72%",
+    size: 65,
+    color: "#EC4899",
+    type: "square",
+    rotation: 30,
+    factorX: -0.02,
+    factorY: -0.012,
+    stiffness: 90,
+    damping: 22,
+    hideOnMobile: true,
+    scrollFactor: 0,
+  },
+  {
+    x: "22%",
+    y: "68%",
+    mobileX: "8%",
+    mobileY: "50%",
+    size: 50,
+    mobileSize: 35,
+    color: "#F59E0B",
+    type: "circle",
+    rotation: 0,
+    factorX: 0.025,
+    factorY: 0.008,
+    stiffness: 150,
+    damping: 18,
+    hideOnMobile: false,
+    scrollFactor: -45,
+  },
 ];
 
 const CURSOR_SHAPES: CursorShapeConfig[] = [
@@ -113,7 +252,7 @@ function Hero() {
     <section
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="fixed inset-0 flex h-screen w-screen items-center justify-center overflow-hidden bg-background"
+      className="bg-background fixed inset-0 flex h-screen w-screen items-center justify-center overflow-hidden"
     >
       <GridBackground mouseX={mouseX} mouseY={mouseY} />
       <ReactiveShapes
@@ -150,7 +289,7 @@ function Hero() {
 
         <motion.div style={{ y: y3 }}>
           <motion.h1
-            className="mb-2 text-6xl font-black tracking-tight text-foreground sm:text-7xl md:text-8xl lg:text-9xl"
+            className="text-foreground mb-2 text-6xl font-black tracking-tight sm:text-7xl md:text-8xl lg:text-9xl"
             style={{ fontFamily: "var(--font-display)" }}
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -166,9 +305,9 @@ function Hero() {
             transition={{ delay: 0.9, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="relative inline-block">
-              <span className="relative z-10 text-background">SANCHEZ</span>
+              <span className="text-background relative z-10">SANCHEZ</span>
               <motion.span
-                className="absolute inset-y-0 -inset-x-4 bg-accent"
+                className="bg-accent absolute -inset-x-4 inset-y-0"
                 initial={{ scaleX: 0, originX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ delay: 1.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -178,14 +317,13 @@ function Hero() {
         </motion.div>
 
         <motion.p
-          className="mb-12 max-w-lg text-xl text-foreground/80 md:whitespace-nowrap md:text-2xl"
+          className="text-foreground/80 mb-12 max-w-lg text-xl md:text-2xl md:whitespace-nowrap"
           style={{ fontFamily: "var(--font-display)" }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.6, duration: 0.6 }}
         >
-          Obsessed with making{" "}
-          <span className="font-bold text-accent">ideas breathe</span>
+          Obsessed with making <span className="text-accent font-bold">ideas breathe</span>
         </motion.p>
 
         <motion.div
@@ -212,12 +350,12 @@ function Hero() {
         transition={{ delay: 2.2 }}
       >
         <motion.div
-          className="flex flex-col items-center gap-2 text-muted"
+          className="text-muted flex flex-col items-center gap-2"
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
         >
           <span className="text-xs tracking-widest uppercase">Scroll</span>
-          <div className="h-8 w-px bg-gradient-to-b from-muted to-transparent" />
+          <div className="from-muted h-8 w-px bg-gradient-to-b to-transparent" />
         </motion.div>
       </motion.div>
     </section>
@@ -264,7 +402,7 @@ function MagneticPill({ tech, index }: { tech: TechItem; index: number }) {
       transition={{ delay: 0.6 + index * 0.1, duration: 0.4 }}
     >
       <motion.div
-        className="flex cursor-pointer items-center gap-2 rounded-full border-2 bg-background px-4 py-2"
+        className="bg-background flex cursor-pointer items-center gap-2 rounded-full border-2 px-4 py-2"
         style={{ borderColor: tech.color }}
         whileHover={{ scale: 1.05, backgroundColor: tech.color }}
         whileTap={{ scale: 0.98 }}
@@ -307,12 +445,7 @@ function GridBackground({
     <div className="pointer-events-none absolute inset-0">
       <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <pattern
-            id="hero-grid"
-            width="100"
-            height="100"
-            patternUnits="userSpaceOnUse"
-          >
+          <pattern id="hero-grid" width="100" height="100" patternUnits="userSpaceOnUse">
             <path
               d="M 100 0 L 0 0 0 100"
               fill="none"
@@ -421,7 +554,13 @@ function ReactiveShape({
       animate={{ opacity: isMobile ? 0.6 : 1, scale: 1 }}
       transition={{ delay: 0.3 + index * 0.08, duration: 0.5 }}
     >
-      <Shape type={shape.type} size={currentSize} color={shape.color} rotation={shape.rotation} filled={filled} />
+      <Shape
+        type={shape.type}
+        size={currentSize}
+        color={shape.color}
+        rotation={shape.rotation}
+        filled={filled}
+      />
     </motion.div>
   );
 }
@@ -522,7 +661,7 @@ function CursorFollower({
 
   return (
     <motion.div
-      className="absolute left-0 top-0 border-2 border-accent/40"
+      className="border-accent/40 absolute top-0 left-0 border-2"
       style={{ width: shape.size, height: shape.size, x, y, rotate: 45 }}
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 0.5, scale: 1 }}

@@ -6,15 +6,15 @@ Portfolio and hiring magnet for a Senior Frontend Engineer. Built with Next.js 1
 
 ## Commands
 
-| Command | Description |
-|---------|-------------|
-| `pnpm install` | Install dependencies |
-| `pnpm dev` | Start development server (localhost:3000) |
-| `pnpm build` | Production build (SSG) |
-| `pnpm start` | Serve production build locally |
-| `pnpm lint` | Run ESLint |
-| `pnpm test` | Run Jest unit tests |
-| `pnpm test:watch` | Run tests in watch mode |
+| Command           | Description                               |
+| ----------------- | ----------------------------------------- |
+| `pnpm install`    | Install dependencies                      |
+| `pnpm dev`        | Start development server (localhost:3000) |
+| `pnpm build`      | Production build (SSG)                    |
+| `pnpm start`      | Serve production build locally            |
+| `pnpm lint`       | Run ESLint                                |
+| `pnpm test`       | Run Jest unit tests                       |
+| `pnpm test:watch` | Run tests in watch mode                   |
 
 ## Architecture
 
@@ -58,13 +58,13 @@ components/common/Button/
 
 ### Naming
 
-| Entity | Convention | Example |
-|--------|------------|---------|
-| Files | kebab-case | `use-translation.ts`, `project-card.tsx` |
-| Components | PascalCase | `ProjectCard`, `Button` |
-| Hooks | PascalCase | `UseTranslation`, exported as `useTranslation` |
-| Utils | PascalCase | `FormatDate`, exported as `formatDate` |
-| Interfaces | PascalCase with `I` prefix optional | `ButtonProps`, `IProjectData` |
+| Entity     | Convention                          | Example                                        |
+| ---------- | ----------------------------------- | ---------------------------------------------- |
+| Files      | kebab-case                          | `use-translation.ts`, `project-card.tsx`       |
+| Components | PascalCase                          | `ProjectCard`, `Button`                        |
+| Hooks      | PascalCase                          | `UseTranslation`, exported as `useTranslation` |
+| Utils      | PascalCase                          | `FormatDate`, exported as `formatDate`         |
+| Interfaces | PascalCase with `I` prefix optional | `ButtonProps`, `IProjectData`                  |
 
 ### TypeScript
 
@@ -76,12 +76,12 @@ components/common/Button/
 ```tsx
 // ✅ Correct
 interface ButtonProps {
-  variant: 'primary' | 'secondary';
+  variant: "primary" | "secondary";
   children: React.ReactNode;
 }
 
 // ✅ One-liner type is acceptable
-type Variant = 'primary' | 'secondary';
+type Variant = "primary" | "secondary";
 
 // ❌ Avoid
 function Button({ variant }: { variant: string }) {}
@@ -98,10 +98,10 @@ function Button({ variant }: { variant: string }) {}
 export default function Button() {}
 
 // components/common/Button/index.ts
-export { default as Button } from './button';
+export { default as Button } from "./button";
 
 // components/index.ts
-export * from './common/Button';
+export * from "./common/Button";
 ```
 
 ### Import Order
@@ -113,17 +113,17 @@ export * from './common/Button';
 5. Types (with `type` keyword)
 
 ```tsx
-import { useState } from 'react';
-import Image from 'next/image';
+import { useState } from "react";
+import Image from "next/image";
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
-import { Button } from '@/components';
-import { useTranslation } from '@/hooks';
+import { Button } from "@/components";
+import { useTranslation } from "@/hooks";
 
-import { formatDate } from './utils';
+import { formatDate } from "./utils";
 
-import type { ProjectProps } from './types';
+import type { ProjectProps } from "./types";
 ```
 
 ### Tailwind
@@ -163,9 +163,7 @@ import type { ProjectProps } from './types';
 3. **Render Props** — when child needs parent state
 
 ```tsx
-<Toggle>
-  {({ isOn, toggle }) => <Button onClick={toggle}>{isOn ? 'On' : 'Off'}</Button>}
-</Toggle>
+<Toggle>{({ isOn, toggle }) => <Button onClick={toggle}>{isOn ? "On" : "Off"}</Button>}</Toggle>
 ```
 
 4. **Prop Drilling** — last resort, for 1-2 levels max
@@ -175,14 +173,14 @@ import type { ProjectProps } from './types';
 Always use `forwardRef` for reusable components:
 
 ```tsx
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary';
+  variant?: "primary" | "secondary";
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = 'primary', children, ...props }, ref) => {
+  ({ variant = "primary", children, ...props }, ref) => {
     return (
       <button ref={ref} className={variants[variant]} {...props}>
         {children}
@@ -191,7 +189,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   }
 );
 
-Button.displayName = 'Button';
+Button.displayName = "Button";
 export default Button;
 ```
 
@@ -226,16 +224,16 @@ app/[lang]/
 
 ```tsx
 // app/[lang]/dictionaries.ts
-import 'server-only';
+import "server-only";
 
 const dictionaries = {
-  en: () => import('./dictionaries/en.json').then((m) => m.default),
-  es: () => import('./dictionaries/es.json').then((m) => m.default),
+  en: () => import("./dictionaries/en.json").then((m) => m.default),
+  es: () => import("./dictionaries/es.json").then((m) => m.default),
 };
 
 export type Locale = keyof typeof dictionaries;
-export const locales: Locale[] = ['en', 'es'];
-export const defaultLocale: Locale = 'en';
+export const locales: Locale[] = ["en", "es"];
+export const defaultLocale: Locale = "en";
 
 export const getDictionary = async (locale: Locale) => dictionaries[locale]();
 ```
@@ -276,13 +274,13 @@ export function generateStaticParams() {
 
 ```tsx
 // components/common/Button/button.test.tsx
-import { render, screen } from '@testing-library/react';
-import Button from './button';
+import { render, screen } from "@testing-library/react";
+import Button from "./button";
 
-describe('Button', () => {
-  it('renders children', () => {
+describe("Button", () => {
+  it("renders children", () => {
     render(<Button>Click me</Button>);
-    expect(screen.getByText('Click me')).toBeInTheDocument();
+    expect(screen.getByText("Click me")).toBeInTheDocument();
   });
 });
 ```
@@ -296,6 +294,7 @@ describe('Button', () => {
 ### CI/CD (GitHub Actions)
 
 Before merge:
+
 1. `pnpm lint` — ESLint passes
 2. `pnpm build` — Build succeeds
 3. `pnpm test` — All tests pass
@@ -343,6 +342,7 @@ Built on **shadcn/ui** with customizations:
 ## Dependencies Policy
 
 **Approved**:
+
 - framer-motion
 - gsap
 - shadcn/ui components (via CLI)

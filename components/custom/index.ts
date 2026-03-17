@@ -1,11 +1,6 @@
 export { LenisProvider, useLenis } from "./LenisProvider";
 export { CustomCursor } from "./CustomCursor";
-export {
-  AnimatedText,
-  FadeIn,
-  StaggerContainer,
-  StaggerItem,
-} from "./TextReveal";
+export { AnimatedText, FadeIn, StaggerContainer, StaggerItem } from "./TextReveal";
 export { MagneticButton } from "./MagneticButton";
 export { HoverCard } from "./HoverCard";
 export { AnimatedLink } from "./AnimatedLink";

@@ -8,19 +8,13 @@ interface DividerProps {
   gradient?: boolean;
 }
 
-function Divider({
-  orientation = "horizontal",
-  className,
-  gradient = false,
-}: DividerProps) {
+function Divider({ orientation = "horizontal", className, gradient = false }: DividerProps) {
   if (orientation === "vertical") {
     return (
       <div
         className={cn(
           "w-px self-stretch",
-          gradient
-            ? "bg-gradient-to-b from-transparent via-border to-transparent"
-            : "bg-border",
+          gradient ? "via-border bg-gradient-to-b from-transparent to-transparent" : "bg-border",
           className
         )}
       />
@@ -31,9 +25,7 @@ function Divider({
     <div
       className={cn(
         "h-px w-full",
-        gradient
-          ? "bg-gradient-to-r from-transparent via-border to-transparent"
-          : "bg-border",
+        gradient ? "via-border bg-gradient-to-r from-transparent to-transparent" : "bg-border",
         className
       )}
     />

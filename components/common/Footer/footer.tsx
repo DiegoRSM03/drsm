@@ -51,12 +51,7 @@ function Footer({ className }: FooterProps) {
 
   return (
     <FadeIn>
-      <footer
-        className={cn(
-          "border-t border-border bg-surface px-6 py-12 md:px-8",
-          className
-        )}
-      >
+      <footer className={cn("border-border bg-surface border-t px-6 py-12 md:px-8", className)}>
         <div className="mx-auto flex max-w-[1024px] flex-col gap-8">
           <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
             <div className="flex flex-col gap-2">
@@ -67,9 +62,8 @@ function Footer({ className }: FooterProps) {
               >
                 DRSM
               </Link>
-              <p className="text-sm text-muted">
-                Senior Frontend Engineer crafting exceptional digital
-                experiences.
+              <p className="text-muted text-sm">
+                Senior Frontend Engineer crafting exceptional digital experiences.
               </p>
             </div>
 
@@ -79,7 +73,7 @@ function Footer({ className }: FooterProps) {
                   key={link.href}
                   href={link.href}
                   underlineStyle="slide"
-                  className="text-sm text-muted transition-colors hover:text-foreground"
+                  className="text-muted hover:text-foreground text-sm transition-colors"
                 >
                   {link.label}
                 </AnimatedLink>
@@ -87,8 +81,8 @@ function Footer({ className }: FooterProps) {
             </nav>
           </div>
 
-          <div className="flex flex-col items-start justify-between gap-6 border-t border-border pt-8 md:flex-row md:items-center">
-            <p className="text-sm text-muted">
+          <div className="border-border flex flex-col items-start justify-between gap-6 border-t pt-8 md:flex-row md:items-center">
+            <p className="text-muted text-sm">
               &copy; {currentYear} Diego Sanchez. All rights reserved.
             </p>
 
@@ -99,7 +93,7 @@ function Footer({ className }: FooterProps) {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="magnetic rounded-full p-2 text-muted transition-colors hover:bg-elevated hover:text-foreground"
+                  className="magnetic text-muted hover:bg-elevated hover:text-foreground rounded-full p-2 transition-colors"
                   aria-label={link.label}
                 >
                   {link.icon}

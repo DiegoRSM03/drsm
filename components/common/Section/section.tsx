@@ -24,10 +24,7 @@ const backgroundClasses = {
 };
 
 const Section = forwardRef<HTMLElement, SectionProps>(
-  (
-    { children, id, className, background = "default", padding = "md" },
-    ref
-  ) => {
+  ({ children, id, className, background = "default", padding = "md" }, ref) => {
     return (
       <section
         ref={ref}

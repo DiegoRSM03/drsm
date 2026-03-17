@@ -99,11 +99,7 @@ export function FadeIn({
       ref={ref}
       className={className}
       initial={{ opacity: 0, ...getInitialPosition() }}
-      animate={
-        isInView
-          ? { opacity: 1, x: 0, y: 0 }
-          : { opacity: 0, ...getInitialPosition() }
-      }
+      animate={isInView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, ...getInitialPosition() }}
       transition={{
         duration,
         delay,

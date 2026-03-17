@@ -12,30 +12,19 @@ interface HoverCardProps {
 }
 
 const HoverCard = forwardRef<HTMLDivElement, HoverCardProps>(
-  (
-    {
-      children,
-      className = "",
-      hoverScale = 1,
-      hoverY = -8,
-      glowOnHover = true,
-    },
-    ref
-  ) => {
+  ({ children, className = "", hoverScale = 1, hoverY = -8, glowOnHover = true }, ref) => {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
       <motion.div
         ref={ref}
-        className={`relative rounded-xl border border-border bg-surface p-6 ${className}`}
+        className={`border-border bg-surface relative rounded-xl border p-6 ${className}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         animate={{
           y: isHovered ? hoverY : 0,
           scale: isHovered ? hoverScale : 1,
-          borderColor: isHovered
-            ? "rgba(139, 92, 246, 0.5)"
-            : "var(--color-border)",
+          borderColor: isHovered ? "rgba(139, 92, 246, 0.5)" : "var(--color-border)",
           boxShadow:
             isHovered && glowOnHover
               ? "0 16px 48px rgba(139, 92, 246, 0.2)"

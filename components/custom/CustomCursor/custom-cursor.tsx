@@ -82,16 +82,13 @@ export function CustomCursor() {
   const handleMouseLeave = useCallback(() => setIsVisible(false), []);
 
   useEffect(() => {
-    const checkTouchDevice =
-      "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    const checkTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
     // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: detect device type on mount
     setIsTouchDevice(checkTouchDevice);
 
     if (checkTouchDevice) return;
 
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (prefersReducedMotion) return;
 
@@ -108,13 +105,7 @@ export function CustomCursor() {
       document.removeEventListener("mouseenter", handleMouseEnter);
       document.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, [
-    handleMouseMove,
-    handleMouseDown,
-    handleMouseUp,
-    handleMouseEnter,
-    handleMouseLeave,
-  ]);
+  }, [handleMouseMove, handleMouseDown, handleMouseUp, handleMouseEnter, handleMouseLeave]);
 
   useEffect(() => {
     if (isTouchDevice) return;
@@ -240,7 +231,7 @@ export function CustomCursor() {
   return (
     <>
       <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-[9999] rounded-full bg-accent mix-blend-difference"
+        className="bg-accent pointer-events-none fixed top-0 left-0 z-[9999] rounded-full mix-blend-difference"
         style={{
           x: dotX,
           y: dotY,
@@ -256,7 +247,7 @@ export function CustomCursor() {
       />
 
       <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-[9998] rounded-full border-2 border-accent/50"
+        className="border-accent/50 pointer-events-none fixed top-0 left-0 z-[9998] rounded-full border-2"
         style={{
           x: circleX,
           y: circleY,
@@ -273,9 +264,7 @@ export function CustomCursor() {
               ? "rgba(139, 92, 246, 0.1)"
               : "rgba(0, 0, 0, 0)",
           borderColor:
-            cursorState === "magnetic"
-              ? "rgba(139, 92, 246, 0.8)"
-              : "rgba(139, 92, 246, 0.5)",
+            cursorState === "magnetic" ? "rgba(139, 92, 246, 0.8)" : "rgba(139, 92, 246, 0.5)",
         }}
         transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
       />

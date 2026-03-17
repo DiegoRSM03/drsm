@@ -7,10 +7,7 @@ interface PageTransitionProps {
   className?: string;
 }
 
-export function PageTransition({
-  children,
-  className = "",
-}: PageTransitionProps) {
+export function PageTransition({ children, className = "" }: PageTransitionProps) {
   return (
     <motion.div
       className={className}
@@ -42,10 +39,7 @@ interface PageTransitionItemProps {
   className?: string;
 }
 
-export function PageTransitionItem({
-  children,
-  className = "",
-}: PageTransitionItemProps) {
+export function PageTransitionItem({ children, className = "" }: PageTransitionItemProps) {
   return (
     <motion.div
       className={className}

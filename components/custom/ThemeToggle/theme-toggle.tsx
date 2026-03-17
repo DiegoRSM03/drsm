@@ -18,9 +18,7 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
       return;
     }
 
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (prefersReducedMotion) {
       toggleTheme();
@@ -50,10 +48,7 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
         .then(() => {
           document.documentElement.animate(
             {
-              clipPath: [
-                `circle(0px at ${x}px ${y}px)`,
-                `circle(${endRadius}px at ${x}px ${y}px)`,
-              ],
+              clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`],
             },
             {
               duration: 500,
@@ -101,7 +96,7 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
     <motion.button
       ref={buttonRef}
       onClick={handleToggle}
-      className={`magnetic relative flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface transition-colors hover:border-accent hover:bg-elevated ${className}`}
+      className={`magnetic border-border bg-surface hover:border-accent hover:bg-elevated relative flex h-10 w-10 items-center justify-center rounded-full border transition-colors ${className}`}
       whileTap={{ scale: 0.95 }}
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
     >
@@ -113,7 +108,7 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
       >
         {/* Sun */}
         <motion.svg
-          className="absolute inset-0 h-5 w-5 text-foreground"
+          className="text-foreground absolute inset-0 h-5 w-5"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -140,7 +135,7 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
 
         {/* Moon */}
         <motion.svg
-          className="absolute inset-0 h-5 w-5 text-foreground"
+          className="text-foreground absolute inset-0 h-5 w-5"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"

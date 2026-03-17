@@ -1,14 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {
-  Code,
-  Figma,
-  Database,
-  Layers,
-  Zap,
-  Globe,
-} from "lucide-react";
+import { Code, Figma, Database, Layers, Zap, Globe } from "lucide-react";
 import {
   AnimatedText,
   FadeIn,
@@ -70,8 +63,7 @@ export default function Home() {
               </AnimatedText>
               <FadeIn delay={initialDelay + 0.9}>
                 <Text size="lg" color="muted">
-                  Senior Frontend Engineer crafting exceptional digital
-                  experiences
+                  Senior Frontend Engineer crafting exceptional digital experiences
                 </Text>
               </FadeIn>
             </div>
@@ -109,18 +101,15 @@ export default function Home() {
                 Hover Cards
               </Heading>
 
-              <StaggerContainer
-                className="grid gap-6 md:grid-cols-2"
-                stagger={0.1}
-              >
+              <StaggerContainer className="grid gap-6 md:grid-cols-2" stagger={0.1}>
                 <StaggerItem>
                   <HoverCard>
                     <Heading as="h4" size="md" className="mb-2">
                       Project One
                     </Heading>
                     <Text color="muted">
-                      A beautiful web application with smooth animations and
-                      delightful interactions.
+                      A beautiful web application with smooth animations and delightful
+                      interactions.
                     </Text>
                   </HoverCard>
                 </StaggerItem>
@@ -130,8 +119,7 @@ export default function Home() {
                       Project Two
                     </Heading>
                     <Text color="muted">
-                      Mobile-first design system with comprehensive component
-                      library.
+                      Mobile-first design system with comprehensive component library.
                     </Text>
                   </HoverCard>
                 </StaggerItem>
@@ -141,8 +129,7 @@ export default function Home() {
                       Project Three
                     </Heading>
                     <Text color="muted">
-                      Real-time collaboration tool built with cutting-edge
-                      technologies.
+                      Real-time collaboration tool built with cutting-edge technologies.
                     </Text>
                   </HoverCard>
                 </StaggerItem>
@@ -168,10 +155,7 @@ export default function Home() {
                 Project Cards
               </Heading>
 
-              <StaggerContainer
-                className="grid gap-6 md:grid-cols-2"
-                stagger={0.1}
-              >
+              <StaggerContainer className="grid gap-6 md:grid-cols-2" stagger={0.1}>
                 <StaggerItem className="md:col-span-2">
                   <ProjectCard
                     title="Design System Platform"
@@ -334,8 +318,12 @@ export default function Home() {
                     <Badge variant="pop">Pop</Badge>
                     <Badge variant="outline">Outline</Badge>
                     <Badge size="sm">Small</Badge>
-                    <Badge size="lg" variant="accent">Large</Badge>
-                    <Badge animated variant="pop">Animated</Badge>
+                    <Badge size="lg" variant="accent">
+                      Large
+                    </Badge>
+                    <Badge animated variant="pop">
+                      Animated
+                    </Badge>
                   </div>
                 </div>
               </FadeIn>
@@ -358,11 +346,7 @@ export default function Home() {
                   <AnimatedLink href="#" underlineStyle="fade">
                     Fade Underline
                   </AnimatedLink>
-                  <AnimatedLink
-                    href="https://github.com"
-                    external
-                    underlineStyle="slide"
-                  >
+                  <AnimatedLink href="https://github.com" external underlineStyle="slide">
                     External Link
                   </AnimatedLink>
                 </div>
@@ -415,13 +399,10 @@ export default function Home() {
                 Color Palette
               </Heading>
 
-              <StaggerContainer
-                className="grid grid-cols-2 gap-4 md:grid-cols-4"
-                stagger={0.05}
-              >
+              <StaggerContainer className="grid grid-cols-2 gap-4 md:grid-cols-4" stagger={0.05}>
                 <StaggerItem>
                   <div className="flex flex-col gap-2">
-                    <div className="h-20 rounded-lg border border-border bg-background" />
+                    <div className="border-border bg-background h-20 rounded-lg border" />
                     <Text size="sm" color="muted">
                       Background
                     </Text>
@@ -429,7 +410,7 @@ export default function Home() {
                 </StaggerItem>
                 <StaggerItem>
                   <div className="flex flex-col gap-2">
-                    <div className="h-20 rounded-lg border border-border bg-surface" />
+                    <div className="border-border bg-surface h-20 rounded-lg border" />
                     <Text size="sm" color="muted">
                       Surface
                     </Text>
@@ -437,7 +418,7 @@ export default function Home() {
                 </StaggerItem>
                 <StaggerItem>
                   <div className="flex flex-col gap-2">
-                    <div className="h-20 rounded-lg bg-accent" />
+                    <div className="bg-accent h-20 rounded-lg" />
                     <Text size="sm" color="muted">
                       Accent
                     </Text>
@@ -445,7 +426,7 @@ export default function Home() {
                 </StaggerItem>
                 <StaggerItem>
                   <div className="flex flex-col gap-2">
-                    <div className="h-20 rounded-lg bg-pop" />
+                    <div className="bg-pop h-20 rounded-lg" />
                     <Text size="sm" color="muted">
                       Pop
                     </Text>
@@ -474,7 +455,7 @@ export default function Home() {
                 </StaggerItem>
                 <StaggerItem>
                   <code
-                    className="inline-block rounded bg-surface px-3 py-1 text-pop"
+                    className="bg-surface text-pop inline-block rounded px-3 py-1"
                     style={{ fontFamily: "var(--font-mono)" }}
                   >
                     Code — JetBrains Mono
@@ -494,8 +475,7 @@ export default function Home() {
                 </Heading>
                 <FadeIn>
                   <Text color="muted" className="mt-4">
-                    Have a project in mind? Let&apos;s work together to create
-                    something amazing.
+                    Have a project in mind? Let&apos;s work together to create something amazing.
                   </Text>
                 </FadeIn>
               </div>
@@ -516,7 +496,7 @@ export default function Home() {
 
               <div className="grid gap-6 md:grid-cols-2">
                 <FadeIn>
-                  <div className="rounded-xl border border-border bg-surface p-6">
+                  <div className="border-border bg-surface rounded-xl border p-6">
                     <div className="mb-4 flex items-center gap-4">
                       <SkeletonAvatar size="lg" />
                       <div className="flex-1">
@@ -544,9 +524,8 @@ export default function Home() {
 
               <FadeIn>
                 <Text color="muted">
-                  Click the sun/moon icon in the navbar to see the circular
-                  reveal theme transition. The animation expands from the toggle
-                  button position.
+                  Click the sun/moon icon in the navbar to see the circular reveal theme transition.
+                  The animation expands from the toggle button position.
                 </Text>
               </FadeIn>
             </div>

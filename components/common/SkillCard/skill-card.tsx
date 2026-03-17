@@ -26,27 +26,19 @@ const levelWidths = {
   expert: "100%",
 };
 
-function SkillCard({
-  name,
-  icon,
-  level,
-  category,
-  className,
-}: SkillCardProps) {
+function SkillCard({ name, icon, level, category, className }: SkillCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
       className={cn(
-        "flex flex-col items-center gap-3 rounded-xl border border-border bg-surface p-6",
+        "border-border bg-surface flex flex-col items-center gap-3 rounded-xl border p-6",
         className
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       animate={{
-        borderColor: isHovered
-          ? "rgba(139, 92, 246, 0.5)"
-          : "var(--color-border)",
+        borderColor: isHovered ? "rgba(139, 92, 246, 0.5)" : "var(--color-border)",
         boxShadow: isHovered
           ? "0 8px 32px rgba(139, 92, 246, 0.15)"
           : "0 0 0 rgba(139, 92, 246, 0)",
@@ -54,7 +46,7 @@ function SkillCard({
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
     >
       <motion.div
-        className="flex h-12 w-12 items-center justify-center text-accent"
+        className="text-accent flex h-12 w-12 items-center justify-center"
         animate={{ scale: isHovered ? 1.1 : 1 }}
         transition={{ duration: 0.2 }}
       >
@@ -62,18 +54,15 @@ function SkillCard({
       </motion.div>
 
       <div className="text-center">
-        <h4
-          className="font-medium"
-          style={{ fontFamily: "var(--font-display)" }}
-        >
+        <h4 className="font-medium" style={{ fontFamily: "var(--font-display)" }}>
           {name}
         </h4>
-        {category && <p className="text-xs text-muted">{category}</p>}
+        {category && <p className="text-muted text-xs">{category}</p>}
       </div>
 
       {level && (
         <div className="w-full">
-          <div className="h-1 w-full overflow-hidden rounded-full bg-elevated">
+          <div className="bg-elevated h-1 w-full overflow-hidden rounded-full">
             <motion.div
               className={cn("h-full rounded-full", levelColors[level])}
               initial={{ width: 0 }}
@@ -81,9 +70,7 @@ function SkillCard({
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             />
           </div>
-          <p className="mt-1 text-center text-xs capitalize text-muted">
-            {level}
-          </p>
+          <p className="text-muted mt-1 text-center text-xs capitalize">{level}</p>
         </div>
       )}
 

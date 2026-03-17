@@ -54,7 +54,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <motion.label
           htmlFor={name}
           className={cn(
-            "pointer-events-none absolute left-4 origin-left text-muted transition-colors",
+            "text-muted pointer-events-none absolute left-4 origin-left transition-colors",
             error && "text-red-500"
           )}
           animate={{
@@ -69,7 +69,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
           {label}
-          {required && <span className="ml-1 text-accent">*</span>}
+          {required && <span className="text-accent ml-1">*</span>}
         </motion.label>
 
         <motion.input
@@ -84,7 +84,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           onFocus={handleFocus}
           onBlur={handleBlur}
           className={cn(
-            "w-full rounded-lg border bg-surface px-4 py-3 text-foreground outline-none transition-colors",
+            "bg-surface text-foreground w-full rounded-lg border px-4 py-3 transition-colors outline-none",
             "placeholder:text-muted/50",
             error ? "border-red-500" : "border-border",
             isFocused && !error && "border-accent"

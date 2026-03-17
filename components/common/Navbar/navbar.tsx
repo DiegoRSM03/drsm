@@ -64,10 +64,7 @@ function Navbar({ className, links = defaultLinks }: NavbarProps) {
   return (
     <>
       <motion.nav
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 px-6 py-4 md:px-8",
-          className
-        )}
+        className={cn("fixed top-0 right-0 left-0 z-50 px-6 py-4 md:px-8", className)}
         initial={{ y: 0, opacity: 0 }}
         animate={{
           y: isHidden ? -100 : 0,
@@ -99,7 +96,7 @@ function Navbar({ className, links = defaultLinks }: NavbarProps) {
                 key={link.href}
                 href={link.href}
                 underlineStyle="slide"
-                className="text-muted transition-colors hover:text-foreground"
+                className="text-muted hover:text-foreground transition-colors"
               >
                 {link.label}
               </AnimatedLink>
@@ -145,7 +142,7 @@ function Navbar({ className, links = defaultLinks }: NavbarProps) {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-background"
+            className="bg-background fixed inset-0 z-40 flex flex-col items-center justify-center"
             initial={{ clipPath: "circle(0% at calc(100% - 48px) 32px)" }}
             animate={{ clipPath: "circle(150% at calc(100% - 48px) 32px)" }}
             exit={{ clipPath: "circle(0% at calc(100% - 48px) 32px)" }}
@@ -167,7 +164,7 @@ function Navbar({ className, links = defaultLinks }: NavbarProps) {
                   <Link
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-4xl font-bold tracking-tight transition-colors hover:text-accent"
+                    className="hover:text-accent text-4xl font-bold tracking-tight transition-colors"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
                     {link.label}
