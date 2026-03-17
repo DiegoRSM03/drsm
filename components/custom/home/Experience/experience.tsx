@@ -596,7 +596,7 @@ export default function Experience() {
     <section
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="bg-background relative"
+      className="bg-background relative border-t border-white/[0.08]"
       aria-labelledby="experience-heading"
     >
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">

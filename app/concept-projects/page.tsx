@@ -126,7 +126,7 @@ function ProjectsSection() {
     <section
       id="projects-concept"
       className="relative w-full overflow-hidden py-24 md:py-36"
-      style={{ backgroundColor: "#000" }}
+      style={{ backgroundColor: "var(--color-background)" }}
     >
       <div className="mx-auto w-full max-w-7xl px-6">
         <SectionHeader />
@@ -504,9 +504,12 @@ function FloatingShapes() {
 
 export default function ConceptProjectsPage() {
   return (
-    <main style={{ backgroundColor: "#000" }}>
+    <main style={{ backgroundColor: "var(--color-background)" }}>
       {/* Page Header */}
-      <section className="relative w-full py-24 md:py-36" style={{ backgroundColor: "#000" }}>
+      <section
+        className="relative w-full py-24 md:py-36"
+        style={{ backgroundColor: "var(--color-background)" }}
+      >
         <div className="mx-auto w-full max-w-7xl px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

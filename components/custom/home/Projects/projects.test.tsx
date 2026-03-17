@@ -42,6 +42,9 @@ jest.mock("framer-motion", () => ({
     )),
   },
   useMotionValue: () => ({ get: () => 0, set: jest.fn() }),
+  useScroll: () => ({ scrollYProgress: { get: () => 0 } }),
+  useTransform: () => ({ get: () => 0 }),
+  useSpring: () => ({ get: () => 0 }),
   useReducedMotion: () => false,
 }));
 
@@ -72,7 +75,7 @@ describe("Projects", () => {
     it("renders all project cards", () => {
       render(<Projects />);
       PROJECTS.forEach((project) => {
-        expect(screen.getByText(project.title)).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: project.title })).toBeInTheDocument();
         expect(screen.getByText(project.description)).toBeInTheDocument();
         expect(screen.getByText(project.type.toUpperCase())).toBeInTheDocument();
       });
@@ -194,13 +197,13 @@ describe("Projects", () => {
     it("displays correct project data", () => {
       render(<Projects />);
 
-      expect(screen.getByText("Nexus Platform")).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: "Nexus Platform" })).toBeInTheDocument();
       expect(screen.getByText("ENTERPRISE SAAS DASHBOARD")).toBeInTheDocument();
 
-      expect(screen.getByText("Velocity")).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: "Velocity" })).toBeInTheDocument();
       expect(screen.getByText("PERFORMANCE MONITORING TOOL")).toBeInTheDocument();
 
-      expect(screen.getByText("Artemis")).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: "Artemis" })).toBeInTheDocument();
       expect(screen.getByText("DESIGN SYSTEM FRAMEWORK")).toBeInTheDocument();
     });
 
