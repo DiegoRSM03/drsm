@@ -72,9 +72,9 @@ const MagneticButton = forwardRef<HTMLButtonElement, MagneticButtonProps>(
     };
 
     const sizes = {
-      sm: "h-9 px-4 text-sm rounded-full",
-      md: "h-11 px-6 text-base rounded-full",
-      lg: "h-14 px-8 text-lg rounded-full",
+      sm: "h-9 px-4 text-sm",
+      md: "h-11 px-6 text-base",
+      lg: "h-14 px-8 text-lg",
     };
 
     return (

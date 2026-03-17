@@ -11,13 +11,25 @@ jest.mock("@/contexts", () => ({
   }),
 }));
 
+jest.mock("next/link", () => ({
+  __esModule: true,
+  default: ({
+    children,
+    href,
+    className,
+  }: {
+    children: React.ReactNode;
+    href: string;
+    className?: string;
+  }) => (
+    <a href={href} className={className}>
+      {children}
+    </a>
+  ),
+}));
+
 jest.mock("framer-motion", () => ({
   motion: {
-    nav: ({ children, className }: { children: React.ReactNode; className: string }) => (
-      <nav className={className} data-testid="navbar">
-        {children}
-      </nav>
-    ),
     div: ({
       children,
       className,
@@ -39,13 +51,23 @@ jest.mock("framer-motion", () => ({
       onClick,
       className,
       "aria-label": ariaLabel,
+      "aria-expanded": ariaExpanded,
+      "aria-controls": ariaControls,
     }: {
       children: React.ReactNode;
       onClick?: () => void;
       className?: string;
       "aria-label"?: string;
+      "aria-expanded"?: boolean;
+      "aria-controls"?: string;
     }) => (
-      <button onClick={onClick} className={className} aria-label={ariaLabel}>
+      <button
+        onClick={onClick}
+        className={className}
+        aria-label={ariaLabel}
+        aria-expanded={ariaExpanded}
+        aria-controls={ariaControls}
+      >
         {children}
       </button>
     ),
@@ -64,6 +86,9 @@ jest.mock("framer-motion", () => ({
         {children}
       </a>
     ),
+    li: ({ children, className }: { children: React.ReactNode; className?: string }) => (
+      <li className={className}>{children}</li>
+    ),
     path: ({ fill, d }: { fill: string; d: string }) => <path fill={fill} d={d} />,
     svg: ({ children, className }: { children?: React.ReactNode; className?: string }) => (
       <svg className={className}>{children}</svg>
@@ -72,6 +97,7 @@ jest.mock("framer-motion", () => ({
   useMotionValue: () => ({ set: jest.fn(), get: () => 0 }),
   useSpring: () => ({ set: jest.fn() }),
   useTransform: () => ({ set: jest.fn() }),
+  useReducedMotion: () => false,
   AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
 }));
 
@@ -95,7 +121,7 @@ describe("Navbar", () => {
 
   it("renders the navbar", () => {
     render(<Navbar />);
-    expect(screen.getByTestId("navbar")).toBeInTheDocument();
+    expect(screen.getByRole("banner")).toBeInTheDocument();
   });
 
   it("renders DRSM logo letters", () => {
@@ -154,7 +180,7 @@ describe("Navbar", () => {
 
   it("applies custom className", () => {
     render(<Navbar className="custom-navbar" />);
-    expect(screen.getByTestId("navbar")).toHaveClass("custom-navbar");
+    expect(screen.getByRole("banner")).toHaveClass("custom-navbar");
   });
 
   it("passes isMenuOpen to ThemeToggle", () => {
@@ -162,5 +188,29 @@ describe("Navbar", () => {
     expect(screen.getByTestId("theme-toggle")).toHaveAttribute("data-menu-open", "false");
     fireEvent.click(screen.getByLabelText("Open menu"));
     expect(screen.getByTestId("theme-toggle")).toHaveAttribute("data-menu-open", "true");
+  });
+
+  it("hamburger button has aria-expanded attribute", () => {
+    render(<Navbar />);
+    const hamburger = screen.getByLabelText("Open menu");
+    expect(hamburger).toHaveAttribute("aria-expanded", "false");
+    fireEvent.click(hamburger);
+    expect(screen.getByLabelText("Close menu")).toHaveAttribute("aria-expanded", "true");
+  });
+
+  it("hamburger button has aria-controls attribute", () => {
+    render(<Navbar />);
+    expect(screen.getByLabelText("Open menu")).toHaveAttribute("aria-controls", "main-menu");
+  });
+
+  it("language toggle has accessible label", () => {
+    render(<Navbar />);
+    expect(screen.getByLabelText("Toggle language")).toBeInTheDocument();
+  });
+
+  it("logo link points to home", () => {
+    render(<Navbar />);
+    const logoContainer = screen.getByText("D").closest("a");
+    expect(logoContainer).toHaveAttribute("href", "/");
   });
 });

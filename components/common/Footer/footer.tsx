@@ -51,8 +51,8 @@ function Footer({ className }: FooterProps) {
 
   return (
     <FadeIn>
-      <footer className={cn("border-border bg-surface border-t px-6 py-12 md:px-8", className)}>
-        <div className="mx-auto flex max-w-[1024px] flex-col gap-8">
+      <footer className={cn("border-border bg-surface border-t px-6 py-12", className)}>
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-8">
           <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
             <div className="flex flex-col gap-2">
               <Link
