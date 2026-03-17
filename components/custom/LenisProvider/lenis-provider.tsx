@@ -36,6 +36,7 @@ export function LenisProvider({ children }: LenisProviderProps) {
       touchMultiplier: 2,
     });
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: sync external instance to state
     setLenis(lenisInstance);
 
     function raf(time: number) {

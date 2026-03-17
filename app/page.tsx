@@ -44,6 +44,7 @@ export default function Home() {
   useEffect(() => {
     const hasLoaded = sessionStorage.getItem("drsm-loaded");
     if (!hasLoaded) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: sync with loading screen timing
       setInitialDelay(1.9);
     }
   }, []);

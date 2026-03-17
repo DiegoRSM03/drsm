@@ -19,6 +19,7 @@ function ScrollToTop({ threshold = 400, className }: ScrollToTopProps) {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: check initial scroll position
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
-import { motion, useMotionValue, useSpring, animate } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 type CursorState = "default" | "hover" | "magnetic" | "text" | "hidden";
 
@@ -84,6 +84,7 @@ export function CustomCursor() {
   useEffect(() => {
     const checkTouchDevice =
       "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: detect device type on mount
     setIsTouchDevice(checkTouchDevice);
 
     if (checkTouchDevice) return;
