@@ -9,21 +9,13 @@ import {
   useReducedMotion,
   MotionValue,
 } from "framer-motion";
-import { useState, useRef, useCallback, useEffect, useSyncExternalStore } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { useTheme } from "@/contexts";
 import { ProximityShape } from "@/components/custom/ProximityShape";
 import { ACCENT, PINK_HEX, CYAN_HEX, AMBER_HEX, GREEN_HEX, EASE } from "@/utils";
+import { useIsTouchDevice } from "@/hooks";
+import { GridBackground } from "@/components/custom/GridBackground";
 import type { ProximityShapeData } from "@/components/custom/ProximityShape";
-
-function useIsTouchDevice() {
-  const getSnapshot = () => "ontouchstart" in window || navigator.maxTouchPoints > 0;
-  const getServerSnapshot = () => false;
-  const subscribe = (callback: () => void) => {
-    window.addEventListener("touchstart", callback, { once: true });
-    return () => window.removeEventListener("touchstart", callback);
-  };
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-}
 
 interface ExperienceData {
   company: string;
@@ -464,21 +456,7 @@ export default function Experience() {
       className="bg-background relative border-t border-white/[0.08]"
       aria-labelledby="experience-heading"
     >
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="experience-grid" width="100" height="100" patternUnits="userSpaceOnUse">
-              <path
-                d="M 100 0 L 0 0 0 100"
-                fill="none"
-                stroke="rgba(255, 255, 255, 0.05)"
-                strokeWidth="1"
-              />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#experience-grid)" />
-        </svg>
-      </div>
+      <GridBackground id="experience-grid" stroke="rgba(255, 255, 255, 0.05)" />
 
       <div className="relative flex flex-col lg:flex-row">
         <aside
@@ -486,21 +464,7 @@ export default function Experience() {
           style={{ backgroundColor: ACCENT }}
           aria-label="Work history navigation"
         >
-          <div className="absolute inset-0" aria-hidden="true">
-            <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <pattern id="sidebar-grid" width="100" height="100" patternUnits="userSpaceOnUse">
-                  <path
-                    d="M 100 0 L 0 0 0 100"
-                    fill="none"
-                    stroke="rgba(255, 255, 255, 0.15)"
-                    strokeWidth="1"
-                  />
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#sidebar-grid)" />
-            </svg>
-          </div>
+          <GridBackground id="sidebar-grid" stroke="rgba(255, 255, 255, 0.15)" />
 
           {!isTouch && (
             <div className="pointer-events-none absolute inset-0" aria-hidden="true">
@@ -542,25 +506,7 @@ export default function Experience() {
         </aside>
 
         <div className="bg-surface relative w-full lg:w-3/5">
-          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-            <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <pattern id="content-grid" width="100" height="100" patternUnits="userSpaceOnUse">
-                  <path
-                    d="M 100 0 L 0 0 0 100"
-                    fill="none"
-                    stroke={
-                      isDark
-                        ? "rgba(255, 255, 255, 0.15)"
-                        : "color-mix(in srgb, var(--color-accent) 30%, transparent)"
-                    }
-                    strokeWidth="1"
-                  />
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#content-grid)" />
-            </svg>
-          </div>
+          <GridBackground id="content-grid" />
 
           {!isTouch && (
             <div

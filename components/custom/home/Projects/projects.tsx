@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useCallback, useSyncExternalStore } from "react";
+import { useRef, useCallback } from "react";
 import {
   motion,
   useMotionValue,
@@ -14,17 +14,8 @@ import { ArrowUpRight, Github } from "lucide-react";
 import { MagneticButton } from "@/components/custom/MagneticButton";
 import { ProximityShape } from "@/components/custom/ProximityShape";
 import { ACCENT, CYAN_HEX, PINK_HEX, AMBER_HEX, GREEN_HEX, EASE, SPRING_MAGNETIC } from "@/utils";
+import { useIsTouchDevice } from "@/hooks";
 import type { ProximityShapeData } from "@/components/custom/ProximityShape";
-
-function useIsTouchDevice() {
-  const getSnapshot = () => "ontouchstart" in window || navigator.maxTouchPoints > 0;
-  const getServerSnapshot = () => false;
-  const subscribe = (callback: () => void) => {
-    window.addEventListener("touchstart", callback, { once: true });
-    return () => window.removeEventListener("touchstart", callback);
-  };
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-}
 
 export interface ProjectData {
   id: number;

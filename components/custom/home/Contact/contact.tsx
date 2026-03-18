@@ -11,7 +11,7 @@ import {
   useInView,
 } from "framer-motion";
 import { Github, Linkedin, Mail, Copy, Check } from "lucide-react";
-import { useTheme } from "@/contexts";
+import { GridBackground } from "@/components/custom/GridBackground";
 import {
   ACCENT_HEX,
   CYAN_HEX,
@@ -201,8 +201,6 @@ export default function Contact() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const shouldReduceMotion = useReducedMotion();
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -227,26 +225,7 @@ export default function Contact() {
       style={{ backgroundColor: "var(--color-background)" }}
       aria-labelledby="contact-heading"
     >
-      {/* Grid background */}
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="contact-grid" width="100" height="100" patternUnits="userSpaceOnUse">
-              <path
-                d="M 100 0 L 0 0 0 100"
-                fill="none"
-                stroke={
-                  isDark
-                    ? "rgba(255, 255, 255, 0.15)"
-                    : "color-mix(in srgb, var(--color-accent) 30%, transparent)"
-                }
-                strokeWidth="1"
-              />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#contact-grid)" />
-        </svg>
-      </div>
+      <GridBackground id="contact-grid" />
 
       <motion.div
         className="relative mx-auto w-full max-w-7xl px-4 sm:px-6"

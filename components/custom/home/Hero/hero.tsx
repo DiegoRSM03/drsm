@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import { useRef, useCallback, useEffect, useState } from "react";
 import {
   motion,
   useScroll,
@@ -14,19 +14,10 @@ import { Download, ArrowRight } from "lucide-react";
 import { SiReact, SiTypescript, SiNextdotjs, SiTailwindcss, SiJest } from "react-icons/si";
 import { MagneticButton } from "@/components/custom/MagneticButton";
 import { ProximityShape } from "@/components/custom/ProximityShape";
-import { useTheme } from "@/contexts";
 import { ACCENT, CYAN_HEX, PINK_HEX, AMBER_HEX, GREEN_HEX, EASE } from "@/utils";
+import { useIsTouchDevice } from "@/hooks";
+import { GridBackground } from "@/components/custom/GridBackground";
 import type { ProximityShapeData } from "@/components/custom/ProximityShape";
-
-function useIsTouchDevice() {
-  const getSnapshot = () => "ontouchstart" in window || navigator.maxTouchPoints > 0;
-  const getServerSnapshot = () => false;
-  const subscribe = (callback: () => void) => {
-    window.addEventListener("touchstart", callback, { once: true });
-    return () => window.removeEventListener("touchstart", callback);
-  };
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-}
 
 interface TechItem {
   icon: typeof SiReact | null;
@@ -201,7 +192,7 @@ function Hero() {
       className="bg-surface relative flex h-screen w-full items-center justify-center overflow-hidden"
       aria-label="Hero section introducing Diego Sanchez"
     >
-      <GridBackground />
+      <GridBackground id="hero-grid" cellSize={100} />
       {!isTouch && (
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
           {HERO_SHAPES.map((shape, i) => (
@@ -492,33 +483,6 @@ function MagneticPill({
         </motion.span>
       </motion.div>
     </motion.div>
-  );
-}
-
-function GridBackground() {
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
-
-  return (
-    <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-      <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="hero-grid" width="100" height="100" patternUnits="userSpaceOnUse">
-            <path
-              d="M 100 0 L 0 0 0 100"
-              fill="none"
-              stroke={
-                isDark
-                  ? "rgba(255, 255, 255, 0.15)"
-                  : "color-mix(in srgb, var(--color-accent) 30%, transparent)"
-              }
-              strokeWidth="1"
-            />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#hero-grid)" />
-      </svg>
-    </div>
   );
 }
 
