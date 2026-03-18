@@ -33,7 +33,7 @@ function ProjectCard({
     <Link href={href} className={cn("group block", className)}>
       <motion.article
         className={cn(
-          "border-border bg-surface relative overflow-hidden rounded-xl border",
+          "border-border bg-surface relative overflow-hidden border",
           featured && "md:col-span-2"
         )}
         onMouseEnter={() => setIsHovered(true)}
@@ -90,7 +90,7 @@ function ProjectCard({
 
           <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (
-              <span key={tag} className="bg-elevated text-muted rounded-full px-3 py-1 text-xs">
+              <span key={tag} className="bg-elevated text-muted px-3 py-1 text-xs">
                 {tag}
               </span>
             ))}
@@ -99,7 +99,7 @@ function ProjectCard({
 
         {isHovered && (
           <motion.div
-            className="pointer-events-none absolute inset-0 rounded-xl"
+            className="pointer-events-none absolute inset-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

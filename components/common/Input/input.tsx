@@ -84,7 +84,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           onFocus={handleFocus}
           onBlur={handleBlur}
           className={cn(
-            "bg-surface text-foreground w-full rounded-lg border px-4 py-3 transition-colors outline-none",
+            "bg-surface text-foreground w-full border px-4 py-3 transition-colors outline-none",
             "placeholder:text-muted/50",
             error ? "border-red-500" : "border-border",
             isFocused && !error && "border-accent"

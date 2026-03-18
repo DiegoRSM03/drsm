@@ -34,7 +34,7 @@ function ExperienceCard({
     >
       <div className="relative flex flex-col items-center">
         <motion.div
-          className="border-accent bg-background relative z-10 flex h-4 w-4 items-center justify-center rounded-full border-2"
+          className="border-accent bg-background relative z-10 flex h-4 w-4 items-center justify-center border-2"
           animate={{
             scale: isHovered ? 1.25 : 1,
             backgroundColor: isHovered ? "var(--color-accent)" : "var(--color-background)",
@@ -45,7 +45,7 @@ function ExperienceCard({
       </div>
 
       <motion.div
-        className="border-border bg-surface flex-1 rounded-xl border p-6 pb-8"
+        className="border-border bg-surface flex-1 border p-6 pb-8"
         animate={{
           borderColor: isHovered ? "rgba(139, 92, 246, 0.5)" : "var(--color-border)",
           boxShadow: isHovered
@@ -56,7 +56,7 @@ function ExperienceCard({
       >
         <div className="mb-4 flex items-start gap-4">
           {logo && (
-            <div className="bg-elevated relative h-12 w-12 overflow-hidden rounded-lg">
+            <div className="bg-elevated relative h-12 w-12 overflow-hidden">
               <NextImage src={logo} alt={company} fill className="object-contain p-2" />
             </div>
           )}
@@ -74,7 +74,7 @@ function ExperienceCard({
         {technologies.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {technologies.map((tech) => (
-              <span key={tech} className="bg-elevated text-muted rounded-full px-3 py-1 text-xs">
+              <span key={tech} className="bg-elevated text-muted px-3 py-1 text-xs">
                 {tech}
               </span>
             ))}

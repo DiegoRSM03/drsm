@@ -145,7 +145,7 @@ function ContactForm({ onSubmit, className }: ContactFormProps) {
         type="submit"
         disabled={isSubmitting}
         className={cn(
-          "magnetic bg-accent flex items-center justify-center gap-2 rounded-lg px-6 py-3 font-medium text-white transition-colors",
+          "magnetic bg-accent flex items-center justify-center gap-2 px-6 py-3 font-medium text-white transition-colors",
           "hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
         )}
         whileTap={{ scale: 0.98 }}

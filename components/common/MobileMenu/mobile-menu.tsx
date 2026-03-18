@@ -60,7 +60,7 @@ function MobileMenu({ isOpen, onClose, links, className }: MobileMenuProps) {
           <div className="flex items-center justify-end p-6">
             <motion.button
               onClick={onClose}
-              className="magnetic text-foreground hover:bg-surface rounded-full p-2 transition-colors"
+              className="magnetic text-foreground hover:bg-surface p-2 transition-colors"
               initial={{ rotate: -90, opacity: 0 }}
               animate={{ rotate: 0, opacity: 1 }}
               exit={{ rotate: 90, opacity: 0 }}

@@ -110,7 +110,7 @@ function ToastItem({ toast, onDismiss }: ToastItemProps) {
       exit={{ opacity: 0, x: 100, scale: 0.95 }}
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
-        "pointer-events-auto flex max-w-[400px] min-w-[300px] items-start gap-3 rounded-lg border p-4 shadow-lg backdrop-blur-sm",
+        "pointer-events-auto flex max-w-[400px] min-w-[300px] items-start gap-3 border p-4 shadow-lg backdrop-blur-sm",
         config.className
       )}
     >
@@ -118,7 +118,7 @@ function ToastItem({ toast, onDismiss }: ToastItemProps) {
       <p className="text-foreground flex-1 text-sm">{toast.message}</p>
       <button
         onClick={() => onDismiss(toast.id)}
-        className="text-muted hover:bg-surface hover:text-foreground shrink-0 rounded p-1 transition-colors"
+        className="text-muted hover:bg-surface hover:text-foreground shrink-0 p-1 transition-colors"
         aria-label="Dismiss"
       >
         <X className="h-4 w-4" />

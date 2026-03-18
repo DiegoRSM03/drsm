@@ -32,7 +32,7 @@ function SkillCard({ name, icon, level, category, className }: SkillCardProps) {
   return (
     <motion.div
       className={cn(
-        "border-border bg-surface flex flex-col items-center gap-3 rounded-xl border p-6",
+        "border-border bg-surface flex flex-col items-center gap-3 border p-6",
         className
       )}
       onMouseEnter={() => setIsHovered(true)}
@@ -62,9 +62,9 @@ function SkillCard({ name, icon, level, category, className }: SkillCardProps) {
 
       {level && (
         <div className="w-full">
-          <div className="bg-elevated h-1 w-full overflow-hidden rounded-full">
+          <div className="bg-elevated h-1 w-full overflow-hidden">
             <motion.div
-              className={cn("h-full rounded-full", levelColors[level])}
+              className={cn("h-full", levelColors[level])}
               initial={{ width: 0 }}
               animate={{ width: isHovered ? levelWidths[level] : "0%" }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -76,7 +76,7 @@ function SkillCard({ name, icon, level, category, className }: SkillCardProps) {
 
       {isHovered && (
         <motion.div
-          className="pointer-events-none absolute inset-0 rounded-xl"
+          className="pointer-events-none absolute inset-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

@@ -18,7 +18,7 @@ const HoverCard = forwardRef<HTMLDivElement, HoverCardProps>(
     return (
       <motion.div
         ref={ref}
-        className={`border-border bg-surface relative rounded-xl border p-6 ${className}`}
+        className={`border-border bg-surface relative border p-6 ${className}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         animate={{
@@ -37,7 +37,7 @@ const HoverCard = forwardRef<HTMLDivElement, HoverCardProps>(
       >
         {glowOnHover && (
           <motion.div
-            className="pointer-events-none absolute inset-0 rounded-xl"
+            className="pointer-events-none absolute inset-0"
             style={{
               background:
                 "radial-gradient(circle at center, rgba(139, 92, 246, 0.08) 0%, rgba(0,0,0,0) 70%)",

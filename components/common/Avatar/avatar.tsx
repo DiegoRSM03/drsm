@@ -57,7 +57,7 @@ function Avatar({
   return (
     <motion.div
       className={cn(
-        "bg-elevated relative flex shrink-0 items-center justify-center overflow-hidden rounded-full",
+        "bg-elevated relative flex shrink-0 items-center justify-center overflow-hidden",
         sizeClasses[size],
         border && "ring-border ring-offset-background ring-2 ring-offset-2",
         glow && "shadow-glow",

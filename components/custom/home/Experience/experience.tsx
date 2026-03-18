@@ -408,9 +408,6 @@ export default function Experience() {
   const contentRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const isTouch = useIsTouchDevice();
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
-
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const centerX = useMotionValue(0);

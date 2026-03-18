@@ -34,7 +34,7 @@ function ScrollToTop({ threshold = 400, className }: ScrollToTopProps) {
         <motion.button
           onClick={scrollToTop}
           className={cn(
-            "magnetic border-border bg-surface hover:border-accent hover:bg-elevated fixed right-6 bottom-6 z-40 flex h-12 w-12 items-center justify-center rounded-full border shadow-lg transition-colors",
+            "magnetic border-border bg-surface hover:border-accent hover:bg-elevated fixed right-6 bottom-6 z-40 flex h-12 w-12 items-center justify-center border shadow-lg transition-colors",
             className
           )}
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
