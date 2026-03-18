@@ -61,7 +61,7 @@ const HERO_SHAPES: ProximityShapeData[] = [
     x: "8%",
     y: "18%",
     size: 55,
-    color: "#8B5CF6",
+    color: "var(--color-accent)",
     filled: true,
     floatDuration: 6,
     floatDelay: 0,
@@ -111,7 +111,7 @@ const HERO_SHAPES: ProximityShapeData[] = [
     x: "88%",
     y: "85%",
     size: 48,
-    color: "#8B5CF6",
+    color: "var(--color-accent)",
     filled: true,
     floatDuration: 5,
     floatDelay: 0.6,
@@ -121,7 +121,7 @@ const HERO_SHAPES: ProximityShapeData[] = [
     x: "18%",
     y: "25%",
     size: 70,
-    color: "#8B5CF6",
+    color: "var(--color-accent)",
     filled: false,
     floatDuration: 7,
     floatDelay: 0.3,
@@ -535,14 +535,14 @@ function CursorShapes({ enableMotion = true }: { enableMotion?: boolean }) {
   return (
     <div className="pointer-events-none fixed inset-0 z-[15]" aria-hidden="true">
       <motion.div
-        className="absolute h-[600px] w-[600px] rounded-full"
+        className="absolute h-[400px] w-[400px] rounded-full"
         style={{
           left: smoothX,
           top: smoothY,
           x: "-50%",
           y: "-50%",
           background:
-            "radial-gradient(circle, rgba(139, 92, 246, 0.13) 0%, rgba(139, 92, 246, 0.04) 45%, transparent 60%)",
+            "radial-gradient(circle, color-mix(in srgb, var(--color-accent) 13%, transparent) 0%, color-mix(in srgb, var(--color-accent) 4%, transparent) 45%, transparent 60%)",
         }}
       />
       {CURSOR_SHAPES.map((shape, i) => (
@@ -570,9 +570,32 @@ function CursorFollower({
   index: number;
 }) {
   const shouldReduceMotion = useReducedMotion();
+  const angle = useMotionValue(index * Math.PI);
+  const orbitRadius = 35 + index * 10;
+  const speed = 0.02 + index * 0.008;
 
-  const targetX = useTransform(mouseX, (v) => v + shape.offsetX - shape.size / 2);
-  const targetY = useTransform(mouseY, (v) => v + shape.offsetY - shape.size / 2);
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+    let raf: number;
+    const tick = () => {
+      angle.set(angle.get() + speed);
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [angle, speed, shouldReduceMotion]);
+
+  const orbitX = useTransform(angle, (a) => Math.cos(a) * orbitRadius);
+  const orbitY = useTransform(angle, (a) => Math.sin(a) * orbitRadius);
+
+  const targetX = useTransform(
+    [mouseX, orbitX] as MotionValue<number>[],
+    ([mx, ox]: number[]) => mx + ox - shape.size / 2
+  );
+  const targetY = useTransform(
+    [mouseY, orbitY] as MotionValue<number>[],
+    ([my, oy]: number[]) => my + oy - shape.size / 2
+  );
 
   const x = useSpring(targetX, { stiffness: shape.stiffness, damping: shape.damping });
   const y = useSpring(targetY, { stiffness: shape.stiffness, damping: shape.damping });

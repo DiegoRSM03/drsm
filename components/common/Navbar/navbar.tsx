@@ -12,6 +12,8 @@ import {
 import Link from "next/link";
 import { Globe } from "lucide-react";
 import { ThemeToggle } from "@/components/custom/ThemeToggle";
+import { ProximityShape } from "@/components/custom/ProximityShape";
+import type { ProximityShapeData } from "@/components/custom/ProximityShape";
 import { useTheme } from "@/contexts";
 
 function useIsTouchDevice() {
@@ -391,58 +393,107 @@ function CurvedBottom({ color }: { color: string }) {
   );
 }
 
-interface FloatingShape {
-  x: string;
-  y: string;
-  size: number;
-  type: "circle" | "square";
-}
-
-function FloatingShapes({ shapes, color }: { shapes: FloatingShape[]; color: string }) {
-  const shouldReduceMotion = useReducedMotion();
-
-  return (
-    <div aria-hidden="true">
-      {shapes.map((shape, i) => (
-        <motion.div
-          key={i}
-          className={`absolute ${shape.type === "circle" ? "rounded-full" : ""}`}
-          style={{
-            left: shape.x,
-            top: shape.y,
-            width: shape.size,
-            height: shape.size,
-            backgroundColor: color,
-            rotate: shape.type === "square" ? 45 : 0,
-          }}
-          initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0 }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-            y: shouldReduceMotion ? 0 : [0, -12, 0],
-          }}
-          exit={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0 }}
-          transition={{
-            delay: shouldReduceMotion ? 0 : 0.3 + i * 0.1,
-            y: shouldReduceMotion ? {} : { repeat: Infinity, duration: 4 + i, ease: "easeInOut" },
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
-const SHAPES_CONFIG: FloatingShape[] = [
-  { x: "5%", y: "12%", size: 48, type: "circle" },
-  { x: "15%", y: "28%", size: 16, type: "square" },
-  { x: "8%", y: "55%", size: 32, type: "square" },
-  { x: "18%", y: "72%", size: 12, type: "circle" },
-  { x: "92%", y: "18%", size: 24, type: "square" },
-  { x: "85%", y: "35%", size: 44, type: "circle" },
-  { x: "90%", y: "58%", size: 18, type: "circle" },
-  { x: "82%", y: "75%", size: 36, type: "square" },
-  { x: "25%", y: "85%", size: 14, type: "circle" },
-  { x: "75%", y: "88%", size: 20, type: "square" },
+const CURTAIN_SHAPES: ProximityShapeData[] = [
+  {
+    type: "circle",
+    x: "5%",
+    y: "12%",
+    size: 48,
+    color: "rgba(255,255,255,0.15)",
+    filled: true,
+    floatDuration: 6,
+    floatDelay: 0,
+  },
+  {
+    type: "square",
+    x: "15%",
+    y: "28%",
+    size: 16,
+    color: "rgba(255,255,255,0.15)",
+    filled: true,
+    floatDuration: 5,
+    floatDelay: 0.3,
+  },
+  {
+    type: "diamond",
+    x: "8%",
+    y: "55%",
+    size: 32,
+    color: "rgba(255,255,255,0.15)",
+    filled: true,
+    floatDuration: 7,
+    floatDelay: 0.6,
+  },
+  {
+    type: "triangle",
+    x: "18%",
+    y: "72%",
+    size: 18,
+    color: "rgba(255,255,255,0.15)",
+    filled: true,
+    floatDuration: 8,
+    floatDelay: 0.9,
+  },
+  {
+    type: "diamond",
+    x: "92%",
+    y: "18%",
+    size: 24,
+    color: "rgba(255,255,255,0.15)",
+    filled: true,
+    floatDuration: 5.5,
+    floatDelay: 0.2,
+  },
+  {
+    type: "circle",
+    x: "85%",
+    y: "35%",
+    size: 44,
+    color: "rgba(255,255,255,0.15)",
+    filled: true,
+    floatDuration: 6.5,
+    floatDelay: 0.5,
+  },
+  {
+    type: "triangle",
+    x: "90%",
+    y: "58%",
+    size: 22,
+    color: "rgba(255,255,255,0.15)",
+    filled: true,
+    floatDuration: 7.5,
+    floatDelay: 0.8,
+  },
+  {
+    type: "square",
+    x: "82%",
+    y: "75%",
+    size: 36,
+    color: "rgba(255,255,255,0.15)",
+    filled: true,
+    floatDuration: 5,
+    floatDelay: 1.1,
+  },
+  {
+    type: "circle",
+    x: "25%",
+    y: "85%",
+    size: 14,
+    color: "rgba(255,255,255,0.15)",
+    filled: true,
+    floatDuration: 6,
+    floatDelay: 0.4,
+  },
+  {
+    type: "square",
+    x: "75%",
+    y: "88%",
+    size: 20,
+    color: "rgba(255,255,255,0.15)",
+    filled: true,
+    floatDuration: 7,
+    floatDelay: 0.7,
+  },
 ];
 
 interface NavbarProps {
@@ -453,6 +504,8 @@ function Navbar({ className }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+  const curtainMouseX = useMotionValue(0);
+  const curtainMouseY = useMotionValue(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -518,9 +571,22 @@ function Navbar({ className }: NavbarProps) {
             role="dialog"
             aria-modal="true"
             aria-label="Navigation menu"
+            onMouseMove={(e) => {
+              curtainMouseX.set(e.clientX);
+              curtainMouseY.set(e.clientY);
+            }}
           >
             <CurvedBottom color="var(--color-background)" />
-            <FloatingShapes shapes={SHAPES_CONFIG} color="rgba(255,255,255,0.15)" />
+            <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+              {CURTAIN_SHAPES.map((shape, i) => (
+                <ProximityShape
+                  key={i}
+                  shape={shape}
+                  mouseX={curtainMouseX}
+                  mouseY={curtainMouseY}
+                />
+              ))}
+            </div>
 
             <div className="flex h-full items-center justify-center pt-20">
               <MenuItems onClose={() => setIsOpen(false)} textColor="var(--color-background)" />

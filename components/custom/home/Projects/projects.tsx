@@ -63,7 +63,7 @@ export const PROJECTS: ProjectData[] = [
   },
 ];
 
-const BRAND_PURPLE = "#8B5CF6";
+const ACCENT = "var(--color-accent)";
 const CARD_COUNT = PROJECTS.length;
 const ease = [0.22, 1, 0.36, 1] as const;
 const FLOATING_SHAPES: ProximityShapeData[] = [
@@ -72,7 +72,7 @@ const FLOATING_SHAPES: ProximityShapeData[] = [
     x: "8%",
     y: "20%",
     size: 36,
-    color: "#8B5CF6",
+    color: "var(--color-accent)",
     filled: true,
     floatDuration: 6,
     floatDelay: 0,
@@ -149,8 +149,8 @@ function MagneticBadge({ children, className }: { children: React.ReactNode; cla
       ref={ref}
       className={className}
       style={{
-        border: `2px solid ${BRAND_PURPLE}`,
-        color: BRAND_PURPLE,
+        border: `2px solid ${ACCENT}`,
+        color: ACCENT,
         fontFamily: "var(--font-display)",
         x: springX,
         y: springY,
@@ -179,7 +179,7 @@ function SectionHeader() {
       >
         <motion.span
           className="text-foreground inline-block px-3 py-1.5 text-xs font-bold tracking-[0.2em] sm:px-4 sm:py-2"
-          style={{ backgroundColor: BRAND_PURPLE, fontFamily: "var(--font-display)" }}
+          style={{ backgroundColor: ACCENT, fontFamily: "var(--font-display)" }}
           initial={{ x: shouldReduceMotion ? 0 : -100 }}
           whileInView={{ x: 0 }}
           viewport={{ once: true }}
@@ -198,7 +198,7 @@ function SectionHeader() {
           <span key={i} className={`inline-block overflow-clip${i === 0 ? "mr-3 sm:mr-4" : ""}`}>
             <motion.span
               className="inline-block"
-              style={{ color: i === 1 ? BRAND_PURPLE : "inherit" }}
+              style={{ color: i === 1 ? ACCENT : "inherit" }}
               initial={{ y: shouldReduceMotion ? 0 : "100%" }}
               whileInView={{ y: 0 }}
               viewport={{ once: true }}
@@ -235,7 +235,7 @@ function ProjectCard({
 }) {
   const shouldReduceMotion = useReducedMotion();
 
-  const BREAKPOINTS = [0, 0.2, 0.55, 1];
+  const BREAKPOINTS = [0, 0.07, 0.45, 1];
   const rangeStart = BREAKPOINTS[index];
   const rangeEnd = BREAKPOINTS[index + 1];
 
@@ -275,7 +275,7 @@ function ProjectCard({
         >
           <motion.div
             className="absolute inset-0 z-10"
-            style={{ backgroundColor: BRAND_PURPLE, originX: 0 }}
+            style={{ backgroundColor: ACCENT, originX: 0 }}
             initial={{ scaleX: 1 }}
             whileInView={{ scaleX: 0 }}
             viewport={{ once: true, margin: "-10%" }}

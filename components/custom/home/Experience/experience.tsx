@@ -69,7 +69,7 @@ const EXPERIENCES: ExperienceData[] = [
       "Built back-office apps with React Hook Form, Google Maps API, and OpenAI",
     ],
     skills: ["Next.js", "AWS", "GSAP", "Framer Motion", "TypeScript", "Strapi"],
-    color: "#8B5CF6",
+    color: "var(--color-accent)",
     numberColorDark: "#3D2A5C",
     numberColorLight: "#E9E0FF",
   },
@@ -169,7 +169,7 @@ const CONTENT_PROXIMITY_SHAPES: ProximityShapeData[] = [
   },
   {
     type: "circle",
-    x: "8%",
+    x: "40%",
     y: "38%",
     size: 40,
     color: "#10B981",
@@ -182,14 +182,14 @@ const CONTENT_PROXIMITY_SHAPES: ProximityShapeData[] = [
     x: "88%",
     y: "48%",
     size: 55,
-    color: "#8B5CF6",
+    color: "var(--color-accent)",
     filled: true,
     floatDuration: 5,
     floatDelay: 0.6,
   },
   {
     type: "square",
-    x: "12%",
+    x: "45%",
     y: "62%",
     size: 45,
     color: "#06B6D4",
@@ -271,13 +271,15 @@ function ExperienceCard({
         </motion.div>
 
         <motion.div
-          className="border-border bg-background/95 relative -mt-12 border-2 p-4 backdrop-blur-sm sm:-mt-14 sm:p-6 md:-mt-16 md:p-8 lg:-mt-20 lg:ml-4 xl:ml-8"
+          className="border-border bg-background/95 relative -mt-12 border p-4 backdrop-blur-sm sm:-mt-14 sm:p-6 md:-mt-16 md:p-8 lg:-mt-20 lg:ml-4 xl:ml-8"
           style={{
             borderColor: isActive
-              ? "rgba(139, 92, 246, 0.5)"
+              ? isDark
+                ? "rgba(255, 255, 255, 0.7)"
+                : "rgba(0, 0, 0, 0.7)"
               : isDark
-                ? "rgba(139, 92, 246, 0.15)"
-                : "rgba(139, 92, 246, 0.2)",
+                ? "rgba(255, 255, 255, 0.08)"
+                : "rgba(0, 0, 0, 0.08)",
             y: useParallax ? springCardY : 0,
           }}
           animate={{ x: shouldReduceMotion ? 0 : isActive ? 10 : 0 }}
@@ -297,7 +299,7 @@ function ExperienceCard({
           <div className="relative mb-2 inline-block sm:mb-3">
             <motion.span
               className="absolute -inset-x-2 -inset-y-1 sm:-inset-x-4 sm:-inset-y-2"
-              style={{ backgroundColor: "#8B5CF6", originX: 0 }}
+              style={{ backgroundColor: "var(--color-accent)", originX: 0 }}
               initial={{ scaleX: 0 }}
               animate={{ scaleX: shouldReduceMotion || isActive ? 1 : 0 }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -398,7 +400,10 @@ function ExperienceCard({
                 whileHover={
                   shouldReduceMotion
                     ? {}
-                    : { backgroundColor: "rgba(139, 92, 246, 0.15)", scale: 1.05 }
+                    : {
+                        backgroundColor: "color-mix(in srgb, var(--color-accent) 15%, transparent)",
+                        scale: 1.05,
+                      }
                 }
               >
                 {skill}
@@ -417,6 +422,8 @@ export default function Experience() {
   const contentRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const isTouch = useIsTouchDevice();
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -482,7 +489,7 @@ export default function Experience() {
       <div className="relative flex flex-col lg:flex-row">
         <aside
           className="sticky top-0 hidden h-screen w-full shrink-0 overflow-hidden lg:block lg:w-2/5"
-          style={{ backgroundColor: "#6D28D9" }}
+          style={{ backgroundColor: "#5B21B6" }}
           aria-label="Work history navigation"
         >
           <div className="absolute inset-0" aria-hidden="true">
@@ -538,6 +545,26 @@ export default function Experience() {
         </aside>
 
         <div className="bg-surface relative w-full lg:w-3/5">
+          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+            <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="content-grid" width="100" height="100" patternUnits="userSpaceOnUse">
+                  <path
+                    d="M 100 0 L 0 0 0 100"
+                    fill="none"
+                    stroke={
+                      isDark
+                        ? "rgba(255, 255, 255, 0.05)"
+                        : "color-mix(in srgb, var(--color-accent) 15%, transparent)"
+                    }
+                    strokeWidth="1"
+                  />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#content-grid)" />
+            </svg>
+          </div>
+
           {!isTouch && (
             <div
               className="pointer-events-none absolute inset-0 overflow-hidden"
@@ -558,7 +585,7 @@ export default function Experience() {
             <h2
               id="experience-heading-mobile"
               className="text-3xl font-black sm:text-4xl md:text-5xl lg:text-6xl"
-              style={{ fontFamily: "var(--font-display)", color: "#8B5CF6" }}
+              style={{ fontFamily: "var(--font-display)", color: "var(--color-accent)" }}
             >
               WORK HISTORY
             </h2>
