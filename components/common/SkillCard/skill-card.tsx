@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/utils";
 
 interface SkillCardProps {
@@ -28,6 +28,7 @@ const levelWidths = {
 
 function SkillCard({ name, icon, level, category, className }: SkillCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <motion.div
@@ -43,12 +44,12 @@ function SkillCard({ name, icon, level, category, className }: SkillCardProps) {
           ? "0 8px 32px rgba(139, 92, 246, 0.15)"
           : "0 0 0 rgba(139, 92, 246, 0)",
       }}
-      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: shouldReduceMotion ? 0 : 0.3, ease: [0.22, 1, 0.36, 1] }}
     >
       <motion.div
         className="text-accent flex h-12 w-12 items-center justify-center"
-        animate={{ scale: isHovered ? 1.1 : 1 }}
-        transition={{ duration: 0.2 }}
+        animate={{ scale: isHovered && !shouldReduceMotion ? 1.1 : 1 }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
       >
         {icon}
       </motion.div>
@@ -84,6 +85,7 @@ function SkillCard({ name, icon, level, category, className }: SkillCardProps) {
             background:
               "radial-gradient(circle at center, rgba(139, 92, 246, 0.08) 0%, transparent 70%)",
           }}
+          aria-hidden="true"
         />
       )}
     </motion.div>

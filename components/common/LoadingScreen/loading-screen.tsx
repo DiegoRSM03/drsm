@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 interface LoadingScreenProps {
   onComplete?: () => void;
@@ -14,6 +14,7 @@ export function LoadingScreen({ onComplete, minimumLoadTime = 2200 }: LoadingScr
   const [isLoading, setIsLoading] = useState(true);
   const [isExiting, setIsExiting] = useState(false);
   const [progress, setProgress] = useState(0);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const hasLoaded = sessionStorage.getItem("drsm-loaded");
@@ -59,59 +60,80 @@ export function LoadingScreen({ onComplete, minimumLoadTime = 2200 }: LoadingScr
       {isLoading && (
         <motion.div
           className="bg-background fixed inset-0 z-[10000] flex h-screen w-screen items-center justify-center"
+          role="status"
+          aria-label="Loading"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* Floating geometric shapes */}
-          {[
-            { x: "5%", y: "8%", size: 48, shape: "circle", delay: 0 },
-            { x: "72%", y: "5%", size: 24, shape: "square", delay: 0.2 },
-            { x: "92%", y: "22%", size: 56, shape: "circle", delay: 0.4 },
-            { x: "3%", y: "42%", size: 32, shape: "square", delay: 0.6 },
-            { x: "88%", y: "55%", size: 20, shape: "circle", delay: 0.3 },
-            { x: "18%", y: "78%", size: 64, shape: "circle", delay: 0.5 },
-            { x: "65%", y: "85%", size: 36, shape: "square", delay: 0.1 },
-            { x: "95%", y: "88%", size: 28, shape: "square", delay: 0.7 },
-          ].map((item, i) => (
-            <motion.div
-              key={i}
-              className={`absolute ${item.shape === "circle" ? "rounded-full" : "rounded-sm"} bg-accent`}
-              style={{
-                left: item.x,
-                top: item.y,
-                width: item.size,
-                height: item.size,
-              }}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{
-                opacity: isExiting ? 0 : 0.3,
-                scale: isExiting ? 0 : 1,
-                x: isExiting ? 0 : [0, 10, -8, 0],
-                y: isExiting ? 0 : [0, -8, 6, 0],
-              }}
-              transition={{
-                opacity: { duration: 0.4, delay: item.delay },
-                scale: { duration: 0.4, delay: item.delay },
-                x: { duration: 8, repeat: Infinity, ease: "easeInOut", delay: item.delay },
-                y: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: item.delay },
-              }}
-            />
-          ))}
+          <div aria-hidden="true">
+            {[
+              { x: "5%", y: "8%", size: 48, shape: "circle", delay: 0 },
+              { x: "72%", y: "5%", size: 24, shape: "square", delay: 0.2 },
+              { x: "92%", y: "22%", size: 56, shape: "circle", delay: 0.4 },
+              { x: "3%", y: "42%", size: 32, shape: "square", delay: 0.6 },
+              { x: "88%", y: "55%", size: 20, shape: "circle", delay: 0.3 },
+              { x: "18%", y: "78%", size: 64, shape: "circle", delay: 0.5 },
+              { x: "65%", y: "85%", size: 36, shape: "square", delay: 0.1 },
+              { x: "95%", y: "88%", size: 28, shape: "square", delay: 0.7 },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                className={`absolute ${item.shape === "circle" ? "rounded-full" : "rounded-sm"} bg-accent`}
+                style={{
+                  left: item.x,
+                  top: item.y,
+                  width: item.size,
+                  height: item.size,
+                }}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{
+                  opacity: isExiting ? 0 : 0.3,
+                  scale: isExiting ? 0 : 1,
+                  x: isExiting || shouldReduceMotion ? 0 : [0, 10, -8, 0],
+                  y: isExiting || shouldReduceMotion ? 0 : [0, -8, 6, 0],
+                }}
+                transition={{
+                  opacity: {
+                    duration: shouldReduceMotion ? 0 : 0.4,
+                    delay: shouldReduceMotion ? 0 : item.delay,
+                  },
+                  scale: {
+                    duration: shouldReduceMotion ? 0 : 0.4,
+                    delay: shouldReduceMotion ? 0 : item.delay,
+                  },
+                  x: {
+                    duration: 8,
+                    repeat: shouldReduceMotion ? 0 : Infinity,
+                    ease: "easeInOut",
+                    delay: item.delay,
+                  },
+                  y: {
+                    duration: 6,
+                    repeat: shouldReduceMotion ? 0 : Infinity,
+                    ease: "easeInOut",
+                    delay: item.delay,
+                  },
+                }}
+              />
+            ))}
+          </div>
 
           {/* Center glow */}
           <motion.div
             className="pointer-events-none absolute h-[400px] w-[400px] rounded-full"
+            aria-hidden="true"
             style={{
               background: "radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 60%)",
             }}
             animate={{
-              scale: isExiting ? 2 : [1, 1.1, 1],
-              opacity: isExiting ? 0 : [0.6, 1, 0.6],
+              scale: isExiting ? 2 : shouldReduceMotion ? 1 : [1, 1.1, 1],
+              opacity: isExiting ? 0 : shouldReduceMotion ? 0.8 : [0.6, 1, 0.6],
             }}
             transition={{
-              duration: isExiting ? 0.4 : 2,
-              repeat: isExiting ? 0 : Infinity,
+              duration: isExiting ? 0.4 : shouldReduceMotion ? 0 : 2,
+              repeat: isExiting || shouldReduceMotion ? 0 : Infinity,
               ease: "easeInOut",
             }}
           />

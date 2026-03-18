@@ -65,7 +65,11 @@ interface ToastContainerProps {
 
 function ToastContainer({ toasts, removeToast }: ToastContainerProps) {
   return (
-    <div className="pointer-events-none fixed right-6 bottom-6 z-[9999] flex flex-col gap-3">
+    <div
+      className="pointer-events-none fixed right-6 bottom-6 z-[9999] flex flex-col gap-3"
+      aria-live="polite"
+      aria-atomic="true"
+    >
       <AnimatePresence mode="popLayout">
         {toasts.map((toast) => (
           <ToastItem key={toast.id} toast={toast} onDismiss={removeToast} />
@@ -118,7 +122,7 @@ function ToastItem({ toast, onDismiss }: ToastItemProps) {
       <p className="text-foreground flex-1 text-sm">{toast.message}</p>
       <button
         onClick={() => onDismiss(toast.id)}
-        className="text-muted hover:bg-surface hover:text-foreground shrink-0 p-1 transition-colors"
+        className="text-muted hover:bg-surface hover:text-foreground focus-visible:ring-accent shrink-0 p-1 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
         aria-label="Dismiss"
       >
         <X className="h-4 w-4" />

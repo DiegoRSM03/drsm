@@ -178,7 +178,7 @@ function LanguageToggle({ className = "", isMenuOpen = false }: LanguageTogglePr
       ref={buttonRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={`magnetic focus-visible:ring-accent focus-visible:ring-offset-background flex h-11 w-11 items-center justify-center rounded-full border transition-all duration-300 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none ${
+      className={`magnetic focus-visible:ring-accent focus-visible:ring-offset-background flex h-11 w-11 items-center justify-center border transition-all duration-300 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none ${
         isMenuOpen
           ? theme === "dark"
             ? "bg-accent hover:bg-accent/90 border-white/50 text-white hover:border-white"
@@ -514,6 +514,19 @@ function Navbar({ className }: NavbarProps) {
       document.body.style.paddingRight = "";
     };
   }, []);
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        document.body.style.overflow = "";
+        document.body.style.paddingRight = "";
+        setScrollbarWidth(0);
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [isOpen]);
 
   const handleMenuToggle = () => {
     if (!isOpen) {

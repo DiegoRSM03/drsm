@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import NextImage from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/utils";
 
 interface ExperienceCardProps {
@@ -25,6 +25,7 @@ function ExperienceCard({
   className,
 }: ExperienceCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <motion.article
@@ -52,7 +53,7 @@ function ExperienceCard({
             ? "0 8px 32px rgba(139, 92, 246, 0.15)"
             : "0 0 0 rgba(139, 92, 246, 0)",
         }}
-        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.3, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="mb-4 flex items-start gap-4">
           {logo && (

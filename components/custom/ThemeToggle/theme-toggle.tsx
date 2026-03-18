@@ -124,7 +124,7 @@ export function ThemeToggle({
       onClick={handleToggle}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={`magnetic relative flex h-10 w-10 items-center justify-center border transition-all duration-300 ${
+      className={`magnetic focus-visible:ring-offset-background relative flex h-11 w-11 items-center justify-center border transition-all duration-300 ${
         isMenuOpen
           ? theme === "dark"
             ? "bg-accent hover:bg-accent/90 border-white/50 hover:border-white"

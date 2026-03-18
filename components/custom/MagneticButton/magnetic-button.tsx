@@ -63,7 +63,7 @@ const MagneticButton = forwardRef<HTMLButtonElement, MagneticButtonProps>(
     };
 
     const baseStyles =
-      "magnetic relative inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:opacity-50 disabled:pointer-events-none";
+      "magnetic relative inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-50 disabled:pointer-events-none";
 
     const variants = {
       primary: "bg-accent text-white hover:bg-accent-hover active:bg-accent",
