@@ -33,7 +33,7 @@ const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
       <Component
         ref={ref}
         className={cn(
-          "inline-flex items-center rounded-full font-medium",
+          "inline-flex items-center font-medium",
           variantClasses[variant],
           sizeClasses[size],
           className

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import NextImage from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/utils";
 
@@ -28,24 +28,31 @@ function ProjectCard({
 }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   return (
-    <Link href={href} className={cn("group block", className)}>
+    <Link
+      href={href}
+      className={cn(
+        "group focus-visible:ring-accent focus-visible:ring-offset-background block focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
+        className
+      )}
+    >
       <motion.article
         className={cn(
-          "border-border bg-surface relative overflow-hidden rounded-xl border",
+          "border-border bg-surface relative overflow-hidden border",
           featured && "md:col-span-2"
         )}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         animate={{
-          y: isHovered ? -8 : 0,
+          y: isHovered && !shouldReduceMotion ? -8 : 0,
           borderColor: isHovered ? "rgba(139, 92, 246, 0.5)" : "var(--color-border)",
           boxShadow: isHovered
             ? "0 16px 48px rgba(139, 92, 246, 0.2)"
             : "0 0 0 rgba(139, 92, 246, 0)",
         }}
-        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.3, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="relative aspect-video overflow-hidden">
           {!imageLoaded && <div className="bg-elevated absolute inset-0 animate-pulse" />}
@@ -90,7 +97,7 @@ function ProjectCard({
 
           <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (
-              <span key={tag} className="bg-elevated text-muted rounded-full px-3 py-1 text-xs">
+              <span key={tag} className="bg-elevated text-muted px-3 py-1 text-xs">
                 {tag}
               </span>
             ))}
@@ -99,7 +106,7 @@ function ProjectCard({
 
         {isHovered && (
           <motion.div
-            className="pointer-events-none absolute inset-0 rounded-xl"
+            className="pointer-events-none absolute inset-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -107,6 +114,7 @@ function ProjectCard({
               background:
                 "radial-gradient(circle at center, rgba(139, 92, 246, 0.08) 0%, transparent 70%)",
             }}
+            aria-hidden="true"
           />
         )}
       </motion.article>

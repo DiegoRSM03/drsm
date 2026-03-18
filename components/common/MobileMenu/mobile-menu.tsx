@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { X } from "lucide-react";
 import { cn } from "@/utils";
@@ -14,6 +14,8 @@ interface MobileMenuProps {
 }
 
 function MobileMenu({ isOpen, onClose, links, className }: MobileMenuProps) {
+  const shouldReduceMotion = useReducedMotion();
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -40,10 +42,21 @@ function MobileMenu({ isOpen, onClose, links, className }: MobileMenuProps) {
       {isOpen && (
         <motion.div
           className={cn("bg-background fixed inset-0 z-50 flex flex-col", className)}
-          initial={{ clipPath: "circle(0% at calc(100% - 40px) 40px)" }}
+          initial={{
+            clipPath: shouldReduceMotion
+              ? "circle(150% at calc(100% - 40px) 40px)"
+              : "circle(0% at calc(100% - 40px) 40px)",
+          }}
           animate={{ clipPath: "circle(150% at calc(100% - 40px) 40px)" }}
-          exit={{ clipPath: "circle(0% at calc(100% - 40px) 40px)" }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          exit={{
+            clipPath: shouldReduceMotion
+              ? "circle(150% at calc(100% - 40px) 40px)"
+              : "circle(0% at calc(100% - 40px) 40px)",
+          }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation menu"
         >
           <motion.div
             className="absolute inset-0"
@@ -54,40 +67,50 @@ function MobileMenu({ isOpen, onClose, links, className }: MobileMenuProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: shouldReduceMotion ? 0 : 0.2 }}
+            aria-hidden="true"
           />
 
           <div className="flex items-center justify-end p-6">
             <motion.button
               onClick={onClose}
-              className="magnetic text-foreground hover:bg-surface rounded-full p-2 transition-colors"
-              initial={{ rotate: -90, opacity: 0 }}
+              className="magnetic text-foreground hover:bg-surface focus-visible:ring-accent focus-visible:ring-offset-background p-2 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+              initial={{
+                rotate: shouldReduceMotion ? 0 : -90,
+                opacity: shouldReduceMotion ? 1 : 0,
+              }}
               animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: 90, opacity: 0 }}
-              transition={{ delay: 0.1, duration: 0.2 }}
+              exit={{ rotate: shouldReduceMotion ? 0 : 90, opacity: 0 }}
+              transition={{
+                delay: shouldReduceMotion ? 0 : 0.1,
+                duration: shouldReduceMotion ? 0 : 0.2,
+              }}
               aria-label="Close menu"
             >
               <X className="h-6 w-6" />
             </motion.button>
           </div>
 
-          <nav className="flex flex-1 flex-col items-center justify-center gap-8">
+          <nav
+            className="flex flex-1 flex-col items-center justify-center gap-8"
+            aria-label="Main navigation"
+          >
             {links.map((link, index) => (
               <motion.div
                 key={link.href}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 30 }}
+                exit={{ opacity: 0, y: shouldReduceMotion ? 0 : 30 }}
                 transition={{
-                  delay: 0.15 + index * 0.05,
-                  duration: 0.4,
+                  delay: shouldReduceMotion ? 0 : 0.15 + index * 0.05,
+                  duration: shouldReduceMotion ? 0 : 0.4,
                   ease: [0.22, 1, 0.36, 1],
                 }}
               >
                 <Link
                   href={link.href}
                   onClick={onClose}
-                  className="group hover:text-accent relative text-4xl font-bold tracking-tight transition-colors md:text-5xl"
+                  className="group hover:text-accent focus-visible:ring-accent focus-visible:ring-offset-background relative text-4xl font-bold tracking-tight transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none md:text-5xl"
                   style={{ fontFamily: "var(--font-display)" }}
                 >
                   {link.label}

@@ -19,7 +19,7 @@ const AnimatedLink = forwardRef<HTMLAnchorElement, AnimatedLinkProps>(
     const linkProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
 
     const baseStyles =
-      "relative inline-flex items-center gap-1 text-accent transition-colors hover:text-accent-hover";
+      "relative inline-flex items-center gap-1 text-accent transition-colors hover:text-accent-hover focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none";
 
     const content = (
       <motion.span

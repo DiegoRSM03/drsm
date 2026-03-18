@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useCallback, useSyncExternalStore } from "react";
+import { useRef, useCallback } from "react";
 import {
   motion,
   useMotionValue,
@@ -13,17 +13,9 @@ import {
 import { ArrowUpRight, Github } from "lucide-react";
 import { MagneticButton } from "@/components/custom/MagneticButton";
 import { ProximityShape } from "@/components/custom/ProximityShape";
+import { ACCENT, CYAN_HEX, PINK_HEX, AMBER_HEX, GREEN_HEX, EASE, SPRING_MAGNETIC } from "@/utils";
+import { useIsTouchDevice } from "@/hooks";
 import type { ProximityShapeData } from "@/components/custom/ProximityShape";
-
-function useIsTouchDevice() {
-  const getSnapshot = () => "ontouchstart" in window || navigator.maxTouchPoints > 0;
-  const getServerSnapshot = () => false;
-  const subscribe = (callback: () => void) => {
-    window.addEventListener("touchstart", callback, { once: true });
-    return () => window.removeEventListener("touchstart", callback);
-  };
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-}
 
 export interface ProjectData {
   id: number;
@@ -64,16 +56,14 @@ export const PROJECTS: ProjectData[] = [
   },
 ];
 
-const ACCENT = "var(--color-accent)";
 const CARD_COUNT = PROJECTS.length;
-const ease = [0.22, 1, 0.36, 1] as const;
 const FLOATING_SHAPES: ProximityShapeData[] = [
   {
     type: "diamond",
     x: "8%",
     y: "20%",
     size: 36,
-    color: "var(--color-accent)",
+    color: ACCENT,
     filled: true,
     floatDuration: 6,
     floatDelay: 0,
@@ -83,7 +73,7 @@ const FLOATING_SHAPES: ProximityShapeData[] = [
     x: "92%",
     y: "35%",
     size: 28,
-    color: "#06B6D4",
+    color: CYAN_HEX,
     filled: true,
     floatDuration: 7,
     floatDelay: 0.5,
@@ -93,7 +83,7 @@ const FLOATING_SHAPES: ProximityShapeData[] = [
     x: "5%",
     y: "70%",
     size: 24,
-    color: "#EC4899",
+    color: PINK_HEX,
     filled: false,
     floatDuration: 5.5,
     floatDelay: 1,
@@ -103,7 +93,7 @@ const FLOATING_SHAPES: ProximityShapeData[] = [
     x: "88%",
     y: "75%",
     size: 32,
-    color: "#F59E0B",
+    color: AMBER_HEX,
     filled: false,
     floatDuration: 8,
     floatDelay: 0.3,
@@ -113,7 +103,7 @@ const FLOATING_SHAPES: ProximityShapeData[] = [
     x: "50%",
     y: "8%",
     size: 22,
-    color: "#10B981",
+    color: GREEN_HEX,
     filled: true,
     floatDuration: 6.5,
     floatDelay: 0.8,
@@ -124,8 +114,8 @@ function MagneticBadge({ children, className }: { children: React.ReactNode; cla
   const ref = useRef<HTMLSpanElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 150, damping: 15 });
-  const springY = useSpring(y, { stiffness: 150, damping: 15 });
+  const springX = useSpring(x, SPRING_MAGNETIC);
+  const springY = useSpring(y, SPRING_MAGNETIC);
   const shouldReduceMotion = useReducedMotion();
 
   const handleMouseMove = useCallback(
@@ -176,7 +166,7 @@ function SectionHeader() {
         initial={{ width: shouldReduceMotion ? "auto" : 0 }}
         whileInView={{ width: "auto" }}
         viewport={{ once: true }}
-        transition={{ duration: 0.8, ease }}
+        transition={{ duration: 0.8, ease: EASE }}
       >
         <motion.span
           className="text-foreground inline-block px-3 py-1.5 text-xs font-bold tracking-[0.2em] sm:px-4 sm:py-2"
@@ -184,7 +174,7 @@ function SectionHeader() {
           initial={{ x: shouldReduceMotion ? 0 : -100 }}
           whileInView={{ x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3, ease }}
+          transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
         >
           PROJECTS
         </motion.span>
@@ -203,7 +193,7 @@ function SectionHeader() {
               initial={{ y: shouldReduceMotion ? 0 : "100%" }}
               whileInView={{ y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 + i * 0.15, ease }}
+              transition={{ duration: 0.6, delay: 0.4 + i * 0.15, ease: EASE }}
             >
               {word}
             </motion.span>
@@ -216,7 +206,7 @@ function SectionHeader() {
         initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.7, ease }}
+        transition={{ duration: 0.8, delay: 0.7, ease: EASE }}
       >
         Highlights from professional engagements and personal explorations — where clean code meets
         bold interfaces.
@@ -254,11 +244,11 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
             style={{ backgroundColor: ACCENT, originX: 0 }}
             initial={{ scaleX: 1 }}
             whileInView={{ scaleX: 0 }}
-            viewport={{ once: true, margin: "-10%" }}
+            viewport={{ once: true, margin: "-20%" }}
             transition={{
               duration: shouldReduceMotion ? 0 : 0.8,
               delay: 0.2,
-              ease,
+              ease: EASE,
             }}
             aria-hidden="true"
           />
@@ -266,7 +256,7 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
             className="absolute inset-0"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-10%" }}
+            viewport={{ once: true, margin: "-20%" }}
             transition={{ duration: 0.01, delay: 0.2 }}
           >
             <div className="bg-foreground/[0.04] absolute inset-0" />
@@ -295,7 +285,7 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.15, ease }}
+            transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
           >
             <MagneticBadge className="px-2.5 py-1 text-xs font-bold tracking-wide sm:px-3 sm:py-1.5">
               {project.type.toUpperCase()}
@@ -311,7 +301,7 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
               initial={{ y: shouldReduceMotion ? 0 : "100%" }}
               whileInView={{ y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2, ease }}
+              transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
             >
               {project.title}
             </motion.h3>
@@ -323,7 +313,7 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3, ease }}
+            transition={{ duration: 0.8, delay: 0.3, ease: EASE }}
           >
             {project.description}
           </motion.p>
@@ -344,7 +334,7 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
                 initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.45 + i * 0.06, ease }}
+                transition={{ duration: 0.4, delay: 0.45 + i * 0.06, ease: EASE }}
               >
                 <span className="text-foreground/60 text-xs font-medium sm:text-sm">{tag}</span>
                 {i < project.tags.length - 1 && (
@@ -360,7 +350,7 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.5, ease }}
+            transition={{ duration: 0.6, delay: 0.5, ease: EASE }}
           >
             <MagneticButton
               variant="primary"
@@ -394,8 +384,8 @@ function MobileProjectCard({ project }: { project: ProjectData }) {
       aria-labelledby={`project-title-${project.id}`}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, ease }}
+      viewport={{ once: true, margin: "-25%" }}
+      transition={{ duration: 0.6, ease: EASE }}
     >
       <ProjectCardContent project={project} />
     </motion.article>

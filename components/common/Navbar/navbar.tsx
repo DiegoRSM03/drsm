@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useSyncExternalStore } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   motion,
   useMotionValue,
@@ -15,18 +15,9 @@ import { ThemeToggle } from "@/components/custom/ThemeToggle";
 import { ProximityShape } from "@/components/custom/ProximityShape";
 import type { ProximityShapeData } from "@/components/custom/ProximityShape";
 import { useTheme } from "@/contexts";
+import { useIsTouchDevice } from "@/hooks";
 
-function useIsTouchDevice() {
-  const getSnapshot = () => "ontouchstart" in window || navigator.maxTouchPoints > 0;
-  const getServerSnapshot = () => false;
-  const subscribe = (callback: () => void) => {
-    window.addEventListener("touchstart", callback, { once: true });
-    return () => window.removeEventListener("touchstart", callback);
-  };
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-}
-
-const NAV_ITEMS = ["About", "Projects", "Experience", "Links"];
+const NAV_ITEMS = ["Projects", "Experience", "About", "Contact"];
 
 function MagneticLetter({
   letter,
@@ -523,6 +514,19 @@ function Navbar({ className }: NavbarProps) {
       document.body.style.paddingRight = "";
     };
   }, []);
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        document.body.style.overflow = "";
+        document.body.style.paddingRight = "";
+        setScrollbarWidth(0);
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [isOpen]);
 
   const handleMenuToggle = () => {
     if (!isOpen) {

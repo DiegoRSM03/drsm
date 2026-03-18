@@ -9,20 +9,13 @@ import {
   useReducedMotion,
   MotionValue,
 } from "framer-motion";
-import { useState, useRef, useCallback, useEffect, useSyncExternalStore } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { useTheme } from "@/contexts";
 import { ProximityShape } from "@/components/custom/ProximityShape";
+import { ACCENT, PINK_HEX, CYAN_HEX, AMBER_HEX, GREEN_HEX, EASE } from "@/utils";
+import { useIsTouchDevice } from "@/hooks";
+import { GridBackground } from "@/components/custom/GridBackground";
 import type { ProximityShapeData } from "@/components/custom/ProximityShape";
-
-function useIsTouchDevice() {
-  const getSnapshot = () => "ontouchstart" in window || navigator.maxTouchPoints > 0;
-  const getServerSnapshot = () => false;
-  const subscribe = (callback: () => void) => {
-    window.addEventListener("touchstart", callback, { once: true });
-    return () => window.removeEventListener("touchstart", callback);
-  };
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-}
 
 interface ExperienceData {
   company: string;
@@ -51,7 +44,7 @@ const EXPERIENCES: ExperienceData[] = [
       "Implemented responsive UI components",
     ],
     skills: ["React", "TypeScript", "REST APIs", "CSS"],
-    color: "#EC4899",
+    color: PINK_HEX,
     numberColorDark: "#5C2A45",
     numberColorLight: "#FCE7F3",
   },
@@ -69,7 +62,7 @@ const EXPERIENCES: ExperienceData[] = [
       "Built back-office apps with React Hook Form, Google Maps API, and OpenAI",
     ],
     skills: ["Next.js", "AWS", "GSAP", "Framer Motion", "TypeScript", "Strapi"],
-    color: "var(--color-accent)",
+    color: ACCENT,
     numberColorDark: "#3D2A5C",
     numberColorLight: "#E9E0FF",
   },
@@ -87,7 +80,7 @@ const EXPERIENCES: ExperienceData[] = [
       "Ensured cross-browser compatibility and security standards",
     ],
     skills: ["React", "Node.js", "WhatsApp API", "GitHub Actions", "PostgreSQL"],
-    color: "#06B6D4",
+    color: CYAN_HEX,
     numberColorDark: "#134E5A",
     numberColorLight: "#CFFAFE",
   },
@@ -142,7 +135,7 @@ const CONTENT_PROXIMITY_SHAPES: ProximityShapeData[] = [
     x: "85%",
     y: "5%",
     size: 45,
-    color: "#06B6D4",
+    color: CYAN_HEX,
     filled: true,
     floatDuration: 7,
     floatDelay: 0.4,
@@ -152,7 +145,7 @@ const CONTENT_PROXIMITY_SHAPES: ProximityShapeData[] = [
     x: "10%",
     y: "12%",
     size: 50,
-    color: "#EC4899",
+    color: PINK_HEX,
     filled: false,
     floatDuration: 5.5,
     floatDelay: 0.8,
@@ -162,7 +155,7 @@ const CONTENT_PROXIMITY_SHAPES: ProximityShapeData[] = [
     x: "92%",
     y: "22%",
     size: 38,
-    color: "#F59E0B",
+    color: AMBER_HEX,
     filled: true,
     floatDuration: 8,
     floatDelay: 0.2,
@@ -172,7 +165,7 @@ const CONTENT_PROXIMITY_SHAPES: ProximityShapeData[] = [
     x: "40%",
     y: "38%",
     size: 40,
-    color: "#10B981",
+    color: GREEN_HEX,
     filled: false,
     floatDuration: 6.5,
     floatDelay: 1.0,
@@ -182,7 +175,7 @@ const CONTENT_PROXIMITY_SHAPES: ProximityShapeData[] = [
     x: "88%",
     y: "48%",
     size: 55,
-    color: "var(--color-accent)",
+    color: ACCENT,
     filled: true,
     floatDuration: 5,
     floatDelay: 0.6,
@@ -192,7 +185,7 @@ const CONTENT_PROXIMITY_SHAPES: ProximityShapeData[] = [
     x: "45%",
     y: "62%",
     size: 45,
-    color: "#06B6D4",
+    color: CYAN_HEX,
     filled: false,
     floatDuration: 7,
     floatDelay: 0.3,
@@ -202,7 +195,7 @@ const CONTENT_PROXIMITY_SHAPES: ProximityShapeData[] = [
     x: "90%",
     y: "72%",
     size: 35,
-    color: "#EC4899",
+    color: PINK_HEX,
     filled: true,
     floatDuration: 6,
     floatDelay: 0.9,
@@ -212,7 +205,7 @@ const CONTENT_PROXIMITY_SHAPES: ProximityShapeData[] = [
     x: "15%",
     y: "85%",
     size: 42,
-    color: "#F59E0B",
+    color: AMBER_HEX,
     filled: false,
     floatDuration: 7.5,
     floatDelay: 0.5,
@@ -253,7 +246,7 @@ function ExperienceCard({
         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 80 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: shouldReduceMotion ? 0 : 0.8, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.8, ease: EASE }}
       >
         <motion.div className="relative" style={{ y: useParallax ? springNumberY : 0 }}>
           <motion.span
@@ -292,10 +285,10 @@ function ExperienceCard({
           <div className="relative mb-2 inline-block sm:mb-3">
             <motion.span
               className="absolute -inset-x-2 -inset-y-1 sm:-inset-x-4 sm:-inset-y-2"
-              style={{ backgroundColor: "var(--color-accent)", originX: 0 }}
+              style={{ backgroundColor: ACCENT, originX: 0 }}
               initial={{ scaleX: 0 }}
               animate={{ scaleX: shouldReduceMotion || isActive ? 1 : 0 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.5, ease: EASE }}
               aria-hidden="true"
             />
             <h3
@@ -415,9 +408,6 @@ export default function Experience() {
   const contentRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const isTouch = useIsTouchDevice();
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
-
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const centerX = useMotionValue(0);
@@ -463,43 +453,15 @@ export default function Experience() {
       className="bg-background relative border-t border-white/[0.08]"
       aria-labelledby="experience-heading"
     >
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="experience-grid" width="100" height="100" patternUnits="userSpaceOnUse">
-              <path
-                d="M 100 0 L 0 0 0 100"
-                fill="none"
-                stroke="rgba(255, 255, 255, 0.05)"
-                strokeWidth="1"
-              />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#experience-grid)" />
-        </svg>
-      </div>
+      <GridBackground id="experience-grid" stroke="rgba(255, 255, 255, 0.05)" />
 
       <div className="relative flex flex-col lg:flex-row">
         <aside
           className="sticky top-0 hidden h-screen w-full shrink-0 overflow-hidden lg:block lg:w-2/5"
-          style={{ backgroundColor: "var(--color-accent)" }}
+          style={{ backgroundColor: ACCENT }}
           aria-label="Work history navigation"
         >
-          <div className="absolute inset-0" aria-hidden="true">
-            <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <pattern id="sidebar-grid" width="100" height="100" patternUnits="userSpaceOnUse">
-                  <path
-                    d="M 100 0 L 0 0 0 100"
-                    fill="none"
-                    stroke="rgba(255, 255, 255, 0.15)"
-                    strokeWidth="1"
-                  />
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#sidebar-grid)" />
-            </svg>
-          </div>
+          <GridBackground id="sidebar-grid" stroke="rgba(255, 255, 255, 0.15)" />
 
           {!isTouch && (
             <div className="pointer-events-none absolute inset-0" aria-hidden="true">
@@ -522,7 +484,7 @@ export default function Experience() {
               initial={{ x: shouldReduceMotion ? 0 : -50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.8, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.8, ease: EASE }}
             >
               <h2
                 id="experience-heading"
@@ -541,25 +503,7 @@ export default function Experience() {
         </aside>
 
         <div className="bg-surface relative w-full lg:w-3/5">
-          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-            <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <pattern id="content-grid" width="100" height="100" patternUnits="userSpaceOnUse">
-                  <path
-                    d="M 100 0 L 0 0 0 100"
-                    fill="none"
-                    stroke={
-                      isDark
-                        ? "rgba(255, 255, 255, 0.15)"
-                        : "color-mix(in srgb, var(--color-accent) 30%, transparent)"
-                    }
-                    strokeWidth="1"
-                  />
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#content-grid)" />
-            </svg>
-          </div>
+          <GridBackground id="content-grid" />
 
           {!isTouch && (
             <div
@@ -583,7 +527,7 @@ export default function Experience() {
               className="text-foreground text-3xl font-black sm:text-4xl md:text-5xl lg:text-6xl"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              WORK <span style={{ color: "var(--color-accent)" }}>HISTORY</span>
+              WORK <span style={{ color: ACCENT }}>HISTORY</span>
             </h2>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-white/60 sm:mt-4 sm:text-base">
               Production code, frontend architecture, and cross-functional collaboration.
@@ -592,7 +536,7 @@ export default function Experience() {
 
           <div
             ref={contentRef}
-            className="relative z-10 w-full space-y-12 px-4 py-16 sm:space-y-16 sm:px-6 sm:py-20 md:space-y-24 md:py-24 lg:space-y-40 lg:py-32 lg:pl-8 xl:space-y-48 xl:py-40 xl:pl-10"
+            className="relative z-10 w-full space-y-12 px-4 py-16 sm:space-y-16 sm:px-6 sm:py-20 md:space-y-24 md:py-24 lg:space-y-28 lg:py-32 lg:pl-8 xl:space-y-32 xl:py-40 xl:pl-10"
             style={{ paddingRight: "max(1rem, calc((100vw - 1280px) / 2 + 0.875rem))" }}
           >
             {EXPERIENCES.map((exp, index) => (

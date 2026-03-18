@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import { useRef, useCallback, useEffect, useState } from "react";
 import {
   motion,
   useScroll,
@@ -14,18 +14,10 @@ import { Download, ArrowRight } from "lucide-react";
 import { SiReact, SiTypescript, SiNextdotjs, SiTailwindcss, SiJest } from "react-icons/si";
 import { MagneticButton } from "@/components/custom/MagneticButton";
 import { ProximityShape } from "@/components/custom/ProximityShape";
-import { useTheme } from "@/contexts";
+import { ACCENT, CYAN_HEX, PINK_HEX, AMBER_HEX, GREEN_HEX, EASE } from "@/utils";
+import { useIsTouchDevice } from "@/hooks";
+import { GridBackground } from "@/components/custom/GridBackground";
 import type { ProximityShapeData } from "@/components/custom/ProximityShape";
-
-function useIsTouchDevice() {
-  const getSnapshot = () => "ontouchstart" in window || navigator.maxTouchPoints > 0;
-  const getServerSnapshot = () => false;
-  const subscribe = (callback: () => void) => {
-    window.addEventListener("touchstart", callback, { once: true });
-    return () => window.removeEventListener("touchstart", callback);
-  };
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-}
 
 interface TechItem {
   icon: typeof SiReact | null;
@@ -62,7 +54,7 @@ const HERO_SHAPES: ProximityShapeData[] = [
     x: "8%",
     y: "18%",
     size: 55,
-    color: "var(--color-accent)",
+    color: ACCENT,
     filled: true,
     floatDuration: 6,
     floatDelay: 0,
@@ -72,7 +64,7 @@ const HERO_SHAPES: ProximityShapeData[] = [
     x: "92%",
     y: "15%",
     size: 45,
-    color: "#06B6D4",
+    color: CYAN_HEX,
     filled: true,
     floatDuration: 7.5,
     floatDelay: 0.4,
@@ -82,7 +74,7 @@ const HERO_SHAPES: ProximityShapeData[] = [
     x: "5%",
     y: "55%",
     size: 40,
-    color: "#EC4899",
+    color: PINK_HEX,
     filled: true,
     floatDuration: 5.5,
     floatDelay: 0.8,
@@ -92,7 +84,7 @@ const HERO_SHAPES: ProximityShapeData[] = [
     x: "95%",
     y: "50%",
     size: 35,
-    color: "#F59E0B",
+    color: AMBER_HEX,
     filled: true,
     floatDuration: 8,
     floatDelay: 0.2,
@@ -102,7 +94,7 @@ const HERO_SHAPES: ProximityShapeData[] = [
     x: "12%",
     y: "82%",
     size: 50,
-    color: "#10B981",
+    color: GREEN_HEX,
     filled: true,
     floatDuration: 6.5,
     floatDelay: 1.0,
@@ -112,7 +104,7 @@ const HERO_SHAPES: ProximityShapeData[] = [
     x: "88%",
     y: "85%",
     size: 48,
-    color: "var(--color-accent)",
+    color: ACCENT,
     filled: true,
     floatDuration: 5,
     floatDelay: 0.6,
@@ -122,7 +114,7 @@ const HERO_SHAPES: ProximityShapeData[] = [
     x: "18%",
     y: "25%",
     size: 70,
-    color: "var(--color-accent)",
+    color: ACCENT,
     filled: false,
     floatDuration: 7,
     floatDelay: 0.3,
@@ -132,7 +124,7 @@ const HERO_SHAPES: ProximityShapeData[] = [
     x: "82%",
     y: "28%",
     size: 55,
-    color: "#06B6D4",
+    color: CYAN_HEX,
     filled: false,
     floatDuration: 6,
     floatDelay: 0.9,
@@ -142,7 +134,7 @@ const HERO_SHAPES: ProximityShapeData[] = [
     x: "75%",
     y: "72%",
     size: 65,
-    color: "#EC4899",
+    color: PINK_HEX,
     filled: false,
     floatDuration: 8,
     floatDelay: 0.5,
@@ -152,7 +144,7 @@ const HERO_SHAPES: ProximityShapeData[] = [
     x: "22%",
     y: "68%",
     size: 50,
-    color: "#F59E0B",
+    color: AMBER_HEX,
     filled: false,
     floatDuration: 7,
     floatDelay: 1.1,
@@ -200,7 +192,7 @@ function Hero() {
       className="bg-surface relative flex h-screen w-full items-center justify-center overflow-hidden"
       aria-label="Hero section introducing Diego Sanchez"
     >
-      <GridBackground />
+      <GridBackground id="hero-grid" cellSize={100} />
       {!isTouch && (
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
           {HERO_SHAPES.map((shape, i) => (
@@ -246,7 +238,7 @@ function Hero() {
             transition={{
               delay: shouldReduceMotion ? 0 : 0.8,
               duration: shouldReduceMotion ? 0 : 0.8,
-              ease: [0.22, 1, 0.36, 1],
+              ease: EASE,
             }}
           >
             DIEGO
@@ -259,7 +251,7 @@ function Hero() {
             transition={{
               delay: shouldReduceMotion ? 0 : 0.9,
               duration: shouldReduceMotion ? 0 : 0.8,
-              ease: [0.22, 1, 0.36, 1],
+              ease: EASE,
             }}
             aria-label="Sanchez"
           >
@@ -272,7 +264,7 @@ function Hero() {
                 transition={{
                   delay: shouldReduceMotion ? 0 : 1.2,
                   duration: shouldReduceMotion ? 0 : 0.6,
-                  ease: [0.22, 1, 0.36, 1],
+                  ease: EASE,
                 }}
                 aria-hidden="true"
               />
@@ -491,33 +483,6 @@ function MagneticPill({
         </motion.span>
       </motion.div>
     </motion.div>
-  );
-}
-
-function GridBackground() {
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
-
-  return (
-    <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-      <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="hero-grid" width="100" height="100" patternUnits="userSpaceOnUse">
-            <path
-              d="M 100 0 L 0 0 0 100"
-              fill="none"
-              stroke={
-                isDark
-                  ? "rgba(255, 255, 255, 0.15)"
-                  : "color-mix(in srgb, var(--color-accent) 30%, transparent)"
-              }
-              strokeWidth="1"
-            />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#hero-grid)" />
-      </svg>
-    </div>
   );
 }
 

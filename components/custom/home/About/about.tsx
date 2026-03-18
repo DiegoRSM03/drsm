@@ -13,12 +13,15 @@ import {
   useAnimationFrame,
 } from "framer-motion";
 import { ArrowDown } from "lucide-react";
-
-const ACCENT = "#8B5CF6";
-const CYAN = "#06B6D4";
-const PINK = "#EC4899";
-const GREEN = "#10B981";
-const ease = [0.22, 1, 0.36, 1] as const;
+import {
+  ACCENT_HEX,
+  CYAN_HEX,
+  PINK_HEX,
+  GREEN_HEX,
+  EASE,
+  SPRING_SOFT,
+  SPRING_HEAVY,
+} from "@/utils";
 
 // ============================================================================
 // Section Header — matches Projects/Experience pattern
@@ -36,14 +39,14 @@ function SectionHeader({ isInView }: { isInView: boolean }) {
           className="mb-4 overflow-clip"
           initial={{ width: shouldReduceMotion ? "auto" : 0 }}
           animate={isInView ? { width: "auto" } : {}}
-          transition={{ duration: 0.8, ease }}
+          transition={{ duration: 0.8, ease: EASE }}
         >
           <motion.span
             className="text-foreground inline-block px-3 py-1.5 text-xs font-bold tracking-[0.2em] sm:px-4 sm:py-2"
-            style={{ backgroundColor: ACCENT, fontFamily: "var(--font-display)" }}
+            style={{ backgroundColor: ACCENT_HEX, fontFamily: "var(--font-display)" }}
             initial={{ x: shouldReduceMotion ? 0 : -100 }}
             animate={isInView ? { x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3, ease }}
+            transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
           >
             ABOUT
           </motion.span>
@@ -61,10 +64,10 @@ function SectionHeader({ isInView }: { isInView: boolean }) {
             >
               <motion.span
                 className="inline-block"
-                style={{ color: i === 1 ? ACCENT : "inherit" }}
+                style={{ color: i === 1 ? ACCENT_HEX : "inherit" }}
                 initial={{ y: shouldReduceMotion ? 0 : "100%" }}
                 animate={isInView ? { y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.3 + i * 0.15, ease }}
+                transition={{ duration: 0.6, delay: 0.3 + i * 0.15, ease: EASE }}
               >
                 {word}
               </motion.span>
@@ -77,7 +80,7 @@ function SectionHeader({ isInView }: { isInView: boolean }) {
           className="text-foreground/80 max-w-xl text-sm sm:text-base lg:text-lg"
           initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.6, ease }}
+          transition={{ duration: 0.8, delay: 0.6, ease: EASE }}
         >
           The story behind the code — who I am, how I think, and what drives me to build interfaces
           that feel alive.
@@ -147,13 +150,13 @@ function RailShape({
 
   const hoverX = useMotionValue(0);
   const hoverY = useMotionValue(0);
-  const springHoverX = useSpring(hoverX, { stiffness: 120, damping: 12 });
-  const springHoverY = useSpring(hoverY, { stiffness: 120, damping: 12 });
+  const springHoverX = useSpring(hoverX, SPRING_SOFT);
+  const springHoverY = useSpring(hoverY, SPRING_SOFT);
 
   const dragX = useMotionValue(0);
   const dragY = useMotionValue(0);
-  const springDragX = useSpring(dragX, { stiffness: 60, damping: 15 });
-  const springDragY = useSpring(dragY, { stiffness: 60, damping: 15 });
+  const springDragX = useSpring(dragX, SPRING_HEAVY);
+  const springDragY = useSpring(dragY, SPRING_HEAVY);
 
   const combinedX = useTransform(
     [springHoverX, springDragX],
@@ -261,7 +264,7 @@ function RailShape({
       }}
       initial={{ opacity: 0, scale: 0 }}
       animate={isInView ? { opacity: 1, scale: 1 } : {}}
-      transition={{ duration: 0.6, delay: 1.6, ease }}
+      transition={{ duration: 0.6, delay: 1.6, ease: EASE }}
       drag
       dragMomentum={false}
       dragElastic={0}
@@ -296,10 +299,10 @@ function RailShapesContainer({ isInView }: { isInView: boolean }) {
   }, []);
 
   const shapes: RailShapeConfig[] = [
-    { size: 44, color: ACCENT, speed: 0.03, startProgress: 0.05, className: "" },
-    { size: 20, color: CYAN, speed: 0.045, startProgress: 0.35, className: "rotate-45" },
-    { size: 16, color: PINK, speed: 0.035, startProgress: 0.65, className: "rounded-full" },
-    { size: 24, color: GREEN, speed: 0.025, startProgress: 0.85, className: "rotate-45" },
+    { size: 44, color: ACCENT_HEX, speed: 0.03, startProgress: 0.05, className: "" },
+    { size: 20, color: CYAN_HEX, speed: 0.045, startProgress: 0.35, className: "rotate-45" },
+    { size: 16, color: PINK_HEX, speed: 0.035, startProgress: 0.65, className: "rounded-full" },
+    { size: 24, color: GREEN_HEX, speed: 0.025, startProgress: 0.85, className: "rotate-45" },
   ];
 
   return (
@@ -368,8 +371,8 @@ export default function About() {
               style={{ fontFamily: "var(--font-display)" }}
             >
               {words.map((word, i) => {
-                const start = (i / totalWords) * 0.75;
-                const end = start + 0.75 / totalWords;
+                const start = (i / totalWords) * 0.55;
+                const end = start + 0.55 / totalWords;
                 return (
                   <ScrollWord
                     key={i}
@@ -412,7 +415,7 @@ export default function About() {
               className="relative aspect-[3/4] w-full overflow-hidden"
               initial={{ clipPath: shouldReduceMotion ? "inset(0 0 0 0)" : "inset(100% 0 0 0)" }}
               animate={isInView ? { clipPath: "inset(0 0 0 0)" } : {}}
-              transition={{ duration: 1.4, delay: 0.6, ease }}
+              transition={{ duration: 1.4, delay: 0.6, ease: EASE }}
             >
               <Image
                 src="/about-avatar.png"
@@ -460,7 +463,7 @@ function ScrollWord({
   return (
     <motion.span
       className="mr-[0.3em] inline-block"
-      style={{ opacity, color: isHighlight ? ACCENT : color }}
+      style={{ opacity, color: isHighlight ? ACCENT_HEX : color }}
     >
       {word}
     </motion.span>
