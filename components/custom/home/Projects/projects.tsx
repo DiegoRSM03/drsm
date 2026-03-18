@@ -244,7 +244,7 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
             style={{ backgroundColor: ACCENT, originX: 0 }}
             initial={{ scaleX: 1 }}
             whileInView={{ scaleX: 0 }}
-            viewport={{ once: true, margin: "-10%" }}
+            viewport={{ once: true, margin: "-20%" }}
             transition={{
               duration: shouldReduceMotion ? 0 : 0.8,
               delay: 0.2,
@@ -256,7 +256,7 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
             className="absolute inset-0"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-10%" }}
+            viewport={{ once: true, margin: "-20%" }}
             transition={{ duration: 0.01, delay: 0.2 }}
           >
             <div className="bg-foreground/[0.04] absolute inset-0" />
@@ -384,7 +384,7 @@ function MobileProjectCard({ project }: { project: ProjectData }) {
       aria-labelledby={`project-title-${project.id}`}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: true, margin: "-25%" }}
       transition={{ duration: 0.6, ease: EASE }}
     >
       <ProjectCardContent project={project} />

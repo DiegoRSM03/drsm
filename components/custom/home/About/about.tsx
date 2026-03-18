@@ -371,8 +371,8 @@ export default function About() {
               style={{ fontFamily: "var(--font-display)" }}
             >
               {words.map((word, i) => {
-                const start = (i / totalWords) * 0.75;
-                const end = start + 0.75 / totalWords;
+                const start = (i / totalWords) * 0.55;
+                const end = start + 0.55 / totalWords;
                 return (
                   <ScrollWord
                     key={i}

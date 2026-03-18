@@ -160,19 +160,19 @@ describe("Navbar", () => {
   it("renders nav items when menu is open", () => {
     render(<Navbar />);
     fireEvent.click(screen.getByLabelText("Open menu"));
-    expect(screen.getByText("About")).toBeInTheDocument();
     expect(screen.getByText("Projects")).toBeInTheDocument();
     expect(screen.getByText("Experience")).toBeInTheDocument();
-    expect(screen.getByText("Links")).toBeInTheDocument();
+    expect(screen.getByText("About")).toBeInTheDocument();
+    expect(screen.getByText("Contact")).toBeInTheDocument();
   });
 
   it("nav items have correct href", () => {
     render(<Navbar />);
     fireEvent.click(screen.getByLabelText("Open menu"));
-    expect(screen.getByText("About").closest("a")).toHaveAttribute("href", "#about");
     expect(screen.getByText("Projects").closest("a")).toHaveAttribute("href", "#projects");
     expect(screen.getByText("Experience").closest("a")).toHaveAttribute("href", "#experience");
-    expect(screen.getByText("Links").closest("a")).toHaveAttribute("href", "#links");
+    expect(screen.getByText("About").closest("a")).toHaveAttribute("href", "#about");
+    expect(screen.getByText("Contact").closest("a")).toHaveAttribute("href", "#contact");
   });
 
   it("closes menu when nav item is clicked", () => {

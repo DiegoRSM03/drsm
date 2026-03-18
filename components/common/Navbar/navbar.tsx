@@ -17,7 +17,7 @@ import type { ProximityShapeData } from "@/components/custom/ProximityShape";
 import { useTheme } from "@/contexts";
 import { useIsTouchDevice } from "@/hooks";
 
-const NAV_ITEMS = ["About", "Projects", "Experience", "Links"];
+const NAV_ITEMS = ["Projects", "Experience", "About", "Contact"];
 
 function MagneticLetter({
   letter,
@@ -178,7 +178,7 @@ function LanguageToggle({ className = "", isMenuOpen = false }: LanguageTogglePr
       ref={buttonRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={`magnetic focus-visible:ring-accent focus-visible:ring-offset-background flex h-11 w-11 items-center justify-center border transition-all duration-300 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none ${
+      className={`magnetic focus-visible:ring-accent focus-visible:ring-offset-background flex h-11 w-11 items-center justify-center rounded-full border transition-all duration-300 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none ${
         isMenuOpen
           ? theme === "dark"
             ? "bg-accent hover:bg-accent/90 border-white/50 text-white hover:border-white"

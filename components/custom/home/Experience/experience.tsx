@@ -536,7 +536,7 @@ export default function Experience() {
 
           <div
             ref={contentRef}
-            className="relative z-10 w-full space-y-12 px-4 py-16 sm:space-y-16 sm:px-6 sm:py-20 md:space-y-24 md:py-24 lg:space-y-40 lg:py-32 lg:pl-8 xl:space-y-48 xl:py-40 xl:pl-10"
+            className="relative z-10 w-full space-y-12 px-4 py-16 sm:space-y-16 sm:px-6 sm:py-20 md:space-y-24 md:py-24 lg:space-y-28 lg:py-32 lg:pl-8 xl:space-y-32 xl:py-40 xl:pl-10"
             style={{ paddingRight: "max(1rem, calc((100vw - 1280px) / 2 + 0.875rem))" }}
           >
             {EXPERIENCES.map((exp, index) => (

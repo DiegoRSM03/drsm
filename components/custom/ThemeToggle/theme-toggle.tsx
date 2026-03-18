@@ -60,7 +60,6 @@ export function ThemeToggle({
       Math.max(y, window.innerHeight - y)
     );
 
-    // Check for View Transitions API support
     const doc = document as Document & {
       startViewTransition?: (callback: () => void) => { ready: Promise<void> };
     };
@@ -83,11 +82,8 @@ export function ThemeToggle({
             }
           );
         })
-        .catch(() => {
-          // Animation was interrupted, theme still changed
-        });
+        .catch(() => {});
     } else {
-      // Fallback: create overlay and animate
       const overlay = document.createElement("div");
       overlay.style.cssText = `
         position: fixed;
@@ -106,15 +102,10 @@ export function ThemeToggle({
           { clipPath: `circle(0px at ${x}px ${y}px)` },
           { clipPath: `circle(${endRadius}px at ${x}px ${y}px)` },
         ],
-        {
-          duration: 500,
-          easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-        }
+        { duration: 500, easing: "cubic-bezier(0.22, 1, 0.36, 1)" }
       );
 
-      animation.onfinish = () => {
-        overlay.remove();
-      };
+      animation.onfinish = () => overlay.remove();
     }
   }, [toggleTheme]);
 
@@ -124,7 +115,7 @@ export function ThemeToggle({
       onClick={handleToggle}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={`magnetic focus-visible:ring-offset-background relative flex h-11 w-11 items-center justify-center border transition-all duration-300 ${
+      className={`magnetic focus-visible:ring-offset-background relative flex h-11 w-11 items-center justify-center rounded-full border transition-all duration-300 ${
         isMenuOpen
           ? theme === "dark"
             ? "bg-accent hover:bg-accent/90 border-white/50 hover:border-white"
