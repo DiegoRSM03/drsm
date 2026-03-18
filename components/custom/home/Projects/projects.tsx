@@ -178,7 +178,7 @@ function SectionHeader() {
         transition={{ duration: 0.8, ease }}
       >
         <motion.span
-          className="inline-block px-3 py-1.5 text-xs font-bold tracking-[0.2em] text-white sm:px-4 sm:py-2"
+          className="text-foreground inline-block px-3 py-1.5 text-xs font-bold tracking-[0.2em] sm:px-4 sm:py-2"
           style={{ backgroundColor: BRAND_PURPLE, fontFamily: "var(--font-display)" }}
           initial={{ x: shouldReduceMotion ? 0 : -100 }}
           whileInView={{ x: 0 }}
@@ -191,7 +191,7 @@ function SectionHeader() {
 
       <h2
         id="projects-heading"
-        className="mb-4 text-3xl font-black text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl"
+        className="text-foreground mb-4 text-3xl font-black sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl"
         style={{ fontFamily: "var(--font-display)" }}
       >
         {titleWords.map((word, i) => (
@@ -211,7 +211,7 @@ function SectionHeader() {
       </h2>
 
       <motion.p
-        className="max-w-xl text-base text-white/80 sm:text-lg"
+        className="text-foreground/80 max-w-xl text-base sm:text-lg"
         initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -293,7 +293,7 @@ function ProjectCard({
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.01, delay: 0.2 }}
           >
-            <div className="absolute inset-0 bg-white/[0.04]" />
+            <div className="bg-foreground/[0.04] absolute inset-0" />
             <div className="absolute inset-0 flex items-center justify-center">
               <motion.span
                 className="text-6xl font-black sm:text-7xl md:text-8xl lg:text-9xl"
@@ -330,7 +330,7 @@ function ProjectCard({
           <motion.div className="mb-3 overflow-clip sm:mb-4">
             <motion.h3
               id={`project-title-${project.id}`}
-              className="text-2xl font-black text-white sm:text-3xl md:text-4xl lg:text-5xl"
+              className="text-foreground text-2xl font-black sm:text-3xl md:text-4xl lg:text-5xl"
               style={{ fontFamily: "var(--font-display)" }}
               initial={{ y: shouldReduceMotion ? 0 : "100%" }}
               whileInView={{ y: 0 }}
@@ -343,7 +343,7 @@ function ProjectCard({
 
           {/* Description */}
           <motion.p
-            className="mb-4 max-w-lg text-sm leading-relaxed text-white/80 sm:mb-6 sm:text-base md:text-lg"
+            className="text-foreground/80 mb-4 max-w-lg text-sm leading-relaxed sm:mb-6 sm:text-base md:text-lg"
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -370,9 +370,9 @@ function ProjectCard({
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 0.45 + i * 0.06, ease }}
               >
-                <span className="text-xs font-medium text-white/60 sm:text-sm">{tag}</span>
+                <span className="text-foreground/60 text-xs font-medium sm:text-sm">{tag}</span>
                 {i < project.tags.length - 1 && (
-                  <span className="h-1 w-1 rotate-45 bg-white/30" aria-hidden="true" />
+                  <span className="bg-foreground/30 h-1 w-1 rotate-45" aria-hidden="true" />
                 )}
               </motion.li>
             ))}
@@ -437,7 +437,7 @@ export function Projects() {
       id="projects"
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="bg-background relative border-t border-white/[0.08]"
+      className="bg-background border-foreground/[0.08] relative border-t"
       style={{ height: `${CARD_COUNT * 100}vh` }}
       aria-labelledby="projects-heading"
     >
@@ -447,7 +447,7 @@ export function Projects() {
         <div
           role="list"
           aria-label="Project cards"
-          className="relative flex-1 border-t border-white/[0.08]"
+          className="border-foreground/[0.08] relative flex-1 border-t"
         >
           {PROJECTS.map((project, index) => (
             <ProjectCard

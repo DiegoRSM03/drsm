@@ -470,7 +470,7 @@ export default function Experience() {
               <path
                 d="M 100 0 L 0 0 0 100"
                 fill="none"
-                stroke="rgba(139, 92, 246, 0.2)"
+                stroke="rgba(255, 255, 255, 0.05)"
                 strokeWidth="1"
               />
             </pattern>
@@ -482,7 +482,7 @@ export default function Experience() {
       <div className="relative flex flex-col lg:flex-row">
         <aside
           className="sticky top-0 hidden h-screen w-full shrink-0 overflow-hidden lg:block lg:w-2/5"
-          style={{ backgroundColor: "#8B5CF6" }}
+          style={{ backgroundColor: "#6D28D9" }}
           aria-label="Work history navigation"
         >
           <div className="absolute inset-0" aria-hidden="true">
@@ -537,7 +537,7 @@ export default function Experience() {
           </div>
         </aside>
 
-        <div className="relative w-full lg:w-3/5">
+        <div className="bg-surface relative w-full lg:w-3/5">
           {!isTouch && (
             <div
               className="pointer-events-none absolute inset-0 overflow-hidden"

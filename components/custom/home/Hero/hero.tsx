@@ -199,7 +199,7 @@ function Hero() {
       className="bg-background relative flex h-screen w-full items-center justify-center overflow-hidden"
       aria-label="Hero section introducing Diego Sanchez"
     >
-      <GridBackground mouseX={mouseX} mouseY={mouseY} enableMotion={enableMotion} />
+      <GridBackground />
       {!isTouch && (
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
           {HERO_SHAPES.map((shape, i) => (
@@ -207,14 +207,7 @@ function Hero() {
           ))}
         </div>
       )}
-      {!isTouch && (
-        <CursorShapes
-          mouseX={mouseX}
-          mouseY={mouseY}
-          enableMotion={enableMotion}
-          scrollProgress={scrollYProgress}
-        />
-      )}
+      {!isTouch && <CursorShapes enableMotion={enableMotion} />}
 
       <motion.div
         className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center px-6 text-center"
@@ -296,7 +289,7 @@ function Hero() {
             duration: shouldReduceMotion ? 0 : 0.6,
           }}
         >
-          Obsessed with making <span className="text-accent font-bold">ideas breathe</span>
+          Obsessed with making <span className="font-bold text-white">ideas breathe</span>
         </motion.p>
 
         <motion.div
@@ -500,18 +493,7 @@ function MagneticPill({
   );
 }
 
-function GridBackground({
-  mouseX,
-  mouseY,
-  enableMotion = true,
-}: {
-  mouseX: MotionValue<number>;
-  mouseY: MotionValue<number>;
-  enableMotion?: boolean;
-}) {
-  const smoothX = useSpring(mouseX, { stiffness: 100, damping: 30 });
-  const smoothY = useSpring(mouseY, { stiffness: 100, damping: 30 });
-
+function GridBackground() {
   return (
     <div className="pointer-events-none absolute inset-0" aria-hidden="true">
       <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
@@ -520,57 +502,59 @@ function GridBackground({
             <path
               d="M 100 0 L 0 0 0 100"
               fill="none"
-              stroke="rgba(139, 92, 246, 0.2)"
+              stroke="rgba(255, 255, 255, 0.07)"
               strokeWidth="1"
             />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#hero-grid)" />
       </svg>
-
-      {enableMotion && (
-        <motion.div
-          className="pointer-events-none absolute h-[600px] w-[600px] rounded-full"
-          style={{
-            left: smoothX,
-            top: smoothY,
-            x: "-50%",
-            y: "-50%",
-            background:
-              "radial-gradient(circle, rgba(139, 92, 246, 0.13) 0%, rgba(139, 92, 246, 0.04) 45%, transparent 60%)",
-          }}
-        />
-      )}
     </div>
   );
 }
 
-function CursorShapes({
-  mouseX,
-  mouseY,
-  enableMotion = true,
-  scrollProgress,
-}: {
-  mouseX: MotionValue<number>;
-  mouseY: MotionValue<number>;
-  enableMotion?: boolean;
-  scrollProgress: MotionValue<number>;
-}) {
+function CursorShapes({ enableMotion = true }: { enableMotion?: boolean }) {
   const shouldReduceMotion = useReducedMotion();
-  const opacity = useTransform(scrollProgress, [0, 0.3], [1, 0]);
+  const globalMouseX = useMotionValue(0);
+  const globalMouseY = useMotionValue(0);
+  const smoothX = useSpring(globalMouseX, { stiffness: 100, damping: 30 });
+  const smoothY = useSpring(globalMouseY, { stiffness: 100, damping: 30 });
+
+  useEffect(() => {
+    if (shouldReduceMotion || !enableMotion) return;
+    const handler = (e: MouseEvent) => {
+      globalMouseX.set(e.clientX);
+      globalMouseY.set(e.clientY);
+    };
+    window.addEventListener("mousemove", handler);
+    return () => window.removeEventListener("mousemove", handler);
+  }, [globalMouseX, globalMouseY, shouldReduceMotion, enableMotion]);
 
   if (shouldReduceMotion || !enableMotion) return null;
 
   return (
-    <motion.div
-      className="pointer-events-none fixed inset-0 z-[15]"
-      style={{ opacity }}
-      aria-hidden="true"
-    >
+    <div className="pointer-events-none fixed inset-0 z-[15]" aria-hidden="true">
+      <motion.div
+        className="absolute h-[600px] w-[600px] rounded-full"
+        style={{
+          left: smoothX,
+          top: smoothY,
+          x: "-50%",
+          y: "-50%",
+          background:
+            "radial-gradient(circle, rgba(139, 92, 246, 0.13) 0%, rgba(139, 92, 246, 0.04) 45%, transparent 60%)",
+        }}
+      />
       {CURSOR_SHAPES.map((shape, i) => (
-        <CursorFollower key={i} mouseX={mouseX} mouseY={mouseY} shape={shape} index={i} />
+        <CursorFollower
+          key={i}
+          mouseX={globalMouseX}
+          mouseY={globalMouseY}
+          shape={shape}
+          index={i}
+        />
       ))}
-    </motion.div>
+    </div>
   );
 }
 
