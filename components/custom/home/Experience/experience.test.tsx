@@ -73,11 +73,6 @@ describe("Experience", () => {
     expect(screen.getByText("AXON")).toBeInTheDocument();
   });
 
-  it("renders navigation buttons for each company", () => {
-    render(<Experience />);
-    expect(screen.getAllByLabelText(/Go to .* experience/)).toHaveLength(6);
-  });
-
   it("has proper accessibility attributes", () => {
     render(<Experience />);
     expect(screen.getByRole("region", { name: /work history/i })).toBeInTheDocument();
@@ -94,12 +89,6 @@ describe("Experience", () => {
     expect(screen.getByRole("heading", { name: /litebox/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /axon/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /inaza/i })).toBeInTheDocument();
-  });
-
-  it("navigation elements have accessible label", () => {
-    render(<Experience />);
-    const navElements = screen.getAllByRole("navigation", { name: /experience navigation/i });
-    expect(navElements.length).toBeGreaterThanOrEqual(1);
   });
 
   it("skills lists have accessible label", () => {

@@ -11,6 +11,8 @@ import {
 } from "framer-motion";
 import { useState, useRef, useCallback, useEffect, useSyncExternalStore } from "react";
 import { useTheme } from "@/contexts";
+import { ProximityShape } from "@/components/custom/ProximityShape";
+import type { ProximityShapeData } from "@/components/custom/ProximityShape";
 
 function useIsTouchDevice() {
   const getSnapshot = () => "ontouchstart" in window || navigator.maxTouchPoints > 0;
@@ -67,7 +69,7 @@ const EXPERIENCES: ExperienceData[] = [
       "Built back-office apps with React Hook Form, Google Maps API, and OpenAI",
     ],
     skills: ["Next.js", "AWS", "GSAP", "Framer Motion", "TypeScript", "Strapi"],
-    color: "#8B5CF6",
+    color: "var(--color-accent)",
     numberColorDark: "#3D2A5C",
     numberColorLight: "#E9E0FF",
   },
@@ -91,273 +93,131 @@ const EXPERIENCES: ExperienceData[] = [
   },
 ];
 
-interface ShapeConfig {
-  x: string;
-  y: string;
-  size: number;
-  color: string;
-  type: "square" | "circle" | "triangle";
-  rotation: number;
-  factorX: number;
-  factorY: number;
-  stiffness: number;
-  damping: number;
-}
-
-const SIDEBAR_SHAPES: ShapeConfig[] = [
+const SIDEBAR_PROXIMITY_SHAPES: ProximityShapeData[] = [
   {
+    type: "diamond",
     x: "15%",
     y: "15%",
     size: 50,
     color: "#ffffff",
-    type: "square",
-    rotation: 45,
-    factorX: 0.05,
-    factorY: 0.04,
-    stiffness: 60,
-    damping: 20,
+    filled: true,
+    floatDuration: 6,
+    floatDelay: 0,
   },
   {
+    type: "circle",
     x: "75%",
     y: "25%",
     size: 40,
     color: "#ffffff",
-    type: "circle",
-    rotation: 0,
-    factorX: -0.04,
-    factorY: 0.05,
-    stiffness: 80,
-    damping: 18,
+    filled: false,
+    floatDuration: 7,
+    floatDelay: 0.5,
   },
   {
+    type: "square",
     x: "25%",
     y: "75%",
     size: 55,
     color: "#ffffff",
-    type: "square",
-    rotation: 15,
-    factorX: 0.045,
-    factorY: -0.035,
-    stiffness: 70,
-    damping: 20,
+    filled: true,
+    floatDuration: 5.5,
+    floatDelay: 1,
   },
   {
+    type: "triangle",
     x: "70%",
     y: "80%",
     size: 35,
     color: "#ffffff",
-    type: "triangle",
-    rotation: 0,
-    factorX: -0.06,
-    factorY: 0.045,
-    stiffness: 75,
-    damping: 16,
+    filled: false,
+    floatDuration: 8,
+    floatDelay: 0.3,
   },
 ];
 
-const CONTENT_SHAPES: ShapeConfig[] = [
+const CONTENT_PROXIMITY_SHAPES: ProximityShapeData[] = [
   {
+    type: "circle",
     x: "85%",
     y: "5%",
     size: 45,
     color: "#06B6D4",
-    type: "circle",
-    rotation: 0,
-    factorX: -0.05,
-    factorY: 0.04,
-    stiffness: 70,
-    damping: 18,
+    filled: true,
+    floatDuration: 7,
+    floatDelay: 0.4,
   },
   {
+    type: "square",
     x: "10%",
     y: "12%",
     size: 50,
     color: "#EC4899",
-    type: "square",
-    rotation: 20,
-    factorX: 0.045,
-    factorY: -0.05,
-    stiffness: 60,
-    damping: 20,
+    filled: false,
+    floatDuration: 5.5,
+    floatDelay: 0.8,
   },
   {
+    type: "triangle",
     x: "92%",
     y: "22%",
     size: 38,
     color: "#F59E0B",
-    type: "triangle",
-    rotation: 0,
-    factorX: -0.04,
-    factorY: 0.06,
-    stiffness: 80,
-    damping: 16,
+    filled: true,
+    floatDuration: 8,
+    floatDelay: 0.2,
   },
   {
-    x: "8%",
+    type: "circle",
+    x: "40%",
     y: "38%",
     size: 40,
     color: "#10B981",
-    type: "circle",
-    rotation: 0,
-    factorX: 0.055,
-    factorY: 0.035,
-    stiffness: 65,
-    damping: 18,
+    filled: false,
+    floatDuration: 6.5,
+    floatDelay: 1.0,
   },
   {
+    type: "diamond",
     x: "88%",
     y: "48%",
     size: 55,
-    color: "#8B5CF6",
-    type: "square",
-    rotation: 45,
-    factorX: -0.035,
-    factorY: -0.045,
-    stiffness: 55,
-    damping: 22,
+    color: "var(--color-accent)",
+    filled: true,
+    floatDuration: 5,
+    floatDelay: 0.6,
   },
   {
-    x: "12%",
+    type: "square",
+    x: "45%",
     y: "62%",
     size: 45,
     color: "#06B6D4",
-    type: "square",
-    rotation: 15,
-    factorX: 0.05,
-    factorY: 0.04,
-    stiffness: 75,
-    damping: 18,
+    filled: false,
+    floatDuration: 7,
+    floatDelay: 0.3,
   },
   {
+    type: "circle",
     x: "90%",
     y: "72%",
     size: 35,
     color: "#EC4899",
-    type: "circle",
-    rotation: 0,
-    factorX: -0.06,
-    factorY: -0.04,
-    stiffness: 85,
-    damping: 15,
+    filled: true,
+    floatDuration: 6,
+    floatDelay: 0.9,
   },
   {
+    type: "triangle",
     x: "15%",
     y: "85%",
     size: 42,
     color: "#F59E0B",
-    type: "triangle",
-    rotation: 180,
-    factorX: 0.04,
-    factorY: -0.055,
-    stiffness: 70,
-    damping: 18,
+    filled: false,
+    floatDuration: 7.5,
+    floatDelay: 0.5,
   },
 ];
-
-function ExperienceShape({
-  shape,
-  centerX,
-  centerY,
-  filled = true,
-  opacity = 1,
-  enableMotion = true,
-  scaleFactor = 1,
-}: {
-  shape: ShapeConfig;
-  centerX: MotionValue<number>;
-  centerY: MotionValue<number>;
-  filled?: boolean;
-  opacity?: number;
-  enableMotion?: boolean;
-  scaleFactor?: number;
-}) {
-  const shouldReduceMotion = useReducedMotion();
-  const isMotionDisabled = shouldReduceMotion || !enableMotion;
-
-  const offsetX = useTransform(centerX, (v) => (isMotionDisabled ? 0 : v * shape.factorX));
-  const offsetY = useTransform(centerY, (v) => (isMotionDisabled ? 0 : v * shape.factorY));
-  const springX = useSpring(offsetX, { stiffness: shape.stiffness, damping: shape.damping });
-  const springY = useSpring(offsetY, { stiffness: shape.stiffness, damping: shape.damping });
-
-  const scaledSize = shape.size * scaleFactor;
-
-  const renderShape = () => {
-    const baseOpacity = filled ? opacity * 0.8 : opacity * 0.5;
-    if (shape.type === "circle") {
-      return (
-        <div
-          aria-hidden="true"
-          style={{
-            width: scaledSize,
-            height: scaledSize,
-            backgroundColor: filled ? shape.color : "transparent",
-            border: filled ? "none" : `2px solid ${shape.color}`,
-            borderRadius: "50%",
-            opacity: baseOpacity,
-          }}
-        />
-      );
-    }
-    if (shape.type === "triangle") {
-      if (filled) {
-        return (
-          <div
-            aria-hidden="true"
-            style={{
-              width: 0,
-              height: 0,
-              borderLeft: `${scaledSize / 2}px solid transparent`,
-              borderRight: `${scaledSize / 2}px solid transparent`,
-              borderBottom: `${scaledSize}px solid ${shape.color}`,
-              opacity: baseOpacity,
-            }}
-          />
-        );
-      }
-      return (
-        <svg
-          aria-hidden="true"
-          width={scaledSize}
-          height={scaledSize}
-          viewBox="0 0 100 100"
-          style={{ opacity: baseOpacity }}
-        >
-          <polygon points="50,10 90,90 10,90" fill="none" stroke={shape.color} strokeWidth="3" />
-        </svg>
-      );
-    }
-    return (
-      <div
-        aria-hidden="true"
-        style={{
-          width: scaledSize,
-          height: scaledSize,
-          backgroundColor: filled ? shape.color : "transparent",
-          border: filled ? "none" : `2px solid ${shape.color}`,
-          transform: `rotate(${shape.rotation}deg)`,
-          opacity: baseOpacity,
-        }}
-      />
-    );
-  };
-
-  return (
-    <motion.div
-      className="pointer-events-none absolute"
-      aria-hidden="true"
-      style={{
-        left: shape.x,
-        top: shape.y,
-        x: isMotionDisabled ? 0 : springX,
-        y: isMotionDisabled ? 0 : springY,
-        translateX: "-50%",
-        translateY: "-50%",
-      }}
-    >
-      {renderShape()}
-    </motion.div>
-  );
-}
 
 function ExperienceCard({
   exp,
@@ -377,19 +237,11 @@ function ExperienceCard({
   const isDark = theme === "dark";
   const useParallax = enableParallax && !shouldReduceMotion;
 
-  const numberY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    useParallax ? [50 * (index + 1), -100 * (index + 1)] : [0, 0]
-  );
-  const springNumberY = useSpring(numberY, { stiffness: 100, damping: 30 });
+  const numberY = useTransform(scrollYProgress, [0, 1], useParallax ? [100, -160] : [0, 0]);
+  const springNumberY = useSpring(numberY, { stiffness: 80, damping: 25 });
 
-  const cardY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    useParallax ? [30 * (index + 1), -60 * (index + 1)] : [0, 0]
-  );
-  const springCardY = useSpring(cardY, { stiffness: 120, damping: 25 });
+  const cardY = useTransform(scrollYProgress, [0, 1], useParallax ? [50, -80] : [0, 0]);
+  const springCardY = useSpring(cardY, { stiffness: 100, damping: 22 });
 
   return (
     <article
@@ -408,24 +260,26 @@ function ExperienceCard({
             className="pointer-events-none block text-[6rem] leading-none font-black sm:text-[8rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]"
             style={{
               fontFamily: "var(--font-display)",
-              color: isDark ? exp.numberColorDark : exp.numberColorLight,
+              color: isDark ? "rgba(255, 255, 255, 0.06)" : "rgba(0, 0, 0, 0.06)",
             }}
             animate={{ scale: shouldReduceMotion ? 1 : isActive ? 1.02 : 1 }}
             transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
             aria-hidden="true"
           >
-            {String(index + 1).padStart(2, "0")}
+            {String(EXPERIENCES.length - index).padStart(2, "0")}
           </motion.span>
         </motion.div>
 
         <motion.div
-          className="border-border bg-background/95 relative -mt-12 border-2 p-4 backdrop-blur-sm sm:-mt-14 sm:p-6 md:-mt-16 md:p-8 lg:-mt-20 lg:ml-4 xl:ml-8"
+          className="border-border bg-background/95 relative -mt-12 border p-4 backdrop-blur-sm sm:-mt-14 sm:p-6 md:-mt-16 md:p-8 lg:-mt-20 lg:ml-4 xl:ml-8"
           style={{
             borderColor: isActive
-              ? exp.color
+              ? isDark
+                ? "rgba(255, 255, 255, 0.7)"
+                : "rgba(0, 0, 0, 0.7)"
               : isDark
-                ? "rgba(139, 92, 246, 0.2)"
-                : "rgba(139, 92, 246, 0.3)",
+                ? "rgba(255, 255, 255, 0.08)"
+                : "rgba(0, 0, 0, 0.08)",
             y: useParallax ? springCardY : 0,
           }}
           animate={{ x: shouldReduceMotion ? 0 : isActive ? 10 : 0 }}
@@ -445,7 +299,7 @@ function ExperienceCard({
           <div className="relative mb-2 inline-block sm:mb-3">
             <motion.span
               className="absolute -inset-x-2 -inset-y-1 sm:-inset-x-4 sm:-inset-y-2"
-              style={{ backgroundColor: exp.color, originX: 0 }}
+              style={{ backgroundColor: "var(--color-accent)", originX: 0 }}
               initial={{ scaleX: 0 }}
               animate={{ scaleX: shouldReduceMotion || isActive ? 1 : 0 }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -475,7 +329,7 @@ function ExperienceCard({
           <p className="text-foreground mb-1 text-base font-medium sm:mb-2 sm:text-lg">
             {exp.role}
           </p>
-          <p className="mb-4 font-mono text-xs sm:mb-6 sm:text-sm" style={{ color: exp.color }}>
+          <p className="text-foreground/50 mb-4 font-mono text-xs sm:mb-6 sm:text-sm">
             <time>{exp.period}</time>
             <span aria-hidden="true"> · </span>
             <span>{exp.duration}</span>
@@ -536,7 +390,7 @@ function ExperienceCard({
                 key={skill}
                 className="text-foreground border px-2 py-1 text-[10px] font-medium sm:px-3 sm:text-xs"
                 style={{
-                  borderColor: `${exp.color}80`,
+                  borderColor: isDark ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.15)",
                   backgroundColor: isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.03)",
                 }}
                 initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.8 }}
@@ -544,7 +398,12 @@ function ExperienceCard({
                 viewport={{ once: true }}
                 transition={{ delay: shouldReduceMotion ? 0 : 0.3 + i * 0.05 }}
                 whileHover={
-                  shouldReduceMotion ? {} : { backgroundColor: `${exp.color}30`, scale: 1.05 }
+                  shouldReduceMotion
+                    ? {}
+                    : {
+                        backgroundColor: "color-mix(in srgb, var(--color-accent) 15%, transparent)",
+                        scale: 1.05,
+                      }
                 }
               >
                 {skill}
@@ -563,17 +422,23 @@ export default function Experience() {
   const contentRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const isTouch = useIsTouchDevice();
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
   const centerX = useMotionValue(0);
   const centerY = useMotionValue(0);
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent) => {
       if (isTouch) return;
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
       centerX.set(e.clientX - window.innerWidth / 2);
       centerY.set(e.clientY - window.innerHeight / 2);
     },
-    [centerX, centerY, isTouch]
+    [mouseX, mouseY, centerX, centerY, isTouch]
   );
 
   const { scrollYProgress } = useScroll({
@@ -598,13 +463,11 @@ export default function Experience() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const enableShapeMotion = !isTouch && !shouldReduceMotion;
-
   return (
     <section
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="bg-background relative"
+      className="bg-background relative border-t border-white/[0.08]"
       aria-labelledby="experience-heading"
     >
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
@@ -614,7 +477,7 @@ export default function Experience() {
               <path
                 d="M 100 0 L 0 0 0 100"
                 fill="none"
-                stroke="rgba(139, 92, 246, 0.2)"
+                stroke="rgba(255, 255, 255, 0.05)"
                 strokeWidth="1"
               />
             </pattern>
@@ -626,7 +489,7 @@ export default function Experience() {
       <div className="relative flex flex-col lg:flex-row">
         <aside
           className="sticky top-0 hidden h-screen w-full shrink-0 overflow-hidden lg:block lg:w-2/5"
-          style={{ backgroundColor: "#8B5CF6" }}
+          style={{ backgroundColor: "#5B21B6" }}
           aria-label="Work history navigation"
         >
           <div className="absolute inset-0" aria-hidden="true">
@@ -645,19 +508,18 @@ export default function Experience() {
             </svg>
           </div>
 
-          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-            {SIDEBAR_SHAPES.map((shape, i) => (
-              <ExperienceShape
-                key={`sidebar-${i}`}
-                shape={shape}
-                centerX={centerX}
-                centerY={centerY}
-                filled={i % 2 === 0}
-                opacity={0.9}
-                enableMotion={enableShapeMotion}
-              />
-            ))}
-          </div>
+          {!isTouch && (
+            <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+              {SIDEBAR_PROXIMITY_SHAPES.map((shape, i) => (
+                <ProximityShape
+                  key={`sidebar-${i}`}
+                  shape={shape}
+                  mouseX={mouseX}
+                  mouseY={mouseY}
+                />
+              ))}
+            </div>
+          )}
 
           <div className="relative z-10 flex h-full flex-col justify-center p-8 xl:p-12">
             <motion.div
@@ -666,124 +528,70 @@ export default function Experience() {
               viewport={{ once: true }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
-              <span className="mb-4 block font-mono text-xs text-white/60 xl:text-sm">
-                SECTION 01
-              </span>
               <h2
                 id="experience-heading"
-                className="text-4xl font-black xl:text-5xl 2xl:text-6xl"
+                className="text-5xl font-black xl:text-6xl 2xl:text-7xl"
                 style={{ fontFamily: "var(--font-display)" }}
               >
                 <span className="text-white">WORK</span>
                 <br />
                 <span className="text-black">HISTORY</span>
               </h2>
-
-              <nav
-                className="mt-8 space-y-3 xl:mt-12 xl:space-y-4"
-                aria-label="Experience navigation"
-              >
-                {EXPERIENCES.map((exp, i) => (
-                  <motion.button
-                    key={i}
-                    type="button"
-                    className="flex w-full cursor-pointer items-center gap-3 p-1 text-left xl:gap-4"
-                    animate={{
-                      opacity: activeSection === i ? 1 : 0.4,
-                      x: shouldReduceMotion ? 0 : activeSection === i ? 10 : 0,
-                    }}
-                    transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-                    onClick={() => {
-                      const card = document.querySelector(`[data-experience-card="${i}"]`);
-                      card?.scrollIntoView({ behavior: "smooth", block: "center" });
-                    }}
-                    aria-current={activeSection === i ? "true" : undefined}
-                    aria-label={`Go to ${exp.company} experience`}
-                  >
-                    <motion.span
-                      className="h-3 w-3 shrink-0 xl:h-4 xl:w-4"
-                      style={{
-                        backgroundColor: activeSection === i ? "#fff" : "transparent",
-                        border: "2px solid #fff",
-                        transform: "rotate(45deg)",
-                      }}
-                      animate={{ scale: activeSection === i ? 1.2 : 1 }}
-                      transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
-                      aria-hidden="true"
-                    />
-                    <span
-                      className="text-xs font-semibold tracking-wide text-white xl:text-sm"
-                      style={{ fontFamily: "var(--font-display)" }}
-                    >
-                      {exp.company}
-                    </span>
-                    <motion.span
-                      className="h-px flex-1 bg-white"
-                      initial={{ scaleX: 0, originX: 0 }}
-                      animate={{ scaleX: activeSection === i ? 1 : 0 }}
-                      transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-                      aria-hidden="true"
-                    />
-                  </motion.button>
-                ))}
-              </nav>
+              <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/70 xl:mt-6 xl:text-base">
+                Production code, frontend architecture, and cross-functional collaboration.
+              </p>
             </motion.div>
           </div>
         </aside>
 
-        <div className="relative w-full lg:w-3/5">
-          <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-            {CONTENT_SHAPES.slice(0, isTouch ? 4 : CONTENT_SHAPES.length).map((shape, i) => (
-              <ExperienceShape
-                key={`content-${i}`}
-                shape={shape}
-                centerX={centerX}
-                centerY={centerY}
-                filled={i % 2 === 0}
-                opacity={0.7}
-                enableMotion={enableShapeMotion}
-                scaleFactor={isTouch ? 0.7 : 1}
-              />
-            ))}
+        <div className="bg-surface relative w-full lg:w-3/5">
+          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+            <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="content-grid" width="100" height="100" patternUnits="userSpaceOnUse">
+                  <path
+                    d="M 100 0 L 0 0 0 100"
+                    fill="none"
+                    stroke={
+                      isDark
+                        ? "rgba(255, 255, 255, 0.05)"
+                        : "color-mix(in srgb, var(--color-accent) 15%, transparent)"
+                    }
+                    strokeWidth="1"
+                  />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#content-grid)" />
+            </svg>
           </div>
 
-          <header className="relative z-10 px-4 pt-20 sm:px-6 sm:pt-24 lg:hidden">
-            <span
-              className="mb-2 block font-mono text-xs opacity-50 sm:text-sm"
-              style={{ color: "#8B5CF6" }}
+          {!isTouch && (
+            <div
+              className="pointer-events-none absolute inset-0 overflow-hidden"
+              aria-hidden="true"
             >
-              SECTION 01
-            </span>
+              {CONTENT_PROXIMITY_SHAPES.map((shape, i) => (
+                <ProximityShape
+                  key={`content-${i}`}
+                  shape={shape}
+                  mouseX={mouseX}
+                  mouseY={mouseY}
+                />
+              ))}
+            </div>
+          )}
+
+          <header className="relative z-10 px-4 pt-20 sm:px-6 sm:pt-24 lg:hidden">
             <h2
               id="experience-heading-mobile"
-              className="text-3xl font-black sm:text-4xl md:text-5xl"
-              style={{ fontFamily: "var(--font-display)", color: "#8B5CF6" }}
+              className="text-3xl font-black sm:text-4xl md:text-5xl lg:text-6xl"
+              style={{ fontFamily: "var(--font-display)", color: "var(--color-accent)" }}
             >
               WORK HISTORY
             </h2>
-
-            <nav className="mt-6 flex flex-wrap gap-2 sm:gap-3" aria-label="Experience navigation">
-              {EXPERIENCES.map((exp, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => {
-                    const card = document.querySelector(`[data-experience-card="${i}"]`);
-                    card?.scrollIntoView({ behavior: "smooth", block: "center" });
-                  }}
-                  className="px-3 py-2 text-xs font-medium transition-colors sm:px-4 sm:text-sm"
-                  style={{
-                    backgroundColor: activeSection === i ? exp.color : "transparent",
-                    color: activeSection === i ? "#fff" : exp.color,
-                    border: `2px solid ${exp.color}`,
-                  }}
-                  aria-current={activeSection === i ? "true" : undefined}
-                  aria-label={`Go to ${exp.company} experience`}
-                >
-                  {exp.company}
-                </button>
-              ))}
-            </nav>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-white/60 sm:mt-4 sm:text-base">
+              Production code, frontend architecture, and cross-functional collaboration.
+            </p>
           </header>
 
           <div

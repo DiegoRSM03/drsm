@@ -105,6 +105,10 @@ jest.mock("lucide-react", () => ({
   Globe: () => <span data-testid="globe-icon">Globe</span>,
 }));
 
+jest.mock("@/components/custom/ProximityShape", () => ({
+  ProximityShape: () => <div data-testid="proximity-shape" />,
+}));
+
 jest.mock("@/components/custom/ThemeToggle", () => ({
   ThemeToggle: ({ isMenuOpen }: { isMenuOpen?: boolean }) => (
     <button data-testid="theme-toggle" data-menu-open={isMenuOpen}>
