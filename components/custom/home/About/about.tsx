@@ -29,57 +29,59 @@ function SectionHeader({ isInView }: { isInView: boolean }) {
   const titleWords = ["The Person", "Behind The Pixels"];
 
   return (
-    <header className="border-foreground/[0.08] mb-8 border-y py-8 sm:mb-10 sm:py-12 md:mb-12 md:py-16 lg:mb-16 lg:py-20">
-      {/* Section tag — matches Projects pattern */}
-      <motion.div
-        className="mb-4 overflow-clip"
-        initial={{ width: shouldReduceMotion ? "auto" : 0 }}
-        animate={isInView ? { width: "auto" } : {}}
-        transition={{ duration: 0.8, ease }}
-      >
-        <motion.span
-          className="text-foreground inline-block px-3 py-1.5 text-xs font-bold tracking-[0.2em] sm:px-4 sm:py-2"
-          style={{ backgroundColor: ACCENT, fontFamily: "var(--font-display)" }}
-          initial={{ x: shouldReduceMotion ? 0 : -100 }}
-          animate={isInView ? { x: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.3, ease }}
+    <header className="border-foreground/[0.08] border-y py-8 sm:py-12 md:py-16 lg:py-20">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
+        {/* Section tag — matches Projects pattern */}
+        <motion.div
+          className="mb-4 overflow-clip"
+          initial={{ width: shouldReduceMotion ? "auto" : 0 }}
+          animate={isInView ? { width: "auto" } : {}}
+          transition={{ duration: 0.8, ease }}
         >
-          ABOUT
-        </motion.span>
-      </motion.div>
-
-      <h2
-        id="about-heading"
-        className="text-foreground mb-3 text-2xl font-black sm:mb-4 sm:text-3xl md:mb-6 md:text-4xl lg:text-5xl xl:text-6xl"
-        style={{ fontFamily: "var(--font-display)" }}
-      >
-        {titleWords.map((word, i) => (
-          <span
-            key={i}
-            className={`inline-block overflow-clip${i === 0 ? "mr-2 sm:mr-3 md:mr-4" : ""}`}
+          <motion.span
+            className="text-foreground inline-block px-3 py-1.5 text-xs font-bold tracking-[0.2em] sm:px-4 sm:py-2"
+            style={{ backgroundColor: ACCENT, fontFamily: "var(--font-display)" }}
+            initial={{ x: shouldReduceMotion ? 0 : -100 }}
+            animate={isInView ? { x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3, ease }}
           >
-            <motion.span
-              className="inline-block"
-              style={{ color: i === 1 ? ACCENT : "inherit" }}
-              initial={{ y: shouldReduceMotion ? 0 : "100%" }}
-              animate={isInView ? { y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.3 + i * 0.15, ease }}
-            >
-              {word}
-            </motion.span>
-          </span>
-        ))}
-      </h2>
+            ABOUT
+          </motion.span>
+        </motion.div>
 
-      <motion.p
-        className="text-foreground/80 max-w-xl text-sm sm:text-base lg:text-lg"
-        initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8, delay: 0.6, ease }}
-      >
-        The story behind the code — who I am, how I think, and what drives me to build interfaces
-        that feel alive.
-      </motion.p>
+        <h2
+          id="about-heading"
+          className="text-foreground mb-3 text-2xl font-black sm:mb-4 sm:text-3xl md:mb-6 md:text-4xl lg:text-5xl xl:text-6xl"
+          style={{ fontFamily: "var(--font-display)" }}
+        >
+          {titleWords.map((word, i) => (
+            <span
+              key={i}
+              className={`inline-block overflow-clip${i === 0 ? "mr-2 sm:mr-3 md:mr-4" : ""}`}
+            >
+              <motion.span
+                className="inline-block"
+                style={{ color: i === 1 ? ACCENT : "inherit" }}
+                initial={{ y: shouldReduceMotion ? 0 : "100%" }}
+                animate={isInView ? { y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.3 + i * 0.15, ease }}
+              >
+                {word}
+              </motion.span>
+            </span>
+          ))}
+        </h2>
+
+        <motion.p
+          className="text-foreground/80 max-w-xl text-sm sm:text-base lg:text-lg"
+          initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.6, ease }}
+        >
+          The story behind the code — who I am, how I think, and what drives me to build interfaces
+          that feel alive.
+        </motion.p>
+      </div>
     </header>
   );
 }
@@ -330,7 +332,7 @@ export default function About() {
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 0.7", "end 0.1"],
+    offset: ["start 0.15", "end 0.6"],
   });
 
   const photoY = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? [0, 0] : [-30, 30]);
@@ -351,9 +353,9 @@ export default function About() {
       style={{ backgroundColor: "var(--color-background)" }}
       aria-labelledby="about-heading"
     >
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
-        <SectionHeader isInView={isInView} />
+      <SectionHeader isInView={isInView} />
 
+      <div className="mx-auto w-full max-w-7xl px-4 pt-8 sm:px-6 sm:pt-10 md:pt-12 lg:pt-16">
         <div className="relative flex flex-col-reverse gap-8 sm:gap-10 md:gap-12 lg:flex-row lg:gap-20">
           {/* Left: Scroll-driven word reveal */}
           <motion.div
@@ -365,8 +367,8 @@ export default function About() {
               style={{ fontFamily: "var(--font-display)" }}
             >
               {words.map((word, i) => {
-                const start = (i / totalWords) * 0.85;
-                const end = start + 0.85 / totalWords;
+                const start = (i / totalWords) * 0.75;
+                const end = start + 0.75 / totalWords;
                 return (
                   <ScrollWord
                     key={i}
