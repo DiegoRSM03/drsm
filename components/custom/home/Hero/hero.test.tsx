@@ -141,6 +141,13 @@ jest.mock("@/components/custom/MagneticButton", () => ({
   },
 }));
 
+jest.mock("@/contexts", () => ({
+  useTheme: () => ({
+    theme: "dark",
+    toggleTheme: jest.fn(),
+  }),
+}));
+
 describe("Hero", () => {
   it("renders the hero section", () => {
     const { container } = render(<Hero />);

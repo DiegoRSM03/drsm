@@ -11,6 +11,7 @@ import {
   useInView,
 } from "framer-motion";
 import { Github, Linkedin, Mail, Copy, Check } from "lucide-react";
+import { useTheme } from "@/contexts";
 
 const ACCENT = "#8B5CF6";
 const CYAN = "#06B6D4";
@@ -28,20 +29,26 @@ const SOCIAL_LINKS = [
 const EMAIL = "diego@example.com";
 
 // ============================================================================
-// MagneticWrapper — reusable magnetic hover effect
+// Magnetic3DWrapper — magnetic hover effect with 3D parallax and glow
 // ============================================================================
 
-function MagneticWrapper({
+function Magnetic3DWrapper({
   children,
   className,
   strength = 0.3,
+  glowColor = ACCENT,
 }: {
-  children: React.ReactNode;
+  children: (
+    springX: ReturnType<typeof useSpring>,
+    springY: ReturnType<typeof useSpring>
+  ) => React.ReactNode;
   className?: string;
   strength?: number;
+  glowColor?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
+  const [isHovered, setIsHovered] = useState(false);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 150, damping: 15 });
@@ -59,6 +66,7 @@ function MagneticWrapper({
   const handleMouseLeave = () => {
     x.set(0);
     y.set(0);
+    setIsHovered(false);
   };
 
   return (
@@ -67,9 +75,14 @@ function MagneticWrapper({
       className={className}
       style={{ x: springX, y: springY }}
       onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
+      animate={{
+        boxShadow: isHovered ? `0 0 25px ${glowColor}50` : `0 0 0px ${glowColor}00`,
+      }}
+      transition={{ duration: 0.2 }}
     >
-      {children}
+      {children(springX, springY)}
     </motion.div>
   );
 }
@@ -88,38 +101,47 @@ function CopyEmailButton() {
   };
 
   return (
-    <MagneticWrapper className="inline-block">
-      <motion.button
-        onClick={handleCopy}
-        className="group flex items-center gap-2 border-2 px-3 py-2 text-xs font-semibold transition-all duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:px-4 sm:py-2.5 sm:text-sm md:px-5 md:py-3 md:text-base"
-        style={{
-          borderColor: copied ? ACCENT : "var(--color-border)",
-          color: copied ? "#fff" : ACCENT,
-          backgroundColor: copied ? ACCENT : "transparent",
-          // @ts-expect-error CSS custom property
-          "--tw-ring-color": ACCENT,
-          "--tw-ring-offset-color": "var(--color-background)",
-        }}
-        whileHover={{
-          borderColor: ACCENT,
-          boxShadow: `0 0 20px ${ACCENT}30`,
-        }}
-        whileTap={{ scale: 0.97 }}
-        transition={{ duration: 0.15 }}
-      >
-        {copied ? (
-          <>
-            <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-            Copied!
-          </>
-        ) : (
-          <>
-            <Copy className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-            {EMAIL}
-          </>
-        )}
-      </motion.button>
-    </MagneticWrapper>
+    <Magnetic3DWrapper className="inline-block">
+      {(springX, springY) => (
+        <motion.button
+          onClick={handleCopy}
+          className="group flex items-center gap-2 border-2 px-3 py-2 text-xs font-semibold transition-all duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:px-4 sm:py-2.5 sm:text-sm md:px-5 md:py-3 md:text-base"
+          style={{
+            borderColor: copied ? ACCENT : "var(--color-border)",
+            color: copied ? "#fff" : ACCENT,
+            backgroundColor: copied ? ACCENT : "transparent",
+            // @ts-expect-error CSS custom property
+            "--tw-ring-color": ACCENT,
+            "--tw-ring-offset-color": "var(--color-background)",
+          }}
+          whileHover={
+            copied
+              ? {}
+              : {
+                  borderColor: ACCENT,
+                  backgroundColor: ACCENT,
+                  color: "#ffffff",
+                }
+          }
+          whileTap={{ scale: 0.97 }}
+          transition={{ duration: 0.15 }}
+        >
+          <motion.span className="flex items-center gap-2" style={{ x: springX, y: springY }}>
+            {copied ? (
+              <>
+                <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                Copied!
+              </>
+            ) : (
+              <>
+                <Copy className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                {EMAIL}
+              </>
+            )}
+          </motion.span>
+        </motion.button>
+      )}
+    </Magnetic3DWrapper>
   );
 }
 
@@ -137,26 +159,35 @@ function SocialLinkButton({
   icon: React.ElementType;
 }) {
   return (
-    <MagneticWrapper className="inline-block">
-      <motion.a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={label}
-        className="border-border text-muted hover:border-accent hover:text-accent focus-visible:ring-accent active:bg-accent/10 flex h-10 w-10 items-center justify-center border-2 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:h-11 sm:w-11 md:h-12 md:w-12"
-        style={{
-          // @ts-expect-error CSS custom property
-          "--tw-ring-offset-color": "var(--color-background)",
-        }}
-        whileHover={{
-          boxShadow: `0 0 20px ${ACCENT}30`,
-        }}
-        whileTap={{ scale: 0.95 }}
-        transition={{ duration: 0.15 }}
-      >
-        <Icon className="h-4 w-4 sm:h-[18px] sm:w-[18px] md:h-5 md:w-5" />
-      </motion.a>
-    </MagneticWrapper>
+    <Magnetic3DWrapper className="inline-block">
+      {(springX, springY) => (
+        <motion.a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={label}
+          className="border-border text-muted focus-visible:ring-accent flex h-10 w-10 items-center justify-center border-2 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:h-11 sm:w-11 md:h-12 md:w-12"
+          style={{
+            // @ts-expect-error CSS custom property
+            "--tw-ring-offset-color": "var(--color-background)",
+          }}
+          whileHover={{
+            borderColor: ACCENT,
+            backgroundColor: ACCENT,
+            color: "#ffffff",
+          }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ duration: 0.15 }}
+        >
+          <motion.span
+            className="flex items-center justify-center"
+            style={{ x: springX, y: springY }}
+          >
+            <Icon className="h-4 w-4 sm:h-[18px] sm:w-[18px] md:h-5 md:w-5" />
+          </motion.span>
+        </motion.a>
+      )}
+    </Magnetic3DWrapper>
   );
 }
 
@@ -168,6 +199,8 @@ export default function Contact() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const shouldReduceMotion = useReducedMotion();
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -188,7 +221,7 @@ export default function Contact() {
     <section
       ref={ref}
       id="contact"
-      className="border-foreground/[0.08] relative flex h-svh w-full items-center overflow-hidden border-t"
+      className="border-foreground/[0.08] relative flex w-full items-center overflow-hidden border-t py-16 sm:py-20 md:py-24 lg:min-h-[70vh] lg:pt-28 lg:pb-10"
       style={{ backgroundColor: "var(--color-background)" }}
       aria-labelledby="contact-heading"
     >
@@ -200,7 +233,11 @@ export default function Contact() {
               <path
                 d="M 100 0 L 0 0 0 100"
                 fill="none"
-                stroke="rgba(255, 255, 255, 0.07)"
+                stroke={
+                  isDark
+                    ? "rgba(255, 255, 255, 0.15)"
+                    : "color-mix(in srgb, var(--color-accent) 30%, transparent)"
+                }
                 strokeWidth="1"
               />
             </pattern>
@@ -218,7 +255,7 @@ export default function Contact() {
         </h2>
 
         {/* Manifesto */}
-        <div className="mb-8 space-y-0.5 sm:mb-10 sm:space-y-1 md:mb-14 md:space-y-2 lg:mb-16 lg:space-y-3">
+        <div className="mb-16 space-y-0.5 sm:mb-20 sm:space-y-1 md:mb-24 md:space-y-2 lg:mb-28 lg:space-y-3">
           {manifesto.map((line, i) => (
             <div key={i} className="overflow-hidden">
               <motion.p
@@ -234,19 +271,9 @@ export default function Contact() {
           ))}
         </div>
 
-        {/* Divider */}
-        <motion.div
-          className="mb-6 h-px origin-left sm:mb-8 md:mb-10"
-          style={{ backgroundColor: `${ACCENT}30` }}
-          initial={{ scaleX: 0 }}
-          animate={isInView ? { scaleX: 1 } : {}}
-          transition={{ duration: 1.2, delay: 1.4, ease }}
-          aria-hidden="true"
-        />
-
         {/* Actions row */}
         <motion.div
-          className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6"
+          className="flex flex-col items-start gap-4 pb-6 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:pb-8 md:pb-10 lg:pb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 1.8, ease }}

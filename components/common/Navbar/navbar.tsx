@@ -120,7 +120,7 @@ function MagneticLogo() {
   return (
     <motion.div
       ref={containerRef}
-      className="relative cursor-pointer px-2 py-4 select-none"
+      className="relative -ml-2 cursor-pointer px-2 py-4 select-none"
       onMouseEnter={() => setIsHovered(true)}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -190,8 +190,8 @@ function LanguageToggle({ className = "", isMenuOpen = false }: LanguageTogglePr
       className={`magnetic focus-visible:ring-accent focus-visible:ring-offset-background flex h-11 w-11 items-center justify-center rounded-full border transition-all duration-300 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none ${
         isMenuOpen
           ? theme === "dark"
-            ? "bg-accent hover:bg-accent/90 border-white/50 hover:border-white"
-            : "bg-accent hover:bg-accent/90 border-black/30 hover:border-black/50"
+            ? "bg-accent hover:bg-accent/90 border-white/50 text-white hover:border-white"
+            : "bg-accent hover:bg-accent/90 border-black/30 text-black hover:border-black/50"
           : "border-border bg-surface text-foreground hover:border-accent hover:bg-elevated"
       } ${className}`}
       whileTap={enableMotion ? { scale: 0.95 } : {}}
@@ -220,7 +220,7 @@ function Hamburger({ isOpen, onClick }: HamburgerProps) {
 
   return (
     <motion.button
-      className="focus-visible:ring-accent focus-visible:ring-offset-background relative flex h-11 w-11 flex-col items-center justify-center gap-1.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+      className="focus-visible:ring-accent focus-visible:ring-offset-background relative -mr-[10px] flex h-11 w-11 flex-col items-center justify-center gap-1.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
       onClick={onClick}
       whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
       aria-label={isOpen ? "Close menu" : "Open menu"}
@@ -503,6 +503,7 @@ interface NavbarProps {
 function Navbar({ className }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [scrollbarWidth, setScrollbarWidth] = useState(0);
   const shouldReduceMotion = useReducedMotion();
   const curtainMouseX = useMotionValue(0);
   const curtainMouseY = useMotionValue(0);
@@ -517,22 +518,34 @@ function Navbar({ className }: NavbarProps) {
   }, []);
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
     return () => {
       document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
     };
-  }, [isOpen]);
+  }, []);
+
+  const handleMenuToggle = () => {
+    if (!isOpen) {
+      const width = window.innerWidth - document.documentElement.clientWidth;
+      setScrollbarWidth(width);
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = `${width}px`;
+      setIsOpen(true);
+    } else {
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+      setScrollbarWidth(0);
+      setIsOpen(false);
+    }
+  };
 
   return (
     <>
       <header
-        className={`fixed top-0 right-0 left-0 z-50 flex h-20 items-center transition-all duration-500 ${
+        className={`fixed top-0 right-0 left-0 z-50 flex h-20 items-center transition-[background-color] duration-500 ${
           scrolled && !isOpen ? "bg-surface" : "bg-transparent"
         } ${className}`}
+        style={{ paddingRight: scrollbarWidth > 0 ? scrollbarWidth : undefined }}
         role="banner"
       >
         <motion.div
@@ -554,7 +567,7 @@ function Navbar({ className }: NavbarProps) {
           <div className="flex items-center gap-2">
             <ThemeToggle magnetic isMenuOpen={isOpen} />
             <LanguageToggle isMenuOpen={isOpen} />
-            <Hamburger isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
+            <Hamburger isOpen={isOpen} onClick={handleMenuToggle} />
           </div>
         </div>
       </header>

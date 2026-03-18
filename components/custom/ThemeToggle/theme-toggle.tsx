@@ -139,11 +139,15 @@ export function ThemeToggle({
         initial={false}
         animate={{ rotate: theme === "dark" ? 0 : 180 }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        style={magnetic ? { x: springX, y: springY } : undefined}
+        style={{
+          x: magnetic ? springX : 0,
+          y: magnetic ? springY : 0,
+          color: isMenuOpen ? (theme === "dark" ? "#ffffff" : "#000000") : undefined,
+        }}
       >
         {/* Sun */}
         <motion.svg
-          className="absolute inset-0 h-5 w-5"
+          className="text-foreground absolute inset-0 h-5 w-5"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -154,11 +158,6 @@ export function ThemeToggle({
           animate={{
             opacity: theme === "dark" ? 0 : 1,
             scale: theme === "dark" ? 0.5 : 1,
-            color: isMenuOpen
-              ? theme === "dark"
-                ? "#ffffff"
-                : "#000000"
-              : "var(--color-foreground)",
           }}
           transition={{ duration: 0.3 }}
         >
@@ -175,7 +174,7 @@ export function ThemeToggle({
 
         {/* Moon */}
         <motion.svg
-          className="absolute inset-0 h-5 w-5"
+          className="text-foreground absolute inset-0 h-5 w-5"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -186,11 +185,6 @@ export function ThemeToggle({
           animate={{
             opacity: theme === "dark" ? 1 : 0,
             scale: theme === "dark" ? 1 : 0.5,
-            color: isMenuOpen
-              ? theme === "dark"
-                ? "#ffffff"
-                : "#000000"
-              : "var(--color-foreground)",
           }}
           transition={{ duration: 0.3 }}
         >
