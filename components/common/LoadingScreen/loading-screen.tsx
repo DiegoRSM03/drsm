@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 interface LoadingScreenProps {
   onComplete?: () => void;
@@ -15,6 +16,7 @@ export function LoadingScreen({ onComplete, minimumLoadTime = 2200 }: LoadingScr
   const [isExiting, setIsExiting] = useState(false);
   const [progress, setProgress] = useState(0);
   const shouldReduceMotion = useReducedMotion();
+  const t = useTranslations("loading");
 
   useEffect(() => {
     const hasLoaded = sessionStorage.getItem("drsm-loaded");
@@ -198,7 +200,7 @@ export function LoadingScreen({ onComplete, minimumLoadTime = 2200 }: LoadingScr
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
-              Obsessed with making ideas breathe
+              {t("tagline")}
             </motion.p>
           </div>
 

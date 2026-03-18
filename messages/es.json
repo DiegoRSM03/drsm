@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "title": "Diego Sanchez · Senior Frontend Engineer",
+    "description": "Ingeniero frontend construyendo interfaces de alto rendimiento con React, Next.js y TypeScript. Desde Argentina para el mundo.",
+    "ogTitle": "Diego Sanchez · Portfolio",
+    "ogDescription": "Senior Frontend Engineer. React, Next.js, TypeScript."
+  },
+  "nav": {
+    "projects": "Proyectos",
+    "experience": "Experiencia",
+    "about": "Acerca",
+    "contact": "Contacto",
+    "home": "DRSM - Inicio",
+    "toggleTheme": "Cambiar tema",
+    "toggleLanguage": "Cambiar a Ingles",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Cerrar menu"
+  },
+  "hero": {
+    "tagline": "Obsesionado con hacer que las <bold>ideas cobren vida</bold>",
+    "downloadResume": "Descargar CV",
+    "viewProjects": "Ver Proyectos",
+    "scroll": "Scroll"
+  },
+  "projects": {
+    "badge": "PROYECTOS",
+    "titleLine1": "Pixel-Perfect,",
+    "titleLine2": "A Prueba de Todo",
+    "description": "Lo mejor de proyectos profesionales y exploraciones personales — donde el codigo limpio se encuentra con interfaces que impactan.",
+    "viewProject": "Ver Proyecto",
+    "nexus": {
+      "type": "Dashboard SaaS Empresarial",
+      "description": "Plataforma de analitica en tiempo real para pipelines de datos empresariales. Streaming en vivo con WebSocket, visualizaciones interactivas con D3.js y control de acceso granular — procesando 2M+ eventos por minuto con renders en menos de 200ms."
+    },
+    "velocity": {
+      "type": "Herramienta de Monitoreo de Rendimiento",
+      "description": "Monitoreo de rendimiento developer-first que detecta regresiones antes de produccion. Rastrea Core Web Vitals, tamano de bundles y metricas con integracion CI/CD — impulsado por una capa de ingestion en Rust procesando 50K+ payloads por segundo."
+    },
+    "artemis": {
+      "type": "Framework de Design System",
+      "description": "Un design system con 50+ componentes accesibles, dark mode, auditorias WCAG automaticas y un pipeline de Figma a codigo. Adoptado por tres equipos de producto, reduciendo el tiempo de desarrollo UI en un 40%."
+    }
+  },
+  "experience": {
+    "titleWord1": "MI",
+    "titleWord2": "TRAYECTORIA",
+    "description": "Codigo en produccion, arquitectura frontend y colaboracion cross-funcional.",
+    "inaza": {
+      "role": "Deployments Engineer",
+      "period": "Ene 2026 - Presente",
+      "duration": "3 meses",
+      "description": "Empresa de tecnologia en seguros construyendo soluciones modernas para la industria aseguradora.",
+      "highlights": [
+        "Desarrollo de pipelines serverless de automatizacion procesando cientos de reclamos de seguros semanalmente",
+        "Desarrollo de sistemas de parsing y validacion de PDFs aplicando reglas de negocio complejas",
+        "Automatizacion de workflows de ingestion eliminando la carga manual de datos de reclamos"
+      ]
+    },
+    "litebox": {
+      "role": "Software Engineer",
+      "period": "Sep 2022 - Ene 2026",
+      "duration": "3.5 anos",
+      "description": "Empresa boutique de software enfocada en sitios web de marketing altamente personalizados y aplicaciones back-office escalables para startups americanas.",
+      "highlights": [
+        "Desarrollo de 10+ plataformas Next.js en produccion con scores de 90+ en Lighthouse",
+        "Arquitectura de infraestructura de proyectos usando AWS, Vercel y EC2",
+        "Creacion de una CLI interna automatizando el scaffolding de proyectos con Next.js y Strapi",
+        "Desarrollo de aplicaciones back-office con React Hook Form, Google Maps API y OpenAI"
+      ]
+    },
+    "axon": {
+      "role": "Software Engineer",
+      "period": "Sep 2021 - Sep 2022",
+      "duration": "1 ano",
+      "description": "Escuela de coaching remoto para atletas y lideres profesionales. Una de las escuelas de coaching mas reconocidas en LatAm.",
+      "highlights": [
+        "Desarrollo de una aplicacion CRM desde cero para el departamento de ventas",
+        "Creacion de un Bot de WhatsApp para recordatorios de ventas y notificaciones de pago",
+        "Implementacion de workflows CI/CD usando GitHub Actions",
+        "Garantia de compatibilidad cross-browser y estandares de seguridad"
+      ]
+    }
+  },
+  "about": {
+    "badge": "ACERCA",
+    "titleLine1": "La Persona",
+    "titleLine2": "Detras de los Pixeles",
+    "description": "La historia detras del codigo — quien soy, como pienso y que me impulsa a construir interfaces que se sienten vivas.",
+    "bio": "Soy Diego — un Ingeniero Frontend con 4+ anos construyendo interfaces que se sienten vivas. Desde Argentina para el mundo. Me obsesiono con los detalles que la mayoria nunca nota — la curva de easing que hace que una transicion se sienta natural, el milisegundo que separa lo rapido de lo instantaneo, el espacio en blanco que deja al contenido respirar.",
+    "scrollHint": "Desplaza para revelar"
+  },
+  "contact": {
+    "copied": "Copiado!"
+  },
+  "footer": {
+    "description": "Creando interfaces que se sienten vivas. Disponible para nuevos proyectos.",
+    "copyright": "© {year} Diego Sanchez",
+    "scrollToTop": "Inicio"
+  },
+  "loading": {
+    "tagline": "Obsesionado con hacer que las ideas cobren vida"
+  }
+}

@@ -166,18 +166,17 @@ describe("Hero", () => {
 
   it("renders the tagline", () => {
     render(<Hero />);
-    expect(screen.getByText(/Obsessed with making/)).toBeInTheDocument();
-    expect(screen.getByText("ideas breathe")).toBeInTheDocument();
+    expect(screen.getByText("hero.tagline")).toBeInTheDocument();
   });
 
   it("renders Download Resume button", () => {
     render(<Hero />);
-    expect(screen.getByText("Download Resume")).toBeInTheDocument();
+    expect(screen.getByText("hero.downloadResume")).toBeInTheDocument();
   });
 
   it("renders View Projects button", () => {
     render(<Hero />);
-    expect(screen.getByText("View Projects")).toBeInTheDocument();
+    expect(screen.getByText("hero.viewProjects")).toBeInTheDocument();
   });
 
   it("renders tech stack labels", () => {
@@ -192,7 +191,7 @@ describe("Hero", () => {
 
   it("renders scroll indicator", () => {
     render(<Hero />);
-    expect(screen.getByText("Scroll")).toBeInTheDocument();
+    expect(screen.getByText("hero.scroll")).toBeInTheDocument();
   });
 
   it("renders magnetic buttons for CTA", () => {

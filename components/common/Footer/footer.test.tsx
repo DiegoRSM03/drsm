@@ -38,9 +38,8 @@ jest.mock("framer-motion", () => ({
   useInView: () => true,
 }));
 
-jest.mock("next/link", () => ({
-  __esModule: true,
-  default: ({
+jest.mock("@/i18n/routing", () => ({
+  Link: ({
     children,
     href,
     className,
@@ -77,21 +76,20 @@ describe("Footer", () => {
 
     it("renders the tagline", () => {
       render(<Footer />);
-      expect(screen.getByText(/Crafting interfaces that feel alive/i)).toBeInTheDocument();
+      expect(screen.getByText("footer.description")).toBeInTheDocument();
     });
 
     it("renders all navigation links", () => {
       render(<Footer />);
-      expect(screen.getByText("Experience")).toBeInTheDocument();
-      expect(screen.getByText("Projects")).toBeInTheDocument();
-      expect(screen.getByText("About")).toBeInTheDocument();
-      expect(screen.getByText("Contact")).toBeInTheDocument();
+      expect(screen.getByText("nav.experience")).toBeInTheDocument();
+      expect(screen.getByText("nav.projects")).toBeInTheDocument();
+      expect(screen.getByText("nav.about")).toBeInTheDocument();
+      expect(screen.getByText("nav.contact")).toBeInTheDocument();
     });
 
     it("renders copyright with current year", () => {
       render(<Footer />);
-      const currentYear = new Date().getFullYear();
-      expect(screen.getByText(new RegExp(`© ${currentYear}`))).toBeInTheDocument();
+      expect(screen.getByText("footer.copyright")).toBeInTheDocument();
     });
 
     it("renders back to top button", () => {
@@ -132,10 +130,13 @@ describe("Footer", () => {
   describe("Links", () => {
     it("navigation links have correct hrefs", () => {
       render(<Footer />);
-      expect(screen.getByText("Experience").closest("a")).toHaveAttribute("href", "#experience");
-      expect(screen.getByText("Projects").closest("a")).toHaveAttribute("href", "#projects");
-      expect(screen.getByText("About").closest("a")).toHaveAttribute("href", "#about");
-      expect(screen.getByText("Contact").closest("a")).toHaveAttribute("href", "#contact");
+      expect(screen.getByText("nav.experience").closest("a")).toHaveAttribute(
+        "href",
+        "#experience"
+      );
+      expect(screen.getByText("nav.projects").closest("a")).toHaveAttribute("href", "#projects");
+      expect(screen.getByText("nav.about").closest("a")).toHaveAttribute("href", "#about");
+      expect(screen.getByText("nav.contact").closest("a")).toHaveAttribute("href", "#contact");
     });
   });
 

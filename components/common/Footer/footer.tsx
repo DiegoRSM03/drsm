@@ -1,23 +1,21 @@
 "use client";
 
 import { useRef } from "react";
-import Link from "next/link";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { ArrowUp } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
 import { ACCENT_HEX, EASE } from "@/utils";
 
-const NAV_LINKS = [
-  { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
-];
+const NAV_KEYS = ["experience", "projects", "about", "contact"] as const;
 
 function Footer() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-30px" });
   const shouldReduceMotion = useReducedMotion();
   const currentYear = new Date().getFullYear();
+  const t = useTranslations("footer");
+  const tNav = useTranslations("nav");
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -67,9 +65,7 @@ function Footer() {
             >
               DIEGO SANCHEZ
             </h2>
-            <p className="max-w-sm text-sm text-white/60">
-              Crafting interfaces that feel alive. Available for new projects.
-            </p>
+            <p className="max-w-sm text-sm text-white/60">{t("description")}</p>
           </motion.div>
 
           {/* Navigation */}
@@ -80,13 +76,13 @@ function Footer() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
           >
-            {NAV_LINKS.map((link) => (
+            {NAV_KEYS.map((key) => (
               <Link
-                key={link.label}
-                href={link.href}
+                key={key}
+                href={`#${key}`}
                 className="focus-visible:ring-offset-accent text-sm font-medium text-white/70 transition-colors duration-200 hover:text-white focus-visible:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:outline-none"
               >
-                {link.label}
+                {tNav(key)}
               </Link>
             ))}
           </motion.nav>
@@ -99,14 +95,14 @@ function Footer() {
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.3, ease: EASE }}
         >
-          <p className="text-xs text-white/30">&copy; {currentYear} Diego Sanchez</p>
+          <p className="text-xs text-white/30">{t("copyright", { year: currentYear })}</p>
           <button
             type="button"
             onClick={scrollToTop}
             className="focus-visible:ring-offset-accent flex items-center gap-1 text-xs text-white/40 transition-colors duration-200 hover:text-white focus-visible:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:outline-none"
             aria-label="Scroll back to top"
           >
-            <ArrowUp className="h-3 w-3" aria-hidden="true" /> Top
+            <ArrowUp className="h-3 w-3" aria-hidden="true" /> {t("scrollToTop")}
           </button>
         </motion.div>
       </div>

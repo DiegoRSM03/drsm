@@ -13,6 +13,8 @@ import {
   useAnimationFrame,
 } from "framer-motion";
 import { ArrowDown } from "lucide-react";
+import { useTranslations, useLocale } from "next-intl";
+import type { Locale } from "@/i18n/config";
 import {
   ACCENT_HEX,
   CYAN_HEX,
@@ -29,7 +31,8 @@ import {
 
 function SectionHeader({ isInView }: { isInView: boolean }) {
   const shouldReduceMotion = useReducedMotion();
-  const titleWords = ["The Person", "Behind The Pixels"];
+  const t = useTranslations("about");
+  const titleWords = [t("titleLine1"), t("titleLine2")];
 
   return (
     <header className="border-foreground/[0.08] border-y py-8 sm:py-12 md:py-16 lg:py-20">
@@ -48,7 +51,7 @@ function SectionHeader({ isInView }: { isInView: boolean }) {
             animate={isInView ? { x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
           >
-            ABOUT
+            {t("badge")}
           </motion.span>
         </motion.div>
 
@@ -82,8 +85,7 @@ function SectionHeader({ isInView }: { isInView: boolean }) {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.6, ease: EASE }}
         >
-          The story behind the code — who I am, how I think, and what drives me to build interfaces
-          that feel alive.
+          {t("description")}
         </motion.p>
       </div>
     </header>
@@ -329,10 +331,17 @@ function RailShapesContainer({ isInView }: { isInView: boolean }) {
 // About Section
 // ============================================================================
 
+const HIGHLIGHTED_WORDS: Record<Locale, string[]> = {
+  en: ["alive.", "natural,", "instant,", "breathe."],
+  es: ["vivas.", "natural,", "instantaneo,", "respirar."],
+};
+
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
   const shouldReduceMotion = useReducedMotion();
+  const t = useTranslations("about");
+  const locale = useLocale() as Locale;
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -342,10 +351,7 @@ export default function About() {
   const photoY = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? [0, 0] : [-30, 30]);
   const textY = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? [0, 0] : [30, -30]);
 
-  const words =
-    "I'm Diego — a Senior Frontend Engineer with 8+ years building interfaces that feel alive. Based in Mexico City, shipping globally. I obsess over the details that most people never notice — the easing curve that makes a transition feel natural, the millisecond that separates fast from instant, the whitespace that lets content breathe.".split(
-      " "
-    );
+  const words = t("bio").split(" ");
 
   const totalWords = words.length;
 
@@ -380,6 +386,7 @@ export default function About() {
                     progress={scrollYProgress}
                     start={start}
                     end={end}
+                    highlights={HIGHLIGHTED_WORDS[locale]}
                   />
                 );
               })}
@@ -404,7 +411,7 @@ export default function About() {
                 className="text-xs font-medium tracking-widest uppercase"
                 style={{ fontFamily: "var(--font-mono)" }}
               >
-                Scroll to reveal
+                {t("scrollHint")}
               </span>
             </motion.div>
           </motion.div>
@@ -444,11 +451,13 @@ function ScrollWord({
   progress,
   start,
   end,
+  highlights,
 }: {
   word: string;
   progress: ReturnType<typeof useScroll>["scrollYProgress"];
   start: number;
   end: number;
+  highlights: string[];
 }) {
   const opacity = useTransform(progress, [start, end], [0.12, 1]);
   const color = useTransform(
@@ -457,7 +466,6 @@ function ScrollWord({
     ["var(--color-muted)", "var(--color-foreground)"]
   );
 
-  const highlights = ["alive.", "natural,", "instant,", "breathe."];
   const isHighlight = highlights.includes(word);
 
   return (

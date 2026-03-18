@@ -63,8 +63,8 @@ jest.mock("framer-motion", () => ({
 describe("Experience", () => {
   it("renders the section heading", () => {
     render(<Experience />);
-    expect(screen.getAllByText(/WORK/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText("HISTORY").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("experience.titleWord1").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("experience.titleWord2").length).toBeGreaterThan(0);
   });
 
   it("renders all experience companies", () => {
@@ -76,7 +76,7 @@ describe("Experience", () => {
 
   it("has proper accessibility attributes", () => {
     render(<Experience />);
-    expect(screen.getByRole("region", { name: /work history/i })).toBeInTheDocument();
+    expect(screen.getByRole("region", { name: /experience\.titleWord1/i })).toBeInTheDocument();
   });
 
   it("renders experience cards as articles", () => {

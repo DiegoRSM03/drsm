@@ -96,26 +96,23 @@ describe("About Section", () => {
 
     it("renders the section tag", () => {
       render(<About />);
-      expect(screen.getByText("ABOUT")).toBeInTheDocument();
+      expect(screen.getByText("about.badge")).toBeInTheDocument();
     });
 
     it("renders the section heading", () => {
       render(<About />);
-      expect(screen.getByText("The Person")).toBeInTheDocument();
-      expect(screen.getByText("Behind The Pixels")).toBeInTheDocument();
+      expect(screen.getByText("about.titleLine1")).toBeInTheDocument();
+      expect(screen.getByText("about.titleLine2")).toBeInTheDocument();
     });
 
     it("renders the section description", () => {
       render(<About />);
-      expect(screen.getByText(/The story behind the code/)).toBeInTheDocument();
+      expect(screen.getByText("about.description")).toBeInTheDocument();
     });
 
-    it("renders all words of the scroll-reveal bio", () => {
+    it("renders the bio text as individual words", () => {
       render(<About />);
-      expect(screen.getByText("Diego")).toBeInTheDocument();
-      expect(screen.getByText("Frontend")).toBeInTheDocument();
-      expect(screen.getByText("Engineer")).toBeInTheDocument();
-      expect(screen.getByText("breathe.")).toBeInTheDocument();
+      expect(screen.getByText("about.bio")).toBeInTheDocument();
     });
 
     it("renders the avatar image", () => {
@@ -129,7 +126,7 @@ describe("About Section", () => {
 
     it("renders the scroll hint", () => {
       render(<About />);
-      expect(screen.getByText("Scroll to reveal")).toBeInTheDocument();
+      expect(screen.getByText("about.scrollHint")).toBeInTheDocument();
     });
   });
 
@@ -168,7 +165,7 @@ describe("About Section", () => {
 
     it("scroll hint is hidden from screen readers", () => {
       render(<About />);
-      const scrollHint = screen.getByText("Scroll to reveal").closest("div");
+      const scrollHint = screen.getByText("about.scrollHint").closest("div");
       expect(scrollHint).toHaveAttribute("aria-hidden", "true");
     });
 

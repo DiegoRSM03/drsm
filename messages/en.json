@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "title": "Diego Sanchez · Senior Frontend Engineer",
+    "description": "Frontend engineer building high-performance interfaces with React, Next.js, and TypeScript. Based in Argentina, shipping globally.",
+    "ogTitle": "Diego Sanchez · Portfolio",
+    "ogDescription": "Senior Frontend Engineer. React, Next.js, TypeScript."
+  },
+  "nav": {
+    "projects": "Projects",
+    "experience": "Experience",
+    "about": "About",
+    "contact": "Contact",
+    "home": "DRSM - Home",
+    "toggleTheme": "Toggle theme",
+    "toggleLanguage": "Switch to Spanish",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "hero": {
+    "tagline": "Obsessed with making <bold>ideas breathe</bold>",
+    "downloadResume": "Download Resume",
+    "viewProjects": "View Projects",
+    "scroll": "Scroll"
+  },
+  "projects": {
+    "badge": "PROJECTS",
+    "titleLine1": "Pixel-Perfect,",
+    "titleLine2": "Battle-Tested",
+    "description": "Highlights from professional engagements and personal explorations — where clean code meets bold interfaces.",
+    "viewProject": "View Project",
+    "nexus": {
+      "type": "Enterprise SaaS Dashboard",
+      "description": "A real-time analytics platform for enterprise data pipelines. WebSocket-powered live streaming, interactive D3.js visualizations with drill-down, and granular role-based access control — processing 2M+ events per minute at sub-200ms render times."
+    },
+    "velocity": {
+      "type": "Performance Monitoring Tool",
+      "description": "Developer-first performance monitoring that catches regressions before production. Tracks Core Web Vitals, bundle sizes, and custom metrics with CI/CD integration — powered by a Rust ingestion layer handling 50K+ payloads per second."
+    },
+    "artemis": {
+      "type": "Design System Framework",
+      "description": "A design system shipping 50+ accessible components with dark mode, automatic WCAG auditing, and a Figma-to-code pipeline. Adopted by three product teams, cutting UI development time by 40%."
+    }
+  },
+  "experience": {
+    "titleWord1": "WORK",
+    "titleWord2": "HISTORY",
+    "description": "Production code, frontend architecture, and cross-functional collaboration.",
+    "inaza": {
+      "role": "Deployments Engineer",
+      "period": "Jan 2026 - Present",
+      "duration": "3 mos",
+      "description": "Insurance technology company building modern solutions for the insurance industry.",
+      "highlights": [
+        "Built serverless automation pipelines processing hundreds of insurance claims weekly",
+        "Developed PDF parsing and validation systems enforcing complex business rules",
+        "Automated ingestion workflows eliminating manual claim-data entry"
+      ]
+    },
+    "litebox": {
+      "role": "Software Engineer",
+      "period": "Sep 2022 - Jan 2026",
+      "duration": "3.5 yrs",
+      "description": "Boutique software company focused on highly customized marketing websites and scalable back-office applications for American startup companies.",
+      "highlights": [
+        "Built 10+ production Next.js platforms achieving 90+ Lighthouse scores",
+        "Architected project infrastructure using AWS, Vercel, and EC2",
+        "Created an internal CLI automating project scaffolding with Next.js and Strapi",
+        "Built back-office apps with React Hook Form, Google Maps API, and OpenAI"
+      ]
+    },
+    "axon": {
+      "role": "Software Engineer",
+      "period": "Sep 2021 - Sep 2022",
+      "duration": "1 yr",
+      "description": "Remote coaching school for athletes and professional leaders. One of the best-known coaching schools in LatAm.",
+      "highlights": [
+        "Built a CRM application from scratch for the sales department",
+        "Created a WhatsApp Bot for sales reminders and payment notifications",
+        "Implemented CI/CD workflow using GitHub Actions",
+        "Ensured cross-browser compatibility and security standards"
+      ]
+    }
+  },
+  "about": {
+    "badge": "ABOUT",
+    "titleLine1": "The Person",
+    "titleLine2": "Behind The Pixels",
+    "description": "The story behind the code — who I am, how I think, and what drives me to build interfaces that feel alive.",
+    "bio": "I'm Diego — a Frontend Engineer with 4+ years building interfaces that feel alive. Based in Argentina, shipping globally. I obsess over the details that most people never notice — the easing curve that makes a transition feel natural, the millisecond that separates fast from instant, the whitespace that lets content breathe.",
+    "scrollHint": "Scroll to reveal"
+  },
+  "contact": {
+    "copied": "Copied!"
+  },
+  "footer": {
+    "description": "Crafting interfaces that feel alive. Available for new projects.",
+    "copyright": "© {year} Diego Sanchez",
+    "scrollToTop": "Top"
+  },
+  "loading": {
+    "tagline": "Obsessed with making ideas breathe"
+  }
+}

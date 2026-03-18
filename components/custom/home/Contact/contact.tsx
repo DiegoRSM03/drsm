@@ -11,6 +11,7 @@ import {
   useInView,
 } from "framer-motion";
 import { Github, Linkedin, Mail, Copy, Check } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { GridBackground } from "@/components/custom/GridBackground";
 import {
   ACCENT_HEX,
@@ -95,6 +96,7 @@ function Magnetic3DWrapper({
 
 function CopyEmailButton() {
   const [copied, setCopied] = useState(false);
+  const t = useTranslations("contact");
 
   const handleCopy = () => {
     navigator.clipboard.writeText(EMAIL);
@@ -132,7 +134,7 @@ function CopyEmailButton() {
             {copied ? (
               <>
                 <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                Copied!
+                {t("copied")}
               </>
             ) : (
               <>

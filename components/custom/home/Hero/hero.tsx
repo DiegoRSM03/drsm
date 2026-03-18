@@ -12,6 +12,7 @@ import {
 } from "framer-motion";
 import { Download, ArrowRight } from "lucide-react";
 import { SiReact, SiTypescript, SiNextdotjs, SiTailwindcss, SiJest } from "react-icons/si";
+import { useTranslations } from "next-intl";
 import { MagneticButton } from "@/components/custom/MagneticButton";
 import { ProximityShape } from "@/components/custom/ProximityShape";
 import { ACCENT, CYAN_HEX, PINK_HEX, AMBER_HEX, GREEN_HEX, EASE } from "@/utils";
@@ -155,6 +156,7 @@ function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const isTouch = useIsTouchDevice();
+  const t = useTranslations("hero");
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -282,7 +284,9 @@ function Hero() {
             duration: shouldReduceMotion ? 0 : 0.6,
           }}
         >
-          Obsessed with making <span className="text-foreground font-bold">ideas breathe</span>
+          {t.rich("tagline", {
+            bold: (chunks) => <span className="text-foreground font-bold">{chunks}</span>,
+          })}
         </motion.p>
 
         <motion.div
@@ -296,10 +300,10 @@ function Hero() {
         >
           <MagneticButton variant="primary" size="lg">
             <Download className="mr-2 h-5 w-5" aria-hidden="true" />
-            Download Resume
+            {t("downloadResume")}
           </MagneticButton>
           <MagneticButton variant="ghost" size="lg">
-            View Projects
+            {t("viewProjects")}
             <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
           </MagneticButton>
         </motion.div>
@@ -319,7 +323,7 @@ function Hero() {
             shouldReduceMotion ? {} : { repeat: Infinity, duration: 2, ease: "easeInOut" }
           }
         >
-          <span className="text-xs tracking-widest uppercase">Scroll</span>
+          <span className="text-xs tracking-widest uppercase">{t("scroll")}</span>
           <div className="from-muted h-8 w-px bg-gradient-to-b to-transparent" />
         </motion.div>
       </motion.div>

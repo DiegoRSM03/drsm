@@ -144,11 +144,11 @@ describe("Contact Section", () => {
       expect(navigator.clipboard.writeText).toHaveBeenCalledWith("diego@example.com");
     });
 
-    it("shows 'Copied!' text after clicking", () => {
+    it("shows copied text after clicking", () => {
       render(<Contact />);
       const button = screen.getByText("diego@example.com").closest("button")!;
       fireEvent.click(button);
-      expect(screen.getByText("Copied!")).toBeInTheDocument();
+      expect(screen.getByText("contact.copied")).toBeInTheDocument();
     });
   });
 
