@@ -18,6 +18,10 @@
   --color-pop-hover: #22d3ee;
   --color-pop-muted: #67e8f9;
 
+  --color-pink: #ec4899;
+  --color-amber: #f59e0b;
+  --color-green: #10b981;
+
   --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
   --gradient-glow: radial-gradient(circle at center, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
   --gradient-fade: linear-gradient(180deg, #0a0a0a 0%, #111111 100%);
@@ -51,6 +55,10 @@
   --color-accent-hover: #7c3aed;
   --color-pop-hover: #0891b2;
 
+  --color-pink: #db2777;
+  --color-amber: #d97706;
+  --color-green: #059669;
+
   --gradient-fade: linear-gradient(180deg, #fafafa 0%, #f5f5f5 100%);
 
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -78,6 +86,10 @@
   --color-pop: var(--color-pop);
   --color-pop-hover: var(--color-pop-hover);
   --color-pop-muted: var(--color-pop-muted);
+
+  --color-pink: var(--color-pink);
+  --color-amber: var(--color-amber);
+  --color-green: var(--color-green);
 
   --font-display: var(--font-space-grotesk), system-ui, sans-serif;
   --font-body: var(--font-inter), system-ui, sans-serif;

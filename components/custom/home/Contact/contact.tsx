@@ -12,13 +12,15 @@ import {
 } from "framer-motion";
 import { Github, Linkedin, Mail, Copy, Check } from "lucide-react";
 import { useTheme } from "@/contexts";
-
-const ACCENT = "#8B5CF6";
-const CYAN = "#06B6D4";
-const PINK = "#EC4899";
-const AMBER = "#F59E0B";
-const GREEN = "#10B981";
-const ease = [0.22, 1, 0.36, 1] as const;
+import {
+  ACCENT_HEX,
+  CYAN_HEX,
+  PINK_HEX,
+  AMBER_HEX,
+  GREEN_HEX,
+  EASE,
+  SPRING_MAGNETIC,
+} from "@/utils";
 
 const SOCIAL_LINKS = [
   { label: "LinkedIn", href: "https://linkedin.com/in/drsm", icon: Linkedin },
@@ -36,7 +38,7 @@ function Magnetic3DWrapper({
   children,
   className,
   strength = 0.3,
-  glowColor = ACCENT,
+  glowColor = ACCENT_HEX,
 }: {
   children: (
     springX: ReturnType<typeof useSpring>,
@@ -51,8 +53,8 @@ function Magnetic3DWrapper({
   const [isHovered, setIsHovered] = useState(false);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 150, damping: 15 });
-  const springY = useSpring(y, { stiffness: 150, damping: 15 });
+  const springX = useSpring(x, SPRING_MAGNETIC);
+  const springY = useSpring(y, SPRING_MAGNETIC);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!ref.current || shouldReduceMotion) return;
@@ -107,19 +109,19 @@ function CopyEmailButton() {
           onClick={handleCopy}
           className="group flex items-center gap-2 border-2 px-3 py-2 text-xs font-semibold transition-all duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:px-4 sm:py-2.5 sm:text-sm md:px-5 md:py-3 md:text-base"
           style={{
-            borderColor: copied ? ACCENT : "var(--color-border)",
-            color: copied ? "#fff" : ACCENT,
-            backgroundColor: copied ? ACCENT : "transparent",
+            borderColor: copied ? ACCENT_HEX : "var(--color-border)",
+            color: copied ? "#fff" : ACCENT_HEX,
+            backgroundColor: copied ? ACCENT_HEX : "transparent",
             // @ts-expect-error CSS custom property
-            "--tw-ring-color": ACCENT,
+            "--tw-ring-color": ACCENT_HEX,
             "--tw-ring-offset-color": "var(--color-background)",
           }}
           whileHover={
             copied
               ? {}
               : {
-                  borderColor: ACCENT,
-                  backgroundColor: ACCENT,
+                  borderColor: ACCENT_HEX,
+                  backgroundColor: ACCENT_HEX,
                   color: "#ffffff",
                 }
           }
@@ -172,8 +174,8 @@ function SocialLinkButton({
             "--tw-ring-offset-color": "var(--color-background)",
           }}
           whileHover={{
-            borderColor: ACCENT,
-            backgroundColor: ACCENT,
+            borderColor: ACCENT_HEX,
+            backgroundColor: ACCENT_HEX,
             color: "#ffffff",
           }}
           whileTap={{ scale: 0.95 }}
@@ -210,11 +212,11 @@ export default function Contact() {
   const contentY = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? [0, 0] : [40, -40]);
 
   const manifesto = [
-    { text: "Make it fast.", color: CYAN },
-    { text: "Make it beautiful.", color: PINK },
-    { text: "Make it accessible.", color: GREEN },
-    { text: "Make it memorable.", color: AMBER },
-    { text: "Make it right.", color: ACCENT },
+    { text: "Make it fast.", color: CYAN_HEX },
+    { text: "Make it beautiful.", color: PINK_HEX },
+    { text: "Make it accessible.", color: GREEN_HEX },
+    { text: "Make it memorable.", color: AMBER_HEX },
+    { text: "Make it right.", color: ACCENT_HEX },
   ];
 
   return (
@@ -263,7 +265,7 @@ export default function Contact() {
                 style={{ fontFamily: "var(--font-display)", color: line.color }}
                 initial={{ y: shouldReduceMotion ? 0 : "100%" }}
                 animate={isInView ? { y: 0 } : {}}
-                transition={{ duration: 0.7, delay: 0.6 + i * 0.12, ease }}
+                transition={{ duration: 0.7, delay: 0.6 + i * 0.12, ease: EASE }}
               >
                 {line.text}
               </motion.p>
@@ -276,7 +278,7 @@ export default function Contact() {
           className="flex flex-col items-start gap-4 pb-6 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:pb-8 md:pb-10 lg:pb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 1.8, ease }}
+          transition={{ duration: 0.6, delay: 1.8, ease: EASE }}
         >
           <CopyEmailButton />
 
@@ -296,21 +298,21 @@ export default function Contact() {
       {/* Floating decorative shapes */}
       <motion.div
         className="absolute top-[12%] right-[6%] h-6 w-6 rotate-45 sm:top-[15%] sm:right-[8%] sm:h-8 sm:w-8 md:h-10 md:w-10"
-        style={{ backgroundColor: `${ACCENT}12` }}
+        style={{ backgroundColor: `${ACCENT_HEX}12` }}
         animate={shouldReduceMotion ? {} : { y: [0, -12, 0] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         aria-hidden="true"
       />
       <motion.div
         className="absolute bottom-[15%] left-[4%] h-5 w-5 rounded-full sm:bottom-[20%] sm:left-[6%] sm:h-6 sm:w-6 md:h-8 md:w-8"
-        style={{ backgroundColor: `${PINK}10` }}
+        style={{ backgroundColor: `${PINK_HEX}10` }}
         animate={shouldReduceMotion ? {} : { y: [0, 10, 0] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
         aria-hidden="true"
       />
       <motion.div
         className="absolute top-[40%] left-[3%] hidden h-5 w-5 sm:block md:h-6 md:w-6"
-        style={{ backgroundColor: `${CYAN}08` }}
+        style={{ backgroundColor: `${CYAN_HEX}08` }}
         animate={shouldReduceMotion ? {} : { rotate: [0, 90, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         aria-hidden="true"

@@ -1,0 +1,10 @@
+export const ACCENT = "var(--color-accent)";
+export const ACCENT_HEX = "#8B5CF6";
+export const CYAN = "var(--color-pop)";
+export const CYAN_HEX = "#06B6D4";
+export const PINK = "var(--color-pink)";
+export const PINK_HEX = "#EC4899";
+export const AMBER = "var(--color-amber)";
+export const AMBER_HEX = "#F59E0B";
+export const GREEN = "var(--color-green)";
+export const GREEN_HEX = "#10B981";

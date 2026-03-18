@@ -4,9 +4,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { ArrowUp } from "lucide-react";
-
-const ACCENT = "#8B5CF6";
-const ease = [0.22, 1, 0.36, 1] as const;
+import { ACCENT_HEX, EASE } from "@/utils";
 
 const NAV_LINKS = [
   { label: "Experience", href: "#experience" },
@@ -27,7 +25,7 @@ function Footer() {
     <footer
       ref={ref}
       className="relative overflow-hidden"
-      style={{ backgroundColor: ACCENT }}
+      style={{ backgroundColor: ACCENT_HEX }}
       role="contentinfo"
       aria-label="Site footer"
     >
@@ -37,7 +35,7 @@ function Footer() {
         style={{ fontFamily: "var(--font-display)" }}
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : {}}
-        transition={{ duration: 1, ease }}
+        transition={{ duration: 1, ease: EASE }}
         aria-hidden="true"
       >
         DRSM
@@ -48,7 +46,7 @@ function Footer() {
         style={{ fontFamily: "var(--font-display)" }}
         initial={{ opacity: 0, x: shouldReduceMotion ? 0 : 50 }}
         animate={isInView ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 1, ease }}
+        transition={{ duration: 1, ease: EASE }}
         aria-hidden="true"
       >
         DRSM
@@ -61,7 +59,7 @@ function Footer() {
           <motion.div
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, ease }}
+            transition={{ duration: 0.6, ease: EASE }}
           >
             <h2
               className="mb-2 text-2xl font-black text-white sm:text-3xl"
@@ -80,13 +78,13 @@ function Footer() {
             aria-label="Footer navigation"
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.15, ease }}
+            transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
           >
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
-                className="text-sm font-medium text-white/70 transition-colors duration-200 hover:text-white focus-visible:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#8B5CF6] focus-visible:outline-none"
+                className="focus-visible:ring-offset-accent text-sm font-medium text-white/70 transition-colors duration-200 hover:text-white focus-visible:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:outline-none"
               >
                 {link.label}
               </Link>
@@ -99,13 +97,13 @@ function Footer() {
           className="mt-8 flex items-center justify-between border-t border-white/10 pt-6 sm:mt-10"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.3, ease }}
+          transition={{ duration: 0.5, delay: 0.3, ease: EASE }}
         >
           <p className="text-xs text-white/30">&copy; {currentYear} Diego Sanchez</p>
           <button
             type="button"
             onClick={scrollToTop}
-            className="flex items-center gap-1 text-xs text-white/40 transition-colors duration-200 hover:text-white focus-visible:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#8B5CF6] focus-visible:outline-none"
+            className="focus-visible:ring-offset-accent flex items-center gap-1 text-xs text-white/40 transition-colors duration-200 hover:text-white focus-visible:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:outline-none"
             aria-label="Scroll back to top"
           >
             <ArrowUp className="h-3 w-3" aria-hidden="true" /> Top
