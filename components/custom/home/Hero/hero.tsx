@@ -210,7 +210,7 @@ function Hero() {
       {!isTouch && <CursorShapes enableMotion={enableMotion} />}
 
       <motion.div
-        className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center px-6 text-center"
+        className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center px-4 text-center sm:px-6"
         style={{ y: y1 }}
       >
         <motion.div

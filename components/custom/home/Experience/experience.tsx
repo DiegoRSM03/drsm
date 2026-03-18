@@ -271,19 +271,12 @@ function ExperienceCard({
         </motion.div>
 
         <motion.div
-          className="border-border bg-background/95 relative -mt-12 border p-4 backdrop-blur-sm sm:-mt-14 sm:p-6 md:-mt-16 md:p-8 lg:-mt-20 lg:ml-4 xl:ml-8"
+          className="border-border relative -mt-12 border p-4 sm:-mt-14 sm:p-6 md:-mt-16 md:p-8 lg:-mt-20 lg:ml-4 xl:ml-8"
           style={{
-            borderColor: isActive
-              ? isDark
-                ? "rgba(255, 255, 255, 0.7)"
-                : "rgba(0, 0, 0, 0.7)"
-              : isDark
-                ? "rgba(255, 255, 255, 0.08)"
-                : "rgba(0, 0, 0, 0.08)",
+            borderColor: isDark ? "#1f1f1f" : "#e5e5e5",
+            backgroundColor: isDark ? "#0a0a0a" : "#fafafa",
             y: useParallax ? springCardY : 0,
           }}
-          animate={{ x: shouldReduceMotion ? 0 : isActive ? 10 : 0 }}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
         >
           <div
             className="absolute top-4 right-4 hidden items-center gap-2 sm:top-6 sm:right-6 sm:flex"
@@ -390,8 +383,8 @@ function ExperienceCard({
                 key={skill}
                 className="text-foreground border px-2 py-1 text-[10px] font-medium sm:px-3 sm:text-xs"
                 style={{
-                  borderColor: isDark ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.15)",
-                  backgroundColor: isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.03)",
+                  borderColor: isDark ? "#2a2a2a" : "#d4d4d4",
+                  backgroundColor: isDark ? "#1a1a1a" : "#f0f0f0",
                 }}
                 initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -489,7 +482,7 @@ export default function Experience() {
       <div className="relative flex flex-col lg:flex-row">
         <aside
           className="sticky top-0 hidden h-screen w-full shrink-0 overflow-hidden lg:block lg:w-2/5"
-          style={{ backgroundColor: "#5B21B6" }}
+          style={{ backgroundColor: "var(--color-accent)" }}
           aria-label="Work history navigation"
         >
           <div className="absolute inset-0" aria-hidden="true">
@@ -521,7 +514,10 @@ export default function Experience() {
             </div>
           )}
 
-          <div className="relative z-10 flex h-full flex-col justify-center p-8 xl:p-12">
+          <div
+            className="relative z-10 flex h-full w-full flex-col justify-center p-6 pr-6 sm:p-8 sm:pr-8 xl:p-12 xl:pr-12"
+            style={{ paddingLeft: "max(1.5rem, calc((100vw - 1280px) / 2 + 1rem))" }}
+          >
             <motion.div
               initial={{ x: shouldReduceMotion ? 0 : -50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
@@ -596,7 +592,8 @@ export default function Experience() {
 
           <div
             ref={contentRef}
-            className="relative z-10 space-y-20 px-4 py-16 sm:space-y-24 sm:px-6 sm:py-20 md:space-y-32 md:py-24 lg:space-y-40 lg:px-10 lg:py-32 xl:space-y-48 xl:px-12 xl:py-40"
+            className="relative z-10 w-full space-y-20 px-4 py-16 sm:space-y-24 sm:px-6 sm:py-20 md:space-y-32 md:py-24 lg:space-y-40 lg:py-32 lg:pl-8 xl:space-y-48 xl:py-40 xl:pl-10"
+            style={{ paddingRight: "max(1rem, calc((100vw - 1280px) / 2 + 1.5rem))" }}
           >
             {EXPERIENCES.map((exp, index) => (
               <ExperienceCard

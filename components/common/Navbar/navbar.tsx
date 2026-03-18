@@ -530,7 +530,7 @@ function Navbar({ className }: NavbarProps) {
   return (
     <>
       <header
-        className={`fixed top-0 right-0 left-0 z-50 flex h-20 items-center px-6 transition-all duration-500 ${
+        className={`fixed top-0 right-0 left-0 z-50 flex h-20 items-center transition-all duration-500 ${
           scrolled && !isOpen ? "bg-surface" : "bg-transparent"
         } ${className}`}
         role="banner"
@@ -543,7 +543,7 @@ function Navbar({ className }: NavbarProps) {
           aria-hidden="true"
         />
 
-        <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6">
           <Link
             href="/"
             className="focus-visible:ring-accent focus-visible:ring-offset-background focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
