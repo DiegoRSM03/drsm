@@ -531,7 +531,7 @@ export default function Experience() {
               >
                 <span className="text-white">WORK</span>
                 <br />
-                <span className="text-black">HISTORY</span>
+                <span style={{ color: "var(--color-background)" }}>HISTORY</span>
               </h2>
               <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/70 xl:mt-6 xl:text-base">
                 Production code, frontend architecture, and cross-functional collaboration.
@@ -550,8 +550,8 @@ export default function Experience() {
                     fill="none"
                     stroke={
                       isDark
-                        ? "rgba(255, 255, 255, 0.05)"
-                        : "color-mix(in srgb, var(--color-accent) 15%, transparent)"
+                        ? "rgba(255, 255, 255, 0.15)"
+                        : "color-mix(in srgb, var(--color-accent) 30%, transparent)"
                     }
                     strokeWidth="1"
                   />
@@ -580,10 +580,10 @@ export default function Experience() {
           <header className="relative z-10 px-4 pt-20 sm:px-6 sm:pt-24 lg:hidden">
             <h2
               id="experience-heading-mobile"
-              className="text-3xl font-black sm:text-4xl md:text-5xl lg:text-6xl"
-              style={{ fontFamily: "var(--font-display)", color: "var(--color-accent)" }}
+              className="text-foreground text-3xl font-black sm:text-4xl md:text-5xl lg:text-6xl"
+              style={{ fontFamily: "var(--font-display)" }}
             >
-              WORK HISTORY
+              WORK <span style={{ color: "var(--color-accent)" }}>HISTORY</span>
             </h2>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-white/60 sm:mt-4 sm:text-base">
               Production code, frontend architecture, and cross-functional collaboration.
@@ -592,8 +592,8 @@ export default function Experience() {
 
           <div
             ref={contentRef}
-            className="relative z-10 w-full space-y-20 px-4 py-16 sm:space-y-24 sm:px-6 sm:py-20 md:space-y-32 md:py-24 lg:space-y-40 lg:py-32 lg:pl-8 xl:space-y-48 xl:py-40 xl:pl-10"
-            style={{ paddingRight: "max(1rem, calc((100vw - 1280px) / 2 + 1.5rem))" }}
+            className="relative z-10 w-full space-y-12 px-4 py-16 sm:space-y-16 sm:px-6 sm:py-20 md:space-y-24 md:py-24 lg:space-y-40 lg:py-32 lg:pl-8 xl:space-y-48 xl:py-40 xl:pl-10"
+            style={{ paddingRight: "max(1rem, calc((100vw - 1280px) / 2 + 0.875rem))" }}
           >
             {EXPERIENCES.map((exp, index) => (
               <ExperienceCard

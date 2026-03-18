@@ -8,6 +8,7 @@ import {
   useScroll,
   useTransform,
   useSpring,
+  useVelocity,
 } from "framer-motion";
 import { ArrowUpRight, Github } from "lucide-react";
 import { MagneticButton } from "@/components/custom/MagneticButton";
@@ -224,36 +225,11 @@ function SectionHeader() {
   );
 }
 
-function ProjectCard({
-  project,
-  index,
-  scrollYProgress,
-}: {
-  project: ProjectData;
-  index: number;
-  scrollYProgress: ReturnType<typeof useScroll>["scrollYProgress"];
-}) {
+function ProjectCardContent({ project }: { project: ProjectData }) {
   const shouldReduceMotion = useReducedMotion();
 
-  const BREAKPOINTS = [0, 0.07, 0.45, 1];
-  const rangeStart = BREAKPOINTS[index];
-  const rangeEnd = BREAKPOINTS[index + 1];
-
-  const xSlide = useTransform(
-    scrollYProgress,
-    [rangeStart, rangeEnd],
-    index === 0 ? ["0%", "0%"] : ["100%", "0%"]
-  );
-
   return (
-    <motion.article
-      className="bg-background absolute inset-0 flex items-center overflow-clip"
-      style={{
-        x: shouldReduceMotion ? 0 : xSlide,
-        zIndex: index,
-      }}
-      aria-labelledby={`project-title-${project.id}`}
-    >
+    <>
       {/* Ghost text */}
       <span
         className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[8rem] font-black whitespace-nowrap sm:text-[12rem] md:text-[16rem] lg:text-[20rem]"
@@ -407,6 +383,56 @@ function ProjectCard({
           </motion.div>
         </div>
       </div>
+    </>
+  );
+}
+
+function MobileProjectCard({ project }: { project: ProjectData }) {
+  return (
+    <motion.article
+      className="bg-background border-foreground/[0.08] relative border-b"
+      aria-labelledby={`project-title-${project.id}`}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, ease }}
+    >
+      <ProjectCardContent project={project} />
+    </motion.article>
+  );
+}
+
+function DesktopProjectCard({
+  project,
+  index,
+  scrollYProgress,
+}: {
+  project: ProjectData;
+  index: number;
+  scrollYProgress: ReturnType<typeof useScroll>["scrollYProgress"];
+}) {
+  const shouldReduceMotion = useReducedMotion();
+
+  const BREAKPOINTS = [0, 0.07, 0.45, 1];
+  const rangeStart = BREAKPOINTS[index];
+  const rangeEnd = BREAKPOINTS[index + 1];
+
+  const xSlide = useTransform(
+    scrollYProgress,
+    [rangeStart, rangeEnd],
+    index === 0 ? ["0%", "0%"] : ["100%", "0%"]
+  );
+
+  return (
+    <motion.article
+      className="bg-background absolute inset-0 flex items-center overflow-clip"
+      style={{
+        x: shouldReduceMotion ? 0 : xSlide,
+        zIndex: index,
+      }}
+      aria-labelledby={`project-title-${project.id}`}
+    >
+      <ProjectCardContent project={project} />
     </motion.article>
   );
 }
@@ -432,42 +458,69 @@ export function Projects() {
     offset: ["start start", "end end"],
   });
 
+  const scrollVelocity = useVelocity(scrollYProgress);
+  const windX = useTransform(scrollVelocity, [-0.2, 0, 0.2], [220, 0, -220]);
+  const smoothWindX = useSpring(windX, { stiffness: 15, damping: 25 });
+
   return (
-    <section
-      id="projects"
-      ref={containerRef}
-      onMouseMove={handleMouseMove}
-      className="bg-background border-foreground/[0.08] relative border-t"
-      style={{ height: `${CARD_COUNT * 100}vh` }}
-      aria-labelledby="projects-heading"
-    >
-      <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
+    <>
+      {/* Mobile: Vertical stack layout */}
+      <section
+        id="projects"
+        className="bg-background border-foreground/[0.08] relative border-t md:hidden"
+        aria-labelledby="projects-heading"
+      >
         <SectionHeader />
-
-        <div
-          role="list"
-          aria-label="Project cards"
-          className="border-foreground/[0.08] relative flex-1 border-t"
-        >
-          {PROJECTS.map((project, index) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              index={index}
-              scrollYProgress={scrollYProgress}
-            />
+        <div role="list" aria-label="Project cards">
+          {PROJECTS.map((project) => (
+            <MobileProjectCard key={project.id} project={project} />
           ))}
-
-          {/* Proximity-reactive floating shapes */}
-          {!isTouch && (
-            <div className="pointer-events-none absolute inset-0 z-[20]" aria-hidden="true">
-              {FLOATING_SHAPES.map((shape, i) => (
-                <ProximityShape key={i} shape={shape} mouseX={mouseX} mouseY={mouseY} />
-              ))}
-            </div>
-          )}
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Tablet/Desktop: Stacked horizontal scroll animation */}
+      <section
+        id="projects-desktop"
+        ref={containerRef}
+        onMouseMove={handleMouseMove}
+        className="bg-background border-foreground/[0.08] relative hidden border-t md:block"
+        style={{ height: `${CARD_COUNT * 100}vh` }}
+        aria-labelledby="projects-heading"
+      >
+        <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
+          <SectionHeader />
+
+          <div
+            role="list"
+            aria-label="Project cards"
+            className="border-foreground/[0.08] relative flex-1 border-t"
+          >
+            {PROJECTS.map((project, index) => (
+              <DesktopProjectCard
+                key={project.id}
+                project={project}
+                index={index}
+                scrollYProgress={scrollYProgress}
+              />
+            ))}
+
+            {/* Proximity-reactive floating shapes */}
+            {!isTouch && (
+              <div className="pointer-events-none absolute inset-0 z-[20]" aria-hidden="true">
+                {FLOATING_SHAPES.map((shape, i) => (
+                  <ProximityShape
+                    key={i}
+                    shape={shape}
+                    mouseX={mouseX}
+                    mouseY={mouseY}
+                    windX={smoothWindX}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

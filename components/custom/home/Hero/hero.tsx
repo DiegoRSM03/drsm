@@ -14,6 +14,7 @@ import { Download, ArrowRight } from "lucide-react";
 import { SiReact, SiTypescript, SiNextdotjs, SiTailwindcss, SiJest } from "react-icons/si";
 import { MagneticButton } from "@/components/custom/MagneticButton";
 import { ProximityShape } from "@/components/custom/ProximityShape";
+import { useTheme } from "@/contexts";
 import type { ProximityShapeData } from "@/components/custom/ProximityShape";
 
 function useIsTouchDevice() {
@@ -196,7 +197,7 @@ function Hero() {
     <section
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="bg-background relative flex h-screen w-full items-center justify-center overflow-hidden"
+      className="bg-surface relative flex h-screen w-full items-center justify-center overflow-hidden"
       aria-label="Hero section introducing Diego Sanchez"
     >
       <GridBackground />
@@ -289,7 +290,7 @@ function Hero() {
             duration: shouldReduceMotion ? 0 : 0.6,
           }}
         >
-          Obsessed with making <span className="font-bold text-white">ideas breathe</span>
+          Obsessed with making <span className="text-foreground font-bold">ideas breathe</span>
         </motion.p>
 
         <motion.div
@@ -494,6 +495,9 @@ function MagneticPill({
 }
 
 function GridBackground() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   return (
     <div className="pointer-events-none absolute inset-0" aria-hidden="true">
       <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
@@ -502,7 +506,11 @@ function GridBackground() {
             <path
               d="M 100 0 L 0 0 0 100"
               fill="none"
-              stroke="rgba(255, 255, 255, 0.07)"
+              stroke={
+                isDark
+                  ? "rgba(255, 255, 255, 0.15)"
+                  : "color-mix(in srgb, var(--color-accent) 30%, transparent)"
+              }
               strokeWidth="1"
             />
           </pattern>

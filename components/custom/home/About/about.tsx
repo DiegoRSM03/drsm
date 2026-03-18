@@ -68,6 +68,7 @@ function SectionHeader({ isInView }: { isInView: boolean }) {
               >
                 {word}
               </motion.span>
+              {i === 0 && <br className="sm:hidden" />}
             </span>
           ))}
         </h2>
@@ -349,13 +350,13 @@ export default function About() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative w-full overflow-hidden py-16 sm:py-20 md:py-28 lg:py-36"
+      className="relative w-full overflow-hidden pb-16 sm:pb-20 md:pb-28 lg:pb-36"
       style={{ backgroundColor: "var(--color-background)" }}
       aria-labelledby="about-heading"
     >
       <SectionHeader isInView={isInView} />
 
-      <div className="mx-auto w-full max-w-7xl px-4 pt-8 sm:px-6 sm:pt-10 md:pt-12 lg:pt-16">
+      <div className="mx-auto w-full max-w-7xl px-4 pt-8 sm:px-6 sm:pt-10 md:pt-12">
         <div className="relative flex flex-col-reverse gap-8 sm:gap-10 md:gap-12 lg:flex-row lg:gap-20">
           {/* Left: Scroll-driven word reveal */}
           <motion.div

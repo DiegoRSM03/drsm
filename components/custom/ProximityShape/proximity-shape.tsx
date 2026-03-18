@@ -1,7 +1,14 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { motion, useMotionValue, useSpring, useReducedMotion, MotionValue } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useReducedMotion,
+  useTransform,
+  MotionValue,
+} from "framer-motion";
 
 const PROXIMITY_RADIUS = 150;
 
@@ -20,17 +27,26 @@ export function ProximityShape({
   shape,
   mouseX,
   mouseY,
+  windX,
 }: {
   shape: ProximityShapeData;
   mouseX: MotionValue<number>;
   mouseY: MotionValue<number>;
+  windX?: MotionValue<number>;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const pushX = useMotionValue(0);
   const pushY = useMotionValue(0);
+  const fallbackWind = useMotionValue(0);
   const springPushX = useSpring(pushX, { stiffness: 120, damping: 20 });
   const springPushY = useSpring(pushY, { stiffness: 120, damping: 20 });
+
+  const effectiveWindX = windX || fallbackWind;
+  const combinedX = useTransform(
+    [springPushX, effectiveWindX] as MotionValue<number>[],
+    ([push, wind]: number[]) => push + wind
+  );
 
   useEffect(() => {
     if (shouldReduceMotion) return;
@@ -121,7 +137,7 @@ export function ProximityShape({
       style={{
         left: shape.x,
         top: shape.y,
-        x: springPushX,
+        x: combinedX,
         y: springPushY,
         translateX: "-50%",
         translateY: "-50%",

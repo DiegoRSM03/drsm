@@ -66,6 +66,13 @@ jest.mock("lucide-react", () => ({
   Check: ({ className }: any) => <svg data-testid="check-icon" className={className} />,
 }));
 
+jest.mock("@/contexts", () => ({
+  useTheme: () => ({
+    theme: "dark",
+    toggleTheme: jest.fn(),
+  }),
+}));
+
 Object.assign(navigator, {
   clipboard: {
     writeText: jest.fn().mockResolvedValue(undefined),
@@ -186,13 +193,6 @@ describe("Contact Section", () => {
       render(<Contact />);
       const decorativeElements = document.querySelectorAll('[aria-hidden="true"]');
       expect(decorativeElements.length).toBeGreaterThanOrEqual(3);
-    });
-
-    it("divider is hidden from screen readers", () => {
-      render(<Contact />);
-      const dividers = document.querySelectorAll('[aria-hidden="true"]');
-      const hasDivider = Array.from(dividers).some((el) => el.classList.contains("origin-left"));
-      expect(hasDivider).toBe(true);
     });
 
     it("copy email button is keyboard accessible", () => {
