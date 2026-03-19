@@ -230,6 +230,7 @@ export default function Contact() {
       data-cursor-grid
     >
       <GridBackground id="contact-grid" />
+      <CursorBrightGrid cellSize={100} />
 
       <motion.div
         className="relative mx-auto w-full max-w-7xl px-4 sm:px-6"
@@ -300,7 +301,6 @@ export default function Contact() {
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         aria-hidden="true"
       />
-      <CursorBrightGrid cellSize={100} />
     </section>
   );
 }

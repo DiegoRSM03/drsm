@@ -435,6 +435,7 @@ export default function Experience() {
           aria-label="Work history navigation"
         >
           <GridBackground id="sidebar-grid" stroke="rgba(255, 255, 255, 0.15)" />
+          <CursorBrightGrid cellSize={100} maxOpacity={0.25} />
 
           {!isTouch && (
             <div className="pointer-events-none absolute inset-0" aria-hidden="true">
@@ -483,6 +484,7 @@ export default function Experience() {
 
         <div className="bg-surface relative w-full lg:w-3/5">
           <GridBackground id="content-grid" />
+          <CursorBrightGrid cellSize={100} maxOpacity={0.2} />
 
           {!isTouch && (
             <div
@@ -537,8 +539,6 @@ export default function Experience() {
           </div>
         </div>
       </div>
-
-      <CursorBrightGrid cellSize={100} maxOpacity={0.2} />
     </section>
   );
 }
