@@ -19,6 +19,7 @@ import { ACCENT, CYAN_HEX, PINK_HEX, AMBER_HEX, GREEN_HEX, EASE } from "@/utils"
 import { useIsTouchDevice } from "@/hooks";
 import { GridBackground } from "@/components/custom/GridBackground";
 import { CursorBrightGrid } from "@/components/custom/CursorEffects";
+import { useLenis } from "@/components/custom/LenisProvider";
 import type { ProximityShapeData } from "@/components/custom/ProximityShape";
 
 interface TechItem {
@@ -158,6 +159,7 @@ function Hero() {
   const shouldReduceMotion = useReducedMotion();
   const isTouch = useIsTouchDevice();
   const t = useTranslations("hero");
+  const { lenis } = useLenis();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -301,14 +303,32 @@ function Hero() {
             duration: shouldReduceMotion ? 0 : 0.6,
           }}
         >
-          <MagneticButton variant="primary" size="lg">
-            <Download className="mr-2 h-5 w-5" aria-hidden="true" />
-            {t("downloadResume")}
-          </MagneticButton>
-          <MagneticButton variant="ghost" size="lg">
-            {t("viewProjects")}
-            <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
-          </MagneticButton>
+          <a href="/diego-sanchez-resume.pdf" download>
+            <MagneticButton variant="primary" size="lg">
+              <Download className="mr-2 h-5 w-5" aria-hidden="true" />
+              {t("downloadResume")}
+            </MagneticButton>
+          </a>
+          <a
+            href="#projects"
+            onClick={(e) => {
+              e.preventDefault();
+              const target = document.getElementById("projects");
+              if (target) {
+                const top = target.getBoundingClientRect().top + window.scrollY - 80;
+                if (lenis) {
+                  lenis.scrollTo(top, { duration: 1.2 });
+                } else {
+                  window.scrollTo({ top });
+                }
+              }
+            }}
+          >
+            <MagneticButton variant="ghost" size="lg">
+              {t("viewProjects")}
+              <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
+            </MagneticButton>
+          </a>
         </motion.div>
       </motion.div>
 

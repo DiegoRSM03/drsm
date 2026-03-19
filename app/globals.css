@@ -109,6 +109,13 @@ html {
   scroll-behavior: auto;
 }
 
+[id="projects"],
+[id="experience"],
+[id="about"],
+[id="contact"] {
+  scroll-margin-top: 5rem;
+}
+
 body {
   background: var(--color-background);
   color: var(--color-foreground);

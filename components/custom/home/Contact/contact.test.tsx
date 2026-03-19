@@ -99,7 +99,7 @@ describe("Contact Section", () => {
 
     it("renders the copy email button with email address", () => {
       render(<Contact />);
-      expect(screen.getByText("diego@example.com")).toBeInTheDocument();
+      expect(screen.getByText("diegorsm03@gmail.com")).toBeInTheDocument();
     });
 
     it("renders all social link buttons", () => {
@@ -113,13 +113,13 @@ describe("Contact Section", () => {
       render(<Contact />);
       expect(screen.getByLabelText("LinkedIn")).toHaveAttribute(
         "href",
-        "https://linkedin.com/in/drsm"
+        "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/"
       );
       expect(screen.getByLabelText("GitHub")).toHaveAttribute(
         "href",
         "https://github.com/DiegoRSM03"
       );
-      expect(screen.getByLabelText("Email")).toHaveAttribute("href", "mailto:diego@example.com");
+      expect(screen.getByLabelText("Email")).toHaveAttribute("href", "mailto:diegorsm03@gmail.com");
     });
 
     it("social links open in new tab", () => {
@@ -139,14 +139,14 @@ describe("Contact Section", () => {
   describe("Copy Email Interaction", () => {
     it("copies email to clipboard on click", () => {
       render(<Contact />);
-      const button = screen.getByText("diego@example.com").closest("button")!;
+      const button = screen.getByText("diegorsm03@gmail.com").closest("button")!;
       fireEvent.click(button);
-      expect(navigator.clipboard.writeText).toHaveBeenCalledWith("diego@example.com");
+      expect(navigator.clipboard.writeText).toHaveBeenCalledWith("diegorsm03@gmail.com");
     });
 
     it("shows copied text after clicking", () => {
       render(<Contact />);
-      const button = screen.getByText("diego@example.com").closest("button")!;
+      const button = screen.getByText("diegorsm03@gmail.com").closest("button")!;
       fireEvent.click(button);
       expect(screen.getByText("contact.copied")).toBeInTheDocument();
     });
@@ -197,7 +197,7 @@ describe("Contact Section", () => {
 
     it("copy email button is keyboard accessible", () => {
       render(<Contact />);
-      const button = screen.getByText("diego@example.com").closest("button")!;
+      const button = screen.getByText("diegorsm03@gmail.com").closest("button")!;
       expect(button.tagName).toBe("BUTTON");
     });
   });

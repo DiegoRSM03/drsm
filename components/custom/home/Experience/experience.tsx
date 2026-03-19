@@ -422,6 +422,7 @@ export default function Experience() {
     <section
       ref={containerRef}
       onMouseMove={handleMouseMove}
+      id="experience"
       className="bg-background relative border-t border-white/[0.08]"
       aria-labelledby="experience-heading"
       data-cursor-grid
