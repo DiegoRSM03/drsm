@@ -18,6 +18,7 @@ export function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(true);
   const [isClicking, setIsClicking] = useState(false);
+  const [isOverCurtain, setIsOverCurtain] = useState(false);
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
@@ -70,6 +71,9 @@ export function CustomCursor() {
       mouseX.current = e.clientX;
       mouseY.current = e.clientY;
       updateCursorPosition();
+
+      const target = e.target as HTMLElement | null;
+      setIsOverCurtain(!!target?.closest("#main-menu"));
 
       if (!isVisible) {
         setIsVisible(true);
@@ -234,13 +238,14 @@ export function CustomCursor() {
   return (
     <>
       <motion.div
-        className={`pointer-events-none fixed top-0 left-0 z-[9999] ${isDark ? "bg-accent mix-blend-difference" : ""}`}
+        className={`pointer-events-none fixed top-0 left-0 z-[9999] ${isDark && !isOverCurtain ? "bg-accent mix-blend-difference" : ""}`}
         style={{
           x: dotX,
           y: dotY,
           translateX: "-50%",
           translateY: "-50%",
-          backgroundColor: isDark ? undefined : "#7c3aed",
+          backgroundColor:
+            isDark && !isOverCurtain ? undefined : isOverCurtain ? "#4c1d95" : "#7c3aed",
         }}
         animate={{
           width: getDotSize(),
@@ -251,7 +256,7 @@ export function CustomCursor() {
       />
 
       <motion.div
-        className={`pointer-events-none fixed top-0 left-0 z-[9998] border-2 ${isDark ? "border-accent/50 mix-blend-difference" : ""}`}
+        className={`pointer-events-none fixed top-0 left-0 z-[9998] border-2 ${isDark && !isOverCurtain ? "border-accent/50 mix-blend-difference" : ""}`}
         style={{
           x: circleX,
           y: circleY,
@@ -268,13 +273,17 @@ export function CustomCursor() {
             cursorState === "hover" || cursorState === "magnetic"
               ? "rgba(139, 92, 246, 0.1)"
               : "rgba(0, 0, 0, 0)",
-          borderColor: isDark
+          borderColor: isOverCurtain
             ? cursorState === "magnetic"
-              ? "rgba(139, 92, 246, 0.8)"
-              : "rgba(139, 92, 246, 0.5)"
-            : cursorState === "magnetic"
-              ? "rgba(124, 58, 237, 0.9)"
-              : "rgba(124, 58, 237, 0.6)",
+              ? "rgba(76, 29, 149, 0.9)"
+              : "rgba(76, 29, 149, 0.7)"
+            : isDark
+              ? cursorState === "magnetic"
+                ? "rgba(139, 92, 246, 0.8)"
+                : "rgba(139, 92, 246, 0.5)"
+              : cursorState === "magnetic"
+                ? "rgba(124, 58, 237, 0.9)"
+                : "rgba(124, 58, 237, 0.6)",
         }}
         transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
       />
