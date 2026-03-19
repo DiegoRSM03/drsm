@@ -84,6 +84,11 @@ jest.mock("lucide-react", () => ({
   ArrowDown: () => <svg data-testid="arrow-down-icon" aria-hidden="true" />,
 }));
 
+jest.mock("@/components/custom/CursorEffects", () => ({
+  CursorGlow: () => null,
+  CursorBrightGrid: () => null,
+}));
+
 import About from "./about";
 
 describe("About Section", () => {

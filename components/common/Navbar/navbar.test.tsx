@@ -1,6 +1,24 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { Navbar } from "./navbar";
 
+beforeAll(() => {
+  global.ResizeObserver = class {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
+
+  HTMLCanvasElement.prototype.getContext = jest.fn().mockReturnValue({
+    clearRect: jest.fn(),
+    beginPath: jest.fn(),
+    moveTo: jest.fn(),
+    lineTo: jest.fn(),
+    stroke: jest.fn(),
+    setTransform: jest.fn(),
+    strokeStyle: "",
+  });
+});
+
 const mockToggleTheme = jest.fn();
 let mockTheme = "light";
 
@@ -35,12 +53,24 @@ jest.mock("framer-motion", () => ({
       children,
       className,
       onClick,
+      role,
+      "aria-modal": ariaModal,
+      "aria-label": ariaLabel,
     }: {
       children: React.ReactNode;
       className?: string;
       onClick?: () => void;
+      role?: string;
+      "aria-modal"?: boolean;
+      "aria-label"?: string;
     }) => (
-      <div className={className} onClick={onClick}>
+      <div
+        className={className}
+        onClick={onClick}
+        role={role}
+        aria-modal={ariaModal}
+        aria-label={ariaLabel}
+      >
         {children}
       </div>
     ),
@@ -95,19 +125,16 @@ jest.mock("framer-motion", () => ({
       <svg className={className}>{children}</svg>
     ),
   },
-  useMotionValue: () => ({ set: jest.fn(), get: () => 0 }),
-  useSpring: () => ({ set: jest.fn() }),
-  useTransform: () => ({ set: jest.fn() }),
+  useMotionValue: () => ({ set: jest.fn(), get: () => 0, on: () => () => {} }),
+  useSpring: () => ({ set: jest.fn(), get: () => 0 }),
+  useTransform: () => ({ set: jest.fn(), get: () => 0 }),
   useReducedMotion: () => false,
+  useAnimationFrame: () => {},
   AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
 }));
 
 jest.mock("lucide-react", () => ({
   Globe: () => <span data-testid="globe-icon">Globe</span>,
-}));
-
-jest.mock("@/components/custom/ProximityShape", () => ({
-  ProximityShape: () => <div data-testid="proximity-shape" />,
 }));
 
 jest.mock("@/components/custom/ThemeToggle", () => ({
@@ -217,5 +244,17 @@ describe("Navbar", () => {
     render(<Navbar />);
     const logoContainer = screen.getByText("D").closest("a");
     expect(logoContainer).toHaveAttribute("href", "/");
+  });
+
+  it("curtain has dialog role when open", () => {
+    render(<Navbar />);
+    fireEvent.click(screen.getByLabelText("nav.openMenu"));
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+  });
+
+  it("curtain has navigation landmark when open", () => {
+    render(<Navbar />);
+    fireEvent.click(screen.getByLabelText("nav.openMenu"));
+    expect(screen.getByRole("navigation", { name: "Main navigation" })).toBeInTheDocument();
   });
 });

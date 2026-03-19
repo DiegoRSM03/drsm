@@ -18,6 +18,7 @@ import { ProximityShape } from "@/components/custom/ProximityShape";
 import { ACCENT, CYAN_HEX, PINK_HEX, AMBER_HEX, GREEN_HEX, EASE } from "@/utils";
 import { useIsTouchDevice } from "@/hooks";
 import { GridBackground } from "@/components/custom/GridBackground";
+import { CursorBrightGrid } from "@/components/custom/CursorEffects";
 import type { ProximityShapeData } from "@/components/custom/ProximityShape";
 
 interface TechItem {
@@ -193,8 +194,10 @@ function Hero() {
       onMouseMove={handleMouseMove}
       className="bg-surface relative flex h-screen w-full items-center justify-center overflow-hidden"
       aria-label="Hero section introducing Diego Sanchez"
+      data-cursor-grid
     >
       <GridBackground id="hero-grid" cellSize={100} />
+      <CursorBrightGrid cellSize={100} maxOpacity={0.15} />
       {!isTouch && (
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
           {HERO_SHAPES.map((shape, i) => (
@@ -492,16 +495,17 @@ function MagneticPill({
 
 function CursorShapes({ enableMotion = true }: { enableMotion?: boolean }) {
   const shouldReduceMotion = useReducedMotion();
+  const [isOverCurtain, setIsOverCurtain] = useState(false);
   const globalMouseX = useMotionValue(0);
   const globalMouseY = useMotionValue(0);
-  const smoothX = useSpring(globalMouseX, { stiffness: 100, damping: 30 });
-  const smoothY = useSpring(globalMouseY, { stiffness: 100, damping: 30 });
 
   useEffect(() => {
     if (shouldReduceMotion || !enableMotion) return;
     const handler = (e: MouseEvent) => {
       globalMouseX.set(e.clientX);
       globalMouseY.set(e.clientY);
+      const target = e.target as HTMLElement | null;
+      setIsOverCurtain(!!target?.closest("#main-menu, [data-cursor-dark]"));
     };
     window.addEventListener("mousemove", handler);
     return () => window.removeEventListener("mousemove", handler);
@@ -510,18 +514,7 @@ function CursorShapes({ enableMotion = true }: { enableMotion?: boolean }) {
   if (shouldReduceMotion || !enableMotion) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[15]" aria-hidden="true">
-      <motion.div
-        className="absolute h-[400px] w-[400px] rounded-full"
-        style={{
-          left: smoothX,
-          top: smoothY,
-          x: "-50%",
-          y: "-50%",
-          background:
-            "radial-gradient(circle, color-mix(in srgb, var(--color-accent) 13%, transparent) 0%, color-mix(in srgb, var(--color-accent) 4%, transparent) 45%, transparent 60%)",
-        }}
-      />
+    <div className="pointer-events-none fixed inset-0 z-[9997]" aria-hidden="true">
       {CURSOR_SHAPES.map((shape, i) => (
         <CursorFollower
           key={i}
@@ -529,6 +522,7 @@ function CursorShapes({ enableMotion = true }: { enableMotion?: boolean }) {
           mouseY={globalMouseY}
           shape={shape}
           index={i}
+          isOverCurtain={isOverCurtain}
         />
       ))}
     </div>
@@ -540,11 +534,13 @@ function CursorFollower({
   mouseY,
   shape,
   index,
+  isOverCurtain = false,
 }: {
   mouseX: MotionValue<number>;
   mouseY: MotionValue<number>;
   shape: CursorShapeConfig;
   index: number;
+  isOverCurtain?: boolean;
 }) {
   const shouldReduceMotion = useReducedMotion();
   const angle = useMotionValue(index * Math.PI);
@@ -579,8 +575,15 @@ function CursorFollower({
 
   return (
     <motion.div
-      className="border-accent/40 absolute top-0 left-0 border-2"
-      style={{ width: shape.size, height: shape.size, x, y, rotate: 45 }}
+      className="absolute top-0 left-0 border-2"
+      style={{
+        width: shape.size,
+        height: shape.size,
+        x,
+        y,
+        rotate: 45,
+        borderColor: isOverCurtain ? "rgba(76, 29, 149, 0.5)" : "rgba(139, 92, 246, 0.4)",
+      }}
       initial={{ opacity: shouldReduceMotion ? 0.5 : 0, scale: shouldReduceMotion ? 1 : 0 }}
       animate={{ opacity: 0.5, scale: 1 }}
       transition={{

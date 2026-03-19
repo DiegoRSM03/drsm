@@ -16,6 +16,7 @@ import { MagneticButton } from "@/components/custom/MagneticButton";
 import { ProximityShape } from "@/components/custom/ProximityShape";
 import { ACCENT, CYAN_HEX, PINK_HEX, AMBER_HEX, GREEN_HEX, EASE, SPRING_MAGNETIC } from "@/utils";
 import { useIsTouchDevice } from "@/hooks";
+import { CursorGlow } from "@/components/custom/CursorEffects";
 import type { ProximityShapeData } from "@/components/custom/ProximityShape";
 
 export interface ProjectData {
@@ -460,9 +461,10 @@ export function Projects() {
       {/* Mobile: Vertical stack layout */}
       <section
         id="projects"
-        className="bg-background border-foreground/[0.08] relative border-t md:hidden"
+        className="bg-background border-foreground/[0.08] relative overflow-hidden border-t md:hidden"
         aria-labelledby="projects-heading"
       >
+        <CursorGlow />
         <SectionHeader />
         <div role="list" aria-label="Project cards">
           {PROJECTS.map((project) => (
@@ -481,6 +483,7 @@ export function Projects() {
         aria-labelledby="projects-heading"
       >
         <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
+          <CursorGlow />
           <SectionHeader />
 
           <div

@@ -54,6 +54,11 @@ jest.mock("@/components/custom/MagneticButton", () => ({
   },
 }));
 
+jest.mock("@/components/custom/CursorEffects", () => ({
+  CursorGlow: () => null,
+  CursorBrightGrid: () => null,
+}));
+
 import { Projects, PROJECTS } from "./projects";
 
 describe("Projects", () => {
