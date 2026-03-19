@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useCallback } from "react";
+import Image from "next/image";
 import {
   motion,
   useMotionValue,
@@ -26,6 +27,7 @@ export interface ProjectData {
   tags: string[];
   url: string | null;
   github: string | null;
+  image: string;
 }
 
 export const PROJECTS: ProjectData[] = [
@@ -36,6 +38,7 @@ export const PROJECTS: ProjectData[] = [
     tags: ["Next.js", "AWS", "Salesforce", "Auth0", "Jest", "Puppeteer"],
     url: "https://www.propsource.com/",
     github: null,
+    image: "/projects/propsource.png",
   },
   {
     id: 2,
@@ -44,6 +47,7 @@ export const PROJECTS: ProjectData[] = [
     tags: ["Next.js", "Strapi", "GSAP/Framer", "SEO", "Marketing Tools", "WCAG 2.1"],
     url: "https://fetcher.ai/",
     github: null,
+    image: "/projects/fetcher.png",
   },
   {
     id: 3,
@@ -52,6 +56,7 @@ export const PROJECTS: ProjectData[] = [
     tags: ["Lua", "Open Source", "LSP", "Treesitter", "Lazy.nvim", "ZSH"],
     url: "https://github.com/DiegoRSM03/nvim",
     github: null,
+    image: "/projects/neovim.png",
   },
 ];
 
@@ -233,9 +238,8 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
       </span>
 
       <div className="relative mx-auto flex w-full max-w-7xl flex-col items-center gap-6 px-4 py-10 sm:gap-8 sm:px-6 sm:py-12 md:flex-row md:gap-10 md:py-8 lg:gap-16 lg:py-20">
-        {/* Image placeholder with reveal mask */}
         <div
-          className="relative aspect-[4/3] w-full md:w-[40%] lg:w-[45%]"
+          className="relative w-full md:w-[40%] lg:w-[45%]"
           role="img"
           aria-label={`${project.title} project preview`}
         >
@@ -253,26 +257,32 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
             aria-hidden="true"
           />
           <motion.div
-            className="absolute inset-0"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: "-20%" }}
             transition={{ duration: 0.01, delay: 0.2 }}
           >
-            <div className="bg-foreground/[0.04] absolute inset-0" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <motion.span
-                className="text-6xl font-black sm:text-7xl md:text-8xl lg:text-9xl"
-                style={{
-                  color: "rgba(255, 255, 255, 0.06)",
-                  fontFamily: "var(--font-display)",
-                }}
-                aria-hidden="true"
-                animate={shouldReduceMotion ? {} : { scale: [1, 1.02, 1] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              >
-                {project.title.charAt(0)}
-              </motion.span>
+            <div className="border-border/50 overflow-hidden border-2">
+              <div className="bg-elevated flex items-center gap-2 px-3 py-2">
+                <div className="flex gap-1.5">
+                  <span className="bg-foreground/20 h-2.5 w-2.5 rounded-full" />
+                  <span className="bg-foreground/20 h-2.5 w-2.5 rounded-full" />
+                  <span className="bg-foreground/20 h-2.5 w-2.5 rounded-full" />
+                </div>
+                <div className="bg-surface mx-2 flex-1 px-3 py-1">
+                  <span className="text-muted text-[10px] font-medium">
+                    {project.url ?? project.title}
+                  </span>
+                </div>
+              </div>
+              <Image
+                src={project.image}
+                alt={`${project.title} website screenshot`}
+                width={1425}
+                height={772}
+                className="block w-full"
+                priority={project.id === 1}
+              />
             </div>
           </motion.div>
         </div>
@@ -457,10 +467,9 @@ export function Projects() {
   const smoothWindX = useSpring(windX, { stiffness: 15, damping: 25 });
 
   return (
-    <>
+    <div id="projects" aria-labelledby="projects-heading">
       {/* Mobile: Vertical stack layout */}
       <section
-        id="projects"
         className="bg-background border-foreground/[0.08] relative overflow-hidden border-t md:hidden"
         aria-labelledby="projects-heading"
       >
@@ -475,7 +484,6 @@ export function Projects() {
 
       {/* Tablet/Desktop: Stacked horizontal scroll animation */}
       <section
-        id="projects-desktop"
         ref={containerRef}
         onMouseMove={handleMouseMove}
         className="bg-background border-foreground/[0.08] relative hidden border-t md:block"
@@ -517,6 +525,6 @@ export function Projects() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

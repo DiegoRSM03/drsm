@@ -22,6 +22,10 @@ beforeAll(() => {
 const mockToggleTheme = jest.fn();
 let mockTheme = "light";
 
+jest.mock("@/components/custom/LenisProvider", () => ({
+  useLenis: () => ({ lenis: null }),
+}));
+
 jest.mock("@/contexts", () => ({
   useTheme: () => ({
     theme: mockTheme,
@@ -203,10 +207,11 @@ describe("Navbar", () => {
     expect(screen.getByText("nav.contact").closest("a")).toHaveAttribute("href", "#contact");
   });
 
-  it("closes menu when nav item is clicked", () => {
+  it("closes menu when nav item is clicked", async () => {
     render(<Navbar />);
     fireEvent.click(screen.getByLabelText("nav.openMenu"));
     fireEvent.click(screen.getByText("nav.about"));
+    await screen.findByLabelText("nav.openMenu");
     expect(screen.getByLabelText("nav.openMenu")).toBeInTheDocument();
   });
 

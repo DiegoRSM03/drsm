@@ -4,8 +4,8 @@ import { useRef } from "react";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
 import { ACCENT_HEX, EASE } from "@/utils";
+import { useLenis } from "@/components/custom/LenisProvider";
 
 const NAV_KEYS = ["experience", "projects", "about", "contact"] as const;
 
@@ -16,8 +16,12 @@ function Footer() {
   const currentYear = new Date().getFullYear();
   const t = useTranslations("footer");
   const tNav = useTranslations("nav");
+  const { lenis } = useLenis();
 
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  const scrollToTop = () => {
+    if (lenis) lenis.scrollTo(0);
+    else window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <footer
@@ -77,13 +81,13 @@ function Footer() {
             transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
           >
             {NAV_KEYS.map((key) => (
-              <Link
+              <a
                 key={key}
                 href={`#${key}`}
                 className="focus-visible:ring-offset-accent text-sm font-medium text-white/70 transition-colors duration-200 hover:text-white focus-visible:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:outline-none"
               >
                 {tNav(key)}
-              </Link>
+              </a>
             ))}
           </motion.nav>
         </div>

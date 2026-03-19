@@ -25,12 +25,16 @@ import {
 } from "@/utils";
 
 const SOCIAL_LINKS = [
-  { label: "LinkedIn", href: "https://linkedin.com/in/drsm", icon: Linkedin },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/diego-rodrigo-sanchez-moreno/",
+    icon: Linkedin,
+  },
   { label: "GitHub", href: "https://github.com/DiegoRSM03", icon: Github },
-  { label: "Email", href: "mailto:diego@example.com", icon: Mail },
+  { label: "Email", href: "mailto:diegorsm03@gmail.com", icon: Mail },
 ];
 
-const EMAIL = "diego@example.com";
+const EMAIL = "diegorsm03@gmail.com";
 
 // ============================================================================
 // Magnetic3DWrapper — magnetic hover effect with 3D parallax and glow

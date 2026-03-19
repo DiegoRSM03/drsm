@@ -60,6 +60,10 @@ jest.mock("lucide-react", () => ({
   ),
 }));
 
+jest.mock("@/components/custom/LenisProvider", () => ({
+  useLenis: () => ({ lenis: null }),
+}));
+
 import { Footer } from "./footer";
 
 describe("Footer", () => {

@@ -148,6 +148,14 @@ jest.mock("@/contexts", () => ({
   }),
 }));
 
+jest.mock("@/components/custom/LenisProvider", () => ({
+  useLenis: () => ({ lenis: null }),
+}));
+
+jest.mock("@/components/custom/CursorEffects", () => ({
+  CursorBrightGrid: () => null,
+}));
+
 describe("Hero", () => {
   it("renders the hero section", () => {
     const { container } = render(<Hero />);
