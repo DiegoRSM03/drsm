@@ -64,7 +64,9 @@ function SectionHeader({ isInView }: { isInView: boolean }) {
           {titleWords.map((word, i) => (
             <span
               key={i}
-              className={`inline-block overflow-clip${i === 0 ? "mr-2 sm:mr-3 md:mr-4" : ""}`}
+              className={["inline-block overflow-clip", i === 0 && "mr-2 sm:mr-3 md:mr-4"]
+                .filter(Boolean)
+                .join(" ")}
             >
               <motion.span
                 className="inline-block"
@@ -75,7 +77,7 @@ function SectionHeader({ isInView }: { isInView: boolean }) {
               >
                 {word}
               </motion.span>
-              {i === 0 && <br className="sm:hidden" />}
+              {i === 0 && <br className="md:hidden" />}
             </span>
           ))}
         </h2>
@@ -374,9 +376,11 @@ export default function About() {
             className="flex w-full flex-col justify-center lg:w-[55%]"
             style={{ y: textY }}
           >
+            <p className="sr-only">{t("bio")}</p>
             <p
               className="text-xl leading-snug font-black sm:text-2xl md:text-3xl lg:text-4xl"
               style={{ fontFamily: "var(--font-display)" }}
+              aria-hidden="true"
             >
               {words.map((word, i) => {
                 const start = (i / totalWords) * 0.55;
@@ -427,7 +431,7 @@ export default function About() {
               transition={{ duration: 1.4, delay: 0.6, ease: EASE }}
             >
               <Image
-                src="/about-avatar.png"
+                src="/about-avatar.webp"
                 alt="Diego Sanchez — Senior Frontend Engineer"
                 fill
                 className="object-cover object-top"
@@ -461,7 +465,11 @@ function ScrollWord({
   end: number;
   highlights: string[];
 }) {
-  const opacity = useTransform(progress, [start, end], [0.12, 1]);
+  const opacity = useTransform(
+    progress,
+    [0, Math.max(0.001, start * 0.5), start, end],
+    [0, 0, 0.12, 1]
+  );
   const color = useTransform(
     progress,
     [start, end],
@@ -474,6 +482,7 @@ function ScrollWord({
     <motion.span
       className="mr-[0.3em] inline-block"
       style={{ opacity, color: isHighlight ? ACCENT_HEX : color }}
+      aria-hidden="true"
     >
       {word}
     </motion.span>

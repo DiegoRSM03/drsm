@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useRef, useState } from "react";
-import Lenis from "lenis";
+import type Lenis from "lenis";
 
 interface LenisContextValue {
   lenis: Lenis | null;
@@ -24,32 +24,34 @@ export function LenisProvider({ children }: LenisProviderProps) {
       return;
     }
 
-    const lenisInstance = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-    });
+    import("lenis").then(({ default: LenisClass }) => {
+      const lenisInstance = new LenisClass({
+        duration: 1.2,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: "vertical",
+        gestureOrientation: "vertical",
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        touchMultiplier: 2,
+      });
 
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: sync external instance to state
-    setLenis(lenisInstance);
+      setLenis(lenisInstance);
 
-    function raf(time: number) {
-      lenisInstance.raf(time);
+      function raf(time: number) {
+        lenisInstance.raf(time);
+        rafRef.current = requestAnimationFrame(raf);
+      }
+
       rafRef.current = requestAnimationFrame(raf);
-    }
-
-    rafRef.current = requestAnimationFrame(raf);
+    });
 
     return () => {
       if (rafRef.current) {
         cancelAnimationFrame(rafRef.current);
       }
-      lenisInstance.destroy();
+      lenis?.destroy();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- cleanup uses lenis ref at unmount time
   }, []);
 
   return <LenisContext.Provider value={{ lenis }}>{children}</LenisContext.Provider>;

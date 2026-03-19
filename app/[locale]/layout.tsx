@@ -6,7 +6,7 @@ import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 
 import { ThemeProvider } from "@/contexts";
 import { LenisProvider } from "@/components/custom/LenisProvider";
-import { CustomCursor } from "@/components/custom/CustomCursor";
+import { LazyCursor } from "@/components/custom/CustomCursor/lazy-cursor";
 import { ToastProvider } from "@/components/common/Toast";
 import { locales } from "@/i18n/config";
 
@@ -85,7 +85,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
           <ThemeProvider>
             <ToastProvider>
               <LenisProvider>
-                <CustomCursor />
+                <LazyCursor />
                 {children}
               </LenisProvider>
             </ToastProvider>

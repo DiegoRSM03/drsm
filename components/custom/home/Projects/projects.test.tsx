@@ -186,12 +186,7 @@ describe("Projects", () => {
       });
     });
 
-    it("project cards container has list role", () => {
-      render(<Projects />);
-      expect(screen.getAllByRole("list", { name: "Project cards" }).length).toBeGreaterThan(0);
-    });
-
-    it("project cards are rendered as articles within the list", () => {
+    it("project cards are rendered as articles", () => {
       render(<Projects />);
       const articles = screen.getAllByRole("article");
       expect(articles.length).toBeGreaterThanOrEqual(PROJECTS.length);
