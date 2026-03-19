@@ -3,7 +3,6 @@
 import { useRef, useEffect } from "react";
 import { useReducedMotion } from "framer-motion";
 import { useIsTouchDevice } from "@/hooks";
-import { useTheme } from "@/contexts";
 
 const RADIUS = 400;
 
@@ -18,8 +17,6 @@ export function CursorBrightGrid({ cellSize = 100, maxOpacity = 0.3 }: CursorBri
   const rafRef = useRef<number>(0);
   const shouldReduceMotion = useReducedMotion();
   const isTouch = useIsTouchDevice();
-  const { theme } = useTheme();
-
   useEffect(() => {
     if (shouldReduceMotion || isTouch) return;
 
@@ -53,8 +50,6 @@ export function CursorBrightGrid({ cellSize = 100, maxOpacity = 0.3 }: CursorBri
         return;
       }
 
-      const isDark = theme === "dark";
-
       for (let x = 0; x <= w; x += cellSize) {
         if (Math.abs(x - mx) > RADIUS) continue;
         const startY = Math.max(0, my - RADIUS);
@@ -63,9 +58,7 @@ export function CursorBrightGrid({ cellSize = 100, maxOpacity = 0.3 }: CursorBri
           const segDist = Math.sqrt((x - mx) ** 2 + (segY - my) ** 2);
           if (segDist > RADIUS) continue;
           const alpha = (1 - segDist / RADIUS) * maxOpacity;
-          ctx.strokeStyle = isDark
-            ? `rgba(255,255,255,${alpha})`
-            : `rgba(139,92,246,${alpha * 0.6})`;
+          ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
           ctx.beginPath();
           ctx.moveTo(x, segY);
           ctx.lineTo(x, Math.min(segY + 3, endY));
@@ -80,9 +73,7 @@ export function CursorBrightGrid({ cellSize = 100, maxOpacity = 0.3 }: CursorBri
           const segDist = Math.sqrt((segX - mx) ** 2 + (y - my) ** 2);
           if (segDist > RADIUS) continue;
           const alpha = (1 - segDist / RADIUS) * maxOpacity;
-          ctx.strokeStyle = isDark
-            ? `rgba(255,255,255,${alpha})`
-            : `rgba(139,92,246,${alpha * 0.6})`;
+          ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
           ctx.beginPath();
           ctx.moveTo(segX, y);
           ctx.lineTo(Math.min(segX + 3, endX), y);
@@ -99,7 +90,7 @@ export function CursorBrightGrid({ cellSize = 100, maxOpacity = 0.3 }: CursorBri
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(rafRef.current);
     };
-  }, [shouldReduceMotion, isTouch, cellSize, maxOpacity, theme]);
+  }, [shouldReduceMotion, isTouch, cellSize, maxOpacity]);
 
   useEffect(() => {
     if (shouldReduceMotion || isTouch) return;
