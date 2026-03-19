@@ -101,6 +101,7 @@ describe("StaggerItem", () => {
   it("renders nested components", () => {
     render(
       <StaggerItem>
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a href="/link">Link text</a>
       </StaggerItem>
     );

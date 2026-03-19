@@ -10,6 +10,7 @@ import {
   MotionValue,
 } from "framer-motion";
 import { useState, useRef, useCallback, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { useTheme } from "@/contexts";
 import { ProximityShape } from "@/components/custom/ProximityShape";
 import { ACCENT, PINK_HEX, CYAN_HEX, AMBER_HEX, GREEN_HEX, EASE } from "@/utils";
@@ -19,11 +20,8 @@ import type { ProximityShapeData } from "@/components/custom/ProximityShape";
 
 interface ExperienceData {
   company: string;
-  role: string;
-  period: string;
-  duration: string;
-  description: string;
-  highlights: string[];
+  i18nKey: string;
+  highlightCount: number;
   skills: string[];
   color: string;
   numberColorDark: string;
@@ -33,16 +31,8 @@ interface ExperienceData {
 const EXPERIENCES: ExperienceData[] = [
   {
     company: "Inaza",
-    role: "Software Engineer",
-    period: "Jan 2026 - Present",
-    duration: "3 mos",
-    description:
-      "Insurance technology company building modern solutions for the insurance industry.",
-    highlights: [
-      "Developed frontend features for insurance platform",
-      "Collaborated with cross-functional teams",
-      "Implemented responsive UI components",
-    ],
+    i18nKey: "inaza",
+    highlightCount: 3,
     skills: ["React", "TypeScript", "REST APIs", "CSS"],
     color: PINK_HEX,
     numberColorDark: "#5C2A45",
@@ -50,17 +40,8 @@ const EXPERIENCES: ExperienceData[] = [
   },
   {
     company: "Litebox",
-    role: "Software Engineer",
-    period: "Sep 2022 - Jan 2026",
-    duration: "3.5 yrs",
-    description:
-      "Boutique software company focused on highly customized marketing websites and scalable back-office applications for American startup companies.",
-    highlights: [
-      "Built multiple marketing websites with perfect SEO, eye-catching animations, and 95+ Lighthouse scores",
-      "Architected entire project infrastructure using AWS, Vercel, and EC2",
-      "Created a CLI to automate project scaffolding with Next.js and Strapi",
-      "Built back-office apps with React Hook Form, Google Maps API, and OpenAI",
-    ],
+    i18nKey: "litebox",
+    highlightCount: 4,
     skills: ["Next.js", "AWS", "GSAP", "Framer Motion", "TypeScript", "Strapi"],
     color: ACCENT,
     numberColorDark: "#3D2A5C",
@@ -68,17 +49,8 @@ const EXPERIENCES: ExperienceData[] = [
   },
   {
     company: "Axon",
-    role: "Software Engineer",
-    period: "Sep 2021 - Sep 2022",
-    duration: "1 yr",
-    description:
-      "Remote coaching school for athletes and professional leaders. One of the best-known coaching schools in LatAm.",
-    highlights: [
-      "Built a CRM application from scratch for the sales department",
-      "Created a WhatsApp Bot for sales reminders and payment notifications",
-      "Implemented CI/CD workflow using GitHub Actions",
-      "Ensured cross-browser compatibility and security standards",
-    ],
+    i18nKey: "axon",
+    highlightCount: 4,
     skills: ["React", "Node.js", "WhatsApp API", "GitHub Actions", "PostgreSQL"],
     color: CYAN_HEX,
     numberColorDark: "#134E5A",
@@ -227,6 +199,7 @@ function ExperienceCard({
 }) {
   const shouldReduceMotion = useReducedMotion();
   const { theme } = useTheme();
+  const t = useTranslations("experience");
   const isDark = theme === "dark";
   const useParallax = enableParallax && !shouldReduceMotion;
 
@@ -313,15 +286,17 @@ function ExperienceCard({
           </div>
 
           <p className="text-foreground mb-1 text-base font-medium sm:mb-2 sm:text-lg">
-            {exp.role}
+            {t(`${exp.i18nKey}.role`)}
           </p>
           <p className="text-foreground/50 mb-4 font-mono text-xs sm:mb-6 sm:text-sm">
-            <time>{exp.period}</time>
+            <time>{t(`${exp.i18nKey}.period`)}</time>
             <span aria-hidden="true"> · </span>
-            <span>{exp.duration}</span>
+            <span>{t(`${exp.i18nKey}.duration`)}</span>
           </p>
 
-          <p className="text-foreground/70 mb-4 text-sm sm:mb-6 sm:text-base">{exp.description}</p>
+          <p className="text-foreground/70 mb-4 text-sm sm:mb-6 sm:text-base">
+            {t(`${exp.i18nKey}.description`)}
+          </p>
 
           <motion.div
             className="overflow-hidden"
@@ -336,7 +311,9 @@ function ExperienceCard({
             transition={{ duration: shouldReduceMotion ? 0 : 0.4 }}
           >
             <ul className="mb-4 space-y-2 sm:mb-6 sm:space-y-3" role="list">
-              {exp.highlights.map((h, i) => (
+              {Array.from({ length: exp.highlightCount }, (_, i) =>
+                t(`${exp.i18nKey}.highlights.${i}`)
+              ).map((h, i) => (
                 <motion.li
                   key={i}
                   className="text-foreground flex items-start gap-2 text-xs sm:gap-3 sm:text-sm"
@@ -408,6 +385,7 @@ export default function Experience() {
   const contentRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const isTouch = useIsTouchDevice();
+  const t = useTranslations("experience");
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const centerX = useMotionValue(0);
@@ -491,12 +469,12 @@ export default function Experience() {
                 className="text-5xl font-black xl:text-6xl 2xl:text-7xl"
                 style={{ fontFamily: "var(--font-display)" }}
               >
-                <span className="text-white">WORK</span>
+                <span className="text-white">{t("titleWord1")}</span>
                 <br />
-                <span style={{ color: "var(--color-background)" }}>HISTORY</span>
+                <span style={{ color: "var(--color-background)" }}>{t("titleWord2")}</span>
               </h2>
               <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/70 xl:mt-6 xl:text-base">
-                Production code, frontend architecture, and cross-functional collaboration.
+                {t("description")}
               </p>
             </motion.div>
           </div>
@@ -527,10 +505,10 @@ export default function Experience() {
               className="text-foreground text-3xl font-black sm:text-4xl md:text-5xl lg:text-6xl"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              WORK <span style={{ color: ACCENT }}>HISTORY</span>
+              {t("titleWord1")} <span style={{ color: ACCENT }}>{t("titleWord2")}</span>
             </h2>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-white/60 sm:mt-4 sm:text-base">
-              Production code, frontend architecture, and cross-functional collaboration.
+              {t("description")}
             </p>
           </header>
 

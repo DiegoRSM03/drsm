@@ -96,7 +96,7 @@ describe("LoadingScreen", () => {
 
   it("renders tagline text", () => {
     render(<LoadingScreen />);
-    expect(screen.getByText("Obsessed with making ideas breathe")).toBeInTheDocument();
+    expect(screen.getByText("loading.tagline")).toBeInTheDocument();
   });
 
   it("renders progress indicator", () => {

@@ -2,7 +2,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 
-// Mock framer-motion before importing component
 jest.mock("framer-motion", () => ({
   motion: {
     div: React.forwardRef<HTMLDivElement, any>(({ children, ...props }, ref) => (
@@ -49,7 +48,6 @@ jest.mock("framer-motion", () => ({
   useReducedMotion: () => false,
 }));
 
-// Mock MagneticButton
 jest.mock("@/components/custom/MagneticButton", () => ({
   MagneticButton: function MockMagneticButton({ children, ...props }: any) {
     return <button {...props}>{children}</button>;
@@ -68,17 +66,22 @@ describe("Projects", () => {
 
     it("renders the section header", () => {
       render(<Projects />);
-      expect(screen.getAllByText("PROJECTS").length).toBeGreaterThan(0);
-      expect(screen.getAllByText("Pixel-Perfect,").length).toBeGreaterThan(0);
-      expect(screen.getAllByText("Battle-Tested").length).toBeGreaterThan(0);
+      expect(screen.getAllByText("projects.badge").length).toBeGreaterThan(0);
+      expect(screen.getAllByText("projects.titleLine1").length).toBeGreaterThan(0);
+      expect(screen.getAllByText("projects.titleLine2").length).toBeGreaterThan(0);
     });
 
     it("renders all project cards", () => {
       render(<Projects />);
       PROJECTS.forEach((project) => {
         expect(screen.getAllByRole("heading", { name: project.title }).length).toBeGreaterThan(0);
-        expect(screen.getAllByText(project.description).length).toBeGreaterThan(0);
-        expect(screen.getAllByText(project.type.toUpperCase()).length).toBeGreaterThan(0);
+        expect(
+          screen.getAllByText(`projects.${project.i18nKey}.description`).length
+        ).toBeGreaterThan(0);
+        expect(
+          screen.getAllByText(`PROJECTS.${project.i18nKey.toUpperCase()}.TYPE`).length > 0 ||
+            screen.getAllByText(`projects.${project.i18nKey}.type`.toUpperCase()).length > 0
+        ).toBeTruthy();
       });
     });
 
@@ -95,7 +98,7 @@ describe("Projects", () => {
 
     it("renders View Project buttons for all projects", () => {
       render(<Projects />);
-      const viewButtons = screen.getAllByText("View Project");
+      const viewButtons = screen.getAllByText("projects.viewProject");
       expect(viewButtons.length).toBeGreaterThanOrEqual(PROJECTS.length);
     });
 
@@ -204,20 +207,18 @@ describe("Projects", () => {
       render(<Projects />);
 
       expect(screen.getAllByRole("heading", { name: "Nexus Platform" }).length).toBeGreaterThan(0);
-      expect(screen.getAllByText("ENTERPRISE SAAS DASHBOARD").length).toBeGreaterThan(0);
+      expect(screen.getAllByText("PROJECTS.NEXUS.TYPE").length).toBeGreaterThan(0);
 
       expect(screen.getAllByRole("heading", { name: "Velocity" }).length).toBeGreaterThan(0);
-      expect(screen.getAllByText("PERFORMANCE MONITORING TOOL").length).toBeGreaterThan(0);
+      expect(screen.getAllByText("PROJECTS.VELOCITY.TYPE").length).toBeGreaterThan(0);
 
       expect(screen.getAllByRole("heading", { name: "Artemis" }).length).toBeGreaterThan(0);
-      expect(screen.getAllByText("DESIGN SYSTEM FRAMEWORK").length).toBeGreaterThan(0);
+      expect(screen.getAllByText("PROJECTS.ARTEMIS.TYPE").length).toBeGreaterThan(0);
     });
 
     it("section description is present", () => {
       render(<Projects />);
-      expect(
-        screen.getAllByText(/Highlights from professional engagements/i).length
-      ).toBeGreaterThan(0);
+      expect(screen.getAllByText("projects.description").length).toBeGreaterThan(0);
     });
   });
 
@@ -227,8 +228,7 @@ describe("Projects", () => {
       PROJECTS.forEach((project) => {
         expect(project).toHaveProperty("id");
         expect(project).toHaveProperty("title");
-        expect(project).toHaveProperty("type");
-        expect(project).toHaveProperty("description");
+        expect(project).toHaveProperty("i18nKey");
         expect(project).toHaveProperty("tags");
         expect(project).toHaveProperty("github");
         expect(Array.isArray(project.tags)).toBe(true);

@@ -11,9 +11,8 @@ jest.mock("@/contexts", () => ({
   }),
 }));
 
-jest.mock("next/link", () => ({
-  __esModule: true,
-  default: ({
+jest.mock("@/i18n/routing", () => ({
+  Link: ({
     children,
     href,
     className,
@@ -26,6 +25,8 @@ jest.mock("next/link", () => ({
       {children}
     </a>
   ),
+  useRouter: () => ({ replace: jest.fn() }),
+  usePathname: () => "/",
 }));
 
 jest.mock("framer-motion", () => ({
@@ -148,38 +149,38 @@ describe("Navbar", () => {
 
   it("renders hamburger menu button", () => {
     render(<Navbar />);
-    expect(screen.getByLabelText("Open menu")).toBeInTheDocument();
+    expect(screen.getByLabelText("nav.openMenu")).toBeInTheDocument();
   });
 
   it("opens curtain menu when hamburger is clicked", () => {
     render(<Navbar />);
-    fireEvent.click(screen.getByLabelText("Open menu"));
-    expect(screen.getByLabelText("Close menu")).toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText("nav.openMenu"));
+    expect(screen.getByLabelText("nav.closeMenu")).toBeInTheDocument();
   });
 
   it("renders nav items when menu is open", () => {
     render(<Navbar />);
-    fireEvent.click(screen.getByLabelText("Open menu"));
-    expect(screen.getByText("Projects")).toBeInTheDocument();
-    expect(screen.getByText("Experience")).toBeInTheDocument();
-    expect(screen.getByText("About")).toBeInTheDocument();
-    expect(screen.getByText("Contact")).toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText("nav.openMenu"));
+    expect(screen.getByText("nav.projects")).toBeInTheDocument();
+    expect(screen.getByText("nav.experience")).toBeInTheDocument();
+    expect(screen.getByText("nav.about")).toBeInTheDocument();
+    expect(screen.getByText("nav.contact")).toBeInTheDocument();
   });
 
   it("nav items have correct href", () => {
     render(<Navbar />);
-    fireEvent.click(screen.getByLabelText("Open menu"));
-    expect(screen.getByText("Projects").closest("a")).toHaveAttribute("href", "#projects");
-    expect(screen.getByText("Experience").closest("a")).toHaveAttribute("href", "#experience");
-    expect(screen.getByText("About").closest("a")).toHaveAttribute("href", "#about");
-    expect(screen.getByText("Contact").closest("a")).toHaveAttribute("href", "#contact");
+    fireEvent.click(screen.getByLabelText("nav.openMenu"));
+    expect(screen.getByText("nav.projects").closest("a")).toHaveAttribute("href", "#projects");
+    expect(screen.getByText("nav.experience").closest("a")).toHaveAttribute("href", "#experience");
+    expect(screen.getByText("nav.about").closest("a")).toHaveAttribute("href", "#about");
+    expect(screen.getByText("nav.contact").closest("a")).toHaveAttribute("href", "#contact");
   });
 
   it("closes menu when nav item is clicked", () => {
     render(<Navbar />);
-    fireEvent.click(screen.getByLabelText("Open menu"));
-    fireEvent.click(screen.getByText("About"));
-    expect(screen.getByLabelText("Open menu")).toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText("nav.openMenu"));
+    fireEvent.click(screen.getByText("nav.about"));
+    expect(screen.getByLabelText("nav.openMenu")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
@@ -190,26 +191,26 @@ describe("Navbar", () => {
   it("passes isMenuOpen to ThemeToggle", () => {
     render(<Navbar />);
     expect(screen.getByTestId("theme-toggle")).toHaveAttribute("data-menu-open", "false");
-    fireEvent.click(screen.getByLabelText("Open menu"));
+    fireEvent.click(screen.getByLabelText("nav.openMenu"));
     expect(screen.getByTestId("theme-toggle")).toHaveAttribute("data-menu-open", "true");
   });
 
   it("hamburger button has aria-expanded attribute", () => {
     render(<Navbar />);
-    const hamburger = screen.getByLabelText("Open menu");
+    const hamburger = screen.getByLabelText("nav.openMenu");
     expect(hamburger).toHaveAttribute("aria-expanded", "false");
     fireEvent.click(hamburger);
-    expect(screen.getByLabelText("Close menu")).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByLabelText("nav.closeMenu")).toHaveAttribute("aria-expanded", "true");
   });
 
   it("hamburger button has aria-controls attribute", () => {
     render(<Navbar />);
-    expect(screen.getByLabelText("Open menu")).toHaveAttribute("aria-controls", "main-menu");
+    expect(screen.getByLabelText("nav.openMenu")).toHaveAttribute("aria-controls", "main-menu");
   });
 
   it("language toggle has accessible label", () => {
     render(<Navbar />);
-    expect(screen.getByLabelText("Toggle language")).toBeInTheDocument();
+    expect(screen.getByLabelText("nav.toggleLanguage")).toBeInTheDocument();
   });
 
   it("logo link points to home", () => {

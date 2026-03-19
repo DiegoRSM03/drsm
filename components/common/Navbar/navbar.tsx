@@ -9,15 +9,16 @@ import {
   AnimatePresence,
   useReducedMotion,
 } from "framer-motion";
-import Link from "next/link";
 import { Globe } from "lucide-react";
+import { useTranslations, useLocale } from "next-intl";
+import { useRouter, usePathname, Link } from "@/i18n/routing";
 import { ThemeToggle } from "@/components/custom/ThemeToggle";
 import { ProximityShape } from "@/components/custom/ProximityShape";
 import type { ProximityShapeData } from "@/components/custom/ProximityShape";
 import { useTheme } from "@/contexts";
 import { useIsTouchDevice } from "@/hooks";
 
-const NAV_ITEMS = ["Projects", "Experience", "About", "Contact"];
+const NAV_KEYS = ["projects", "experience", "about", "contact"] as const;
 
 function MagneticLetter({
   letter,
@@ -87,6 +88,7 @@ function MagneticLogo() {
   const letters = ["D", "R", "S", "M"];
   const shouldReduceMotion = useReducedMotion();
   const isTouch = useIsTouchDevice();
+  const t = useTranslations("nav");
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -115,7 +117,7 @@ function MagneticLogo() {
       onMouseEnter={() => setIsHovered(true)}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      aria-label="DRSM - Home"
+      aria-label={t("home")}
     >
       <motion.div
         className="text-foreground flex items-center text-2xl font-black tracking-tight"
@@ -148,6 +150,10 @@ function LanguageToggle({ className = "", isMenuOpen = false }: LanguageTogglePr
   const { theme } = useTheme();
   const shouldReduceMotion = useReducedMotion();
   const isTouch = useIsTouchDevice();
+  const t = useTranslations("nav");
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -171,6 +177,11 @@ function LanguageToggle({ className = "", isMenuOpen = false }: LanguageTogglePr
     y.set(0);
   };
 
+  const handleSwitch = () => {
+    const nextLocale = locale === "en" ? "es" : "en";
+    router.replace(pathname, { locale: nextLocale });
+  };
+
   const menuIconColor = isMenuOpen ? (theme === "dark" ? "#ffffff" : "#000000") : undefined;
 
   return (
@@ -178,6 +189,7 @@ function LanguageToggle({ className = "", isMenuOpen = false }: LanguageTogglePr
       ref={buttonRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onClick={handleSwitch}
       className={`magnetic focus-visible:ring-accent focus-visible:ring-offset-background flex h-11 w-11 items-center justify-center rounded-full border transition-all duration-300 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none ${
         isMenuOpen
           ? theme === "dark"
@@ -186,7 +198,7 @@ function LanguageToggle({ className = "", isMenuOpen = false }: LanguageTogglePr
           : "border-border bg-surface text-foreground hover:border-accent hover:bg-elevated"
       } ${className}`}
       whileTap={enableMotion ? { scale: 0.95 } : {}}
-      aria-label="Toggle language"
+      aria-label={t("toggleLanguage")}
     >
       <motion.div
         style={{
@@ -208,13 +220,14 @@ interface HamburgerProps {
 
 function Hamburger({ isOpen, onClick }: HamburgerProps) {
   const shouldReduceMotion = useReducedMotion();
+  const t = useTranslations("nav");
 
   return (
     <motion.button
       className="focus-visible:ring-accent focus-visible:ring-offset-background relative -mr-[10px] flex h-11 w-11 flex-col items-center justify-center gap-1.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
       onClick={onClick}
       whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-      aria-label={isOpen ? "Close menu" : "Open menu"}
+      aria-label={isOpen ? t("closeMenu") : t("openMenu")}
       aria-expanded={isOpen}
       aria-controls="main-menu"
     >
@@ -250,6 +263,7 @@ function MenuItems({ onClose, textColor }: MenuItemsProps) {
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const { theme } = useTheme();
   const shouldReduceMotion = useReducedMotion();
+  const t = useTranslations("nav");
 
   const highlightColor = theme === "dark" ? textColor : "#1a1a1a";
   const hoverTextColor = theme === "dark" ? "#ffffff" : "#ffffff";
@@ -259,9 +273,9 @@ function MenuItems({ onClose, textColor }: MenuItemsProps) {
   return (
     <nav aria-label="Main navigation">
       <ul className="flex flex-col items-center justify-center gap-8" role="list">
-        {NAV_ITEMS.map((item, i) => (
+        {NAV_KEYS.map((key, i) => (
           <motion.li
-            key={item}
+            key={key}
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 30 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -20 }}
@@ -272,7 +286,7 @@ function MenuItems({ onClose, textColor }: MenuItemsProps) {
             }}
           >
             <a
-              href={`#${item.toLowerCase()}`}
+              href={`#${key}`}
               className="group relative block focus-visible:outline-none"
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
@@ -288,7 +302,7 @@ function MenuItems({ onClose, textColor }: MenuItemsProps) {
                   animate={{ color: isHighlighted(i) ? hoverTextColor : textColor }}
                   transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
                 >
-                  {item}
+                  {t(key)}
                 </motion.span>
                 <motion.span
                   className="absolute -inset-x-5 -inset-y-2 -z-0"

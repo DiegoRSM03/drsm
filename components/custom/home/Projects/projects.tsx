@@ -11,6 +11,7 @@ import {
   useVelocity,
 } from "framer-motion";
 import { ArrowUpRight, Github } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { MagneticButton } from "@/components/custom/MagneticButton";
 import { ProximityShape } from "@/components/custom/ProximityShape";
 import { ACCENT, CYAN_HEX, PINK_HEX, AMBER_HEX, GREEN_HEX, EASE, SPRING_MAGNETIC } from "@/utils";
@@ -20,8 +21,7 @@ import type { ProximityShapeData } from "@/components/custom/ProximityShape";
 export interface ProjectData {
   id: number;
   title: string;
-  type: string;
-  description: string;
+  i18nKey: string;
   tags: string[];
   github: string | null;
 }
@@ -30,27 +30,21 @@ export const PROJECTS: ProjectData[] = [
   {
     id: 1,
     title: "Nexus Platform",
-    type: "Enterprise SaaS Dashboard",
-    description:
-      "A real-time analytics platform for enterprise data pipelines. WebSocket-powered live streaming, interactive D3.js visualizations with drill-down, and granular role-based access control — processing 2M+ events per minute at sub-200ms render times.",
+    i18nKey: "nexus",
     tags: ["React", "TypeScript", "D3.js", "WebSocket", "Node.js"],
     github: null,
   },
   {
     id: 2,
     title: "Velocity",
-    type: "Performance Monitoring Tool",
-    description:
-      "Developer-first performance monitoring that catches regressions before production. Tracks Core Web Vitals, bundle sizes, and custom metrics with CI/CD integration — powered by a Rust ingestion layer handling 50K+ payloads per second.",
+    i18nKey: "velocity",
     tags: ["Next.js", "Rust", "PostgreSQL", "Redis", "Docker"],
     github: "https://github.com/example/velocity",
   },
   {
     id: 3,
     title: "Artemis",
-    type: "Design System Framework",
-    description:
-      "A design system shipping 50+ accessible components with dark mode, automatic WCAG auditing, and a Figma-to-code pipeline. Adopted by three product teams, cutting UI development time by 40%.",
+    i18nKey: "artemis",
     tags: ["React", "Storybook", "Figma API", "Testing Library"],
     github: null,
   },
@@ -157,7 +151,8 @@ function MagneticBadge({ children, className }: { children: React.ReactNode; cla
 
 function SectionHeader() {
   const shouldReduceMotion = useReducedMotion();
-  const titleWords = ["Pixel-Perfect,", "Battle-Tested"];
+  const t = useTranslations("projects");
+  const titleWords = [t("titleLine1"), t("titleLine2")];
 
   return (
     <header className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-16 md:py-20">
@@ -176,7 +171,7 @@ function SectionHeader() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
         >
-          PROJECTS
+          {t("badge")}
         </motion.span>
       </motion.div>
 
@@ -208,8 +203,7 @@ function SectionHeader() {
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.7, ease: EASE }}
       >
-        Highlights from professional engagements and personal explorations — where clean code meets
-        bold interfaces.
+        {t("description")}
       </motion.p>
     </header>
   );
@@ -217,6 +211,7 @@ function SectionHeader() {
 
 function ProjectCardContent({ project }: { project: ProjectData }) {
   const shouldReduceMotion = useReducedMotion();
+  const t = useTranslations("projects");
 
   return (
     <>
@@ -288,7 +283,7 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
             transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
           >
             <MagneticBadge className="px-2.5 py-1 text-xs font-bold tracking-wide sm:px-3 sm:py-1.5">
-              {project.type.toUpperCase()}
+              {t(`${project.i18nKey}.type`).toUpperCase()}
             </MagneticBadge>
           </motion.div>
 
@@ -315,7 +310,7 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3, ease: EASE }}
           >
-            {project.description}
+            {t(`${project.i18nKey}.description`)}
           </motion.p>
 
           {/* Tags */}
@@ -357,7 +352,7 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
               size="lg"
               aria-label={`View ${project.title} project details`}
             >
-              <span>View Project</span>
+              <span>{t("viewProject")}</span>
               <ArrowUpRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
             </MagneticButton>
             {project.github && (
