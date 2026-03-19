@@ -15,6 +15,7 @@ export function CursorBrightGrid({ cellSize = 100, maxOpacity = 0.3 }: CursorBri
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: -9999, y: -9999 });
   const rafRef = useRef<number>(0);
+  const rectRef = useRef({ left: 0, top: 0, width: 0, height: 0 });
   const shouldReduceMotion = useReducedMotion();
   const isTouch = useIsTouchDevice();
   useEffect(() => {
@@ -28,22 +29,23 @@ export function CursorBrightGrid({ cellSize = 100, maxOpacity = 0.3 }: CursorBri
     const resize = () => {
       const dpr = window.devicePixelRatio || 1;
       const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
+      rectRef.current = { left: rect.left, top: rect.top, width: rect.width, height: rect.height };
+      canvas.width = Math.round(rect.width) * dpr;
+      canvas.height = Math.round(rect.height) * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     resize();
     window.addEventListener("resize", resize);
+    window.addEventListener("scroll", resize, { passive: true });
 
     const draw = () => {
-      const rect = canvas.getBoundingClientRect();
-      const w = rect.width;
-      const h = rect.height;
+      const w = rectRef.current.width;
+      const h = rectRef.current.height;
       ctx.clearRect(0, 0, w, h);
 
-      const mx = mouseRef.current.x - rect.left;
-      const my = mouseRef.current.y - rect.top;
+      const mx = mouseRef.current.x - rectRef.current.left;
+      const my = mouseRef.current.y - rectRef.current.top;
 
       if (mx < -RADIUS || mx > w + RADIUS || my < -RADIUS || my > h + RADIUS) {
         rafRef.current = requestAnimationFrame(draw);
@@ -88,6 +90,7 @@ export function CursorBrightGrid({ cellSize = 100, maxOpacity = 0.3 }: CursorBri
 
     return () => {
       window.removeEventListener("resize", resize);
+      window.removeEventListener("scroll", resize);
       cancelAnimationFrame(rafRef.current);
     };
   }, [shouldReduceMotion, isTouch, cellSize, maxOpacity]);
