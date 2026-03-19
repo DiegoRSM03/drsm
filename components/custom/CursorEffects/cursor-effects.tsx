@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { useReducedMotion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 import { useIsTouchDevice } from "@/hooks";
 
 const RADIUS = 400;
@@ -112,5 +112,50 @@ export function CursorBrightGrid({ cellSize = 100, maxOpacity = 0.3 }: CursorBri
       className="pointer-events-none absolute inset-0 h-full w-full"
       aria-hidden="true"
     />
+  );
+}
+
+export function CursorGlow() {
+  const shouldReduceMotion = useReducedMotion();
+  const isTouch = useIsTouchDevice();
+  const mouseX = useMotionValue(-9999);
+  const mouseY = useMotionValue(-9999);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const smoothX = useSpring(mouseX, { stiffness: 100, damping: 30 });
+  const smoothY = useSpring(mouseY, { stiffness: 100, damping: 30 });
+
+  useEffect(() => {
+    if (shouldReduceMotion || isTouch) return;
+    const handler = (e: MouseEvent) => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      mouseX.set(e.clientX - rect.left);
+      mouseY.set(e.clientY - rect.top);
+    };
+    window.addEventListener("mousemove", handler);
+    return () => window.removeEventListener("mousemove", handler);
+  }, [shouldReduceMotion, isTouch, mouseX, mouseY]);
+
+  if (shouldReduceMotion || isTouch) return null;
+
+  return (
+    <div
+      ref={containerRef}
+      className="pointer-events-none absolute inset-0 overflow-hidden"
+      aria-hidden="true"
+    >
+      <motion.div
+        className="absolute h-[400px] w-[400px] rounded-full"
+        style={{
+          left: smoothX,
+          top: smoothY,
+          x: "-50%",
+          y: "-50%",
+          background:
+            "radial-gradient(circle, color-mix(in srgb, var(--color-accent) 13%, transparent) 0%, color-mix(in srgb, var(--color-accent) 4%, transparent) 45%, transparent 60%)",
+        }}
+      />
+    </div>
   );
 }

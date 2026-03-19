@@ -1,1 +1,1 @@
-export { CursorBrightGrid } from "./cursor-effects";
+export { CursorBrightGrid, CursorGlow } from "./cursor-effects";
