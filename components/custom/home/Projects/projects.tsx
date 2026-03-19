@@ -10,7 +10,7 @@ import {
   useSpring,
   useVelocity,
 } from "framer-motion";
-import { ArrowUpRight, Github } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { MagneticButton } from "@/components/custom/MagneticButton";
 import { ProximityShape } from "@/components/custom/ProximityShape";
@@ -23,29 +23,33 @@ export interface ProjectData {
   title: string;
   i18nKey: string;
   tags: string[];
+  url: string | null;
   github: string | null;
 }
 
 export const PROJECTS: ProjectData[] = [
   {
     id: 1,
-    title: "Nexus Platform",
-    i18nKey: "nexus",
-    tags: ["React", "TypeScript", "D3.js", "WebSocket", "Node.js"],
+    title: "PropSource",
+    i18nKey: "propSource",
+    tags: ["Next.js", "AWS", "Salesforce", "Auth0", "Jest", "Puppeteer"],
+    url: "https://www.propsource.com/",
     github: null,
   },
   {
     id: 2,
-    title: "Velocity",
-    i18nKey: "velocity",
-    tags: ["Next.js", "Rust", "PostgreSQL", "Redis", "Docker"],
-    github: "https://github.com/example/velocity",
+    title: "Fetcher",
+    i18nKey: "fetcher",
+    tags: ["Next.js", "Strapi", "GSAP/Framer", "SEO", "Marketing Tools", "WCAG 2.1"],
+    url: "https://fetcher.ai/",
+    github: null,
   },
   {
     id: 3,
-    title: "Artemis",
-    i18nKey: "artemis",
-    tags: ["React", "Storybook", "Figma API", "Testing Library"],
+    title: "NeoVim Config",
+    i18nKey: "neovim",
+    tags: ["Lua", "Open Source", "LSP", "Treesitter", "Lazy.nvim", "ZSH"],
+    url: "https://github.com/DiegoRSM03/nvim",
     github: null,
   },
 ];
@@ -155,7 +159,7 @@ function SectionHeader() {
   const titleWords = [t("titleLine1"), t("titleLine2")];
 
   return (
-    <header className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-16 md:py-20">
+    <header className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-16 md:py-10">
       <motion.div
         className="mb-4 overflow-clip"
         initial={{ width: shouldReduceMotion ? "auto" : 0 }}
@@ -177,7 +181,7 @@ function SectionHeader() {
 
       <h2
         id="projects-heading"
-        className="text-foreground mb-4 text-3xl font-black sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl"
+        className="text-foreground mb-4 text-3xl font-black sm:mb-6 sm:text-4xl md:mb-3 md:text-4xl lg:text-6xl"
         style={{ fontFamily: "var(--font-display)" }}
       >
         {titleWords.map((word, i) => (
@@ -227,10 +231,10 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
         {project.title}
       </span>
 
-      <div className="relative mx-auto flex w-full max-w-7xl flex-col items-center gap-6 px-4 py-10 sm:gap-8 sm:px-6 sm:py-12 md:gap-12 md:py-16 lg:flex-row lg:gap-16 lg:py-20">
+      <div className="relative mx-auto flex w-full max-w-7xl flex-col items-center gap-6 px-4 py-10 sm:gap-8 sm:px-6 sm:py-12 md:flex-row md:gap-10 md:py-8 lg:gap-16 lg:py-20">
         {/* Image placeholder with reveal mask */}
         <div
-          className="relative aspect-[4/3] w-full lg:w-[45%]"
+          className="relative aspect-[4/3] w-full md:w-[40%] lg:w-[45%]"
           role="img"
           aria-label={`${project.title} project preview`}
         >
@@ -273,7 +277,7 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
         </div>
 
         {/* Content */}
-        <div className="w-full lg:w-[55%]">
+        <div className="w-full md:w-[60%] lg:w-[55%]">
           {/* Type badge */}
           <motion.div
             className="mb-3 sm:mb-4"
@@ -304,7 +308,7 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
 
           {/* Description */}
           <motion.p
-            className="text-foreground/80 mb-4 max-w-lg text-sm leading-relaxed sm:mb-6 sm:text-base md:text-lg"
+            className="text-foreground/80 mb-4 text-sm leading-relaxed sm:mb-6 sm:text-base md:mb-3 md:text-sm lg:text-lg"
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -315,7 +319,7 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
 
           {/* Tags */}
           <motion.ul
-            className="mb-6 flex flex-wrap items-center gap-x-2 gap-y-1.5 sm:mb-8 sm:gap-x-3 sm:gap-y-2"
+            className="mb-6 flex flex-wrap items-center gap-x-2 gap-y-1.5 sm:mb-8 sm:gap-x-3 sm:gap-y-2 md:mb-4"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -347,22 +351,26 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.5, ease: EASE }}
           >
-            <MagneticButton
-              variant="primary"
-              size="lg"
-              aria-label={`View ${project.title} project details`}
-            >
-              <span>{t("viewProject")}</span>
-              <ArrowUpRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
-            </MagneticButton>
-            {project.github && (
-              <MagneticButton
-                variant="ghost"
-                size="lg"
-                aria-label={`View ${project.title} source code on GitHub`}
+            {project.url ? (
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View ${project.title} project details`}
               >
-                <Github className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
-                <span className="sr-only">GitHub</span>
+                <MagneticButton variant="primary" size="lg">
+                  <span>{t("viewProject")}</span>
+                  <ArrowUpRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
+                </MagneticButton>
+              </a>
+            ) : (
+              <MagneticButton
+                variant="primary"
+                size="lg"
+                aria-label={`View ${project.title} project details`}
+              >
+                <span>{t("viewProject")}</span>
+                <ArrowUpRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
               </MagneticButton>
             )}
           </motion.div>
@@ -410,7 +418,7 @@ function DesktopProjectCard({
 
   return (
     <motion.article
-      className="bg-background absolute inset-0 flex items-center overflow-clip"
+      className="bg-background absolute inset-0 flex items-center overflow-x-clip overflow-y-auto"
       style={{
         x: shouldReduceMotion ? 0 : xSlide,
         zIndex: index,

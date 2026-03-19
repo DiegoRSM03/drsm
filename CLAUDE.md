@@ -59,7 +59,7 @@ Portfolio for a Senior Frontend Engineer. Next.js 16, React 19, TypeScript, Tail
 - LCP < 2.5s, CLS < 0.1 — measure, don't guess
 - Lazy load below-fold content
 - Images via `next/image` only — no external optimization services
-- Animations: transform and opacity only when possible. Always respect `prefers-reduced-motion`.
+- Animations: transform and opacity only when possible
 
 ## Testing
 
@@ -93,8 +93,6 @@ Portfolio for a Senior Frontend Engineer. Next.js 16, React 19, TypeScript, Tail
 
 Before considering any work complete:
 
-1. **Mobile-first** — verify proper mobile, tablet, and desktop breakpoints
-2. **Dark + light mode** — every visual element correct in both themes
-3. **Accessibility** — semantic HTML, WCAG AA contrast, focus states, `aria-*` labels, reduced motion support
-4. **Tests** — unit tests written and passing
-5. **Lint + build** — `pnpm lint` and `pnpm build` pass
+1. **Visual verification** — every UI change must be verified across all 6 combinations: mobile/tablet/desktop × dark/light. Don't assume a fix for one viewport or theme works for the others. Hardcoded colors on themed surfaces break in the opposite mode. Spacing tweaks for mobile can overflow on tablet.
+2. **Tests** — unit tests written and passing
+3. **Lint + build** — `pnpm lint` and `pnpm build` pass

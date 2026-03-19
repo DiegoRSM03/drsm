@@ -213,10 +213,10 @@ export default function Contact() {
 
   const manifesto = [
     { text: "Make it fast.", color: CYAN_HEX },
-    { text: "Make it beautiful.", color: PINK_HEX },
-    { text: "Make it accessible.", color: GREEN_HEX },
+    { text: "Make it right.", color: PINK_HEX },
+    { text: "Make it lasting.", color: GREEN_HEX },
     { text: "Make it memorable.", color: AMBER_HEX },
-    { text: "Make it right.", color: ACCENT_HEX },
+    { text: "Make it breathe.", color: ACCENT_HEX },
   ];
 
   return (

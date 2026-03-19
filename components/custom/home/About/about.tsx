@@ -332,8 +332,8 @@ function RailShapesContainer({ isInView }: { isInView: boolean }) {
 // ============================================================================
 
 const HIGHLIGHTED_WORDS: Record<Locale, string[]> = {
-  en: ["alive.", "natural,", "instant,", "breathe."],
-  es: ["vivas.", "natural,", "instantaneo,", "respirar."],
+  en: ["crafting", "globally.", "alive."],
+  es: ["creando", "global.", "vida."],
 };
 
 export default function About() {

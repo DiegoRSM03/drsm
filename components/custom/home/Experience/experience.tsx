@@ -32,8 +32,8 @@ const EXPERIENCES: ExperienceData[] = [
   {
     company: "Inaza",
     i18nKey: "inaza",
-    highlightCount: 3,
-    skills: ["React", "TypeScript", "REST APIs", "CSS"],
+    highlightCount: 4,
+    skills: ["Python", "Vertex AI", "Claude", "Graph API", "Gmail API", "OCR"],
     color: PINK_HEX,
     numberColorDark: "#5C2A45",
     numberColorLight: "#FCE7F3",
@@ -42,7 +42,7 @@ const EXPERIENCES: ExperienceData[] = [
     company: "Litebox",
     i18nKey: "litebox",
     highlightCount: 4,
-    skills: ["Next.js", "AWS", "GSAP", "Framer Motion", "TypeScript", "Strapi"],
+    skills: ["Next.js", "React", "TypeScript", "AWS", "Jest", "GSAP/Framer"],
     color: ACCENT,
     numberColorDark: "#3D2A5C",
     numberColorLight: "#E9E0FF",
@@ -51,7 +51,7 @@ const EXPERIENCES: ExperienceData[] = [
     company: "Axon",
     i18nKey: "axon",
     highlightCount: 4,
-    skills: ["React", "Node.js", "WhatsApp API", "GitHub Actions", "PostgreSQL"],
+    skills: ["Next.js", "React", "TypeScript", "SQL", "SEO"],
     color: CYAN_HEX,
     numberColorDark: "#134E5A",
     numberColorLight: "#CFFAFE",
@@ -335,16 +335,8 @@ function ExperienceCard({
             </ul>
           </motion.div>
 
-          <div className="mb-3 flex items-center gap-2 sm:mb-4 sm:gap-3" aria-hidden="true">
-            <div className="bg-foreground/20 h-px flex-1" />
-            <span className="text-foreground/40 text-[10px] font-medium tracking-wider uppercase sm:text-xs">
-              Stack
-            </span>
-            <div className="bg-foreground/20 h-px flex-1" />
-          </div>
-
           <ul
-            className="flex flex-wrap gap-1.5 sm:gap-2"
+            className="flex flex-wrap gap-1.5 pt-3 sm:gap-2 sm:pt-4"
             role="list"
             aria-label="Technologies used"
           >
@@ -410,11 +402,12 @@ export default function Experience() {
   useEffect(() => {
     const handleScroll = () => {
       if (!contentRef.current) return;
+      const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+      const triggerPoint = isDesktop ? window.innerHeight / 2 : window.innerHeight * 0.75;
       const cards = contentRef.current.querySelectorAll("[data-experience-card]");
       cards.forEach((card, index) => {
         const rect = card.getBoundingClientRect();
-        const viewportMiddle = window.innerHeight / 2;
-        if (rect.top < viewportMiddle && rect.bottom > viewportMiddle) {
+        if (rect.top < triggerPoint && rect.bottom > triggerPoint) {
           setActiveSection(index);
         }
       });
@@ -435,7 +428,7 @@ export default function Experience() {
 
       <div className="relative flex flex-col lg:flex-row">
         <aside
-          className="sticky top-0 hidden h-screen w-full shrink-0 overflow-hidden lg:block lg:w-2/5"
+          className="sticky top-20 hidden h-[calc(100vh-5rem)] w-full shrink-0 overflow-hidden lg:block lg:w-2/5"
           style={{ backgroundColor: ACCENT }}
           aria-label="Work history navigation"
         >
@@ -464,6 +457,12 @@ export default function Experience() {
               viewport={{ once: true }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.8, ease: EASE }}
             >
+              <span
+                className="mb-2 inline-block border-2 border-white px-3 py-1.5 text-xs font-bold tracking-[0.2em] text-white xl:mb-3"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
+                {t("badge")}
+              </span>
               <h2
                 id="experience-heading"
                 className="text-5xl font-black xl:text-6xl 2xl:text-7xl"
@@ -471,9 +470,9 @@ export default function Experience() {
               >
                 <span className="text-white">{t("titleWord1")}</span>
                 <br />
-                <span style={{ color: "var(--color-background)" }}>{t("titleWord2")}</span>
+                <span className="text-black">{t("titleWord2")}</span>
               </h2>
-              <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/70 xl:mt-6 xl:text-base">
+              <p className="mt-2 max-w-xs text-sm leading-relaxed text-white/70 xl:mt-3 xl:text-base">
                 {t("description")}
               </p>
             </motion.div>
@@ -499,7 +498,13 @@ export default function Experience() {
             </div>
           )}
 
-          <header className="relative z-10 px-4 pt-20 sm:px-6 sm:pt-24 lg:hidden">
+          <header className="relative z-10 px-4 pt-16 sm:px-6 sm:pt-18 lg:hidden">
+            <span
+              className="mb-2 inline-block px-3 py-1.5 text-xs font-bold tracking-[0.2em] text-white"
+              style={{ backgroundColor: ACCENT, fontFamily: "var(--font-display)" }}
+            >
+              {t("badge")}
+            </span>
             <h2
               id="experience-heading-mobile"
               className="text-foreground text-3xl font-black sm:text-4xl md:text-5xl lg:text-6xl"
@@ -507,14 +512,14 @@ export default function Experience() {
             >
               {t("titleWord1")} <span style={{ color: ACCENT }}>{t("titleWord2")}</span>
             </h2>
-            <p className="mt-3 max-w-md text-sm leading-relaxed text-white/60 sm:mt-4 sm:text-base">
+            <p className="mt-2 max-w-md text-sm leading-relaxed text-white/60 sm:text-base">
               {t("description")}
             </p>
           </header>
 
           <div
             ref={contentRef}
-            className="relative z-10 w-full space-y-12 px-4 py-16 sm:space-y-16 sm:px-6 sm:py-20 md:space-y-24 md:py-24 lg:space-y-28 lg:py-32 lg:pl-8 xl:space-y-32 xl:py-40 xl:pl-10"
+            className="relative z-10 w-full space-y-12 px-4 pt-0 pb-6 sm:space-y-16 sm:px-6 sm:pt-0 sm:pb-8 md:space-y-14 md:pt-0 md:pb-10 lg:space-y-20 lg:pt-20 lg:pb-32 lg:pl-8 xl:space-y-24 xl:pt-24 xl:pb-40 xl:pl-10"
             style={{ paddingRight: "max(1rem, calc((100vw - 1280px) / 2 + 0.875rem))" }}
           >
             {EXPERIENCES.map((exp, index) => (
