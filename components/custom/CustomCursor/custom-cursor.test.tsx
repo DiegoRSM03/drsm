@@ -1,6 +1,10 @@
 import { render } from "@testing-library/react";
 import { CustomCursor } from "./custom-cursor";
 
+jest.mock("@/contexts", () => ({
+  useTheme: () => ({ theme: "dark", toggleTheme: jest.fn() }),
+}));
+
 jest.mock("framer-motion", () => ({
   motion: {
     div: ({ children, className }: { children?: React.ReactNode; className: string }) => (

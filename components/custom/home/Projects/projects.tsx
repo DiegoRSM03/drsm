@@ -478,12 +478,12 @@ export function Projects() {
         id="projects-desktop"
         ref={containerRef}
         onMouseMove={handleMouseMove}
-        className="bg-background border-foreground/[0.08] relative hidden overflow-hidden border-t md:block"
+        className="bg-background border-foreground/[0.08] relative hidden border-t md:block"
         style={{ height: `${CARD_COUNT * 100}vh` }}
         aria-labelledby="projects-heading"
       >
-        <CursorGlow />
         <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
+          <CursorGlow />
           <SectionHeader />
 
           <div

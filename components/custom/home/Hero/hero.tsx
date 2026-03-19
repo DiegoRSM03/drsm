@@ -197,7 +197,7 @@ function Hero() {
       data-cursor-grid
     >
       <GridBackground id="hero-grid" cellSize={100} />
-      <CursorBrightGrid cellSize={100} />
+      <CursorBrightGrid cellSize={100} maxOpacity={0.15} />
       {!isTouch && (
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
           {HERO_SHAPES.map((shape, i) => (

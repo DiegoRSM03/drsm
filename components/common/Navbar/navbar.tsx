@@ -22,7 +22,8 @@ const NAV_KEYS = ["projects", "experience", "about", "contact"] as const;
 const GRID_CELL = 100;
 const GRID_RADIUS = 400;
 const GRID_MAX_OPACITY = 0.35;
-const LINE_COLOR_SUBTLE = "rgba(255,255,255,0.25)";
+const CURTAIN_LINE_COLOR = "rgba(91,33,182,0.5)";
+const LINE_COLOR_SUBTLE = "rgba(91,33,182,0.3)";
 const SPRING_SOFT = { stiffness: 120, damping: 12 } as const;
 const SPRING_HEAVY = { stiffness: 60, damping: 15 } as const;
 
@@ -276,7 +277,7 @@ function StaticGrid() {
             <path
               d={`M ${GRID_CELL} 0 L 0 0 0 ${GRID_CELL}`}
               fill="none"
-              stroke={`rgba(255,255,255,${GRID_MAX_OPACITY})`}
+              stroke={CURTAIN_LINE_COLOR}
               strokeWidth="1"
             />
           </pattern>
@@ -325,7 +326,7 @@ function ProximityGridCanvas() {
         for (let segY = startY; segY < endY; segY += 2) {
           const segDist = Math.sqrt((x - mx) ** 2 + (segY - my) ** 2);
           if (segDist > GRID_RADIUS) continue;
-          ctx.strokeStyle = `rgba(255,255,255,${(1 - segDist / GRID_RADIUS) * GRID_MAX_OPACITY})`;
+          ctx.strokeStyle = `rgba(91,33,182,${(1 - segDist / GRID_RADIUS) * GRID_MAX_OPACITY})`;
           ctx.beginPath();
           ctx.moveTo(x, segY);
           ctx.lineTo(x, Math.min(segY + 3, endY));
@@ -339,7 +340,7 @@ function ProximityGridCanvas() {
         for (let segX = startX; segX < endX; segX += 2) {
           const segDist = Math.sqrt((segX - mx) ** 2 + (y - my) ** 2);
           if (segDist > GRID_RADIUS) continue;
-          ctx.strokeStyle = `rgba(255,255,255,${(1 - segDist / GRID_RADIUS) * GRID_MAX_OPACITY})`;
+          ctx.strokeStyle = `rgba(91,33,182,${(1 - segDist / GRID_RADIUS) * GRID_MAX_OPACITY})`;
           ctx.beginPath();
           ctx.moveTo(segX, y);
           ctx.lineTo(Math.min(segX + 3, endX), y);

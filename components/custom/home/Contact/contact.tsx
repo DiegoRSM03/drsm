@@ -230,7 +230,7 @@ export default function Contact() {
       data-cursor-grid
     >
       <GridBackground id="contact-grid" />
-      <CursorBrightGrid cellSize={100} />
+      <CursorBrightGrid cellSize={100} maxOpacity={0.15} />
 
       <motion.div
         className="relative mx-auto w-full max-w-7xl px-4 sm:px-6"

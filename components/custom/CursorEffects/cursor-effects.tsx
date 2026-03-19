@@ -3,8 +3,9 @@
 import { useRef, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 import { useIsTouchDevice } from "@/hooks";
+import { useTheme } from "@/contexts";
 
-const RADIUS = 400;
+const RADIUS = 280;
 
 interface CursorBrightGridProps {
   cellSize?: number;
@@ -18,6 +19,7 @@ export function CursorBrightGrid({ cellSize = 100, maxOpacity = 0.3 }: CursorBri
   const rectRef = useRef({ left: 0, top: 0, width: 0, height: 0 });
   const shouldReduceMotion = useReducedMotion();
   const isTouch = useIsTouchDevice();
+  const { theme } = useTheme();
   useEffect(() => {
     if (shouldReduceMotion || isTouch) return;
 
@@ -60,7 +62,8 @@ export function CursorBrightGrid({ cellSize = 100, maxOpacity = 0.3 }: CursorBri
           const segDist = Math.sqrt((x - mx) ** 2 + (segY - my) ** 2);
           if (segDist > RADIUS) continue;
           const alpha = (1 - segDist / RADIUS) * maxOpacity;
-          ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
+          ctx.strokeStyle =
+            theme === "dark" ? `rgba(255,255,255,${alpha})` : `rgba(124,58,237,${alpha * 1.5})`;
           ctx.beginPath();
           ctx.moveTo(x, segY);
           ctx.lineTo(x, Math.min(segY + 3, endY));
@@ -75,7 +78,8 @@ export function CursorBrightGrid({ cellSize = 100, maxOpacity = 0.3 }: CursorBri
           const segDist = Math.sqrt((segX - mx) ** 2 + (y - my) ** 2);
           if (segDist > RADIUS) continue;
           const alpha = (1 - segDist / RADIUS) * maxOpacity;
-          ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
+          ctx.strokeStyle =
+            theme === "dark" ? `rgba(255,255,255,${alpha})` : `rgba(124,58,237,${alpha * 1.5})`;
           ctx.beginPath();
           ctx.moveTo(segX, y);
           ctx.lineTo(Math.min(segX + 3, endX), y);
@@ -93,7 +97,7 @@ export function CursorBrightGrid({ cellSize = 100, maxOpacity = 0.3 }: CursorBri
       window.removeEventListener("scroll", resize);
       cancelAnimationFrame(rafRef.current);
     };
-  }, [shouldReduceMotion, isTouch, cellSize, maxOpacity]);
+  }, [shouldReduceMotion, isTouch, cellSize, maxOpacity, theme]);
 
   useEffect(() => {
     if (shouldReduceMotion || isTouch) return;
@@ -118,12 +122,13 @@ export function CursorBrightGrid({ cellSize = 100, maxOpacity = 0.3 }: CursorBri
 export function CursorGlow() {
   const shouldReduceMotion = useReducedMotion();
   const isTouch = useIsTouchDevice();
+  const { theme } = useTheme();
   const mouseX = useMotionValue(-9999);
   const mouseY = useMotionValue(-9999);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const smoothX = useSpring(mouseX, { stiffness: 100, damping: 30 });
-  const smoothY = useSpring(mouseY, { stiffness: 100, damping: 30 });
+  const smoothX = useSpring(mouseX, { stiffness: 180, damping: 30 });
+  const smoothY = useSpring(mouseY, { stiffness: 180, damping: 30 });
 
   useEffect(() => {
     if (shouldReduceMotion || isTouch) return;
@@ -142,7 +147,7 @@ export function CursorGlow() {
   return (
     <div
       ref={containerRef}
-      className="pointer-events-none absolute inset-0 overflow-hidden"
+      className="pointer-events-none absolute inset-0 z-30 overflow-hidden"
       aria-hidden="true"
     >
       <motion.div
@@ -153,7 +158,9 @@ export function CursorGlow() {
           x: "-50%",
           y: "-50%",
           background:
-            "radial-gradient(circle, color-mix(in srgb, var(--color-accent) 13%, transparent) 0%, color-mix(in srgb, var(--color-accent) 4%, transparent) 45%, transparent 60%)",
+            theme === "dark"
+              ? "radial-gradient(circle, color-mix(in srgb, var(--color-accent) 20%, transparent) 0%, color-mix(in srgb, var(--color-accent) 7%, transparent) 45%, transparent 60%)"
+              : "radial-gradient(circle, color-mix(in srgb, var(--color-accent) 8%, transparent) 0%, color-mix(in srgb, var(--color-accent) 3%, transparent) 45%, transparent 60%)",
         }}
       />
     </div>

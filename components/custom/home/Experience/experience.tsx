@@ -435,7 +435,7 @@ export default function Experience() {
           aria-label="Work history navigation"
         >
           <GridBackground id="sidebar-grid" stroke="rgba(255, 255, 255, 0.15)" />
-          <CursorBrightGrid cellSize={100} maxOpacity={0.25} />
+          <CursorBrightGrid cellSize={100} maxOpacity={0.15} />
 
           {!isTouch && (
             <div className="pointer-events-none absolute inset-0" aria-hidden="true">
@@ -468,7 +468,7 @@ export default function Experience() {
               </span>
               <h2
                 id="experience-heading"
-                className="text-5xl font-black xl:text-6xl 2xl:text-7xl"
+                className="text-5xl font-black xl:text-6xl"
                 style={{ fontFamily: "var(--font-display)" }}
               >
                 <span className="text-white">{t("titleWord1")}</span>
@@ -484,7 +484,7 @@ export default function Experience() {
 
         <div className="bg-surface relative w-full lg:w-3/5">
           <GridBackground id="content-grid" />
-          <CursorBrightGrid cellSize={100} maxOpacity={0.2} />
+          <CursorBrightGrid cellSize={100} maxOpacity={0.12} />
 
           {!isTouch && (
             <div
