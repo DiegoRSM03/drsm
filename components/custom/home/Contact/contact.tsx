@@ -227,9 +227,9 @@ export default function Contact() {
       className="border-foreground/[0.08] relative flex w-full items-center overflow-hidden border-t py-16 sm:py-20 md:py-24 lg:min-h-[70vh] lg:pt-28 lg:pb-10"
       style={{ backgroundColor: "var(--color-background)" }}
       aria-labelledby="contact-heading"
+      data-cursor-grid
     >
       <GridBackground id="contact-grid" />
-      <CursorBrightGrid cellSize={100} />
 
       <motion.div
         className="relative mx-auto w-full max-w-7xl px-4 sm:px-6"
@@ -300,6 +300,7 @@ export default function Contact() {
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         aria-hidden="true"
       />
+      <CursorBrightGrid cellSize={100} />
     </section>
   );
 }

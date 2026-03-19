@@ -194,9 +194,9 @@ function Hero() {
       onMouseMove={handleMouseMove}
       className="bg-surface relative flex h-screen w-full items-center justify-center overflow-hidden"
       aria-label="Hero section introducing Diego Sanchez"
+      data-cursor-grid
     >
       <GridBackground id="hero-grid" cellSize={100} />
-      <CursorBrightGrid cellSize={100} />
       {!isTouch && (
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
           {HERO_SHAPES.map((shape, i) => (
@@ -329,6 +329,7 @@ function Hero() {
           <div className="from-muted h-8 w-px bg-gradient-to-b to-transparent" />
         </motion.div>
       </motion.div>
+      <CursorBrightGrid cellSize={100} />
     </section>
   );
 }

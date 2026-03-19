@@ -424,9 +424,9 @@ export default function Experience() {
       onMouseMove={handleMouseMove}
       className="bg-background relative border-t border-white/[0.08]"
       aria-labelledby="experience-heading"
+      data-cursor-grid
     >
       <GridBackground id="experience-grid" stroke="rgba(255, 255, 255, 0.05)" />
-      <CursorBrightGrid cellSize={100} maxOpacity={0.2} />
 
       <div className="relative flex flex-col lg:flex-row">
         <aside
@@ -537,6 +537,8 @@ export default function Experience() {
           </div>
         </div>
       </div>
+
+      <CursorBrightGrid cellSize={100} maxOpacity={0.2} />
     </section>
   );
 }
