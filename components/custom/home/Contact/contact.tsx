@@ -13,6 +13,7 @@ import {
 import { Github, Linkedin, Mail, Copy, Check } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { GridBackground } from "@/components/custom/GridBackground";
+import { CursorBrightGrid } from "@/components/custom/CursorEffects";
 import {
   ACCENT_HEX,
   CYAN_HEX,
@@ -228,6 +229,7 @@ export default function Contact() {
       aria-labelledby="contact-heading"
     >
       <GridBackground id="contact-grid" />
+      <CursorBrightGrid cellSize={100} />
 
       <motion.div
         className="relative mx-auto w-full max-w-7xl px-4 sm:px-6"

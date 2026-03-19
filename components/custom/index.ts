@@ -7,4 +7,5 @@ export { AnimatedLink } from "./AnimatedLink";
 export { ThemeToggle } from "./ThemeToggle";
 export { PageTransition, PageTransitionItem } from "./PageTransition";
 export { GridBackground } from "./GridBackground";
+export { CursorBrightGrid, CursorSpotlight } from "./CursorEffects";
 export * from "./home";

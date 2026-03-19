@@ -18,6 +18,7 @@ import { ProximityShape } from "@/components/custom/ProximityShape";
 import { ACCENT, CYAN_HEX, PINK_HEX, AMBER_HEX, GREEN_HEX, EASE } from "@/utils";
 import { useIsTouchDevice } from "@/hooks";
 import { GridBackground } from "@/components/custom/GridBackground";
+import { CursorBrightGrid } from "@/components/custom/CursorEffects";
 import type { ProximityShapeData } from "@/components/custom/ProximityShape";
 
 interface TechItem {
@@ -195,6 +196,7 @@ function Hero() {
       aria-label="Hero section introducing Diego Sanchez"
     >
       <GridBackground id="hero-grid" cellSize={100} />
+      <CursorBrightGrid cellSize={100} />
       {!isTouch && (
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
           {HERO_SHAPES.map((shape, i) => (

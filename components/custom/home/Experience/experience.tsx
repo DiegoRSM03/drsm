@@ -16,6 +16,7 @@ import { ProximityShape } from "@/components/custom/ProximityShape";
 import { ACCENT, PINK_HEX, CYAN_HEX, AMBER_HEX, GREEN_HEX, EASE } from "@/utils";
 import { useIsTouchDevice } from "@/hooks";
 import { GridBackground } from "@/components/custom/GridBackground";
+import { CursorBrightGrid } from "@/components/custom/CursorEffects";
 import type { ProximityShapeData } from "@/components/custom/ProximityShape";
 
 interface ExperienceData {
@@ -425,6 +426,7 @@ export default function Experience() {
       aria-labelledby="experience-heading"
     >
       <GridBackground id="experience-grid" stroke="rgba(255, 255, 255, 0.05)" />
+      <CursorBrightGrid cellSize={100} maxOpacity={0.2} />
 
       <div className="relative flex flex-col lg:flex-row">
         <aside

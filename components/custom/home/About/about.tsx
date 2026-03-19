@@ -24,6 +24,7 @@ import {
   SPRING_SOFT,
   SPRING_HEAVY,
 } from "@/utils";
+import { CursorSpotlight } from "@/components/custom/CursorEffects";
 
 // ============================================================================
 // Section Header — matches Projects/Experience pattern
@@ -363,6 +364,7 @@ export default function About() {
       style={{ backgroundColor: "var(--color-background)" }}
       aria-labelledby="about-heading"
     >
+      <CursorSpotlight />
       <SectionHeader isInView={isInView} />
 
       <div className="mx-auto w-full max-w-7xl px-4 pt-8 sm:px-6 sm:pt-10 md:pt-12">
