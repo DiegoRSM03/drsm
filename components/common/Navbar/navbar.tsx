@@ -16,6 +16,7 @@ import { useRouter, usePathname, Link } from "@/i18n/routing";
 import { ThemeToggle } from "@/components/custom/ThemeToggle";
 import { useTheme } from "@/contexts";
 import { useIsTouchDevice } from "@/hooks";
+import { useLenis } from "@/components/custom/LenisProvider";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const NAV_KEYS = ["projects", "experience", "about", "contact"] as const;
@@ -822,7 +823,7 @@ interface MagneticNavLinkProps {
   focusedIndex: number | null;
   onHover: (i: number | null) => void;
   onFocus: (i: number | null) => void;
-  onClose: () => void;
+  onClose: (navKey: string) => void;
 }
 
 function MagneticNavLink({
@@ -875,7 +876,10 @@ function MagneticNavLink({
         href={`#${navKey}`}
         className="group relative block cursor-pointer focus-visible:outline-none"
         style={{ x: enableMotion ? springX : 0, y: enableMotion ? springY : 0 }}
-        onClick={onClose}
+        onClick={(e) => {
+          e.preventDefault();
+          onClose(navKey);
+        }}
         onFocus={() => onFocus(index)}
         onBlur={() => onFocus(null)}
       >
@@ -911,7 +915,7 @@ function MagneticNavLink({
 // Curtain content
 // ─────────────────────────────────────────────
 
-function CurtainContent({ onClose }: { onClose: () => void }) {
+function CurtainContent({ onClose }: { onClose: (navKey: string) => void }) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -971,6 +975,7 @@ function Navbar({ className }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [scrollbarWidth, setScrollbarWidth] = useState(0);
   const shouldReduceMotion = useReducedMotion();
+  const { lenis } = useLenis();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -992,24 +997,47 @@ function Navbar({ className }: NavbarProps) {
         document.body.style.paddingRight = "";
         setScrollbarWidth(0);
         setIsOpen(false);
+        lenis?.start();
       }
     };
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
-  }, [isOpen]);
+  }, [isOpen, lenis]);
+
+  const openMenu = () => {
+    const width = window.innerWidth - document.documentElement.clientWidth;
+    setScrollbarWidth(width);
+    document.body.style.overflow = "hidden";
+    document.body.style.paddingRight = `${width}px`;
+    lenis?.stop();
+    setIsOpen(true);
+  };
+
+  const closeMenu = (scrollToKey?: string) => {
+    document.body.style.overflow = "";
+    document.body.style.paddingRight = "";
+    setScrollbarWidth(0);
+    setIsOpen(false);
+    lenis?.start();
+
+    if (scrollToKey) {
+      const target = document.getElementById(scrollToKey);
+      if (target) {
+        const top = target.getBoundingClientRect().top + window.scrollY - 80;
+        if (lenis) {
+          lenis.scrollTo(top, { duration: 1.2 });
+        } else {
+          window.scrollTo({ top, behavior: "smooth" });
+        }
+      }
+    }
+  };
 
   const handleMenuToggle = () => {
     if (!isOpen) {
-      const width = window.innerWidth - document.documentElement.clientWidth;
-      setScrollbarWidth(width);
-      document.body.style.overflow = "hidden";
-      document.body.style.paddingRight = `${width}px`;
-      setIsOpen(true);
+      openMenu();
     } else {
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-      setScrollbarWidth(0);
-      setIsOpen(false);
+      closeMenu();
     }
   };
 
@@ -1059,7 +1087,7 @@ function Navbar({ className }: NavbarProps) {
             aria-modal="true"
             aria-label="Navigation menu"
           >
-            <CurtainContent onClose={() => setIsOpen(false)} />
+            <CurtainContent onClose={closeMenu} />
           </motion.div>
         )}
       </AnimatePresence>

@@ -84,6 +84,18 @@ function Footer() {
               <a
                 key={key}
                 href={`#${key}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  const target = document.getElementById(key);
+                  if (target) {
+                    const top = target.getBoundingClientRect().top + window.scrollY - 80;
+                    if (lenis) {
+                      lenis.scrollTo(top, { duration: 1.2 });
+                    } else {
+                      window.scrollTo({ top, behavior: "smooth" });
+                    }
+                  }
+                }}
                 className="focus-visible:ring-offset-accent text-sm font-medium text-white/70 transition-colors duration-200 hover:text-white focus-visible:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:outline-none"
               >
                 {tNav(key)}
