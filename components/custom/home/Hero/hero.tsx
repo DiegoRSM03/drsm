@@ -495,6 +495,7 @@ function MagneticPill({
 
 function CursorShapes({ enableMotion = true }: { enableMotion?: boolean }) {
   const shouldReduceMotion = useReducedMotion();
+  const [isOverGrid, setIsOverGrid] = useState(false);
   const globalMouseX = useMotionValue(0);
   const globalMouseY = useMotionValue(0);
   const smoothX = useSpring(globalMouseX, { stiffness: 100, damping: 30 });
@@ -505,6 +506,8 @@ function CursorShapes({ enableMotion = true }: { enableMotion?: boolean }) {
     const handler = (e: MouseEvent) => {
       globalMouseX.set(e.clientX);
       globalMouseY.set(e.clientY);
+      const target = e.target as HTMLElement | null;
+      setIsOverGrid(!!target?.closest("[data-cursor-grid]"));
     };
     window.addEventListener("mousemove", handler);
     return () => window.removeEventListener("mousemove", handler);
@@ -524,6 +527,8 @@ function CursorShapes({ enableMotion = true }: { enableMotion?: boolean }) {
           background:
             "radial-gradient(circle, color-mix(in srgb, var(--color-accent) 13%, transparent) 0%, color-mix(in srgb, var(--color-accent) 4%, transparent) 45%, transparent 60%)",
         }}
+        animate={{ opacity: isOverGrid ? 0 : 1 }}
+        transition={{ duration: 0.3 }}
       />
       {CURSOR_SHAPES.map((shape, i) => (
         <CursorFollower

@@ -17,7 +17,6 @@ export function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(true);
   const [isClicking, setIsClicking] = useState(false);
-  const [isOverGrid, setIsOverGrid] = useState(false);
 
   const mouseX = useRef(0);
   const mouseY = useRef(0);
@@ -68,9 +67,6 @@ export function CustomCursor() {
       mouseX.current = e.clientX;
       mouseY.current = e.clientY;
       updateCursorPosition();
-
-      const target = e.target as HTMLElement | null;
-      setIsOverGrid(!!target?.closest("[data-cursor-grid]"));
 
       if (!isVisible) {
         setIsVisible(true);
@@ -245,7 +241,7 @@ export function CustomCursor() {
         animate={{
           width: getDotSize(),
           height: getDotSize(),
-          opacity: isVisible && cursorState !== "magnetic" && !isOverGrid ? 1 : 0,
+          opacity: isVisible && cursorState !== "magnetic" ? 1 : 0,
         }}
         transition={{ duration: 0.15, ease: [0.22, 1, 0.36, 1] }}
       />
@@ -262,7 +258,7 @@ export function CustomCursor() {
         animate={{
           width: getCircleSize(),
           height: getCircleSize(),
-          opacity: isVisible && !isOverGrid ? 0.8 : 0,
+          opacity: isVisible ? 0.8 : 0,
           scale: isClicking ? 0.9 : 1,
           backgroundColor:
             cursorState === "hover" || cursorState === "magnetic"
