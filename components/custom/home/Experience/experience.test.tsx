@@ -1,4 +1,19 @@
 import { render, screen } from "@testing-library/react";
+
+Object.defineProperty(window, "matchMedia", {
+  writable: true,
+  value: jest.fn().mockImplementation((query: string) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+});
+
 import Experience from "./experience";
 
 const filterMotionProps = (props: Record<string, unknown>) => {

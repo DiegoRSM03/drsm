@@ -91,10 +91,10 @@ describe("Contact Section", () => {
     it("renders all manifesto lines", () => {
       render(<Contact />);
       expect(screen.getByText("Make it fast.")).toBeInTheDocument();
-      expect(screen.getByText("Make it beautiful.")).toBeInTheDocument();
-      expect(screen.getByText("Make it accessible.")).toBeInTheDocument();
-      expect(screen.getByText("Make it memorable.")).toBeInTheDocument();
       expect(screen.getByText("Make it right.")).toBeInTheDocument();
+      expect(screen.getByText("Make it lasting.")).toBeInTheDocument();
+      expect(screen.getByText("Make it memorable.")).toBeInTheDocument();
+      expect(screen.getByText("Make it breathe.")).toBeInTheDocument();
     });
 
     it("renders the copy email button with email address", () => {

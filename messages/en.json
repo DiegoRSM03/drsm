@@ -6,10 +6,10 @@
     "ogDescription": "Senior Frontend Engineer. React, Next.js, TypeScript."
   },
   "nav": {
-    "projects": "Projects",
-    "experience": "Experience",
-    "about": "About",
-    "contact": "Contact",
+    "projects": "The Work",
+    "experience": "The Journey",
+    "about": "The Person",
+    "contact": "Reach Out",
     "home": "DRSM - Home",
     "toggleTheme": "Toggle theme",
     "toggleLanguage": "Switch to Spanish",
@@ -17,87 +17,89 @@
     "closeMenu": "Close menu"
   },
   "hero": {
-    "tagline": "Obsessed with making <bold>ideas breathe</bold>",
-    "downloadResume": "Download Resume",
-    "viewProjects": "View Projects",
+    "tagline": "Where bold ideas learn to <bold>breathe</bold>",
+    "downloadResume": "Grab My Resume",
+    "viewProjects": "See My Work",
     "scroll": "Scroll"
   },
   "projects": {
-    "badge": "PROJECTS",
+    "badge": "THE WORK",
     "titleLine1": "Pixel-Perfect,",
     "titleLine2": "Battle-Tested",
-    "description": "Highlights from professional engagements and personal explorations — where clean code meets bold interfaces.",
+    "description": "Where engineering precision meets interfaces that refuse to feel ordinary.",
     "viewProject": "View Project",
-    "nexus": {
-      "type": "Enterprise SaaS Dashboard",
-      "description": "A real-time analytics platform for enterprise data pipelines. WebSocket-powered live streaming, interactive D3.js visualizations with drill-down, and granular role-based access control — processing 2M+ events per minute at sub-200ms render times."
+    "propSource": {
+      "type": "Real Estate Platform",
+      "description": "Built a financial calculator with 100+ form fields — including dynamically computed values — deployed inside a Salesforce environment, helping agents evaluate property deals instantly. Expanded into a full buyer portal with interactive Google Maps listings, Auth0 authentication, and dynamic PDF report generation powered by Puppeteer and EJS. Both Next.js applications hosted on AWS using ECR and ECS."
     },
-    "velocity": {
-      "type": "Performance Monitoring Tool",
-      "description": "Developer-first performance monitoring that catches regressions before production. Tracks Core Web Vitals, bundle sizes, and custom metrics with CI/CD integration — powered by a Rust ingestion layer handling 50K+ payloads per second."
+    "fetcher": {
+      "type": "AI Recruiting Platform",
+      "description": "Sole developer on a fully responsive, pixel-perfect marketing website with every page connected to Strapi as a headless CMS — including blog and guides. Achieved excellent Lighthouse scores by choosing the right Next.js data fetching pattern (SSR, SSG, ISR, CSR) per page. Integrated Marketo, PostHog, Meta Pixel, and Qualified for marketing analytics. All schema markup and Open Graph tags served from Strapi and fully bot-scrapable. WCAG 2.1 compliant and SEO-optimized end to end."
     },
-    "artemis": {
-      "type": "Design System Framework",
-      "description": "A design system shipping 50+ accessible components with dark mode, automatic WCAG auditing, and a Figma-to-code pipeline. Adopted by three product teams, cutting UI development time by 40%."
+    "neovim": {
+      "type": "Developer Tooling",
+      "description": "A plug-and-play NeoVim configuration built for speed — because coding in a modal terminal editor is the fastest workflow on earth. Follows world-standard conventions with a focus on performance and readability. Open source and ready to use for anyone who wants a solid starting point. Built it for myself, sharing it because that's what open source is about."
     }
   },
   "experience": {
-    "titleWord1": "WORK",
-    "titleWord2": "HISTORY",
-    "description": "Production code, frontend architecture, and cross-functional collaboration.",
+    "badge": "THE JOURNEY",
+    "titleWord1": "CRAFT",
+    "titleWord2": "IN CONTEXT",
+    "description": "Real teams, real constraints — where the craft gets tested and the details matter most.",
     "inaza": {
-      "role": "Deployments Engineer",
+      "role": "Software Engineer",
       "period": "Jan 2026 - Present",
       "duration": "3 mos",
-      "description": "Insurance technology company building modern solutions for the insurance industry.",
+      "description": "Insurtech company automating insurance processes end-to-end — building AI-powered workflows that replace manual operations across departments.",
       "highlights": [
-        "Built serverless automation pipelines processing hundreds of insurance claims weekly",
-        "Developed PDF parsing and validation systems enforcing complex business rules",
-        "Automated ingestion workflows eliminating manual claim-data entry"
+        "Built end-to-end email intake automation with OCR text extraction, LLM categorization via Vertex AI, and automated responses through Graph API and Gmail",
+        "Developed Python automation workflows processing hundreds of insurance claims weekly, eliminating manual data entry across entire departments",
+        "Engineered intelligent document processing pipelines with AI-powered categorization, filtering, and routing of employee benefits claims",
+        "Adopted a Spec-Driven Development workflow with Claude Code and Cursor as daily drivers, turning detailed specifications into production-ready automation pipelines"
       ]
     },
     "litebox": {
       "role": "Software Engineer",
       "period": "Sep 2022 - Jan 2026",
       "duration": "3.5 yrs",
-      "description": "Boutique software company focused on highly customized marketing websites and scalable back-office applications for American startup companies.",
+      "description": "Boutique software studio building high-performance marketing websites and scalable back-office platforms for US startups — led frontend architecture, tooling, and development standards across all client projects.",
       "highlights": [
-        "Built 10+ production Next.js platforms achieving 90+ Lighthouse scores",
-        "Architected project infrastructure using AWS, Vercel, and EC2",
-        "Created an internal CLI automating project scaffolding with Next.js and Strapi",
-        "Built back-office apps with React Hook Form, Google Maps API, and OpenAI"
+        "Delivered 10+ marketing websites with 95+ Lighthouse scores, WCAG 2.2 compliance, schema markup SEO, and complex GSAP/Framer Motion animations — all pixel-perfect from design to Tailwind",
+        "Architected scalable back-office applications integrating React Hook Form with Zod validation, Google Maps API, OpenAI SDK, and AWS services — with Jest unit testing ensuring reliability across all projects",
+        "Established a headless CMS-first architecture connecting every marketing site to Strapi or Payload — and built an internal CLI automating full Next.js + Strapi project scaffolding",
+        "Early adopter of Spec-Driven Development with Claude and Cursor, documenting flows and processes in Notion and Excalidraw to align cross-functional teams"
       ]
     },
     "axon": {
       "role": "Software Engineer",
       "period": "Sep 2021 - Sep 2022",
       "duration": "1 yr",
-      "description": "Remote coaching school for athletes and professional leaders. One of the best-known coaching schools in LatAm.",
+      "description": "LatAm's leading remote coaching school for athletes and professional leaders — maintained and modernized legacy systems while shipping new features on top of existing infrastructure.",
       "highlights": [
-        "Built a CRM application from scratch for the sales department",
-        "Created a WhatsApp Bot for sales reminders and payment notifications",
-        "Implemented CI/CD workflow using GitHub Actions",
-        "Ensured cross-browser compatibility and security standards"
+        "Built an internal CRM application from scratch using React composition patterns, React Hook Form with Zod validation, and TypeScript — streamlining the entire sales department workflow",
+        "Developed a WhatsApp Bot with a custom webhook backend, structured entity models, and database management built on design patterns for sales reminders and payment notifications",
+        "Maintained and improved legacy codebases, resolving technical debt while delivering new features without disrupting existing functionality",
+        "Ensured cross-browser compatibility, security standards, and CI/CD automation across all projects"
       ]
     }
   },
   "about": {
-    "badge": "ABOUT",
+    "badge": "THE PERSON",
     "titleLine1": "The Person",
     "titleLine2": "Behind The Pixels",
-    "description": "The story behind the code — who I am, how I think, and what drives me to build interfaces that feel alive.",
-    "bio": "I'm Diego — a Frontend Engineer with 4+ years building interfaces that feel alive. Based in Argentina, shipping globally. I obsess over the details that most people never notice — the easing curve that makes a transition feel natural, the millisecond that separates fast from instant, the whitespace that lets content breathe.",
+    "description": "The perspective that shapes the work — where curiosity meets discipline and nothing ships without intention.",
+    "bio": "I'm Diego — a Frontend Engineer with almost 5 years crafting high-performance web applications. Based in Argentina, shipping globally. The details most people skip are the ones I obsess over — render performance, animation timing, design fidelity, and the kind of polish that makes an app feel alive.",
     "scrollHint": "Scroll to reveal"
   },
   "contact": {
     "copied": "Copied!"
   },
   "footer": {
-    "description": "Crafting interfaces that feel alive. Available for new projects.",
+    "description": "Obsessed with the details most people skip.",
     "copyright": "© {year} Diego Sanchez",
     "scrollToTop": "Top"
   },
   "loading": {
-    "tagline": "Obsessed with making ideas breathe"
+    "tagline": "Where bold ideas learn to breathe"
   }
 }

@@ -102,11 +102,10 @@ describe("Projects", () => {
       expect(viewButtons.length).toBeGreaterThanOrEqual(PROJECTS.length);
     });
 
-    it("renders GitHub button only for projects with github link", () => {
+    it("renders external links for projects with URLs", () => {
       render(<Projects />);
-      const projectsWithGithub = PROJECTS.filter((p) => p.github !== null);
-      const githubButtons = screen.getAllByLabelText(/source code on GitHub/i);
-      expect(githubButtons.length).toBeGreaterThanOrEqual(projectsWithGithub.length);
+      const projectsWithUrl = PROJECTS.filter((p) => p.url !== null);
+      expect(projectsWithUrl.length).toBeGreaterThan(0);
     });
   });
 
@@ -173,14 +172,6 @@ describe("Projects", () => {
       });
     });
 
-    it("GitHub button has sr-only text for screen readers", () => {
-      render(<Projects />);
-      const srOnlyGithub = screen.getAllByText("GitHub");
-      srOnlyGithub.forEach((el) => {
-        expect(el).toHaveClass("sr-only");
-      });
-    });
-
     it("View Project buttons have descriptive aria-labels", () => {
       render(<Projects />);
       PROJECTS.forEach((project) => {
@@ -206,14 +197,14 @@ describe("Projects", () => {
     it("displays correct project data", () => {
       render(<Projects />);
 
-      expect(screen.getAllByRole("heading", { name: "Nexus Platform" }).length).toBeGreaterThan(0);
-      expect(screen.getAllByText("PROJECTS.NEXUS.TYPE").length).toBeGreaterThan(0);
+      expect(screen.getAllByRole("heading", { name: "PropSource" }).length).toBeGreaterThan(0);
+      expect(screen.getAllByText("PROJECTS.PROPSOURCE.TYPE").length).toBeGreaterThan(0);
 
-      expect(screen.getAllByRole("heading", { name: "Velocity" }).length).toBeGreaterThan(0);
-      expect(screen.getAllByText("PROJECTS.VELOCITY.TYPE").length).toBeGreaterThan(0);
+      expect(screen.getAllByRole("heading", { name: "Fetcher" }).length).toBeGreaterThan(0);
+      expect(screen.getAllByText("PROJECTS.FETCHER.TYPE").length).toBeGreaterThan(0);
 
-      expect(screen.getAllByRole("heading", { name: "Artemis" }).length).toBeGreaterThan(0);
-      expect(screen.getAllByText("PROJECTS.ARTEMIS.TYPE").length).toBeGreaterThan(0);
+      expect(screen.getAllByRole("heading", { name: "NeoVim Config" }).length).toBeGreaterThan(0);
+      expect(screen.getAllByText("PROJECTS.NEOVIM.TYPE").length).toBeGreaterThan(0);
     });
 
     it("section description is present", () => {
@@ -230,6 +221,7 @@ describe("Projects", () => {
         expect(project).toHaveProperty("title");
         expect(project).toHaveProperty("i18nKey");
         expect(project).toHaveProperty("tags");
+        expect(project).toHaveProperty("url");
         expect(project).toHaveProperty("github");
         expect(Array.isArray(project.tags)).toBe(true);
       });
