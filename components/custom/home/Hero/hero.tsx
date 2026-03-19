@@ -15,7 +15,7 @@ import { SiReact, SiTypescript, SiNextdotjs, SiTailwindcss, SiJest } from "react
 import { useTranslations } from "next-intl";
 import { MagneticButton } from "@/components/custom/MagneticButton";
 import { ProximityShape } from "@/components/custom/ProximityShape";
-import { ACCENT, CYAN_HEX, PINK_HEX, AMBER_HEX, GREEN_HEX, EASE } from "@/utils";
+import { ACCENT, CYAN_HEX, PINK_HEX, AMBER_HEX, GREEN_HEX } from "@/utils";
 import { useIsTouchDevice } from "@/hooks";
 import { GridBackground } from "@/components/custom/GridBackground";
 import { CursorBrightGrid } from "@/components/custom/CursorEffects";
@@ -214,14 +214,8 @@ function Hero() {
         style={{ y: y1 }}
       >
         <motion.div
-          className="mb-8 flex flex-wrap justify-center gap-3"
+          className="hero-pills mb-8 flex flex-wrap justify-center gap-3"
           style={{ y: y2 }}
-          initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            delay: shouldReduceMotion ? 0 : 0.5,
-            duration: shouldReduceMotion ? 0 : 0.6,
-          }}
           role="list"
           aria-label="Technology stack"
         >
@@ -237,72 +231,37 @@ function Hero() {
         </motion.div>
 
         <motion.div style={{ y: y3 }}>
-          <motion.h1
-            className="text-foreground mb-2 text-6xl font-black tracking-tight sm:text-7xl md:text-8xl lg:text-9xl"
+          <h1
+            className="hero-title-1 text-foreground mb-2 text-6xl font-black tracking-tight sm:text-7xl md:text-8xl lg:text-9xl"
             style={{ fontFamily: "var(--font-display)" }}
-            initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: shouldReduceMotion ? 0 : 0.8,
-              duration: shouldReduceMotion ? 0 : 0.8,
-              ease: EASE,
-            }}
           >
             DIEGO
-          </motion.h1>
-          <motion.h1
-            className="mb-6 text-6xl font-black tracking-tight sm:text-7xl md:text-8xl lg:text-9xl"
+          </h1>
+          <h1
+            className="hero-title-2 mb-6 text-6xl font-black tracking-tight sm:text-7xl md:text-8xl lg:text-9xl"
             style={{ fontFamily: "var(--font-display)" }}
-            initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: shouldReduceMotion ? 0 : 0.9,
-              duration: shouldReduceMotion ? 0 : 0.8,
-              ease: EASE,
-            }}
             aria-label="Sanchez"
           >
             <span className="relative inline-block">
               <span className="text-background relative z-10">SANCHEZ</span>
-              <motion.span
-                className="bg-accent absolute -inset-x-4 inset-y-0"
-                initial={{ scaleX: shouldReduceMotion ? 1 : 0, originX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{
-                  delay: shouldReduceMotion ? 0 : 1.2,
-                  duration: shouldReduceMotion ? 0 : 0.6,
-                  ease: EASE,
-                }}
+              <span
+                className="hero-accent-bar bg-accent absolute -inset-x-4 inset-y-0"
                 aria-hidden="true"
               />
             </span>
-          </motion.h1>
+          </h1>
         </motion.div>
 
-        <motion.p
-          className="text-foreground/80 mb-12 max-w-lg text-xl md:text-2xl md:whitespace-nowrap"
+        <p
+          className="hero-tagline text-foreground/80 mb-12 max-w-lg text-xl md:text-2xl md:whitespace-nowrap"
           style={{ fontFamily: "var(--font-display)" }}
-          initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            delay: shouldReduceMotion ? 0 : 1.6,
-            duration: shouldReduceMotion ? 0 : 0.6,
-          }}
         >
           {t.rich("tagline", {
             bold: (chunks) => <span className="text-foreground font-bold">{chunks}</span>,
           })}
-        </motion.p>
+        </p>
 
-        <motion.div
-          className="flex flex-wrap items-center justify-center gap-4"
-          initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            delay: shouldReduceMotion ? 0 : 1.8,
-            duration: shouldReduceMotion ? 0 : 0.6,
-          }}
-        >
+        <div className="hero-cta flex flex-wrap items-center justify-center gap-4">
           <a href="/diego-sanchez-resume.pdf" download>
             <MagneticButton variant="primary" size="lg">
               <Download className="mr-2 h-5 w-5" aria-hidden="true" />
@@ -329,7 +288,7 @@ function Hero() {
               <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
             </MagneticButton>
           </a>
-        </motion.div>
+        </div>
       </motion.div>
 
       <motion.div
