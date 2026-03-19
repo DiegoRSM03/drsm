@@ -24,7 +24,7 @@ describe("LenisProvider", () => {
       })),
     });
 
-    jest.spyOn(window, "requestAnimationFrame").mockImplementation((_cb) => {
+    jest.spyOn(window, "requestAnimationFrame").mockImplementation(() => {
       return 1;
     });
     jest.spyOn(window, "cancelAnimationFrame").mockImplementation(() => {});

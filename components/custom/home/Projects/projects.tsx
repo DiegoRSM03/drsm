@@ -38,7 +38,7 @@ export const PROJECTS: ProjectData[] = [
     tags: ["Next.js", "AWS", "Salesforce", "Auth0", "Jest", "Puppeteer"],
     url: "https://www.propsource.com/",
     github: null,
-    image: "/projects/propsource.png",
+    image: "/projects/propsource.webp",
   },
   {
     id: 2,
@@ -47,7 +47,7 @@ export const PROJECTS: ProjectData[] = [
     tags: ["Next.js", "Strapi", "GSAP/Framer", "SEO", "Marketing Tools", "WCAG 2.1"],
     url: "https://fetcher.ai/",
     github: null,
-    image: "/projects/fetcher.png",
+    image: "/projects/fetcher.webp",
   },
   {
     id: 3,
@@ -56,7 +56,7 @@ export const PROJECTS: ProjectData[] = [
     tags: ["Lua", "Open Source", "LSP", "Treesitter", "Lazy.nvim", "ZSH"],
     url: "https://github.com/DiegoRSM03/nvim",
     github: null,
-    image: "/projects/neovim.png",
+    image: "/projects/neovim.webp",
   },
 ];
 
@@ -281,6 +281,7 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
                 width={1425}
                 height={772}
                 className="block w-full"
+                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 640px"
                 priority={project.id === 1}
               />
             </div>
@@ -475,7 +476,7 @@ export function Projects() {
       >
         <CursorGlow />
         <SectionHeader />
-        <div role="list" aria-label="Project cards">
+        <div>
           {PROJECTS.map((project) => (
             <MobileProjectCard key={project.id} project={project} />
           ))}
@@ -494,11 +495,7 @@ export function Projects() {
           <CursorGlow />
           <SectionHeader />
 
-          <div
-            role="list"
-            aria-label="Project cards"
-            className="border-foreground/[0.08] relative flex-1 border-t"
-          >
+          <div className="border-foreground/[0.08] relative flex-1 border-t">
             {PROJECTS.map((project, index) => (
               <DesktopProjectCard
                 key={project.id}

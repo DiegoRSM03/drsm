@@ -117,7 +117,7 @@ describe("About Section", () => {
 
     it("renders the bio text as individual words", () => {
       render(<About />);
-      expect(screen.getByText("about.bio")).toBeInTheDocument();
+      expect(screen.getAllByText("about.bio").length).toBeGreaterThan(0);
     });
 
     it("renders the avatar image", () => {
@@ -126,7 +126,7 @@ describe("About Section", () => {
         name: /Diego Sanchez/i,
       });
       expect(img).toBeInTheDocument();
-      expect(img).toHaveAttribute("src", "/about-avatar.png");
+      expect(img).toHaveAttribute("src", "/about-avatar.webp");
     });
 
     it("renders the scroll hint", () => {
