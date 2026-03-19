@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  useCallback,
-} from "react";
+import { createContext, useContext, useEffect, useState, useCallback } from "react";
 
 type Theme = "dark" | "light";
 
@@ -23,14 +17,12 @@ interface ThemeProviderProps {
   defaultTheme?: Theme;
 }
 
-export function ThemeProvider({
-  children,
-  defaultTheme = "dark",
-}: ThemeProviderProps) {
+export function ThemeProvider({ children, defaultTheme = "dark" }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>(defaultTheme);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: hydration guard
     setMounted(true);
     const stored = localStorage.getItem("theme") as Theme | null;
     if (stored) {
@@ -56,9 +48,7 @@ export function ThemeProvider({
 
   if (!mounted) {
     return (
-      <ThemeContext.Provider
-        value={{ theme: defaultTheme, toggleTheme, setTheme }}
-      >
+      <ThemeContext.Provider value={{ theme: defaultTheme, toggleTheme, setTheme }}>
         {children}
       </ThemeContext.Provider>
     );

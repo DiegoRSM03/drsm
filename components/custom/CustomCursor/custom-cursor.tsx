@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
-import { motion, useMotionValue, useSpring, animate } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useTheme } from "@/contexts";
 
 type CursorState = "default" | "hover" | "magnetic" | "text" | "hidden";
 
@@ -17,6 +18,9 @@ export function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(true);
   const [isClicking, setIsClicking] = useState(false);
+  const [isOverCurtain, setIsOverCurtain] = useState(false);
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   const mouseX = useRef(0);
   const mouseY = useRef(0);
@@ -68,6 +72,9 @@ export function CustomCursor() {
       mouseY.current = e.clientY;
       updateCursorPosition();
 
+      const target = e.target as HTMLElement | null;
+      setIsOverCurtain(!!target?.closest("#main-menu, [data-cursor-dark]"));
+
       if (!isVisible) {
         setIsVisible(true);
       }
@@ -82,15 +89,13 @@ export function CustomCursor() {
   const handleMouseLeave = useCallback(() => setIsVisible(false), []);
 
   useEffect(() => {
-    const checkTouchDevice =
-      "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    const checkTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: detect device type on mount
     setIsTouchDevice(checkTouchDevice);
 
     if (checkTouchDevice) return;
 
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (prefersReducedMotion) return;
 
@@ -107,13 +112,7 @@ export function CustomCursor() {
       document.removeEventListener("mouseenter", handleMouseEnter);
       document.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, [
-    handleMouseMove,
-    handleMouseDown,
-    handleMouseUp,
-    handleMouseEnter,
-    handleMouseLeave,
-  ]);
+  }, [handleMouseMove, handleMouseDown, handleMouseUp, handleMouseEnter, handleMouseLeave]);
 
   useEffect(() => {
     if (isTouchDevice) return;
@@ -239,12 +238,14 @@ export function CustomCursor() {
   return (
     <>
       <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-[9999] rounded-full bg-accent mix-blend-difference"
+        className={`pointer-events-none fixed top-0 left-0 z-[9999] ${isDark && !isOverCurtain ? "bg-accent mix-blend-difference" : ""}`}
         style={{
           x: dotX,
           y: dotY,
           translateX: "-50%",
           translateY: "-50%",
+          backgroundColor:
+            isDark && !isOverCurtain ? undefined : isOverCurtain ? "#4c1d95" : "#7c3aed",
         }}
         animate={{
           width: getDotSize(),
@@ -255,12 +256,13 @@ export function CustomCursor() {
       />
 
       <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-[9998] rounded-full border-2 border-accent/50"
+        className={`pointer-events-none fixed top-0 left-0 z-[9998] border-2 ${isDark && !isOverCurtain ? "border-accent/50 mix-blend-difference" : ""}`}
         style={{
           x: circleX,
           y: circleY,
           translateX: "-50%",
           translateY: "-50%",
+          rotate: 45,
         }}
         animate={{
           width: getCircleSize(),
@@ -271,10 +273,17 @@ export function CustomCursor() {
             cursorState === "hover" || cursorState === "magnetic"
               ? "rgba(139, 92, 246, 0.1)"
               : "rgba(0, 0, 0, 0)",
-          borderColor:
-            cursorState === "magnetic"
-              ? "rgba(139, 92, 246, 0.8)"
-              : "rgba(139, 92, 246, 0.5)",
+          borderColor: isOverCurtain
+            ? cursorState === "magnetic"
+              ? "rgba(76, 29, 149, 0.9)"
+              : "rgba(76, 29, 149, 0.7)"
+            : isDark
+              ? cursorState === "magnetic"
+                ? "rgba(139, 92, 246, 0.8)"
+                : "rgba(139, 92, 246, 0.5)"
+              : cursorState === "magnetic"
+                ? "rgba(124, 58, 237, 0.9)"
+                : "rgba(124, 58, 237, 0.6)",
         }}
         transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
       />

@@ -15,17 +15,7 @@ interface ImageProps {
   className?: string;
   containerClassName?: string;
   hover?: "zoom" | "none";
-  rounded?: "none" | "sm" | "md" | "lg" | "xl" | "full";
 }
-
-const roundedClasses = {
-  none: "",
-  sm: "rounded-sm",
-  md: "rounded-md",
-  lg: "rounded-lg",
-  xl: "rounded-xl",
-  full: "rounded-full",
-};
 
 function Image({
   src,
@@ -37,29 +27,17 @@ function Image({
   className,
   containerClassName,
   hover = "none",
-  rounded = "lg",
 }: ImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
-      className={cn(
-        "relative overflow-hidden",
-        roundedClasses[rounded],
-        containerClassName
-      )}
+      className={cn("relative overflow-hidden", containerClassName)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {!isLoaded && (
-        <div
-          className={cn(
-            "absolute inset-0 animate-pulse bg-elevated",
-            roundedClasses[rounded]
-          )}
-        />
-      )}
+      {!isLoaded && <div className="bg-elevated absolute inset-0 animate-pulse" />}
 
       <motion.div
         className="h-full w-full"

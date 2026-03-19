@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DRSM - Diego Sanchez Portfolio
+
+[![CI](https://github.com/DiegoRSM03/drsm/actions/workflows/ci.yml/badge.svg)](https://github.com/DiegoRSM03/drsm/actions/workflows/ci.yml)
+[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel)](https://drsm.vercel.app)
+
+Personal portfolio and hiring magnet for a Senior Frontend Engineer. Built with modern web technologies and a focus on performance, animations, and user experience.
+
+**Live**: [drsm.vercel.app](https://drsm.vercel.app)
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **Animation**: Framer Motion, GSAP
+- **Deployment**: Vercel (SSG)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20+
+- pnpm 9+
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# Clone the repository
+git clone https://github.com/DiegoRSM03/drsm.git
+cd drsm
+
+# Install dependencies
+pnpm install
+
+# Start development server
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command      | Description                    |
+| ------------ | ------------------------------ |
+| `pnpm dev`   | Start development server       |
+| `pnpm build` | Create production build        |
+| `pnpm start` | Serve production build locally |
+| `pnpm lint`  | Run ESLint                     |
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/                    # Next.js App Router pages
+components/
+  common/               # Reusable UI components
+  custom/               # Feature-specific components
+contexts/               # React contexts
+hooks/                  # Custom hooks
+utils/                  # Utility functions
+public/                 # Static assets
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Architecture
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Server Components** by default for optimal performance
+- **Client Components** only when required (hooks, animations, interactivity)
+- **Static Site Generation** for fast initial loads
+- **Component-driven** architecture with barrel exports
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT

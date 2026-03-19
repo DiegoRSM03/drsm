@@ -18,9 +18,7 @@ export function LenisProvider({ children }: LenisProviderProps) {
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (prefersReducedMotion) {
       return;
@@ -36,6 +34,7 @@ export function LenisProvider({ children }: LenisProviderProps) {
       touchMultiplier: 2,
     });
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: sync external instance to state
     setLenis(lenisInstance);
 
     function raf(time: number) {
@@ -53,9 +52,7 @@ export function LenisProvider({ children }: LenisProviderProps) {
     };
   }, []);
 
-  return (
-    <LenisContext.Provider value={{ lenis }}>{children}</LenisContext.Provider>
-  );
+  return <LenisContext.Provider value={{ lenis }}>{children}</LenisContext.Provider>;
 }
 
 export function useLenis() {

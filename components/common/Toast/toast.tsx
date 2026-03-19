@@ -65,7 +65,11 @@ interface ToastContainerProps {
 
 function ToastContainer({ toasts, removeToast }: ToastContainerProps) {
   return (
-    <div className="pointer-events-none fixed bottom-6 right-6 z-[9999] flex flex-col gap-3">
+    <div
+      className="pointer-events-none fixed right-6 bottom-6 z-[9999] flex flex-col gap-3"
+      aria-live="polite"
+      aria-atomic="true"
+    >
       <AnimatePresence mode="popLayout">
         {toasts.map((toast) => (
           <ToastItem key={toast.id} toast={toast} onDismiss={removeToast} />
@@ -110,15 +114,15 @@ function ToastItem({ toast, onDismiss }: ToastItemProps) {
       exit={{ opacity: 0, x: 100, scale: 0.95 }}
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
-        "pointer-events-auto flex min-w-[300px] max-w-[400px] items-start gap-3 rounded-lg border p-4 shadow-lg backdrop-blur-sm",
+        "pointer-events-auto flex max-w-[400px] min-w-[300px] items-start gap-3 border p-4 shadow-lg backdrop-blur-sm",
         config.className
       )}
     >
       <Icon className={cn("mt-0.5 h-5 w-5 shrink-0", config.iconClassName)} />
-      <p className="flex-1 text-sm text-foreground">{toast.message}</p>
+      <p className="text-foreground flex-1 text-sm">{toast.message}</p>
       <button
         onClick={() => onDismiss(toast.id)}
-        className="shrink-0 rounded p-1 text-muted transition-colors hover:bg-surface hover:text-foreground"
+        className="text-muted hover:bg-surface hover:text-foreground focus-visible:ring-accent shrink-0 p-1 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
         aria-label="Dismiss"
       >
         <X className="h-4 w-4" />

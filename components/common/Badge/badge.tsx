@@ -26,17 +26,14 @@ const sizeClasses = {
 };
 
 const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
-  (
-    { children, variant = "default", size = "md", className, animated = false },
-    ref
-  ) => {
+  ({ children, variant = "default", size = "md", className, animated = false }, ref) => {
     const Component = animated ? motion.span : "span";
 
     return (
       <Component
         ref={ref}
         className={cn(
-          "inline-flex items-center rounded-full font-medium",
+          "inline-flex items-center font-medium",
           variantClasses[variant],
           sizeClasses[size],
           className

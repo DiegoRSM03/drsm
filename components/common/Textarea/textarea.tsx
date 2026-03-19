@@ -54,7 +54,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         <motion.label
           htmlFor={name}
           className={cn(
-            "pointer-events-none absolute left-4 origin-left text-muted transition-colors",
+            "text-muted pointer-events-none absolute left-4 origin-left transition-colors",
             error && "text-red-500"
           )}
           animate={{
@@ -69,7 +69,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
           {label}
-          {required && <span className="ml-1 text-accent">*</span>}
+          {required && <span className="text-accent ml-1">*</span>}
         </motion.label>
 
         <motion.textarea
@@ -84,7 +84,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           onFocus={handleFocus}
           onBlur={handleBlur}
           className={cn(
-            "w-full resize-none rounded-lg border bg-surface px-4 py-3 text-foreground outline-none transition-colors",
+            "bg-surface text-foreground w-full resize-none border px-4 py-3 transition-colors outline-none",
             "placeholder:text-muted/50",
             error ? "border-red-500" : "border-border",
             isFocused && !error && "border-accent"
@@ -106,6 +106,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             initial={{ opacity: 0, y: -4 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.2 }}
+            role="alert"
           >
             {error}
           </motion.p>

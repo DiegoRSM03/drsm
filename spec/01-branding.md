@@ -16,77 +16,77 @@ Dark-first design with **Electric Violet** as the primary accent. Bold, techy, c
 
 #### Base Colors
 
-| Token | Hex | RGB | Usage |
-|-------|-----|-----|-------|
-| `background` | `#0A0A0A` | `10, 10, 10` | Page background |
-| `surface` | `#111111` | `17, 17, 17` | Cards, sections |
-| `elevated` | `#1A1A1A` | `26, 26, 26` | Hover states, modals |
-| `border` | `#262626` | `38, 38, 38` | Subtle dividers |
-| `border-strong` | `#404040` | `64, 64, 64` | Emphasized borders |
-| `muted` | `#888888` | `136, 136, 136` | Secondary text, placeholders |
-| `foreground` | `#FAFAFA` | `250, 250, 250` | Primary text |
+| Token           | Hex       | RGB             | Usage                        |
+| --------------- | --------- | --------------- | ---------------------------- |
+| `background`    | `#0A0A0A` | `10, 10, 10`    | Page background              |
+| `surface`       | `#111111` | `17, 17, 17`    | Cards, sections              |
+| `elevated`      | `#1A1A1A` | `26, 26, 26`    | Hover states, modals         |
+| `border`        | `#262626` | `38, 38, 38`    | Subtle dividers              |
+| `border-strong` | `#404040` | `64, 64, 64`    | Emphasized borders           |
+| `muted`         | `#888888` | `136, 136, 136` | Secondary text, placeholders |
+| `foreground`    | `#FAFAFA` | `250, 250, 250` | Primary text                 |
 
 ### Light Mode
 
 #### Base Colors
 
-| Token | Hex | RGB | Usage |
-|-------|-----|-----|-------|
-| `background` | `#FAFAFA` | `250, 250, 250` | Page background |
-| `surface` | `#FFFFFF` | `255, 255, 255` | Cards, sections |
-| `elevated` | `#F5F5F5` | `245, 245, 245` | Hover states, modals |
-| `border` | `#E5E5E5` | `229, 229, 229` | Subtle dividers |
-| `border-strong` | `#D4D4D4` | `212, 212, 212` | Emphasized borders |
-| `muted` | `#737373` | `115, 115, 115` | Secondary text, placeholders |
-| `foreground` | `#0A0A0A` | `10, 10, 10` | Primary text |
+| Token           | Hex       | RGB             | Usage                        |
+| --------------- | --------- | --------------- | ---------------------------- |
+| `background`    | `#FAFAFA` | `250, 250, 250` | Page background              |
+| `surface`       | `#FFFFFF` | `255, 255, 255` | Cards, sections              |
+| `elevated`      | `#F5F5F5` | `245, 245, 245` | Hover states, modals         |
+| `border`        | `#E5E5E5` | `229, 229, 229` | Subtle dividers              |
+| `border-strong` | `#D4D4D4` | `212, 212, 212` | Emphasized borders           |
+| `muted`         | `#737373` | `115, 115, 115` | Secondary text, placeholders |
+| `foreground`    | `#0A0A0A` | `10, 10, 10`    | Primary text                 |
 
 ### Accent Colors (Shared)
 
 #### Electric Violet (Primary)
 
-| Token | Hex | RGB | Usage |
-|-------|-----|-----|-------|
-| `accent` | `#8B5CF6` | `139, 92, 246` | CTAs, links, highlights |
-| `accent-hover` | `#A78BFA` | `167, 139, 250` | Hover states (dark) |
-| `accent-hover-light` | `#7C3AED` | `124, 58, 237` | Hover states (light) |
-| `accent-muted` | `#C4B5FD` | `196, 181, 253` | Backgrounds, tags |
-| `accent-subtle` | `#8B5CF620` | — | 12% opacity overlays |
+| Token                | Hex         | RGB             | Usage                   |
+| -------------------- | ----------- | --------------- | ----------------------- |
+| `accent`             | `#8B5CF6`   | `139, 92, 246`  | CTAs, links, highlights |
+| `accent-hover`       | `#A78BFA`   | `167, 139, 250` | Hover states (dark)     |
+| `accent-hover-light` | `#7C3AED`   | `124, 58, 237`  | Hover states (light)    |
+| `accent-muted`       | `#C4B5FD`   | `196, 181, 253` | Backgrounds, tags       |
+| `accent-subtle`      | `#8B5CF620` | —               | 12% opacity overlays    |
 
 #### Cyan Pop (Secondary)
 
-| Token | Hex | RGB | Usage |
-|-------|-----|-----|-------|
-| `pop` | `#06B6D4` | `6, 182, 212` | Secondary highlights |
-| `pop-hover` | `#22D3EE` | `34, 211, 238` | Hover states (dark) |
-| `pop-hover-light` | `#0891B2` | `8, 145, 178` | Hover states (light) |
-| `pop-muted` | `#67E8F9` | `103, 232, 249` | Subtle accents |
+| Token             | Hex       | RGB             | Usage                |
+| ----------------- | --------- | --------------- | -------------------- |
+| `pop`             | `#06B6D4` | `6, 182, 212`   | Secondary highlights |
+| `pop-hover`       | `#22D3EE` | `34, 211, 238`  | Hover states (dark)  |
+| `pop-hover-light` | `#0891B2` | `8, 145, 178`   | Hover states (light) |
+| `pop-muted`       | `#67E8F9` | `103, 232, 249` | Subtle accents       |
 
 ### State Colors
 
-| State | Dark Mode | Light Mode | Usage |
-|-------|-----------|------------|-------|
-| Focus ring | `#8B5CF6` | `#8B5CF6` | Keyboard focus outline |
-| Selection | `#8B5CF640` | `#8B5CF630` | Text selection background |
-| Disabled | `#404040` | `#D4D4D4` | Disabled elements |
+| State      | Dark Mode   | Light Mode  | Usage                     |
+| ---------- | ----------- | ----------- | ------------------------- |
+| Focus ring | `#8B5CF6`   | `#8B5CF6`   | Keyboard focus outline    |
+| Selection  | `#8B5CF640` | `#8B5CF630` | Text selection background |
+| Disabled   | `#404040`   | `#D4D4D4`   | Disabled elements         |
 
 ---
 
 ## 2. Gradients
 
-| Name | Value | Usage |
-|------|-------|-------|
-| `gradient-accent` | `linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%)` | Hero text, section titles |
-| `gradient-glow` | `radial-gradient(circle at center, #8B5CF640 0%, transparent 70%)` | Background glows |
-| `gradient-fade-dark` | `linear-gradient(180deg, #0A0A0A 0%, #111111 100%)` | Section transitions (dark) |
-| `gradient-fade-light` | `linear-gradient(180deg, #FAFAFA 0%, #F5F5F5 100%)` | Section transitions (light) |
+| Name                  | Value                                                              | Usage                       |
+| --------------------- | ------------------------------------------------------------------ | --------------------------- |
+| `gradient-accent`     | `linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%)`                | Hero text, section titles   |
+| `gradient-glow`       | `radial-gradient(circle at center, #8B5CF640 0%, transparent 70%)` | Background glows            |
+| `gradient-fade-dark`  | `linear-gradient(180deg, #0A0A0A 0%, #111111 100%)`                | Section transitions (dark)  |
+| `gradient-fade-light` | `linear-gradient(180deg, #FAFAFA 0%, #F5F5F5 100%)`                | Section transitions (light) |
 
 ### Gradient Text Usage
 
-| Element | Gradient | Notes |
-|---------|----------|-------|
-| Hero headline (display) | `gradient-accent` | Always gradient |
-| Section titles (h2) | `gradient-accent` | Always gradient |
-| Other headings | Solid `foreground` | No gradient |
+| Element                 | Gradient           | Notes           |
+| ----------------------- | ------------------ | --------------- |
+| Hero headline (display) | `gradient-accent`  | Always gradient |
+| Section titles (h2)     | `gradient-accent`  | Always gradient |
+| Other headings          | Solid `foreground` | No gradient     |
 
 ---
 
@@ -94,20 +94,20 @@ Dark-first design with **Electric Violet** as the primary accent. Bold, techy, c
 
 ### Dark Mode
 
-| Name | Value | Usage |
-|------|-------|-------|
-| `shadow-sm` | `0 2px 8px rgba(0, 0, 0, 0.4)` | Cards |
-| `shadow-md` | `0 4px 16px rgba(0, 0, 0, 0.5)` | Elevated elements |
-| `shadow-lg` | `0 8px 32px rgba(0, 0, 0, 0.6)` | Modals, dropdowns |
+| Name          | Value                              | Usage               |
+| ------------- | ---------------------------------- | ------------------- |
+| `shadow-sm`   | `0 2px 8px rgba(0, 0, 0, 0.4)`     | Cards               |
+| `shadow-md`   | `0 4px 16px rgba(0, 0, 0, 0.5)`    | Elevated elements   |
+| `shadow-lg`   | `0 8px 32px rgba(0, 0, 0, 0.6)`    | Modals, dropdowns   |
 | `shadow-glow` | `0 0 40px rgba(139, 92, 246, 0.3)` | Accent glow effects |
 
 ### Light Mode
 
-| Name | Value | Usage |
-|------|-------|-------|
-| `shadow-sm` | `0 2px 8px rgba(0, 0, 0, 0.08)` | Cards |
-| `shadow-md` | `0 4px 16px rgba(0, 0, 0, 0.1)` | Elevated elements |
-| `shadow-lg` | `0 8px 32px rgba(0, 0, 0, 0.12)` | Modals, dropdowns |
+| Name          | Value                              | Usage               |
+| ------------- | ---------------------------------- | ------------------- |
+| `shadow-sm`   | `0 2px 8px rgba(0, 0, 0, 0.08)`    | Cards               |
+| `shadow-md`   | `0 4px 16px rgba(0, 0, 0, 0.1)`    | Elevated elements   |
+| `shadow-lg`   | `0 8px 32px rgba(0, 0, 0, 0.12)`   | Modals, dropdowns   |
 | `shadow-glow` | `0 0 40px rgba(139, 92, 246, 0.2)` | Accent glow effects |
 
 ---
@@ -116,45 +116,45 @@ Dark-first design with **Electric Violet** as the primary accent. Bold, techy, c
 
 ### Font Stack
 
-| Role | Font | Weight | Fallback |
-|------|------|--------|----------|
-| **Logo** | Space Grotesk | 700 | system-ui, sans-serif |
-| **Headlines** | Space Grotesk | 600, 700 | system-ui, sans-serif |
-| **Body** | Inter | 400, 500, 600 | system-ui, sans-serif |
-| **Code** | JetBrains Mono | 400, 500 | monospace |
+| Role          | Font           | Weight        | Fallback              |
+| ------------- | -------------- | ------------- | --------------------- |
+| **Logo**      | Space Grotesk  | 700           | system-ui, sans-serif |
+| **Headlines** | Space Grotesk  | 600, 700      | system-ui, sans-serif |
+| **Body**      | Inter          | 400, 500, 600 | system-ui, sans-serif |
+| **Code**      | JetBrains Mono | 400, 500      | monospace             |
 
 ### Type Scale
 
-| Token | Size | Line Height | Letter Spacing | Usage |
-|-------|------|-------------|----------------|-------|
-| `display` | 72px / 4.5rem | 1.0 | -0.03em | Hero headline |
-| `h1` | 48px / 3rem | 1.1 | -0.02em | Page titles |
-| `h2` | 36px / 2.25rem | 1.2 | -0.02em | Section titles |
-| `h3` | 24px / 1.5rem | 1.3 | -0.01em | Subsections |
-| `h4` | 20px / 1.25rem | 1.4 | -0.01em | Card titles |
-| `body` | 16px / 1rem | 1.6 | 0 | Body text |
-| `body-sm` | 14px / 0.875rem | 1.5 | 0 | Secondary text |
-| `caption` | 12px / 0.75rem | 1.4 | 0.02em | Labels, captions |
-| `code` | 14px / 0.875rem | 1.5 | 0 | Code blocks |
+| Token     | Size            | Line Height | Letter Spacing | Usage            |
+| --------- | --------------- | ----------- | -------------- | ---------------- |
+| `display` | 72px / 4.5rem   | 1.0         | -0.03em        | Hero headline    |
+| `h1`      | 48px / 3rem     | 1.1         | -0.02em        | Page titles      |
+| `h2`      | 36px / 2.25rem  | 1.2         | -0.02em        | Section titles   |
+| `h3`      | 24px / 1.5rem   | 1.3         | -0.01em        | Subsections      |
+| `h4`      | 20px / 1.25rem  | 1.4         | -0.01em        | Card titles      |
+| `body`    | 16px / 1rem     | 1.6         | 0              | Body text        |
+| `body-sm` | 14px / 0.875rem | 1.5         | 0              | Secondary text   |
+| `caption` | 12px / 0.75rem  | 1.4         | 0.02em         | Labels, captions |
+| `code`    | 14px / 0.875rem | 1.5         | 0              | Code blocks      |
 
 ### Responsive Scaling
 
-| Breakpoint | Display | H1 | H2 | Body |
-|------------|---------|-----|-----|------|
-| Mobile (<640px) | 40px | 32px | 24px | 16px |
-| Tablet (640-1024px) | 56px | 40px | 30px | 16px |
-| Desktop (>1024px) | 72px | 48px | 36px | 16px |
+| Breakpoint          | Display | H1   | H2   | Body |
+| ------------------- | ------- | ---- | ---- | ---- |
+| Mobile (<640px)     | 40px    | 32px | 24px | 16px |
+| Tablet (640-1024px) | 56px    | 40px | 30px | 16px |
+| Desktop (>1024px)   | 72px    | 48px | 36px | 16px |
 
 ### Typography Colors
 
-| Context | Dark Mode | Light Mode |
-|---------|-----------|------------|
-| Headings | `#FAFAFA` | `#0A0A0A` |
-| Body text | `#FAFAFA` | `#0A0A0A` |
-| Secondary text | `#888888` | `#737373` |
-| Links | `#8B5CF6` | `#8B5CF6` |
-| Links (hover) | `#A78BFA` | `#7C3AED` |
-| Code | `#06B6D4` | `#0891B2` |
+| Context        | Dark Mode | Light Mode |
+| -------------- | --------- | ---------- |
+| Headings       | `#FAFAFA` | `#0A0A0A`  |
+| Body text      | `#FAFAFA` | `#0A0A0A`  |
+| Secondary text | `#888888` | `#737373`  |
+| Links          | `#8B5CF6` | `#8B5CF6`  |
+| Links (hover)  | `#A78BFA` | `#7C3AED`  |
+| Code           | `#06B6D4` | `#0891B2`  |
 
 ---
 
@@ -194,12 +194,12 @@ Instant theme switch with no animation.
 
 ### Tech Stack
 
-| Library | Purpose | Priority |
-|---------|---------|----------|
-| **Lenis** | Smooth scroll, scroll velocity | Core |
-| **Framer Motion** | Component animations, gestures, layout | Core |
-| **GSAP + ScrollTrigger** | Complex timelines, scroll-driven effects | Core |
-| **split-type** | Text splitting (chars, words, lines) | Core |
+| Library                  | Purpose                                  | Priority |
+| ------------------------ | ---------------------------------------- | -------- |
+| **Lenis**                | Smooth scroll, scroll velocity           | Core     |
+| **Framer Motion**        | Component animations, gestures, layout   | Core     |
+| **GSAP + ScrollTrigger** | Complex timelines, scroll-driven effects | Core     |
+| **split-type**           | Text splitting (chars, words, lines)     | Core     |
 
 ### 6.1 Smooth Scroll
 
@@ -218,6 +218,7 @@ Instant theme switch with no animation.
 ```
 
 **Behavior:**
+
 - Natural momentum on trackpad/touch
 - Syncs with GSAP ScrollTrigger
 - Supports `position: sticky`
@@ -244,6 +245,7 @@ Instant theme switch with no animation.
 | Hidden | hidden | hidden | Outside viewport |
 
 **Magnetic Effect:**
+
 ```tsx
 const distance = Math.sqrt(dx * dx + dy * dy);
 const pull = Math.max(0, 1 - distance / 100);
@@ -261,16 +263,17 @@ All animations are **flat** (no 3D transforms like rotateX/Y, perspective).
 
 #### Reveal Types
 
-| Type | Description | Trigger |
-|------|-------------|---------|
-| Fade Up | Opacity 0→1, Y 40→0 | Enter viewport |
-| Fade In | Opacity 0→1 | Enter viewport |
-| Scale In | Scale 0.95→1, opacity | Enter viewport |
-| Stagger | Sequential children reveal | Enter viewport |
-| Slide In | X ±100→0, opacity | Enter viewport |
-| Blur In | Blur 10px→0, opacity | Enter viewport |
+| Type     | Description                | Trigger        |
+| -------- | -------------------------- | -------------- |
+| Fade Up  | Opacity 0→1, Y 40→0        | Enter viewport |
+| Fade In  | Opacity 0→1                | Enter viewport |
+| Scale In | Scale 0.95→1, opacity      | Enter viewport |
+| Stagger  | Sequential children reveal | Enter viewport |
+| Slide In | X ±100→0, opacity          | Enter viewport |
+| Blur In  | Blur 10px→0, opacity       | Enter viewport |
 
 **Default Config:**
+
 ```tsx
 {
   initial: { opacity: 0, y: 40 },
@@ -282,26 +285,27 @@ All animations are **flat** (no 3D transforms like rotateX/Y, perspective).
 
 #### Parallax Effects
 
-| Element | Speed | Direction |
-|---------|-------|-----------|
-| Hero background | 0.5x | Slower |
-| Floating elements | 1.2x | Faster |
-| Images | 0.8x | Slower |
-| Text blocks | 1.0x | Normal |
+| Element           | Speed | Direction |
+| ----------------- | ----- | --------- |
+| Hero background   | 0.5x  | Slower    |
+| Floating elements | 1.2x  | Faster    |
+| Images            | 0.8x  | Slower    |
+| Text blocks       | 1.0x  | Normal    |
 
 ### 6.4 Text Animations
 
 **Library:** split-type + GSAP + Framer Motion
 
-| Type | Description | Use Case |
-|------|-------------|----------|
-| Character reveal | Staggered char opacity/Y | Hero headline |
-| Word reveal | Staggered word animation | Section titles |
-| Line reveal | Clip-path line by line | Paragraphs |
-| Typewriter | Sequential character appear | Code snippets |
-| Gradient sweep | Moving gradient mask | Accent text |
+| Type             | Description                 | Use Case       |
+| ---------------- | --------------------------- | -------------- |
+| Character reveal | Staggered char opacity/Y    | Hero headline  |
+| Word reveal      | Staggered word animation    | Section titles |
+| Line reveal      | Clip-path line by line      | Paragraphs     |
+| Typewriter       | Sequential character appear | Code snippets  |
+| Gradient sweep   | Moving gradient mask        | Accent text    |
 
 **Hero Title Animation:**
+
 ```tsx
 {
   initial: { opacity: 0, y: 20 },
@@ -318,13 +322,14 @@ All animations are **flat** (no 3D transforms like rotateX/Y, perspective).
 
 **Library:** Framer Motion (AnimatePresence) + View Transitions API
 
-| Transition | Description | Duration |
-|------------|-------------|----------|
-| Fade | Cross-fade between pages | 300ms |
-| Slide | Slide left/right | 400ms |
-| Clip | Rectangular reveal | 500ms |
+| Transition | Description              | Duration |
+| ---------- | ------------------------ | -------- |
+| Fade       | Cross-fade between pages | 300ms    |
+| Slide      | Slide left/right         | 400ms    |
+| Clip       | Rectangular reveal       | 500ms    |
 
 **Default:**
+
 ```tsx
 {
   initial: { opacity: 0 },
@@ -338,16 +343,17 @@ All animations are **flat** (no 3D transforms like rotateX/Y, perspective).
 
 All hover effects are **flat** — using scale, opacity, color, shadow, and Y translation only.
 
-| Element | Effect |
-|---------|--------|
-| Buttons | Scale 1.02, glow shadow, magnetic pull |
-| Cards | Lift (Y -8px), shadow increase, border glow |
-| Links | Underline slide in, color shift |
-| Images | Subtle zoom (1.05), cursor change |
-| Nav items | Background slide, text color shift |
-| Tags | Background fill, scale 1.02 |
+| Element   | Effect                                      |
+| --------- | ------------------------------------------- |
+| Buttons   | Scale 1.02, glow shadow, magnetic pull      |
+| Cards     | Lift (Y -8px), shadow increase, border glow |
+| Links     | Underline slide in, color shift             |
+| Images    | Subtle zoom (1.05), cursor change           |
+| Nav items | Background slide, text color shift          |
+| Tags      | Background fill, scale 1.02                 |
 
 **Card Hover:**
+
 ```tsx
 {
   whileHover: {
@@ -360,6 +366,7 @@ All hover effects are **flat** — using scale, opacity, color, shadow, and Y tr
 ```
 
 **Button Hover (Magnetic):**
+
 ```tsx
 {
   whileHover: {
@@ -373,29 +380,30 @@ All hover effects are **flat** — using scale, opacity, color, shadow, and Y tr
 
 ### 6.7 Micro-interactions
 
-| Interaction | Animation |
-|-------------|-----------|
-| Button click | Scale down 0.97 → up 1.0 |
-| Toggle switch | Sliding dot with bounce |
-| Checkbox | Check icon draw animation |
-| Input focus | Border glow pulse |
-| Copy button | Checkmark morph |
-| Menu open | Staggered item reveal |
-| Tooltip | Fade + scale from origin |
-| Theme toggle | Icon morph (sun ↔ moon) + circular reveal |
+| Interaction   | Animation                                 |
+| ------------- | ----------------------------------------- |
+| Button click  | Scale down 0.97 → up 1.0                  |
+| Toggle switch | Sliding dot with bounce                   |
+| Checkbox      | Check icon draw animation                 |
+| Input focus   | Border glow pulse                         |
+| Copy button   | Checkmark morph                           |
+| Menu open     | Staggered item reveal                     |
+| Tooltip       | Fade + scale from origin                  |
+| Theme toggle  | Icon morph (sun ↔ moon) + circular reveal |
 
 ### 6.8 Loading States
 
 **Logo:** "DRSM" in Space Grotesk, 700 weight
 
-| State | Animation |
-|-------|-----------|
+| State     | Animation                     |
+| --------- | ----------------------------- |
 | Page load | DRSM reveal → content fade in |
-| Skeleton | Shimmer gradient sweep |
-| Spinner | Rotating accent gradient |
-| Progress | Smooth width transition |
+| Skeleton  | Shimmer gradient sweep        |
+| Spinner   | Rotating accent gradient      |
+| Progress  | Smooth width transition       |
 
 **Initial Page Load Sequence:**
+
 1. Black/white screen based on theme (0ms)
 2. "DRSM" letters fade in sequentially (0-500ms)
 3. "DRSM" scales up slightly + fades out (500-800ms)
@@ -421,22 +429,22 @@ All hover effects are **flat** — using scale, opacity, color, shadow, and Y tr
 
 ### Durations
 
-| Token | Value | Use Case |
-|-------|-------|----------|
-| `instant` | 100ms | Micro-feedback |
-| `fast` | 200ms | Hovers, toggles |
-| `normal` | 300ms | Standard transitions |
-| `slow` | 500ms | Page transitions |
-| `slower` | 800ms | Complex sequences |
+| Token     | Value | Use Case             |
+| --------- | ----- | -------------------- |
+| `instant` | 100ms | Micro-feedback       |
+| `fast`    | 200ms | Hovers, toggles      |
+| `normal`  | 300ms | Standard transitions |
+| `slow`    | 500ms | Page transitions     |
+| `slower`  | 800ms | Complex sequences    |
 
 ### Easings
 
-| Token | Value | Use Case |
-|-------|-------|----------|
-| `ease-out` | `[0.22, 1, 0.36, 1]` | Enter animations |
-| `ease-in-out` | `[0.4, 0, 0.2, 1]` | Symmetrical |
-| `ease-spring` | `type: "spring", stiffness: 300, damping: 30` | Snappy |
-| `ease-bounce` | `type: "spring", stiffness: 400, damping: 10` | Playful |
+| Token         | Value                                         | Use Case         |
+| ------------- | --------------------------------------------- | ---------------- |
+| `ease-out`    | `[0.22, 1, 0.36, 1]`                          | Enter animations |
+| `ease-in-out` | `[0.4, 0, 0.2, 1]`                            | Symmetrical      |
+| `ease-spring` | `type: "spring", stiffness: 300, damping: 30` | Snappy           |
+| `ease-bounce` | `type: "spring", stiffness: 400, damping: 10` | Playful          |
 
 ### Spring Presets
 
@@ -456,35 +464,35 @@ const springs = {
 ```css
 /* Dark Mode (default) */
 :root {
-  --color-background: #0A0A0A;
+  --color-background: #0a0a0a;
   --color-surface: #111111;
-  --color-elevated: #1A1A1A;
+  --color-elevated: #1a1a1a;
   --color-border: #262626;
   --color-border-strong: #404040;
   --color-muted: #888888;
-  --color-foreground: #FAFAFA;
+  --color-foreground: #fafafa;
 
-  --color-accent: #8B5CF6;
-  --color-accent-hover: #A78BFA;
-  --color-accent-muted: #C4B5FD;
+  --color-accent: #8b5cf6;
+  --color-accent-hover: #a78bfa;
+  --color-accent-muted: #c4b5fd;
   --color-accent-subtle: rgba(139, 92, 246, 0.12);
 
-  --color-pop: #06B6D4;
-  --color-pop-hover: #22D3EE;
-  --color-pop-muted: #67E8F9;
+  --color-pop: #06b6d4;
+  --color-pop-hover: #22d3ee;
+  --color-pop-muted: #67e8f9;
 
-  --gradient-accent: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+  --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
   --gradient-glow: radial-gradient(circle at center, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
-  --gradient-fade: linear-gradient(180deg, #0A0A0A 0%, #111111 100%);
+  --gradient-fade: linear-gradient(180deg, #0a0a0a 0%, #111111 100%);
 
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
   --shadow-glow: 0 0 40px rgba(139, 92, 246, 0.3);
 
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 
   --duration-instant: 100ms;
   --duration-fast: 200ms;
@@ -498,18 +506,18 @@ const springs = {
 
 /* Light Mode */
 [data-theme="light"] {
-  --color-background: #FAFAFA;
-  --color-surface: #FFFFFF;
-  --color-elevated: #F5F5F5;
-  --color-border: #E5E5E5;
-  --color-border-strong: #D4D4D4;
+  --color-background: #fafafa;
+  --color-surface: #ffffff;
+  --color-elevated: #f5f5f5;
+  --color-border: #e5e5e5;
+  --color-border-strong: #d4d4d4;
   --color-muted: #737373;
-  --color-foreground: #0A0A0A;
+  --color-foreground: #0a0a0a;
 
-  --color-accent-hover: #7C3AED;
-  --color-pop-hover: #0891B2;
+  --color-accent-hover: #7c3aed;
+  --color-pop-hover: #0891b2;
 
-  --gradient-fade: linear-gradient(180deg, #FAFAFA 0%, #F5F5F5 100%);
+  --gradient-fade: linear-gradient(180deg, #fafafa 0%, #f5f5f5 100%);
 
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
@@ -533,9 +541,7 @@ const springs = {
 ### Reduced Motion Fallback
 
 ```tsx
-const prefersReducedMotion = window.matchMedia(
-  "(prefers-reduced-motion: reduce)"
-).matches;
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // Fallback: instant transitions, no parallax, static cursor, instant theme switch
 ```
@@ -544,24 +550,26 @@ const prefersReducedMotion = window.matchMedia(
 
 ## 10. Implementation Priority
 
-| Phase | Scope |
-|-------|-------|
-| **Phase 1** | Colors, typography, Lenis scroll, theme toggle |
-| **Phase 2** | Custom cursor, text animations, hover effects |
+| Phase       | Scope                                                  |
+| ----------- | ------------------------------------------------------ |
+| **Phase 1** | Colors, typography, Lenis scroll, theme toggle         |
+| **Phase 2** | Custom cursor, text animations, hover effects          |
 | **Phase 3** | Page transitions, parallax, theme transition animation |
-| **Phase 4** | DRSM loading sequence, micro-interactions, polish |
+| **Phase 4** | DRSM loading sequence, micro-interactions, polish      |
 
 ---
 
 ## References
 
 ### Libraries
+
 - [Lenis - Smooth Scroll](https://www.lenis.dev/)
 - [GSAP](https://gsap.com/)
 - [Framer Motion](https://www.framer.com/motion/)
 - [split-type](https://github.com/lukePeavey/SplitType) — Free text splitting (replaces GSAP SplitText)
 
 ### Tutorials
+
 - [Codrops - Custom Cursor Effects](https://tympanus.net/codrops/2019/01/31/custom-cursor-effects/)
 - [Codrops - Animated Custom Cursor Effects](https://tympanus.net/codrops/2020/03/24/animated-custom-cursor-effects/)
 - [Codrops - 3D Scroll-Driven Text Animations](https://tympanus.net/codrops/2025/11/04/creating-3d-scroll-driven-text-animations-with-css-and-gsap/)
@@ -569,6 +577,7 @@ const prefersReducedMotion = window.matchMedia(
 - [split-type Examples](https://github.com/lukePeavey/SplitType#examples)
 
 ### Inspiration
+
 - [Awwwards - Hovers, Cursors Collection](https://www.awwwards.com/awwwards/collections/hovers-cursors-and-cute-interactions/)
 - [Awwwards - Magnetic Hover](https://www.awwwards.com/inspiration/magnetic-hover-inette)
 - [Awwwards - GSAP Websites](https://www.awwwards.com/websites/gsap/)

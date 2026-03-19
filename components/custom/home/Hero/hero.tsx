@@ -7,50 +7,36 @@ import {
   useTransform,
   useSpring,
   useMotionValue,
+  useReducedMotion,
   MotionValue,
 } from "framer-motion";
 import { Download, ArrowRight } from "lucide-react";
-import {
-  SiReact,
-  SiTypescript,
-  SiNextdotjs,
-  SiTailwindcss,
-  SiJest,
-} from "react-icons/si";
+import { SiReact, SiTypescript, SiNextdotjs, SiTailwindcss, SiJest } from "react-icons/si";
+import { useTranslations } from "next-intl";
 import { MagneticButton } from "@/components/custom/MagneticButton";
+import { ProximityShape } from "@/components/custom/ProximityShape";
+import { ACCENT, CYAN_HEX, PINK_HEX, AMBER_HEX, GREEN_HEX, EASE } from "@/utils";
+import { useIsTouchDevice } from "@/hooks";
+import { GridBackground } from "@/components/custom/GridBackground";
+import { CursorBrightGrid } from "@/components/custom/CursorEffects";
+import { useLenis } from "@/components/custom/LenisProvider";
+import type { ProximityShapeData } from "@/components/custom/ProximityShape";
 
 interface TechItem {
   icon: typeof SiReact | null;
   label: string;
   color: string;
+  showOnMobile: boolean;
 }
 
 const TECH_STACK: TechItem[] = [
-  { icon: SiReact, label: "React", color: "#61DAFB" },
-  { icon: SiNextdotjs, label: "Next.js", color: "#ffffff" },
-  { icon: SiTypescript, label: "TypeScript", color: "#3178C6" },
-  { icon: SiTailwindcss, label: "Tailwind", color: "#06B6D4" },
-  { icon: SiJest, label: "Jest", color: "#C21325" },
-  { icon: null, label: "Claude", color: "#D97757" },
+  { icon: SiReact, label: "React", color: "#61DAFB", showOnMobile: true },
+  { icon: SiNextdotjs, label: "Next.js", color: "#ffffff", showOnMobile: true },
+  { icon: SiTypescript, label: "TypeScript", color: "#3178C6", showOnMobile: false },
+  { icon: SiTailwindcss, label: "Tailwind", color: "#06B6D4", showOnMobile: false },
+  { icon: SiJest, label: "Jest", color: "#C21325", showOnMobile: false },
+  { icon: null, label: "Claude", color: "#D97757", showOnMobile: true },
 ];
-
-interface ShapeConfig {
-  x: string;
-  y: string;
-  mobileX?: string;
-  mobileY?: string;
-  size: number;
-  mobileSize?: number;
-  color: string;
-  type: "square" | "circle" | "triangle";
-  rotation: number;
-  factorX: number;
-  factorY: number;
-  stiffness: number;
-  damping: number;
-  hideOnMobile: boolean;
-  scrollFactor: number;
-}
 
 interface CursorShapeConfig {
   offsetX: number;
@@ -60,173 +46,329 @@ interface CursorShapeConfig {
   damping: number;
 }
 
-const SOLID_SHAPES: ShapeConfig[] = [
-  { x: "8%", y: "18%", mobileX: "10%", mobileY: "12%", size: 55, mobileSize: 35, color: "#8B5CF6", type: "square", rotation: 45, factorX: 0.015, factorY: 0.015, stiffness: 50, damping: 20, hideOnMobile: false, scrollFactor: -30 },
-  { x: "92%", y: "15%", size: 45, color: "#06B6D4", type: "circle", rotation: 0, factorX: -0.025, factorY: -0.025, stiffness: 200, damping: 15, hideOnMobile: true, scrollFactor: 0 },
-  { x: "5%", y: "55%", size: 40, color: "#EC4899", type: "square", rotation: 12, factorX: 0.02, factorY: 0, stiffness: 100, damping: 25, hideOnMobile: true, scrollFactor: 0 },
-  { x: "95%", y: "50%", mobileX: "88%", mobileY: "15%", size: 35, mobileSize: 28, color: "#F59E0B", type: "triangle", rotation: 0, factorX: 0, factorY: 0.03, stiffness: 80, damping: 30, hideOnMobile: false, scrollFactor: 50 },
-  { x: "12%", y: "82%", size: 50, color: "#10B981", type: "circle", rotation: 0, factorX: 0.012, factorY: -0.012, stiffness: 60, damping: 25, hideOnMobile: true, scrollFactor: 0 },
-  { x: "88%", y: "85%", mobileX: "85%", mobileY: "88%", size: 48, mobileSize: 32, color: "#8B5CF6", type: "square", rotation: 20, factorX: 0.035, factorY: 0.035, stiffness: 300, damping: 20, hideOnMobile: false, scrollFactor: -60 },
-];
-
-const BORDERED_SHAPES: ShapeConfig[] = [
-  { x: "18%", y: "25%", size: 70, color: "#8B5CF6", type: "square", rotation: 15, factorX: -0.012, factorY: 0.02, stiffness: 70, damping: 25, hideOnMobile: true, scrollFactor: 0 },
-  { x: "82%", y: "28%", mobileX: "12%", mobileY: "85%", size: 55, mobileSize: 40, color: "#06B6D4", type: "circle", rotation: 0, factorX: 0.015, factorY: -0.015, stiffness: 120, damping: 20, hideOnMobile: false, scrollFactor: 40 },
-  { x: "75%", y: "72%", size: 65, color: "#EC4899", type: "square", rotation: 30, factorX: -0.02, factorY: -0.012, stiffness: 90, damping: 22, hideOnMobile: true, scrollFactor: 0 },
-  { x: "22%", y: "68%", mobileX: "8%", mobileY: "50%", size: 50, mobileSize: 35, color: "#F59E0B", type: "circle", rotation: 0, factorX: 0.025, factorY: 0.008, stiffness: 150, damping: 18, hideOnMobile: false, scrollFactor: -45 },
-];
-
 const CURSOR_SHAPES: CursorShapeConfig[] = [
-  { offsetX: -45, offsetY: -60, size: 14, stiffness: 400, damping: 25 },
-  { offsetX: 50, offsetY: -55, size: 11, stiffness: 250, damping: 20 },
-  { offsetX: 55, offsetY: 35, size: 16, stiffness: 150, damping: 30 },
-  { offsetX: -40, offsetY: 40, size: 12, stiffness: 100, damping: 18 },
+  { offsetX: -45, offsetY: -50, size: 12, stiffness: 300, damping: 22 },
+  { offsetX: 50, offsetY: 45, size: 10, stiffness: 180, damping: 18 },
+];
+
+const HERO_SHAPES: ProximityShapeData[] = [
+  {
+    type: "diamond",
+    x: "8%",
+    y: "18%",
+    size: 55,
+    color: ACCENT,
+    filled: true,
+    floatDuration: 6,
+    floatDelay: 0,
+  },
+  {
+    type: "circle",
+    x: "92%",
+    y: "15%",
+    size: 45,
+    color: CYAN_HEX,
+    filled: true,
+    floatDuration: 7.5,
+    floatDelay: 0.4,
+  },
+  {
+    type: "square",
+    x: "5%",
+    y: "55%",
+    size: 40,
+    color: PINK_HEX,
+    filled: true,
+    floatDuration: 5.5,
+    floatDelay: 0.8,
+  },
+  {
+    type: "triangle",
+    x: "95%",
+    y: "50%",
+    size: 35,
+    color: AMBER_HEX,
+    filled: true,
+    floatDuration: 8,
+    floatDelay: 0.2,
+  },
+  {
+    type: "circle",
+    x: "12%",
+    y: "82%",
+    size: 50,
+    color: GREEN_HEX,
+    filled: true,
+    floatDuration: 6.5,
+    floatDelay: 1.0,
+  },
+  {
+    type: "diamond",
+    x: "88%",
+    y: "85%",
+    size: 48,
+    color: ACCENT,
+    filled: true,
+    floatDuration: 5,
+    floatDelay: 0.6,
+  },
+  {
+    type: "square",
+    x: "18%",
+    y: "25%",
+    size: 70,
+    color: ACCENT,
+    filled: false,
+    floatDuration: 7,
+    floatDelay: 0.3,
+  },
+  {
+    type: "circle",
+    x: "82%",
+    y: "28%",
+    size: 55,
+    color: CYAN_HEX,
+    filled: false,
+    floatDuration: 6,
+    floatDelay: 0.9,
+  },
+  {
+    type: "square",
+    x: "75%",
+    y: "72%",
+    size: 65,
+    color: PINK_HEX,
+    filled: false,
+    floatDuration: 8,
+    floatDelay: 0.5,
+  },
+  {
+    type: "circle",
+    x: "22%",
+    y: "68%",
+    size: 50,
+    color: AMBER_HEX,
+    filled: false,
+    floatDuration: 7,
+    floatDelay: 1.1,
+  },
 ];
 
 function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+  const isTouch = useIsTouchDevice();
+  const t = useTranslations("hero");
+  const { lenis } = useLenis();
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
   });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -300]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -150]);
-  const y3 = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const enableParallax = !shouldReduceMotion && !isTouch;
+
+  const y1 = useTransform(scrollYProgress, [0, 1], enableParallax ? [0, -300] : [0, 0]);
+  const y2 = useTransform(scrollYProgress, [0, 1], enableParallax ? [0, -150] : [0, 0]);
+  const y3 = useTransform(scrollYProgress, [0, 1], enableParallax ? [0, -50] : [0, 0]);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const centerX = useMotionValue(0);
   const centerY = useMotionValue(0);
 
+  const enableMotion = !shouldReduceMotion && !isTouch;
+
   const handleMouseMove = useCallback(
     (e: React.MouseEvent) => {
+      if (!enableMotion) return;
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
       centerX.set(e.clientX - window.innerWidth / 2);
       centerY.set(e.clientY - window.innerHeight / 2);
     },
-    [mouseX, mouseY, centerX, centerY]
+    [mouseX, mouseY, centerX, centerY, enableMotion]
   );
 
   return (
     <section
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="fixed inset-0 flex h-screen w-screen items-center justify-center overflow-hidden bg-background"
+      className="bg-surface relative flex h-screen w-full items-center justify-center overflow-hidden"
+      aria-label="Hero section introducing Diego Sanchez"
+      data-cursor-grid
     >
-      <GridBackground mouseX={mouseX} mouseY={mouseY} />
-      <ReactiveShapes
-        shapes={SOLID_SHAPES}
-        centerX={centerX}
-        centerY={centerY}
-        scrollY={scrollYProgress}
-        filled
-      />
-      <ReactiveShapes
-        shapes={BORDERED_SHAPES}
-        centerX={centerX}
-        centerY={centerY}
-        scrollY={scrollYProgress}
-        filled={false}
-      />
-      <CursorShapes mouseX={mouseX} mouseY={mouseY} />
+      <GridBackground id="hero-grid" cellSize={100} />
+      <CursorBrightGrid cellSize={100} maxOpacity={0.15} />
+      {!isTouch && (
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          {HERO_SHAPES.map((shape, i) => (
+            <ProximityShape key={`hero-shape-${i}`} shape={shape} mouseX={mouseX} mouseY={mouseY} />
+          ))}
+        </div>
+      )}
+      {!isTouch && <CursorShapes enableMotion={enableMotion} />}
 
       <motion.div
-        className="relative z-10 flex flex-col items-center px-6 text-center"
+        className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center px-4 text-center sm:px-6"
         style={{ y: y1 }}
       >
         <motion.div
           className="mb-8 flex flex-wrap justify-center gap-3"
           style={{ y: y2 }}
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
+          transition={{
+            delay: shouldReduceMotion ? 0 : 0.5,
+            duration: shouldReduceMotion ? 0 : 0.6,
+          }}
+          role="list"
+          aria-label="Technology stack"
         >
           {TECH_STACK.map((tech, index) => (
-            <MagneticPill key={tech.label} tech={tech} index={index} />
+            <MagneticPill
+              key={tech.label}
+              tech={tech}
+              index={index}
+              enableMotion={enableMotion}
+              className={tech.showOnMobile ? "" : "hidden sm:flex"}
+            />
           ))}
         </motion.div>
 
         <motion.div style={{ y: y3 }}>
           <motion.h1
-            className="mb-2 text-6xl font-black tracking-tight text-foreground sm:text-7xl md:text-8xl lg:text-9xl"
+            className="text-foreground mb-2 text-6xl font-black tracking-tight sm:text-7xl md:text-8xl lg:text-9xl"
             style={{ fontFamily: "var(--font-display)" }}
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            transition={{
+              delay: shouldReduceMotion ? 0 : 0.8,
+              duration: shouldReduceMotion ? 0 : 0.8,
+              ease: EASE,
+            }}
           >
             DIEGO
           </motion.h1>
           <motion.h1
             className="mb-6 text-6xl font-black tracking-tight sm:text-7xl md:text-8xl lg:text-9xl"
             style={{ fontFamily: "var(--font-display)" }}
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            transition={{
+              delay: shouldReduceMotion ? 0 : 0.9,
+              duration: shouldReduceMotion ? 0 : 0.8,
+              ease: EASE,
+            }}
+            aria-label="Sanchez"
           >
             <span className="relative inline-block">
-              <span className="relative z-10 text-background">SANCHEZ</span>
+              <span className="text-background relative z-10">SANCHEZ</span>
               <motion.span
-                className="absolute inset-y-0 -inset-x-4 bg-accent"
-                initial={{ scaleX: 0, originX: 0 }}
+                className="bg-accent absolute -inset-x-4 inset-y-0"
+                initial={{ scaleX: shouldReduceMotion ? 1 : 0, originX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{ delay: 1.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                transition={{
+                  delay: shouldReduceMotion ? 0 : 1.2,
+                  duration: shouldReduceMotion ? 0 : 0.6,
+                  ease: EASE,
+                }}
+                aria-hidden="true"
               />
             </span>
           </motion.h1>
         </motion.div>
 
         <motion.p
-          className="mb-12 max-w-lg text-xl text-foreground/80 md:whitespace-nowrap md:text-2xl"
+          className="text-foreground/80 mb-12 max-w-lg text-xl md:text-2xl md:whitespace-nowrap"
           style={{ fontFamily: "var(--font-display)" }}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 0.6 }}
+          transition={{
+            delay: shouldReduceMotion ? 0 : 1.6,
+            duration: shouldReduceMotion ? 0 : 0.6,
+          }}
         >
-          Obsessed with making{" "}
-          <span className="font-bold text-accent">ideas breathe</span>
+          {t.rich("tagline", {
+            bold: (chunks) => <span className="text-foreground font-bold">{chunks}</span>,
+          })}
         </motion.p>
 
         <motion.div
           className="flex flex-wrap items-center justify-center gap-4"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.8, duration: 0.6 }}
+          transition={{
+            delay: shouldReduceMotion ? 0 : 1.8,
+            duration: shouldReduceMotion ? 0 : 0.6,
+          }}
         >
-          <MagneticButton variant="primary" size="lg">
-            <Download className="mr-2 h-5 w-5" />
-            Download Resume
-          </MagneticButton>
-          <MagneticButton variant="ghost" size="lg">
-            View Projects
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </MagneticButton>
+          <a href="/diego-sanchez-resume.pdf" download>
+            <MagneticButton variant="primary" size="lg">
+              <Download className="mr-2 h-5 w-5" aria-hidden="true" />
+              {t("downloadResume")}
+            </MagneticButton>
+          </a>
+          <a
+            href="#projects"
+            onClick={(e) => {
+              e.preventDefault();
+              const target = document.getElementById("projects");
+              if (target) {
+                const top = target.getBoundingClientRect().top + window.scrollY - 80;
+                if (lenis) {
+                  lenis.scrollTo(top, { duration: 1.2 });
+                } else {
+                  window.scrollTo({ top });
+                }
+              }
+            }}
+          >
+            <MagneticButton variant="ghost" size="lg">
+              {t("viewProjects")}
+              <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
+            </MagneticButton>
+          </a>
         </motion.div>
       </motion.div>
 
       <motion.div
         className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2"
-        initial={{ opacity: 0 }}
+        initial={{ opacity: shouldReduceMotion ? 1 : 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.2 }}
+        transition={{ delay: shouldReduceMotion ? 0 : 2.2 }}
+        aria-hidden="true"
       >
         <motion.div
-          className="flex flex-col items-center gap-2 text-muted"
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          className="text-muted flex flex-col items-center gap-2"
+          animate={shouldReduceMotion ? {} : { y: [0, 8, 0] }}
+          transition={
+            shouldReduceMotion ? {} : { repeat: Infinity, duration: 2, ease: "easeInOut" }
+          }
         >
-          <span className="text-xs tracking-widest uppercase">Scroll</span>
-          <div className="h-8 w-px bg-gradient-to-b from-muted to-transparent" />
+          <span className="text-xs tracking-widest uppercase">{t("scroll")}</span>
+          <div className="from-muted h-8 w-px bg-gradient-to-b to-transparent" />
         </motion.div>
       </motion.div>
     </section>
   );
 }
 
-function MagneticPill({ tech, index }: { tech: TechItem; index: number }) {
+function MagneticPill({
+  tech,
+  index,
+  enableMotion = true,
+  className = "",
+}: {
+  tech: TechItem;
+  index: number;
+  enableMotion?: boolean;
+  className?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [isDark, setIsDark] = useState(true);
+  const shouldReduceMotion = useReducedMotion();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -234,8 +376,23 @@ function MagneticPill({ tech, index }: { tech: TechItem; index: number }) {
   const springX = useSpring(x, springConfig);
   const springY = useSpring(y, springConfig);
 
+  const shouldAnimate = enableMotion && !shouldReduceMotion;
+
+  useEffect(() => {
+    const checkTheme = () => {
+      setIsDark(document.documentElement.getAttribute("data-theme") !== "light");
+    };
+    checkTheme();
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+    return () => observer.disconnect();
+  }, []);
+
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!ref.current) return;
+    if (!ref.current || !shouldAnimate) return;
     const rect = ref.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
@@ -249,255 +406,144 @@ function MagneticPill({ tech, index }: { tech: TechItem; index: number }) {
     setIsHovered(false);
   };
 
-  const hoverColor = tech.color === "#ffffff" ? "#000000" : "#ffffff";
+  const isNextJs = tech.color === "#ffffff";
+
+  const getBorderColor = () => {
+    if (isHovered && isNextJs) {
+      return isDark ? "#ffffff" : "#000000";
+    }
+    if (isNextJs) {
+      return isDark ? "#ffffff" : "#000000";
+    }
+    return tech.color;
+  };
+
+  const getIconColor = () => {
+    if (isHovered) {
+      if (isNextJs) {
+        return isDark ? "#000000" : "#ffffff";
+      }
+      return "#ffffff";
+    }
+    if (isNextJs) {
+      return isDark ? "#ffffff" : "#000000";
+    }
+    return tech.color;
+  };
+
+  const getTextColor = () => {
+    if (isHovered) {
+      if (isNextJs) {
+        return isDark ? "#000000" : "#ffffff";
+      }
+      return "#ffffff";
+    }
+    return isDark ? "var(--color-foreground)" : "#000000";
+  };
+
+  const getBackgroundColor = () => {
+    if (isHovered) {
+      if (isNextJs) {
+        return isDark ? "#ffffff" : "#000000";
+      }
+      return tech.color;
+    }
+    return "var(--color-background)";
+  };
 
   return (
     <motion.div
       ref={ref}
-      className="magnetic"
-      style={{ x: springX, y: springY }}
+      className={`magnetic ${className}`}
+      role="listitem"
+      style={{ x: shouldAnimate ? springX : 0, y: shouldAnimate ? springY : 0 }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
-      initial={{ opacity: 0, scale: 0.8 }}
+      initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 0.6 + index * 0.1, duration: 0.4 }}
+      transition={{
+        delay: shouldReduceMotion ? 0 : 0.6 + index * 0.1,
+        duration: shouldReduceMotion ? 0 : 0.4,
+      }}
     >
       <motion.div
-        className="flex cursor-pointer items-center gap-2 rounded-full border-2 bg-background px-4 py-2"
-        style={{ borderColor: tech.color }}
-        whileHover={{ scale: 1.05, backgroundColor: tech.color }}
-        whileTap={{ scale: 0.98 }}
+        className="focus-visible:ring-accent focus-visible:ring-offset-background flex cursor-pointer items-center gap-2 border-2 px-4 py-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+        tabIndex={0}
+        initial={false}
+        animate={{
+          borderColor: getBorderColor(),
+          backgroundColor: getBackgroundColor(),
+          scale: shouldAnimate && isHovered ? 1.05 : 1,
+        }}
+        whileTap={shouldAnimate ? { scale: 0.98 } : {}}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
+        aria-label={tech.label}
       >
         {tech.icon ? (
-          <tech.icon
-            className="h-4 w-4 transition-colors duration-200"
-            style={{ color: isHovered ? hoverColor : tech.color }}
-          />
+          <motion.div
+            initial={false}
+            animate={{ color: getIconColor() }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
+            aria-hidden="true"
+          >
+            <tech.icon className="h-4 w-4" />
+          </motion.div>
         ) : (
-          <span
-            className="text-sm font-bold transition-colors duration-200"
-            style={{ color: isHovered ? "#ffffff" : tech.color }}
+          <motion.span
+            className="text-sm font-bold"
+            initial={false}
+            animate={{ color: isHovered ? "#ffffff" : tech.color }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
+            aria-hidden="true"
           >
             {tech.label.charAt(0)}
-          </span>
+          </motion.span>
         )}
-        <span
-          className="text-sm font-semibold transition-colors duration-200"
-          style={{ color: isHovered ? hoverColor : "var(--foreground)" }}
+        <motion.span
+          className="text-sm font-semibold"
+          initial={false}
+          animate={{ color: getTextColor() }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
         >
           {tech.label}
-        </span>
+        </motion.span>
       </motion.div>
     </motion.div>
   );
 }
 
-function GridBackground({
-  mouseX,
-  mouseY,
-}: {
-  mouseX: MotionValue<number>;
-  mouseY: MotionValue<number>;
-}) {
-  const smoothX = useSpring(mouseX, { stiffness: 100, damping: 30 });
-  const smoothY = useSpring(mouseY, { stiffness: 100, damping: 30 });
-
-  return (
-    <div className="pointer-events-none absolute inset-0">
-      <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern
-            id="hero-grid"
-            width="100"
-            height="100"
-            patternUnits="userSpaceOnUse"
-          >
-            <path
-              d="M 100 0 L 0 0 0 100"
-              fill="none"
-              stroke="rgba(139, 92, 246, 0.2)"
-              strokeWidth="1"
-            />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#hero-grid)" />
-      </svg>
-
-      <motion.div
-        className="pointer-events-none absolute h-[600px] w-[600px] rounded-full"
-        style={{
-          left: smoothX,
-          top: smoothY,
-          x: "-50%",
-          y: "-50%",
-          background:
-            "radial-gradient(circle, rgba(139, 92, 246, 0.13) 0%, rgba(139, 92, 246, 0.04) 45%, transparent 60%)",
-        }}
-      />
-    </div>
-  );
-}
-
-function ReactiveShapes({
-  shapes,
-  centerX,
-  centerY,
-  scrollY,
-  filled,
-}: {
-  shapes: ShapeConfig[];
-  centerX: MotionValue<number>;
-  centerY: MotionValue<number>;
-  scrollY: MotionValue<number>;
-  filled: boolean;
-}) {
-  return (
-    <div className="pointer-events-none absolute inset-0">
-      {shapes.map((shape, i) => (
-        <ReactiveShape
-          key={i}
-          shape={shape}
-          centerX={centerX}
-          centerY={centerY}
-          scrollY={scrollY}
-          index={i}
-          filled={filled}
-        />
-      ))}
-    </div>
-  );
-}
-
-function ReactiveShape({
-  shape,
-  centerX,
-  centerY,
-  scrollY,
-  index,
-  filled,
-}: {
-  shape: ShapeConfig;
-  centerX: MotionValue<number>;
-  centerY: MotionValue<number>;
-  scrollY: MotionValue<number>;
-  index: number;
-  filled: boolean;
-}) {
-  const [isMobile, setIsMobile] = useState(false);
+function CursorShapes({ enableMotion = true }: { enableMotion?: boolean }) {
+  const shouldReduceMotion = useReducedMotion();
+  const [isOverCurtain, setIsOverCurtain] = useState(false);
+  const globalMouseX = useMotionValue(0);
+  const globalMouseY = useMotionValue(0);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+    if (shouldReduceMotion || !enableMotion) return;
+    const handler = (e: MouseEvent) => {
+      globalMouseX.set(e.clientX);
+      globalMouseY.set(e.clientY);
+      const target = e.target as HTMLElement | null;
+      setIsOverCurtain(!!target?.closest("#main-menu, [data-cursor-dark]"));
+    };
+    window.addEventListener("mousemove", handler);
+    return () => window.removeEventListener("mousemove", handler);
+  }, [globalMouseX, globalMouseY, shouldReduceMotion, enableMotion]);
 
-  const hiddenClass = shape.hideOnMobile ? "hidden md:block" : "";
-
-  const offsetX = useTransform(centerX, (v) => v * shape.factorX);
-  const offsetY = useTransform(centerY, (v) => v * shape.factorY);
-  const scrollOffset = useTransform(scrollY, [0, 1], [0, shape.scrollFactor]);
-
-  const springX = useSpring(offsetX, { stiffness: shape.stiffness, damping: shape.damping });
-  const springY = useSpring(offsetY, { stiffness: shape.stiffness, damping: shape.damping });
-
-  const currentSize = isMobile && shape.mobileSize ? shape.mobileSize : shape.size;
-  const posX = isMobile && shape.mobileX ? shape.mobileX : shape.x;
-  const posY = isMobile && shape.mobileY ? shape.mobileY : shape.y;
+  if (shouldReduceMotion || !enableMotion) return null;
 
   return (
-    <motion.div
-      className={`absolute ${hiddenClass}`}
-      style={{
-        left: posX,
-        top: posY,
-        x: isMobile ? 0 : springX,
-        y: isMobile ? scrollOffset : springY,
-        translateX: "-50%",
-        translateY: "-50%",
-      }}
-      initial={{ opacity: 0, scale: 0 }}
-      animate={{ opacity: isMobile ? 0.6 : 1, scale: 1 }}
-      transition={{ delay: 0.3 + index * 0.08, duration: 0.5 }}
-    >
-      <Shape type={shape.type} size={currentSize} color={shape.color} rotation={shape.rotation} filled={filled} />
-    </motion.div>
-  );
-}
-
-function Shape({
-  type,
-  size,
-  color,
-  rotation,
-  filled,
-}: {
-  type: "square" | "circle" | "triangle";
-  size: number;
-  color: string;
-  rotation: number;
-  filled: boolean;
-}) {
-  if (type === "circle") {
-    return (
-      <div
-        style={{
-          width: size,
-          height: size,
-          backgroundColor: filled ? color : "transparent",
-          border: filled ? "none" : `2px solid ${color}`,
-          borderRadius: "50%",
-        }}
-      />
-    );
-  }
-
-  if (type === "triangle") {
-    if (filled) {
-      return (
-        <div
-          style={{
-            width: 0,
-            height: 0,
-            borderLeft: `${size / 2}px solid transparent`,
-            borderRight: `${size / 2}px solid transparent`,
-            borderBottom: `${size}px solid ${color}`,
-          }}
-        />
-      );
-    }
-    return (
-      <svg width={size} height={size} viewBox="0 0 100 100">
-        <polygon points="50,10 90,90 10,90" fill="none" stroke={color} strokeWidth="3" />
-      </svg>
-    );
-  }
-
-  return (
-    <div
-      style={{
-        width: size,
-        height: size,
-        backgroundColor: filled ? color : "transparent",
-        border: filled ? "none" : `2px solid ${color}`,
-        transform: `rotate(${rotation}deg)`,
-      }}
-    />
-  );
-}
-
-function CursorShapes({
-  mouseX,
-  mouseY,
-}: {
-  mouseX: MotionValue<number>;
-  mouseY: MotionValue<number>;
-}) {
-  return (
-    <div className="pointer-events-none fixed inset-0 z-[15]">
+    <div className="pointer-events-none fixed inset-0 z-[9997]" aria-hidden="true">
       {CURSOR_SHAPES.map((shape, i) => (
-        <CursorFollower key={i} mouseX={mouseX} mouseY={mouseY} shape={shape} index={i} />
+        <CursorFollower
+          key={i}
+          mouseX={globalMouseX}
+          mouseY={globalMouseY}
+          shape={shape}
+          index={i}
+          isOverCurtain={isOverCurtain}
+        />
       ))}
     </div>
   );
@@ -508,25 +554,63 @@ function CursorFollower({
   mouseY,
   shape,
   index,
+  isOverCurtain = false,
 }: {
   mouseX: MotionValue<number>;
   mouseY: MotionValue<number>;
   shape: CursorShapeConfig;
   index: number;
+  isOverCurtain?: boolean;
 }) {
-  const targetX = useTransform(mouseX, (v) => v + shape.offsetX - shape.size / 2);
-  const targetY = useTransform(mouseY, (v) => v + shape.offsetY - shape.size / 2);
+  const shouldReduceMotion = useReducedMotion();
+  const angle = useMotionValue(index * Math.PI);
+  const orbitRadius = 35 + index * 10;
+  const speed = 0.02 + index * 0.008;
+
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+    let raf: number;
+    const tick = () => {
+      angle.set(angle.get() + speed);
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [angle, speed, shouldReduceMotion]);
+
+  const orbitX = useTransform(angle, (a) => Math.cos(a) * orbitRadius);
+  const orbitY = useTransform(angle, (a) => Math.sin(a) * orbitRadius);
+
+  const targetX = useTransform(
+    [mouseX, orbitX] as MotionValue<number>[],
+    ([mx, ox]: number[]) => mx + ox - shape.size / 2
+  );
+  const targetY = useTransform(
+    [mouseY, orbitY] as MotionValue<number>[],
+    ([my, oy]: number[]) => my + oy - shape.size / 2
+  );
 
   const x = useSpring(targetX, { stiffness: shape.stiffness, damping: shape.damping });
   const y = useSpring(targetY, { stiffness: shape.stiffness, damping: shape.damping });
 
   return (
     <motion.div
-      className="absolute left-0 top-0 border-2 border-accent/40"
-      style={{ width: shape.size, height: shape.size, x, y, rotate: 45 }}
-      initial={{ opacity: 0, scale: 0 }}
+      className="absolute top-0 left-0 border-2"
+      style={{
+        width: shape.size,
+        height: shape.size,
+        x,
+        y,
+        rotate: 45,
+        borderColor: isOverCurtain ? "rgba(76, 29, 149, 0.5)" : "rgba(139, 92, 246, 0.4)",
+      }}
+      initial={{ opacity: shouldReduceMotion ? 0.5 : 0, scale: shouldReduceMotion ? 1 : 0 }}
       animate={{ opacity: 0.5, scale: 1 }}
-      transition={{ delay: 1 + index * 0.1, duration: 0.3 }}
+      transition={{
+        delay: shouldReduceMotion ? 0 : 1 + index * 0.1,
+        duration: shouldReduceMotion ? 0 : 0.3,
+      }}
+      aria-hidden="true"
     />
   );
 }

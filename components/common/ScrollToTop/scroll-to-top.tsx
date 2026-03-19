@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 import { cn } from "@/utils";
 
@@ -12,6 +12,7 @@ interface ScrollToTopProps {
 
 function ScrollToTop({ threshold = 400, className }: ScrollToTopProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   const handleScroll = useCallback(() => {
     setIsVisible(window.scrollY > threshold);
@@ -19,6 +20,7 @@ function ScrollToTop({ threshold = 400, className }: ScrollToTopProps) {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: check initial scroll position
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
@@ -33,7 +35,7 @@ function ScrollToTop({ threshold = 400, className }: ScrollToTopProps) {
         <motion.button
           onClick={scrollToTop}
           className={cn(
-            "magnetic fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full border border-border bg-surface shadow-lg transition-colors hover:border-accent hover:bg-elevated",
+            "magnetic border-border bg-surface hover:border-accent hover:bg-elevated focus-visible:ring-accent focus-visible:ring-offset-background fixed right-6 bottom-6 z-40 flex h-12 w-12 items-center justify-center border shadow-lg transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
             className
           )}
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -47,15 +49,19 @@ function ScrollToTop({ threshold = 400, className }: ScrollToTopProps) {
           aria-label="Scroll to top"
         >
           <motion.div
-            animate={{ y: [0, -2, 0] }}
-            transition={{
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 1.5,
-              ease: "easeInOut",
-            }}
+            animate={shouldReduceMotion ? {} : { y: [0, -2, 0] }}
+            transition={
+              shouldReduceMotion
+                ? {}
+                : {
+                    repeat: Infinity,
+                    repeatType: "loop",
+                    duration: 1.5,
+                    ease: "easeInOut",
+                  }
+            }
           >
-            <ArrowUp className="h-5 w-5 text-accent" />
+            <ArrowUp className="text-accent h-5 w-5" />
           </motion.div>
         </motion.button>
       )}

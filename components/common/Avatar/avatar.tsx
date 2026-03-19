@@ -43,16 +43,23 @@ function Avatar({
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
 
-  const initials = fallback || alt.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase();
+  const initials =
+    fallback ||
+    alt
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .slice(0, 2)
+      .toUpperCase();
 
   const showFallback = !src || hasError;
 
   return (
     <motion.div
       className={cn(
-        "relative flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-elevated",
+        "bg-elevated relative flex shrink-0 items-center justify-center overflow-hidden",
         sizeClasses[size],
-        border && "ring-2 ring-border ring-offset-2 ring-offset-background",
+        border && "ring-border ring-offset-background ring-2 ring-offset-2",
         glow && "shadow-glow",
         className
       )}
@@ -60,17 +67,12 @@ function Avatar({
       transition={{ duration: 0.3 }}
     >
       {showFallback ? (
-        <span
-          className="font-semibold text-muted"
-          style={{ fontFamily: "var(--font-display)" }}
-        >
+        <span className="text-muted font-semibold" style={{ fontFamily: "var(--font-display)" }}>
           {initials}
         </span>
       ) : (
         <>
-          {!isLoaded && (
-            <div className="absolute inset-0 animate-pulse bg-elevated" />
-          )}
+          {!isLoaded && <div className="bg-elevated absolute inset-0 animate-pulse" />}
           <NextImage
             src={src}
             alt={alt}

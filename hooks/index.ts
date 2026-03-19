@@ -1,1 +1,1 @@
-// Hooks will be exported here
+export { useIsTouchDevice } from "./use-touch-device";

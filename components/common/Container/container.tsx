@@ -19,10 +19,7 @@ const sizeClasses = {
 const Container = forwardRef<HTMLDivElement, ContainerProps>(
   ({ children, size = "lg", className }, ref) => {
     return (
-      <div
-        ref={ref}
-        className={cn("mx-auto w-full px-6 md:px-8", sizeClasses[size], className)}
-      >
+      <div ref={ref} className={cn("mx-auto w-full px-6 md:px-8", sizeClasses[size], className)}>
         {children}
       </div>
     );

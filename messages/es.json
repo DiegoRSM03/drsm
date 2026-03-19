@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "title": "Diego Sanchez · Senior Frontend Engineer",
+    "description": "Ingeniero frontend creando aplicaciones web de alto rendimiento con React, Next.js y TypeScript. Desde Argentina, con alcance global.",
+    "ogTitle": "Diego Sanchez · Portfolio",
+    "ogDescription": "Senior Frontend Engineer. React, Next.js, TypeScript."
+  },
+  "nav": {
+    "projects": "Proyectos",
+    "experience": "Experiencia",
+    "about": "Acerca",
+    "contact": "Hablemos",
+    "home": "DRSM - Inicio",
+    "toggleTheme": "Cambiar tema",
+    "toggleLanguage": "Cambiar a Inglés",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
+  },
+  "hero": {
+    "tagline": "Donde las ideas audaces aprenden a <bold>respirar</bold>",
+    "downloadResume": "Descargá Mi CV",
+    "viewProjects": "Ver Proyectos",
+    "scroll": "Scroll"
+  },
+  "projects": {
+    "badge": "PROYECTOS",
+    "titleLine1": "Pixel-Perfect,",
+    "titleLine2": "De Principio A Fin",
+    "description": "Donde la precisión de ingeniería se encuentra con interfaces que rechazan lo ordinario.",
+    "viewProject": "Ver Proyecto",
+    "propSource": {
+      "type": "Plataforma Inmobiliaria",
+      "description": "Desarrollo de una calculadora financiera con 100+ campos — incluyendo valores calculados dinámicamente — desplegada dentro de un entorno Salesforce, permitiendo a agentes evaluar operaciones inmobiliarias al instante. Se expandió a un portal para compradores con listados interactivos en Google Maps, autenticación Auth0 y generación dinámica de reportes PDF con Puppeteer y EJS. Ambas aplicaciones Next.js alojadas en AWS con ECR y ECS."
+    },
+    "fetcher": {
+      "type": "Plataforma de Reclutamiento con IA",
+      "description": "Único desarrollador de un sitio web de marketing fully responsive y pixel-perfect con cada página conectada a Strapi como headless CMS — incluyendo blog y guías. Scores excelentes en Lighthouse gracias a la selección correcta del patrón de data fetching de Next.js (SSR, SSG, ISR, CSR) por página. Integración de Marketo, PostHog, Meta Pixel y Qualified para analítica de marketing. Schema markup y Open Graph tags servidos desde Strapi, completamente scrapeables por bots. Cumplimiento WCAG 2.1 y SEO optimizado de punta a punta."
+    },
+    "neovim": {
+      "type": "Developer Tooling",
+      "description": "Una configuración plug-and-play de NeoVim pensada para velocidad — porque programar en un editor modal de terminal es el workflow más rápido que existe. Sigue convenciones estándar con foco en rendimiento y legibilidad. Open source y lista para usar. La construí para mí, la comparto porque de eso se trata el open source."
+    }
+  },
+  "experience": {
+    "badge": "EXPERIENCIA",
+    "titleWord1": "ARTE EN",
+    "titleWord2": "CONTEXTO",
+    "description": "Equipos reales, restricciones reales — donde el oficio se pone a prueba y los detalles importan más.",
+    "inaza": {
+      "role": "Software Engineer",
+      "period": "Ene 2026 - Presente",
+      "duration": "3 meses",
+      "description": "Empresa insurtech automatizando procesos de seguros end-to-end — construyendo workflows con IA que reemplazan operaciones manuales en departamentos enteros.",
+      "highlights": [
+        "Automatización end-to-end de ingesta de emails con extracción OCR, categorización LLM vía Vertex AI y respuestas automatizadas a través de Graph API y Gmail",
+        "Workflows de automatización en Python procesando cientos de reclamos de seguros semanalmente, eliminando la carga manual de datos en departamentos enteros",
+        "Pipelines inteligentes de procesamiento de documentos con categorización, filtrado y enrutamiento de reclamos de beneficios impulsados por IA",
+        "Adopción de Spec-Driven Development con Claude Code y Cursor como herramientas diarias, transformando especificaciones detalladas en pipelines de automatización listos para producción"
+      ]
+    },
+    "litebox": {
+      "role": "Software Engineer",
+      "period": "Sep 2022 - Ene 2026",
+      "duration": "3.5 años",
+      "description": "Estudio boutique de software creando sitios web de marketing de alto rendimiento y plataformas back-office escalables para startups de EE.UU. — liderando arquitectura frontend, tooling y estándares de desarrollo en todos los proyectos.",
+      "highlights": [
+        "Entrega de 10+ sitios de marketing con 95+ en Lighthouse, cumplimiento WCAG 2.2, SEO con schema markup y animaciones complejas en GSAP/Framer Motion — pixel-perfect desde diseño a Tailwind",
+        "Arquitectura de aplicaciones back-office escalables integrando React Hook Form con validación Zod, Google Maps API, OpenAI SDK y servicios AWS — con unit testing en Jest garantizando confiabilidad en cada proyecto",
+        "Arquitectura headless CMS-first conectando cada sitio de marketing a Strapi o Payload — y una CLI interna automatizando el scaffolding completo de Next.js + Strapi",
+        "Adopción temprana de Spec-Driven Development con Claude y Cursor, documentando flujos y procesos en Notion y Excalidraw para alinear equipos cross-funcionales"
+      ]
+    },
+    "axon": {
+      "role": "Software Engineer",
+      "period": "Sep 2021 - Sep 2022",
+      "duration": "1 año",
+      "description": "Escuela de coaching remoto líder en LatAm para atletas y líderes profesionales — mantenimiento y modernización de sistemas legacy, entregando nuevas funcionalidades sobre infraestructura existente.",
+      "highlights": [
+        "Aplicación CRM interna desde cero con patrones de composición React, React Hook Form con validación Zod y TypeScript — optimizando el flujo completo del departamento de ventas",
+        "Bot de WhatsApp con backend de webhooks, modelos de entidades estructurados y gestión de base de datos sobre patrones de diseño para recordatorios de ventas y notificaciones de pago",
+        "Mantenimiento y mejora de codebases legacy, resolviendo deuda técnica mientras se entregaban nuevas funcionalidades sin interrumpir la operación existente",
+        "Compatibilidad cross-browser, estándares de seguridad y automatización CI/CD en todos los proyectos"
+      ]
+    }
+  },
+  "about": {
+    "badge": "ACERCA",
+    "titleLine1": "La Persona",
+    "titleLine2": "Detrás de los Píxeles",
+    "description": "La perspectiva que da forma al trabajo — donde la curiosidad se encuentra con la disciplina y nada ocurre sin querer.",
+    "bio": "Soy Diego — Ingeniero Frontend con casi 5 años creando aplicaciones web de alto rendimiento. Desde Argentina, con alcance global. Los detalles que la mayoría pasa por alto son los que más me importan — rendimiento de renderizado, timing de animaciones, fidelidad de diseño, y ese nivel de pulido que hace que una app cobre vida.",
+    "scrollHint": "Deslizá para ver"
+  },
+  "contact": {
+    "copied": "¡Copiado!"
+  },
+  "footer": {
+    "description": "Enfocado en los detalles que la mayoría ignora.",
+    "copyright": "© {year} Diego Sanchez",
+    "scrollToTop": "Inicio"
+  },
+  "loading": {
+    "tagline": "Donde las ideas audaces aprenden a respirar"
+  }
+}

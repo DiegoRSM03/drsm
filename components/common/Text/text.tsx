@@ -25,10 +25,7 @@ const colorClasses = {
 };
 
 const Text = forwardRef<HTMLParagraphElement, TextProps>(
-  (
-    { children, as = "p", size = "base", color = "default", className },
-    ref
-  ) => {
+  ({ children, as = "p", size = "base", color = "default", className }, ref) => {
     const Tag = as;
 
     return (

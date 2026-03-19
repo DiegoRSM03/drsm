@@ -63,19 +63,18 @@ const MagneticButton = forwardRef<HTMLButtonElement, MagneticButtonProps>(
     };
 
     const baseStyles =
-      "magnetic relative inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:opacity-50 disabled:pointer-events-none";
+      "magnetic relative inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-50 disabled:pointer-events-none";
 
     const variants = {
       primary: "bg-accent text-white hover:bg-accent-hover active:bg-accent",
-      secondary:
-        "border-2 border-accent text-accent hover:bg-accent hover:text-white",
+      secondary: "border-2 border-accent text-accent hover:bg-accent hover:text-white",
       ghost: "text-foreground hover:bg-elevated hover:text-accent",
     };
 
     const sizes = {
-      sm: "h-9 px-4 text-sm rounded-full",
-      md: "h-11 px-6 text-base rounded-full",
-      lg: "h-14 px-8 text-lg rounded-full",
+      sm: "h-9 px-4 text-sm",
+      md: "h-11 px-6 text-base",
+      lg: "h-14 px-8 text-lg",
     };
 
     return (
