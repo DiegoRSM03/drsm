@@ -495,6 +495,7 @@ function MagneticPill({
 
 function CursorShapes({ enableMotion = true }: { enableMotion?: boolean }) {
   const shouldReduceMotion = useReducedMotion();
+  const [isOverCurtain, setIsOverCurtain] = useState(false);
   const globalMouseX = useMotionValue(0);
   const globalMouseY = useMotionValue(0);
 
@@ -503,6 +504,8 @@ function CursorShapes({ enableMotion = true }: { enableMotion?: boolean }) {
     const handler = (e: MouseEvent) => {
       globalMouseX.set(e.clientX);
       globalMouseY.set(e.clientY);
+      const target = e.target as HTMLElement | null;
+      setIsOverCurtain(!!target?.closest("#main-menu"));
     };
     window.addEventListener("mousemove", handler);
     return () => window.removeEventListener("mousemove", handler);
@@ -519,6 +522,7 @@ function CursorShapes({ enableMotion = true }: { enableMotion?: boolean }) {
           mouseY={globalMouseY}
           shape={shape}
           index={i}
+          isOverCurtain={isOverCurtain}
         />
       ))}
     </div>
@@ -530,11 +534,13 @@ function CursorFollower({
   mouseY,
   shape,
   index,
+  isOverCurtain = false,
 }: {
   mouseX: MotionValue<number>;
   mouseY: MotionValue<number>;
   shape: CursorShapeConfig;
   index: number;
+  isOverCurtain?: boolean;
 }) {
   const shouldReduceMotion = useReducedMotion();
   const angle = useMotionValue(index * Math.PI);
@@ -569,8 +575,15 @@ function CursorFollower({
 
   return (
     <motion.div
-      className="border-accent/40 absolute top-0 left-0 border-2"
-      style={{ width: shape.size, height: shape.size, x, y, rotate: 45 }}
+      className="absolute top-0 left-0 border-2"
+      style={{
+        width: shape.size,
+        height: shape.size,
+        x,
+        y,
+        rotate: 45,
+        borderColor: isOverCurtain ? "rgba(76, 29, 149, 0.5)" : "rgba(139, 92, 246, 0.4)",
+      }}
       initial={{ opacity: shouldReduceMotion ? 0.5 : 0, scale: shouldReduceMotion ? 1 : 0 }}
       animate={{ opacity: 0.5, scale: 1 }}
       transition={{
