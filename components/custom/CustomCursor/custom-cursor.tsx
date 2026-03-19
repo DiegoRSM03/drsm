@@ -73,7 +73,7 @@ export function CustomCursor() {
       updateCursorPosition();
 
       const target = e.target as HTMLElement | null;
-      setIsOverCurtain(!!target?.closest("#main-menu"));
+      setIsOverCurtain(!!target?.closest("#main-menu, [data-cursor-dark]"));
 
       if (!isVisible) {
         setIsVisible(true);

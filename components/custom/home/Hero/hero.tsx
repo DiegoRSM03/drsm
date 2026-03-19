@@ -505,7 +505,7 @@ function CursorShapes({ enableMotion = true }: { enableMotion?: boolean }) {
       globalMouseX.set(e.clientX);
       globalMouseY.set(e.clientY);
       const target = e.target as HTMLElement | null;
-      setIsOverCurtain(!!target?.closest("#main-menu"));
+      setIsOverCurtain(!!target?.closest("#main-menu, [data-cursor-dark]"));
     };
     window.addEventListener("mousemove", handler);
     return () => window.removeEventListener("mousemove", handler);
@@ -514,7 +514,7 @@ function CursorShapes({ enableMotion = true }: { enableMotion?: boolean }) {
   if (shouldReduceMotion || !enableMotion) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[15]" aria-hidden="true">
+    <div className="pointer-events-none fixed inset-0 z-[9997]" aria-hidden="true">
       {CURSOR_SHAPES.map((shape, i) => (
         <CursorFollower
           key={i}

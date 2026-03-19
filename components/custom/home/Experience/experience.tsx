@@ -433,6 +433,7 @@ export default function Experience() {
           className="sticky top-20 hidden h-[calc(100vh-5rem)] w-full shrink-0 overflow-hidden lg:block lg:w-2/5"
           style={{ backgroundColor: ACCENT }}
           aria-label="Work history navigation"
+          data-cursor-dark
         >
           <GridBackground id="sidebar-grid" stroke="rgba(255, 255, 255, 0.15)" />
           <CursorBrightGrid cellSize={100} maxOpacity={0.15} />
