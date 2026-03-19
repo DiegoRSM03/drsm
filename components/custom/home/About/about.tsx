@@ -64,7 +64,9 @@ function SectionHeader({ isInView }: { isInView: boolean }) {
           {titleWords.map((word, i) => (
             <span
               key={i}
-              className={`inline-block overflow-clip${i === 0 ? "mr-2 sm:mr-3 md:mr-4" : ""}`}
+              className={["inline-block overflow-clip", i === 0 && "mr-2 sm:mr-3 md:mr-4"]
+                .filter(Boolean)
+                .join(" ")}
             >
               <motion.span
                 className="inline-block"
@@ -75,7 +77,7 @@ function SectionHeader({ isInView }: { isInView: boolean }) {
               >
                 {word}
               </motion.span>
-              {i === 0 && <br className="sm:hidden" />}
+              {i === 0 && <br className="md:hidden" />}
             </span>
           ))}
         </h2>
