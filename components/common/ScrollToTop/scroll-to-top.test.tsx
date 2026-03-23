@@ -22,18 +22,22 @@ const filterMotionProps = (props: Record<string, unknown>) => {
   return filtered;
 };
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    button: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <button {...filterMotionProps(props)}>{children}</button>
-    ),
-    div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <div {...filterMotionProps(props)}>{children}</div>
-    ),
-  },
-  AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-  useReducedMotion: () => false,
-}));
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      button: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <button {...filterMotionProps(props)}>{children}</button>
+      ),
+      div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <div {...filterMotionProps(props)}>{children}</div>
+      ),
+    },
+    AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+    useReducedMotion: () => false,
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 jest.mock("lucide-react", () => ({
   ArrowUp: ({ className }: { className?: string }) => (

@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  motion,
+  m,
   useScroll,
   useTransform,
   useSpring,
@@ -216,14 +216,14 @@ function ExperienceCard({
       className="group relative"
       aria-labelledby={`exp-${index}-title`}
     >
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 80 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: shouldReduceMotion ? 0 : 0.8, ease: EASE }}
       >
-        <motion.div className="relative" style={{ y: useParallax ? springNumberY : 0 }}>
-          <motion.span
+        <m.div className="relative" style={{ y: useParallax ? springNumberY : 0 }}>
+          <m.span
             className="pointer-events-none block text-[6rem] leading-none font-black sm:text-[8rem] md:text-[10rem] lg:text-[12rem] xl:text-[14rem]"
             style={{
               fontFamily: "var(--font-display)",
@@ -234,10 +234,10 @@ function ExperienceCard({
             aria-hidden="true"
           >
             {String(EXPERIENCES.length - index).padStart(2, "0")}
-          </motion.span>
-        </motion.div>
+          </m.span>
+        </m.div>
 
-        <motion.div
+        <m.div
           className="border-border relative -mt-12 border p-4 sm:-mt-14 sm:p-6 md:-mt-16 md:p-8 lg:-mt-20 lg:ml-4 xl:ml-8"
           style={{
             borderColor: isDark ? "#1f1f1f" : "#e5e5e5",
@@ -257,7 +257,7 @@ function ExperienceCard({
           </div>
 
           <div className="relative mb-2 inline-block sm:mb-3">
-            <motion.span
+            <m.span
               className="absolute -inset-x-2 -inset-y-1 sm:-inset-x-4 sm:-inset-y-2"
               style={{ backgroundColor: ACCENT, originX: 0 }}
               initial={{ scaleX: 0 }}
@@ -270,7 +270,7 @@ function ExperienceCard({
               className="relative z-10 text-xl font-black sm:text-2xl md:text-3xl lg:text-4xl"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              <motion.span
+              <m.span
                 animate={{
                   color:
                     shouldReduceMotion || isActive
@@ -282,7 +282,7 @@ function ExperienceCard({
                 transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
               >
                 {exp.company.toUpperCase()}
-              </motion.span>
+              </m.span>
             </h3>
           </div>
 
@@ -299,7 +299,7 @@ function ExperienceCard({
             {t(`${exp.i18nKey}.description`)}
           </p>
 
-          <motion.div
+          <m.div
             className="overflow-hidden"
             initial={{
               height: shouldReduceMotion ? "auto" : 0,
@@ -315,7 +315,7 @@ function ExperienceCard({
               {Array.from({ length: exp.highlightCount }, (_, i) =>
                 t(`${exp.i18nKey}.highlights.${i}`)
               ).map((h, i) => (
-                <motion.li
+                <m.li
                   key={i}
                   className="text-foreground flex items-start gap-2 text-xs sm:gap-3 sm:text-sm"
                   initial={{ x: shouldReduceMotion ? 0 : -20, opacity: shouldReduceMotion ? 1 : 0 }}
@@ -331,10 +331,10 @@ function ExperienceCard({
                     aria-hidden="true"
                   />
                   {h}
-                </motion.li>
+                </m.li>
               ))}
             </ul>
-          </motion.div>
+          </m.div>
 
           <ul
             className="flex flex-wrap gap-1.5 pt-3 sm:gap-2 sm:pt-4"
@@ -342,7 +342,7 @@ function ExperienceCard({
             aria-label="Technologies used"
           >
             {exp.skills.map((skill, i) => (
-              <motion.li
+              <m.li
                 key={skill}
                 className="text-foreground border px-2 py-1 text-[10px] font-medium sm:px-3 sm:text-xs"
                 style={{
@@ -363,11 +363,11 @@ function ExperienceCard({
                 }
               >
                 {skill}
-              </motion.li>
+              </m.li>
             ))}
           </ul>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </article>
   );
 }
@@ -456,7 +456,7 @@ export default function Experience() {
             className="relative z-10 flex h-full w-full flex-col justify-center p-6 pr-6 sm:p-8 sm:pr-8 xl:p-12 xl:pr-12"
             style={{ paddingLeft: "max(1.5rem, calc((100vw - 1280px) / 2 + 1rem))" }}
           >
-            <motion.div
+            <m.div
               initial={{ x: shouldReduceMotion ? 0 : -50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               viewport={{ once: true }}
@@ -480,7 +480,7 @@ export default function Experience() {
               <p className="mt-2 max-w-xs text-sm leading-relaxed text-white/70 xl:mt-3 xl:text-base">
                 {t("description")}
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </aside>
 

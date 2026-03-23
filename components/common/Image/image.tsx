@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import NextImage from "next/image";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { cn } from "@/utils";
 
 interface ImageProps {
@@ -39,7 +39,7 @@ function Image({
     >
       {!isLoaded && <div className="bg-elevated absolute inset-0 animate-pulse" />}
 
-      <motion.div
+      <m.div
         className="h-full w-full"
         animate={{
           scale: hover === "zoom" && isHovered ? 1.05 : 1,
@@ -74,7 +74,7 @@ function Image({
             onLoad={() => setIsLoaded(true)}
           />
         )}
-      </motion.div>
+      </m.div>
     </div>
   );
 }

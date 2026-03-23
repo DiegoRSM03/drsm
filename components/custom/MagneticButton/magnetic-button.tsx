@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, forwardRef } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { m, useMotionValue, useSpring } from "framer-motion";
 
 interface MagneticButtonProps {
   children: React.ReactNode;
@@ -78,7 +78,7 @@ const MagneticButton = forwardRef<HTMLButtonElement, MagneticButtonProps>(
     };
 
     return (
-      <motion.div
+      <m.div
         ref={buttonRef}
         style={{ x: springX, y: springY }}
         onMouseMove={handleMouseMove}
@@ -86,7 +86,7 @@ const MagneticButton = forwardRef<HTMLButtonElement, MagneticButtonProps>(
         onMouseLeave={handleMouseLeave}
         className="inline-block"
       >
-        <motion.button
+        <m.button
           ref={ref}
           type={type}
           disabled={disabled}
@@ -100,14 +100,14 @@ const MagneticButton = forwardRef<HTMLButtonElement, MagneticButtonProps>(
           }}
           transition={{ duration: 0.2 }}
         >
-          <motion.span
+          <m.span
             style={{ x: springX, y: springY }}
             className="relative z-10 flex items-center justify-center"
           >
             {children}
-          </motion.span>
-        </motion.button>
-      </motion.div>
+          </m.span>
+        </m.button>
+      </m.div>
     );
   }
 );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Send, Loader2 } from "lucide-react";
 import { cn } from "@/utils";
 import { Input } from "../Input";
@@ -141,7 +141,7 @@ function ContactForm({ onSubmit, className }: ContactFormProps) {
         error={errors.message}
       />
 
-      <motion.button
+      <m.button
         type="submit"
         disabled={isSubmitting}
         className={cn(
@@ -162,7 +162,7 @@ function ContactForm({ onSubmit, className }: ContactFormProps) {
             Send Message
           </>
         )}
-      </motion.button>
+      </m.button>
     </form>
   );
 }

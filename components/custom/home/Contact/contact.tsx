@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import {
-  motion,
+  m,
   useScroll,
   useTransform,
   useSpring,
@@ -78,7 +78,7 @@ function Magnetic3DWrapper({
   };
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={className}
       style={{ x: springX, y: springY }}
@@ -91,7 +91,7 @@ function Magnetic3DWrapper({
       transition={{ duration: 0.2 }}
     >
       {children(springX, springY)}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -112,7 +112,7 @@ function CopyEmailButton() {
   return (
     <Magnetic3DWrapper className="inline-block">
       {(springX, springY) => (
-        <motion.button
+        <m.button
           onClick={handleCopy}
           className="group flex items-center gap-2 border-2 px-3 py-2 text-xs font-semibold transition-all duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:px-4 sm:py-2.5 sm:text-sm md:px-5 md:py-3 md:text-base"
           style={{
@@ -135,7 +135,7 @@ function CopyEmailButton() {
           whileTap={{ scale: 0.97 }}
           transition={{ duration: 0.15 }}
         >
-          <motion.span className="flex items-center gap-2" style={{ x: springX, y: springY }}>
+          <m.span className="flex items-center gap-2" style={{ x: springX, y: springY }}>
             {copied ? (
               <>
                 <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
@@ -147,8 +147,8 @@ function CopyEmailButton() {
                 {EMAIL}
               </>
             )}
-          </motion.span>
-        </motion.button>
+          </m.span>
+        </m.button>
       )}
     </Magnetic3DWrapper>
   );
@@ -170,7 +170,7 @@ function SocialLinkButton({
   return (
     <Magnetic3DWrapper className="inline-block">
       {(springX, springY) => (
-        <motion.a
+        <m.a
           href={href}
           target="_blank"
           rel="noopener noreferrer"
@@ -188,13 +188,10 @@ function SocialLinkButton({
           whileTap={{ scale: 0.95 }}
           transition={{ duration: 0.15 }}
         >
-          <motion.span
-            className="flex items-center justify-center"
-            style={{ x: springX, y: springY }}
-          >
+          <m.span className="flex items-center justify-center" style={{ x: springX, y: springY }}>
             <Icon className="h-4 w-4 sm:h-[18px] sm:w-[18px] md:h-5 md:w-5" />
-          </motion.span>
-        </motion.a>
+          </m.span>
+        </m.a>
       )}
     </Magnetic3DWrapper>
   );
@@ -236,10 +233,7 @@ export default function Contact() {
       <GridBackground id="contact-grid" />
       <CursorBrightGrid cellSize={100} maxOpacity={0.15} />
 
-      <motion.div
-        className="relative mx-auto w-full max-w-7xl px-4 sm:px-6"
-        style={{ y: contentY }}
-      >
+      <m.div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6" style={{ y: contentY }}>
         <h2 id="contact-heading" className="sr-only">
           Contact
         </h2>
@@ -248,7 +242,7 @@ export default function Contact() {
         <div className="mb-16 space-y-0.5 sm:mb-20 sm:space-y-1 md:mb-24 md:space-y-2 lg:mb-28 lg:space-y-3">
           {manifesto.map((line, i) => (
             <div key={i} className="overflow-hidden">
-              <motion.p
+              <m.p
                 className="text-3xl font-black sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
                 style={{ fontFamily: "var(--font-display)", color: line.color }}
                 initial={{ y: shouldReduceMotion ? 0 : "100%" }}
@@ -256,13 +250,13 @@ export default function Contact() {
                 transition={{ duration: 0.7, delay: 0.6 + i * 0.12, ease: EASE }}
               >
                 {line.text}
-              </motion.p>
+              </m.p>
             </div>
           ))}
         </div>
 
         {/* Actions row */}
-        <motion.div
+        <m.div
           className="flex flex-col items-start gap-4 pb-6 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:pb-8 md:pb-10 lg:pb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -280,25 +274,25 @@ export default function Contact() {
               />
             ))}
           </nav>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
 
       {/* Floating decorative shapes */}
-      <motion.div
+      <m.div
         className="absolute top-[12%] right-[6%] h-6 w-6 rotate-45 sm:top-[15%] sm:right-[8%] sm:h-8 sm:w-8 md:h-10 md:w-10"
         style={{ backgroundColor: `${ACCENT_HEX}12` }}
         animate={shouldReduceMotion ? {} : { y: [0, -12, 0] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         aria-hidden="true"
       />
-      <motion.div
+      <m.div
         className="absolute bottom-[15%] left-[4%] h-5 w-5 rounded-full sm:bottom-[20%] sm:left-[6%] sm:h-6 sm:w-6 md:h-8 md:w-8"
         style={{ backgroundColor: `${PINK_HEX}10` }}
         animate={shouldReduceMotion ? {} : { y: [0, 10, 0] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
         aria-hidden="true"
       />
-      <motion.div
+      <m.div
         className="absolute top-[40%] left-[3%] hidden h-5 w-5 sm:block md:h-6 md:w-6"
         style={{ backgroundColor: `${CYAN_HEX}08` }}
         animate={shouldReduceMotion ? {} : { rotate: [0, 90, 0] }}

@@ -11,33 +11,37 @@ jest.mock("@/contexts", () => ({
   }),
 }));
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    button: ({
-      children,
-      onClick,
-      className,
-      "aria-label": ariaLabel,
-    }: {
-      children: React.ReactNode;
-      onClick: () => void;
-      className: string;
-      "aria-label": string;
-    }) => (
-      <button onClick={onClick} className={className} aria-label={ariaLabel}>
-        {children}
-      </button>
-    ),
-    div: ({ children, className }: { children: React.ReactNode; className: string }) => (
-      <div className={className}>{children}</div>
-    ),
-    svg: ({ children, className }: { children: React.ReactNode; className: string }) => (
-      <svg className={className}>{children}</svg>
-    ),
-  },
-  useMotionValue: () => ({ set: jest.fn() }),
-  useSpring: () => ({ set: jest.fn() }),
-}));
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      button: ({
+        children,
+        onClick,
+        className,
+        "aria-label": ariaLabel,
+      }: {
+        children: React.ReactNode;
+        onClick: () => void;
+        className: string;
+        "aria-label": string;
+      }) => (
+        <button onClick={onClick} className={className} aria-label={ariaLabel}>
+          {children}
+        </button>
+      ),
+      div: ({ children, className }: { children: React.ReactNode; className: string }) => (
+        <div className={className}>{children}</div>
+      ),
+      svg: ({ children, className }: { children: React.ReactNode; className: string }) => (
+        <svg className={className}>{children}</svg>
+      ),
+    },
+    useMotionValue: () => ({ set: jest.fn() }),
+    useSpring: () => ({ set: jest.fn() }),
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 describe("ThemeToggle", () => {
   beforeEach(() => {

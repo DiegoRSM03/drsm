@@ -3,29 +3,33 @@ import { ProximityShape } from "./proximity-shape";
 
 import type { ProximityShapeData } from "./proximity-shape";
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    div: ({
-      children,
-      className,
-      "aria-hidden": ariaHidden,
-      style,
-    }: {
-      children?: React.ReactNode;
-      className?: string;
-      "aria-hidden"?: string;
-      style?: React.CSSProperties;
-    }) => (
-      <div className={className} aria-hidden={ariaHidden} style={style}>
-        {children}
-      </div>
-    ),
-  },
-  useMotionValue: () => ({ set: jest.fn(), get: () => 0, on: () => () => {} }),
-  useSpring: () => ({ set: jest.fn(), get: () => 0 }),
-  useReducedMotion: () => false,
-  useTransform: () => ({ set: jest.fn(), get: () => 0 }),
-}));
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      div: ({
+        children,
+        className,
+        "aria-hidden": ariaHidden,
+        style,
+      }: {
+        children?: React.ReactNode;
+        className?: string;
+        "aria-hidden"?: string;
+        style?: React.CSSProperties;
+      }) => (
+        <div className={className} aria-hidden={ariaHidden} style={style}>
+          {children}
+        </div>
+      ),
+    },
+    useMotionValue: () => ({ set: jest.fn(), get: () => 0, on: () => () => {} }),
+    useSpring: () => ({ set: jest.fn(), get: () => 0 }),
+    useReducedMotion: () => false,
+    useTransform: () => ({ set: jest.fn(), get: () => 0 }),
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 const mockMouseX = { set: jest.fn(), get: () => 0, on: () => () => {} };
 const mockMouseY = { set: jest.fn(), get: () => 0, on: () => () => {} };

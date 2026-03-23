@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useReducedMotion, useInView } from "framer-motion";
+import { m, useReducedMotion, useInView } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { ACCENT_HEX, EASE } from "@/utils";
@@ -32,7 +32,7 @@ function Footer() {
       aria-label="Site footer"
     >
       {/* Ghost monogram — mobile/tablet: full-width, half-cropped at bottom */}
-      <motion.span
+      <m.span
         className="pointer-events-none absolute bottom-[-20%] left-0 w-screen text-[42vw] leading-none font-black whitespace-nowrap text-white/[0.06] select-none lg:hidden"
         style={{ fontFamily: "var(--font-display)" }}
         initial={{ opacity: 0 }}
@@ -41,9 +41,9 @@ function Footer() {
         aria-hidden="true"
       >
         DRSM
-      </motion.span>
+      </m.span>
       {/* Ghost monogram — desktop: positioned right */}
-      <motion.span
+      <m.span
         className="pointer-events-none absolute right-[-5%] bottom-[-20%] hidden text-[28vw] leading-none font-black text-white/[0.06] select-none lg:block"
         style={{ fontFamily: "var(--font-display)" }}
         initial={{ opacity: 0, x: shouldReduceMotion ? 0 : 50 }}
@@ -52,13 +52,13 @@ function Footer() {
         aria-hidden="true"
       >
         DRSM
-      </motion.span>
+      </m.span>
 
       <div className="relative mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 sm:py-14">
         {/* Main content row */}
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           {/* Branding */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease: EASE }}
@@ -70,10 +70,10 @@ function Footer() {
               DIEGO SANCHEZ
             </h2>
             <p className="max-w-sm text-sm text-white/60">{t("description")}</p>
-          </motion.div>
+          </m.div>
 
           {/* Navigation */}
-          <motion.nav
+          <m.nav
             className="flex flex-wrap gap-4 sm:gap-5"
             aria-label="Footer navigation"
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
@@ -101,11 +101,11 @@ function Footer() {
                 {tNav(key)}
               </a>
             ))}
-          </motion.nav>
+          </m.nav>
         </div>
 
         {/* Bottom bar */}
-        <motion.div
+        <m.div
           className="mt-8 flex items-center justify-between border-t border-white/10 pt-6 sm:mt-10"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
@@ -120,18 +120,18 @@ function Footer() {
           >
             <ArrowUp className="h-3 w-3" aria-hidden="true" /> {t("scrollToTop")}
           </button>
-        </motion.div>
+        </m.div>
       </div>
 
       {/* Decorative shapes */}
-      <motion.div
+      <m.div
         className="absolute top-[20%] left-[8%] h-3 w-3 rotate-45 sm:h-4 sm:w-4"
         style={{ backgroundColor: "rgba(255,255,255,0.08)" }}
         animate={shouldReduceMotion ? {} : { y: [0, -6, 0] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         aria-hidden="true"
       />
-      <motion.div
+      <m.div
         className="absolute bottom-[30%] left-[25%] h-2 w-2 rounded-full sm:h-3 sm:w-3"
         style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
         animate={shouldReduceMotion ? {} : { y: [0, 5, 0] }}

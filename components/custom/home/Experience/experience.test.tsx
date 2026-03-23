@@ -50,30 +50,34 @@ jest.mock("@/contexts", () => ({
   }),
 }));
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <div {...filterMotionProps(props)}>{children}</div>
-    ),
-    span: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <span {...filterMotionProps(props)}>{children}</span>
-    ),
-    button: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <button {...filterMotionProps(props)}>{children}</button>
-    ),
-    li: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <li {...filterMotionProps(props)}>{children}</li>
-    ),
-    article: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <article {...filterMotionProps(props)}>{children}</article>
-    ),
-  },
-  useScroll: () => ({ scrollYProgress: { get: () => 0 } }),
-  useTransform: () => ({ get: () => 0 }),
-  useSpring: () => ({ get: () => 0 }),
-  useMotionValue: () => ({ get: () => 0, set: () => {} }),
-  useReducedMotion: () => false,
-}));
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <div {...filterMotionProps(props)}>{children}</div>
+      ),
+      span: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <span {...filterMotionProps(props)}>{children}</span>
+      ),
+      button: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <button {...filterMotionProps(props)}>{children}</button>
+      ),
+      li: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <li {...filterMotionProps(props)}>{children}</li>
+      ),
+      article: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <article {...filterMotionProps(props)}>{children}</article>
+      ),
+    },
+    useScroll: () => ({ scrollYProgress: { get: () => 0 } }),
+    useTransform: () => ({ get: () => 0 }),
+    useSpring: () => ({ get: () => 0 }),
+    useMotionValue: () => ({ get: () => 0, set: () => {} }),
+    useReducedMotion: () => false,
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 describe("Experience", () => {
   it("renders the section heading", () => {

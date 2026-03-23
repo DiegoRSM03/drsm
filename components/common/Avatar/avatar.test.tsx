@@ -1,30 +1,34 @@
 import React, { act } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => {
-      const motionKeys = [
-        "initial",
-        "animate",
-        "exit",
-        "transition",
-        "whileHover",
-        "whileTap",
-        "whileInView",
-        "viewport",
-        "variants",
-      ];
-      const filtered: Record<string, unknown> = {};
-      for (const key in props) {
-        if (!motionKeys.includes(key)) {
-          filtered[key] = props[key];
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => {
+        const motionKeys = [
+          "initial",
+          "animate",
+          "exit",
+          "transition",
+          "whileHover",
+          "whileTap",
+          "whileInView",
+          "viewport",
+          "variants",
+        ];
+        const filtered: Record<string, unknown> = {};
+        for (const key in props) {
+          if (!motionKeys.includes(key)) {
+            filtered[key] = props[key];
+          }
         }
-      }
-      return <div {...filtered}>{children}</div>;
+        return <div {...filtered}>{children}</div>;
+      },
     },
-  },
-}));
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 jest.mock("next/image", () => ({
   __esModule: true,

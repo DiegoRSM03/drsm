@@ -3,7 +3,7 @@
 import { useRef, useCallback } from "react";
 import Image from "next/image";
 import {
-  motion,
+  m,
   useMotionValue,
   useReducedMotion,
   useScroll,
@@ -140,7 +140,7 @@ function MagneticBadge({ children, className }: { children: React.ReactNode; cla
   }, [x, y]);
 
   return (
-    <motion.span
+    <m.span
       ref={ref}
       className={className}
       style={{
@@ -155,7 +155,7 @@ function MagneticBadge({ children, className }: { children: React.ReactNode; cla
       onMouseLeave={handleMouseLeave}
     >
       {children}
-    </motion.span>
+    </m.span>
   );
 }
 
@@ -166,14 +166,14 @@ function SectionHeader() {
 
   return (
     <header className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-16 md:py-10">
-      <motion.div
+      <m.div
         className="mb-4 overflow-clip"
         initial={{ width: shouldReduceMotion ? "auto" : 0 }}
         whileInView={{ width: "auto" }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease: EASE }}
       >
-        <motion.span
+        <m.span
           className="text-foreground inline-block px-3 py-1.5 text-xs font-bold tracking-[0.2em] sm:px-4 sm:py-2"
           style={{ backgroundColor: ACCENT, fontFamily: "var(--font-display)" }}
           initial={{ x: shouldReduceMotion ? 0 : -100 }}
@@ -182,8 +182,8 @@ function SectionHeader() {
           transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
         >
           {t("badge")}
-        </motion.span>
-      </motion.div>
+        </m.span>
+      </m.div>
 
       <h2
         id="projects-heading"
@@ -192,7 +192,7 @@ function SectionHeader() {
       >
         {titleWords.map((word, i) => (
           <span key={i} className={`inline-block overflow-clip${i === 0 ? "mr-3 sm:mr-4" : ""}`}>
-            <motion.span
+            <m.span
               className="inline-block"
               style={{ color: i === 1 ? ACCENT : "inherit" }}
               initial={{ y: shouldReduceMotion ? 0 : "100%" }}
@@ -201,12 +201,12 @@ function SectionHeader() {
               transition={{ duration: 0.6, delay: 0.4 + i * 0.15, ease: EASE }}
             >
               {word}
-            </motion.span>
+            </m.span>
           </span>
         ))}
       </h2>
 
-      <motion.p
+      <m.p
         className="text-foreground/80 max-w-xl text-base sm:text-lg"
         initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -214,7 +214,7 @@ function SectionHeader() {
         transition={{ duration: 0.8, delay: 0.7, ease: EASE }}
       >
         {t("description")}
-      </motion.p>
+      </m.p>
     </header>
   );
 }
@@ -243,7 +243,7 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
           role="img"
           aria-label={`${project.title} project preview`}
         >
-          <motion.div
+          <m.div
             className="absolute inset-0 z-10"
             style={{ backgroundColor: ACCENT, originX: 0 }}
             initial={{ scaleX: 1 }}
@@ -256,7 +256,7 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
             }}
             aria-hidden="true"
           />
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: "-20%" }}
@@ -285,13 +285,13 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
                 priority={project.id === 1}
               />
             </div>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Content */}
         <div className="w-full md:w-[60%] lg:w-[55%]">
           {/* Type badge */}
-          <motion.div
+          <m.div
             className="mb-3 sm:mb-4"
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -301,11 +301,11 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
             <MagneticBadge className="px-2.5 py-1 text-xs font-bold tracking-wide sm:px-3 sm:py-1.5">
               {t(`${project.i18nKey}.type`).toUpperCase()}
             </MagneticBadge>
-          </motion.div>
+          </m.div>
 
           {/* Title */}
-          <motion.div className="mb-3 overflow-clip sm:mb-4">
-            <motion.h3
+          <m.div className="mb-3 overflow-clip sm:mb-4">
+            <m.h3
               id={`project-title-${project.id}`}
               className="text-foreground text-2xl font-black sm:text-3xl md:text-4xl lg:text-5xl"
               style={{ fontFamily: "var(--font-display)" }}
@@ -315,11 +315,11 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
               transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
             >
               {project.title}
-            </motion.h3>
-          </motion.div>
+            </m.h3>
+          </m.div>
 
           {/* Description */}
-          <motion.p
+          <m.p
             className="text-foreground/80 mb-4 text-sm leading-relaxed sm:mb-6 sm:text-base md:mb-3 md:text-sm lg:text-lg"
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -327,10 +327,10 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
             transition={{ duration: 0.8, delay: 0.3, ease: EASE }}
           >
             {t(`${project.i18nKey}.description`)}
-          </motion.p>
+          </m.p>
 
           {/* Tags */}
-          <motion.ul
+          <m.ul
             className="mb-6 flex flex-wrap items-center gap-x-2 gap-y-1.5 sm:mb-8 sm:gap-x-3 sm:gap-y-2 md:mb-4"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -339,7 +339,7 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
             aria-label={`Technologies used in ${project.title}`}
           >
             {project.tags.map((tag, i) => (
-              <motion.li
+              <m.li
                 key={tag}
                 className="flex items-center gap-2 sm:gap-3"
                 initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
@@ -351,12 +351,12 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
                 {i < project.tags.length - 1 && (
                   <span className="bg-foreground/30 h-1 w-1 rotate-45" aria-hidden="true" />
                 )}
-              </motion.li>
+              </m.li>
             ))}
-          </motion.ul>
+          </m.ul>
 
           {/* CTAs */}
-          <motion.div
+          <m.div
             className="flex flex-wrap gap-3 sm:gap-4"
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -385,7 +385,7 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
                 <ArrowUpRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
               </MagneticButton>
             )}
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </>
@@ -394,7 +394,7 @@ function ProjectCardContent({ project }: { project: ProjectData }) {
 
 function MobileProjectCard({ project }: { project: ProjectData }) {
   return (
-    <motion.article
+    <m.article
       className="bg-background border-foreground/[0.08] relative border-b"
       aria-labelledby={`project-title-${project.id}`}
       initial={{ opacity: 0, y: 30 }}
@@ -403,7 +403,7 @@ function MobileProjectCard({ project }: { project: ProjectData }) {
       transition={{ duration: 0.6, ease: EASE }}
     >
       <ProjectCardContent project={project} />
-    </motion.article>
+    </m.article>
   );
 }
 
@@ -429,7 +429,7 @@ function DesktopProjectCard({
   );
 
   return (
-    <motion.article
+    <m.article
       className="bg-background absolute inset-0 flex items-center overflow-x-clip overflow-y-auto"
       style={{
         x: shouldReduceMotion ? 0 : xSlide,
@@ -438,7 +438,7 @@ function DesktopProjectCard({
       aria-labelledby={`project-title-${project.id}`}
     >
       <ProjectCardContent project={project} />
-    </motion.article>
+    </m.article>
   );
 }
 

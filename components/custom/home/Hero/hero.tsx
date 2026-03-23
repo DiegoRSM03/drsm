@@ -2,7 +2,7 @@
 
 import { useRef, useCallback, useEffect, useState } from "react";
 import {
-  motion,
+  m,
   useScroll,
   useTransform,
   useSpring,
@@ -209,11 +209,11 @@ function Hero() {
       )}
       {!isTouch && <CursorShapes enableMotion={enableMotion} />}
 
-      <motion.div
+      <m.div
         className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center px-4 text-center sm:px-6"
         style={{ y: y1 }}
       >
-        <motion.div
+        <m.div
           className="hero-pills mb-8 flex flex-wrap justify-center gap-3"
           style={{ y: y2 }}
           role="list"
@@ -228,9 +228,9 @@ function Hero() {
               className={tech.showOnMobile ? "" : "hidden sm:flex"}
             />
           ))}
-        </motion.div>
+        </m.div>
 
-        <motion.div style={{ y: y3 }}>
+        <m.div style={{ y: y3 }}>
           <h1
             className="hero-title-1 text-foreground mb-2 text-6xl font-black tracking-tight sm:text-7xl md:text-8xl lg:text-9xl"
             style={{ fontFamily: "var(--font-display)" }}
@@ -250,7 +250,7 @@ function Hero() {
               />
             </span>
           </h1>
-        </motion.div>
+        </m.div>
 
         <p
           className="hero-tagline text-foreground/80 mb-12 max-w-lg text-xl md:text-2xl md:whitespace-nowrap"
@@ -289,16 +289,16 @@ function Hero() {
             </MagneticButton>
           </a>
         </div>
-      </motion.div>
+      </m.div>
 
-      <motion.div
+      <m.div
         className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2"
         initial={{ opacity: shouldReduceMotion ? 1 : 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: shouldReduceMotion ? 0 : 2.2 }}
         aria-hidden="true"
       >
-        <motion.div
+        <m.div
           className="text-muted flex flex-col items-center gap-2"
           animate={shouldReduceMotion ? {} : { y: [0, 8, 0] }}
           transition={
@@ -307,8 +307,8 @@ function Hero() {
         >
           <span className="text-xs tracking-widest uppercase">{t("scroll")}</span>
           <div className="from-muted h-8 w-px bg-gradient-to-b to-transparent" />
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </section>
   );
 }
@@ -411,7 +411,7 @@ function MagneticPill({
   };
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={`magnetic ${className}`}
       role="listitem"
@@ -426,7 +426,7 @@ function MagneticPill({
         duration: shouldReduceMotion ? 0 : 0.4,
       }}
     >
-      <motion.div
+      <m.div
         className="focus-visible:ring-accent focus-visible:ring-offset-background flex cursor-pointer items-center gap-2 border-2 px-4 py-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
         tabIndex={0}
         initial={false}
@@ -440,16 +440,16 @@ function MagneticPill({
         aria-label={tech.label}
       >
         {tech.icon ? (
-          <motion.div
+          <m.div
             initial={false}
             animate={{ color: getIconColor() }}
             transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
             aria-hidden="true"
           >
             <tech.icon className="h-4 w-4" />
-          </motion.div>
+          </m.div>
         ) : (
-          <motion.span
+          <m.span
             className="text-sm font-bold"
             initial={false}
             animate={{ color: isHovered ? "#ffffff" : tech.color }}
@@ -457,18 +457,18 @@ function MagneticPill({
             aria-hidden="true"
           >
             {tech.label.charAt(0)}
-          </motion.span>
+          </m.span>
         )}
-        <motion.span
+        <m.span
           className="text-sm font-semibold"
           initial={false}
           animate={{ color: getTextColor() }}
           transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
         >
           {tech.label}
-        </motion.span>
-      </motion.div>
-    </motion.div>
+        </m.span>
+      </m.div>
+    </m.div>
   );
 }
 
@@ -553,7 +553,7 @@ function CursorFollower({
   const y = useSpring(targetY, { stiffness: shape.stiffness, damping: shape.damping });
 
   return (
-    <motion.div
+    <m.div
       className="absolute top-0 left-0 border-2"
       style={{
         width: shape.size,

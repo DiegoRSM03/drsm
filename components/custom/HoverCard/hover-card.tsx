@@ -1,7 +1,7 @@
 "use client";
 
 import { forwardRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 
 interface HoverCardProps {
   children: React.ReactNode;
@@ -17,7 +17,7 @@ const HoverCard = forwardRef<HTMLDivElement, HoverCardProps>(
     const shouldReduceMotion = useReducedMotion();
 
     return (
-      <motion.div
+      <m.div
         ref={ref}
         className={`border-border bg-surface relative border p-6 ${className}`}
         onMouseEnter={() => setIsHovered(true)}
@@ -37,7 +37,7 @@ const HoverCard = forwardRef<HTMLDivElement, HoverCardProps>(
         }}
       >
         {glowOnHover && (
-          <motion.div
+          <m.div
             className="pointer-events-none absolute inset-0"
             aria-hidden="true"
             style={{
@@ -51,7 +51,7 @@ const HoverCard = forwardRef<HTMLDivElement, HoverCardProps>(
           />
         )}
         <div className="relative z-10">{children}</div>
-      </motion.div>
+      </m.div>
     );
   }
 );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useCallback } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { m, useMotionValue, useSpring } from "framer-motion";
 import { useTheme } from "@/contexts";
 
 interface ThemeToggleProps {
@@ -110,7 +110,7 @@ export function ThemeToggle({
   }, [toggleTheme]);
 
   return (
-    <motion.button
+    <m.button
       ref={buttonRef}
       onClick={handleToggle}
       onMouseMove={handleMouseMove}
@@ -125,7 +125,7 @@ export function ThemeToggle({
       whileTap={{ scale: 0.95 }}
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
     >
-      <motion.div
+      <m.div
         className="relative h-5 w-5"
         initial={false}
         animate={{ rotate: theme === "dark" ? 0 : 180 }}
@@ -137,7 +137,7 @@ export function ThemeToggle({
         }}
       >
         {/* Sun */}
-        <motion.svg
+        <m.svg
           className="text-foreground absolute inset-0 h-5 w-5"
           viewBox="0 0 24 24"
           fill="none"
@@ -161,10 +161,10 @@ export function ThemeToggle({
           <line x1="21" y1="12" x2="23" y2="12" />
           <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
           <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-        </motion.svg>
+        </m.svg>
 
         {/* Moon */}
-        <motion.svg
+        <m.svg
           className="text-foreground absolute inset-0 h-5 w-5"
           viewBox="0 0 24 24"
           fill="none"
@@ -180,8 +180,8 @@ export function ThemeToggle({
           transition={{ duration: 0.3 }}
         >
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-        </motion.svg>
-      </motion.div>
-    </motion.button>
+        </m.svg>
+      </m.div>
+    </m.button>
   );
 }

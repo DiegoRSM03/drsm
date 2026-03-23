@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { X } from "lucide-react";
 import { cn } from "@/utils";
@@ -40,7 +40,7 @@ function MobileMenu({ isOpen, onClose, links, className }: MobileMenuProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           className={cn("bg-background fixed inset-0 z-50 flex flex-col", className)}
           initial={{
             clipPath: shouldReduceMotion
@@ -58,7 +58,7 @@ function MobileMenu({ isOpen, onClose, links, className }: MobileMenuProps) {
           aria-modal="true"
           aria-label="Navigation menu"
         >
-          <motion.div
+          <m.div
             className="absolute inset-0"
             style={{
               background:
@@ -72,7 +72,7 @@ function MobileMenu({ isOpen, onClose, links, className }: MobileMenuProps) {
           />
 
           <div className="flex items-center justify-end p-6">
-            <motion.button
+            <m.button
               onClick={onClose}
               className="magnetic text-foreground hover:bg-surface focus-visible:ring-accent focus-visible:ring-offset-background p-2 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
               initial={{
@@ -88,7 +88,7 @@ function MobileMenu({ isOpen, onClose, links, className }: MobileMenuProps) {
               aria-label="Close menu"
             >
               <X className="h-6 w-6" />
-            </motion.button>
+            </m.button>
           </div>
 
           <nav
@@ -96,7 +96,7 @@ function MobileMenu({ isOpen, onClose, links, className }: MobileMenuProps) {
             aria-label="Main navigation"
           >
             {links.map((link, index) => (
-              <motion.div
+              <m.div
                 key={link.href}
                 initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -114,18 +114,18 @@ function MobileMenu({ isOpen, onClose, links, className }: MobileMenuProps) {
                   style={{ fontFamily: "var(--font-display)" }}
                 >
                   {link.label}
-                  <motion.span
+                  <m.span
                     className="bg-accent absolute -bottom-2 left-0 h-0.5"
                     initial={{ width: 0 }}
                     whileHover={{ width: "100%" }}
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                   />
                 </Link>
-              </motion.div>
+              </m.div>
             ))}
           </nav>
 
-          <motion.div
+          <m.div
             className="p-6 text-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -133,8 +133,8 @@ function MobileMenu({ isOpen, onClose, links, className }: MobileMenuProps) {
             transition={{ delay: 0.3 }}
           >
             <p className="text-muted text-sm">Let&apos;s build something amazing together.</p>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

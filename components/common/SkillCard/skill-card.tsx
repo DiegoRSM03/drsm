@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { cn } from "@/utils";
 
 interface SkillCardProps {
@@ -31,7 +31,7 @@ function SkillCard({ name, icon, level, category, className }: SkillCardProps) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <motion.div
+    <m.div
       className={cn(
         "border-border bg-surface flex flex-col items-center gap-3 border p-6",
         className
@@ -46,13 +46,13 @@ function SkillCard({ name, icon, level, category, className }: SkillCardProps) {
       }}
       transition={{ duration: shouldReduceMotion ? 0 : 0.3, ease: [0.22, 1, 0.36, 1] }}
     >
-      <motion.div
+      <m.div
         className="text-accent flex h-12 w-12 items-center justify-center"
         animate={{ scale: isHovered && !shouldReduceMotion ? 1.1 : 1 }}
         transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
       >
         {icon}
-      </motion.div>
+      </m.div>
 
       <div className="text-center">
         <h4 className="font-medium" style={{ fontFamily: "var(--font-display)" }}>
@@ -64,7 +64,7 @@ function SkillCard({ name, icon, level, category, className }: SkillCardProps) {
       {level && (
         <div className="w-full">
           <div className="bg-elevated h-1 w-full overflow-hidden">
-            <motion.div
+            <m.div
               className={cn("h-full", levelColors[level])}
               initial={{ width: 0 }}
               animate={{ width: isHovered ? levelWidths[level] : "0%" }}
@@ -76,7 +76,7 @@ function SkillCard({ name, icon, level, category, className }: SkillCardProps) {
       )}
 
       {isHovered && (
-        <motion.div
+        <m.div
           className="pointer-events-none absolute inset-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -88,7 +88,7 @@ function SkillCard({ name, icon, level, category, className }: SkillCardProps) {
           aria-hidden="true"
         />
       )}
-    </motion.div>
+    </m.div>
   );
 }
 

@@ -5,17 +5,21 @@ jest.mock("@/contexts", () => ({
   useTheme: () => ({ theme: "dark", toggleTheme: jest.fn() }),
 }));
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    div: ({ children, className }: { children?: React.ReactNode; className: string }) => (
-      <div className={className} data-testid="cursor-element">
-        {children}
-      </div>
-    ),
-  },
-  useMotionValue: () => ({ set: jest.fn() }),
-  useSpring: () => ({ set: jest.fn() }),
-}));
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      div: ({ children, className }: { children?: React.ReactNode; className: string }) => (
+        <div className={className} data-testid="cursor-element">
+          {children}
+        </div>
+      ),
+    },
+    useMotionValue: () => ({ set: jest.fn() }),
+    useSpring: () => ({ set: jest.fn() }),
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 describe("CustomCursor", () => {
   const originalMatchMedia = window.matchMedia;

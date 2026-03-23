@@ -1,18 +1,22 @@
 import { render, screen } from "@testing-library/react";
 import { AnimatedText, FadeIn, StaggerContainer, StaggerItem } from "./text-reveal";
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    span: ({ children, className }: { children?: React.ReactNode; className?: string }) => (
-      <span className={className}>{children}</span>
-    ),
-    div: ({ children, className }: { children?: React.ReactNode; className?: string }) => (
-      <div className={className}>{children}</div>
-    ),
-  },
-  useInView: () => true,
-  useReducedMotion: () => false,
-}));
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      span: ({ children, className }: { children?: React.ReactNode; className?: string }) => (
+        <span className={className}>{children}</span>
+      ),
+      div: ({ children, className }: { children?: React.ReactNode; className?: string }) => (
+        <div className={className}>{children}</div>
+      ),
+    },
+    useInView: () => true,
+    useReducedMotion: () => false,
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 describe("AnimatedText", () => {
   it("renders the text content", () => {
