@@ -1,9 +1,13 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { LoadingScreen } from "@/components/common/LoadingScreen";
 import { Navbar } from "@/components/common/Navbar";
 import { Hero } from "@/components/custom/home";
+
+const LoadingScreen = dynamic(
+  () => import("@/components/common/LoadingScreen").then((m) => m.LoadingScreen),
+  { ssr: false }
+);
 
 const Projects = dynamic(() => import("@/components/custom/home/Projects").then((m) => m.Projects));
 const Experience = dynamic(() =>
