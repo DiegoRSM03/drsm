@@ -23,19 +23,25 @@ const filterMotionProps = (props: Record<string, unknown>) => {
   return filtered;
 };
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    label: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <label {...filterMotionProps(props)}>{children}</label>
-    ),
-    input: React.forwardRef((props: Record<string, unknown>, ref: React.Ref<HTMLInputElement>) => (
-      <input ref={ref} {...filterMotionProps(props)} />
-    )),
-    p: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <p {...filterMotionProps(props)}>{children}</p>
-    ),
-  },
-}));
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      label: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <label {...filterMotionProps(props)}>{children}</label>
+      ),
+      input: React.forwardRef(
+        (props: Record<string, unknown>, ref: React.Ref<HTMLInputElement>) => (
+          <input ref={ref} {...filterMotionProps(props)} />
+        )
+      ),
+      p: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <p {...filterMotionProps(props)}>{children}</p>
+      ),
+    },
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 import { Input } from "./input";
 

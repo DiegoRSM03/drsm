@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 
 interface LoadingScreenProps {
@@ -60,7 +60,7 @@ export function LoadingScreen({ onComplete, minimumLoadTime = 2200 }: LoadingScr
   return (
     <AnimatePresence>
       {isLoading && (
-        <motion.div
+        <m.div
           className="bg-background fixed inset-0 z-[10000] flex h-screen w-screen items-center justify-center"
           role="status"
           aria-label="Loading"
@@ -80,7 +80,7 @@ export function LoadingScreen({ onComplete, minimumLoadTime = 2200 }: LoadingScr
               { x: "65%", y: "85%", size: 36, shape: "square", delay: 0.1 },
               { x: "95%", y: "88%", size: 28, shape: "square", delay: 0.7 },
             ].map((item, i) => (
-              <motion.div
+              <m.div
                 key={i}
                 className={`absolute ${item.shape === "circle" ? "rounded-full" : "rounded-sm"} bg-accent`}
                 style={{
@@ -123,7 +123,7 @@ export function LoadingScreen({ onComplete, minimumLoadTime = 2200 }: LoadingScr
           </div>
 
           {/* Center glow */}
-          <motion.div
+          <m.div
             className="pointer-events-none absolute h-[400px] w-[400px] rounded-full"
             aria-hidden="true"
             style={{
@@ -146,7 +146,7 @@ export function LoadingScreen({ onComplete, minimumLoadTime = 2200 }: LoadingScr
               {letters.map((letter, index) => (
                 <div key={letter} className="relative">
                   {/* Trace outline - same size as solid letter */}
-                  <motion.span
+                  <m.span
                     className="absolute inset-0 text-6xl font-black tracking-tight md:text-8xl"
                     style={{
                       fontFamily: "var(--font-display)",
@@ -164,10 +164,10 @@ export function LoadingScreen({ onComplete, minimumLoadTime = 2200 }: LoadingScr
                     }}
                   >
                     {letter}
-                  </motion.span>
+                  </m.span>
 
                   {/* Solid letter that fades in after trace */}
-                  <motion.span
+                  <m.span
                     className="text-foreground relative text-6xl font-black tracking-tight md:text-8xl"
                     style={{ fontFamily: "var(--font-display)" }}
                     initial={{ opacity: 0 }}
@@ -181,13 +181,13 @@ export function LoadingScreen({ onComplete, minimumLoadTime = 2200 }: LoadingScr
                     }}
                   >
                     {letter}
-                  </motion.span>
+                  </m.span>
                 </div>
               ))}
             </div>
 
             {/* Tagline teaser */}
-            <motion.p
+            <m.p
               className="text-muted/80 text-sm tracking-wide md:text-base"
               initial={{ opacity: 0, y: 10 }}
               animate={{
@@ -201,19 +201,19 @@ export function LoadingScreen({ onComplete, minimumLoadTime = 2200 }: LoadingScr
               }}
             >
               {t("tagline")}
-            </motion.p>
+            </m.p>
           </div>
 
           {/* Progress bar at bottom */}
           <div className="bg-accent/10 absolute right-0 bottom-0 left-0 h-2">
-            <motion.div
+            <m.div
               className="bg-accent h-full"
               initial={{ width: "0%" }}
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.1, ease: "linear" }}
             />
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

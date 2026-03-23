@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import {
-  motion,
+  m,
   useMotionValue,
   useSpring,
   useReducedMotion,
@@ -131,7 +131,7 @@ export function ProximityShape({
   };
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className="pointer-events-none absolute"
       style={{
@@ -144,7 +144,7 @@ export function ProximityShape({
       }}
       aria-hidden="true"
     >
-      <motion.div
+      <m.div
         animate={shouldReduceMotion ? {} : { y: [0, -10, 0], x: [0, 5, -5, 0] }}
         transition={{
           duration: shape.floatDuration,
@@ -154,7 +154,7 @@ export function ProximityShape({
         }}
       >
         {renderShape()}
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }

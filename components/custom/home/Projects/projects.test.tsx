@@ -2,51 +2,55 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    div: React.forwardRef<HTMLDivElement, any>(({ children, ...props }, ref) => (
-      <div ref={ref} {...props}>
-        {children}
-      </div>
-    )),
-    span: React.forwardRef<HTMLSpanElement, any>(({ children, ...props }, ref) => (
-      <span ref={ref} {...props}>
-        {children}
-      </span>
-    )),
-    article: React.forwardRef<HTMLElement, any>(({ children, ...props }, ref) => (
-      <article ref={ref as React.Ref<HTMLElement>} {...props}>
-        {children}
-      </article>
-    )),
-    p: React.forwardRef<HTMLParagraphElement, any>(({ children, ...props }, ref) => (
-      <p ref={ref} {...props}>
-        {children}
-      </p>
-    )),
-    ul: React.forwardRef<HTMLUListElement, any>(({ children, ...props }, ref) => (
-      <ul ref={ref} {...props}>
-        {children}
-      </ul>
-    )),
-    li: React.forwardRef<HTMLLIElement, any>(({ children, ...props }, ref) => (
-      <li ref={ref} {...props}>
-        {children}
-      </li>
-    )),
-    h3: React.forwardRef<HTMLHeadingElement, any>(({ children, ...props }, ref) => (
-      <h3 ref={ref} {...props}>
-        {children}
-      </h3>
-    )),
-  },
-  useMotionValue: () => ({ get: () => 0, set: jest.fn() }),
-  useScroll: () => ({ scrollYProgress: { get: () => 0 } }),
-  useTransform: () => ({ get: () => 0 }),
-  useSpring: () => ({ get: () => 0 }),
-  useVelocity: () => ({ get: () => 0 }),
-  useReducedMotion: () => false,
-}));
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      div: React.forwardRef<HTMLDivElement, any>(({ children, ...props }, ref) => (
+        <div ref={ref} {...props}>
+          {children}
+        </div>
+      )),
+      span: React.forwardRef<HTMLSpanElement, any>(({ children, ...props }, ref) => (
+        <span ref={ref} {...props}>
+          {children}
+        </span>
+      )),
+      article: React.forwardRef<HTMLElement, any>(({ children, ...props }, ref) => (
+        <article ref={ref as React.Ref<HTMLElement>} {...props}>
+          {children}
+        </article>
+      )),
+      p: React.forwardRef<HTMLParagraphElement, any>(({ children, ...props }, ref) => (
+        <p ref={ref} {...props}>
+          {children}
+        </p>
+      )),
+      ul: React.forwardRef<HTMLUListElement, any>(({ children, ...props }, ref) => (
+        <ul ref={ref} {...props}>
+          {children}
+        </ul>
+      )),
+      li: React.forwardRef<HTMLLIElement, any>(({ children, ...props }, ref) => (
+        <li ref={ref} {...props}>
+          {children}
+        </li>
+      )),
+      h3: React.forwardRef<HTMLHeadingElement, any>(({ children, ...props }, ref) => (
+        <h3 ref={ref} {...props}>
+          {children}
+        </h3>
+      )),
+    },
+    useMotionValue: () => ({ get: () => 0, set: jest.fn() }),
+    useScroll: () => ({ scrollYProgress: { get: () => 0 } }),
+    useTransform: () => ({ get: () => 0 }),
+    useSpring: () => ({ get: () => 0 }),
+    useVelocity: () => ({ get: () => 0 }),
+    useReducedMotion: () => false,
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 jest.mock("@/components/custom/MagneticButton", () => ({
   MagneticButton: function MockMagneticButton({ children, ...props }: any) {

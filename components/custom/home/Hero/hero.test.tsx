@@ -61,44 +61,41 @@ jest.mock("framer-motion", () => {
     );
   });
 
-  return {
-    motion: {
-      section: MockSection,
-      div: MockDiv,
-      span: function MockSpan({
-        children,
-        className,
-        style,
-      }: {
-        children?: React.ReactNode;
-        className?: string;
-        style?: object;
-      }) {
-        return (
-          <span className={className} style={style}>
-            {children}
-          </span>
-        );
-      },
-      h1: function MockH1({
-        children,
-        className,
-      }: {
-        children: React.ReactNode;
-        className?: string;
-      }) {
-        return <h1 className={className}>{children}</h1>;
-      },
-      p: function MockP({
-        children,
-        className,
-      }: {
-        children: React.ReactNode;
-        className?: string;
-      }) {
-        return <p className={className}>{children}</p>;
-      },
+  const motion = {
+    section: MockSection,
+    div: MockDiv,
+    span: function MockSpan({
+      children,
+      className,
+      style,
+    }: {
+      children?: React.ReactNode;
+      className?: string;
+      style?: object;
+    }) {
+      return (
+        <span className={className} style={style}>
+          {children}
+        </span>
+      );
     },
+    h1: function MockH1({
+      children,
+      className,
+    }: {
+      children: React.ReactNode;
+      className?: string;
+    }) {
+      return <h1 className={className}>{children}</h1>;
+    },
+    p: function MockP({ children, className }: { children: React.ReactNode; className?: string }) {
+      return <p className={className}>{children}</p>;
+    },
+  };
+
+  return {
+    motion,
+    m: motion,
     useScroll: () => ({ scrollYProgress: { get: () => 0 } }),
     useTransform: () => 0,
     useSpring: () => ({ set: jest.fn(), get: () => 0 }),

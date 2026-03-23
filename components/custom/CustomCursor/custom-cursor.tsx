@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { m, useMotionValue, useSpring } from "framer-motion";
 import { useTheme } from "@/contexts";
 
 type CursorState = "default" | "hover" | "magnetic" | "text" | "hidden";
@@ -237,7 +237,7 @@ export function CustomCursor() {
 
   return (
     <>
-      <motion.div
+      <m.div
         className={`pointer-events-none fixed top-0 left-0 z-[9999] ${isDark && !isOverCurtain ? "bg-accent mix-blend-difference" : ""}`}
         style={{
           x: dotX,
@@ -255,7 +255,7 @@ export function CustomCursor() {
         transition={{ duration: 0.15, ease: [0.22, 1, 0.36, 1] }}
       />
 
-      <motion.div
+      <m.div
         className={`pointer-events-none fixed top-0 left-0 z-[9998] border-2 ${isDark && !isOverCurtain ? "border-accent/50 mix-blend-difference" : ""}`}
         style={{
           x: circleX,

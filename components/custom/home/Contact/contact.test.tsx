@@ -29,34 +29,38 @@ const filterMotionProps = (props: Record<string, unknown>) => {
   return filtered;
 };
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <div {...filterMotionProps(props)}>{children}</div>
-    ),
-    span: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <span {...filterMotionProps(props)}>{children}</span>
-    ),
-    p: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <p {...filterMotionProps(props)}>{children}</p>
-    ),
-    section: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <section {...filterMotionProps(props)}>{children}</section>
-    ),
-    button: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <button {...filterMotionProps(props)}>{children}</button>
-    ),
-    a: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <a {...filterMotionProps(props)}>{children}</a>
-    ),
-  },
-  useScroll: () => ({ scrollYProgress: { get: () => 0 } }),
-  useTransform: () => ({ get: () => 0 }),
-  useSpring: () => ({ get: () => 0, set: () => {} }),
-  useMotionValue: () => ({ get: () => 0, set: () => {} }),
-  useReducedMotion: () => false,
-  useInView: () => true,
-}));
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <div {...filterMotionProps(props)}>{children}</div>
+      ),
+      span: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <span {...filterMotionProps(props)}>{children}</span>
+      ),
+      p: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <p {...filterMotionProps(props)}>{children}</p>
+      ),
+      section: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <section {...filterMotionProps(props)}>{children}</section>
+      ),
+      button: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <button {...filterMotionProps(props)}>{children}</button>
+      ),
+      a: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <a {...filterMotionProps(props)}>{children}</a>
+      ),
+    },
+    useScroll: () => ({ scrollYProgress: { get: () => 0 } }),
+    useTransform: () => ({ get: () => 0 }),
+    useSpring: () => ({ get: () => 0, set: () => {} }),
+    useMotionValue: () => ({ get: () => 0, set: () => {} }),
+    useReducedMotion: () => false,
+    useInView: () => true,
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 jest.mock("lucide-react", () => ({
   Github: ({ className }: any) => <svg data-testid="github-icon" className={className} />,

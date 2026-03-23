@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import {
-  motion,
+  m,
   useScroll,
   useTransform,
   useSpring,
@@ -39,13 +39,13 @@ function SectionHeader({ isInView }: { isInView: boolean }) {
     <header className="border-foreground/[0.08] border-y py-8 sm:py-12 md:py-16 lg:py-20">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
         {/* Section tag — matches Projects pattern */}
-        <motion.div
+        <m.div
           className="mb-4 overflow-clip"
           initial={{ width: shouldReduceMotion ? "auto" : 0 }}
           animate={isInView ? { width: "auto" } : {}}
           transition={{ duration: 0.8, ease: EASE }}
         >
-          <motion.span
+          <m.span
             className="text-foreground inline-block px-3 py-1.5 text-xs font-bold tracking-[0.2em] sm:px-4 sm:py-2"
             style={{ backgroundColor: ACCENT_HEX, fontFamily: "var(--font-display)" }}
             initial={{ x: shouldReduceMotion ? 0 : -100 }}
@@ -53,8 +53,8 @@ function SectionHeader({ isInView }: { isInView: boolean }) {
             transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
           >
             {t("badge")}
-          </motion.span>
-        </motion.div>
+          </m.span>
+        </m.div>
 
         <h2
           id="about-heading"
@@ -68,7 +68,7 @@ function SectionHeader({ isInView }: { isInView: boolean }) {
                 .filter(Boolean)
                 .join(" ")}
             >
-              <motion.span
+              <m.span
                 className="inline-block"
                 style={{ color: i === 1 ? ACCENT_HEX : "inherit" }}
                 initial={{ y: shouldReduceMotion ? 0 : "100%" }}
@@ -76,20 +76,20 @@ function SectionHeader({ isInView }: { isInView: boolean }) {
                 transition={{ duration: 0.6, delay: 0.3 + i * 0.15, ease: EASE }}
               >
                 {word}
-              </motion.span>
+              </m.span>
               {i === 0 && <br className="md:hidden" />}
             </span>
           ))}
         </h2>
 
-        <motion.p
+        <m.p
           className="text-foreground/80 max-w-xl text-sm sm:text-base lg:text-lg"
           initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.6, ease: EASE }}
         >
           {t("description")}
-        </motion.p>
+        </m.p>
       </div>
     </header>
   );
@@ -255,7 +255,7 @@ function RailShape({
   }, [scale]);
 
   return (
-    <motion.div
+    <m.div
       className={`pointer-events-auto absolute cursor-grab active:cursor-grabbing ${config.className}`}
       style={{
         width: config.size,
@@ -372,10 +372,7 @@ export default function About() {
       <div className="mx-auto w-full max-w-7xl px-4 pt-8 sm:px-6 sm:pt-10 md:pt-12">
         <div className="relative flex flex-col-reverse gap-8 sm:gap-10 md:gap-12 lg:flex-row lg:gap-20">
           {/* Left: Scroll-driven word reveal */}
-          <motion.div
-            className="flex w-full flex-col justify-center lg:w-[55%]"
-            style={{ y: textY }}
-          >
+          <m.div className="flex w-full flex-col justify-center lg:w-[55%]" style={{ y: textY }}>
             <p className="sr-only">{t("bio")}</p>
             <p
               className="text-xl leading-snug font-black sm:text-2xl md:text-3xl lg:text-4xl"
@@ -399,7 +396,7 @@ export default function About() {
             </p>
 
             {/* Scroll hint */}
-            <motion.div
+            <m.div
               className="mt-8 flex items-center gap-3 sm:mt-10 md:mt-12"
               style={{ color: "var(--color-muted)" }}
               initial={{ opacity: 0 }}
@@ -407,24 +404,24 @@ export default function About() {
               transition={{ delay: 1.5 }}
               aria-hidden="true"
             >
-              <motion.div
+              <m.div
                 animate={shouldReduceMotion ? {} : { y: [0, 6, 0] }}
                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               >
                 <ArrowDown className="h-4 w-4" />
-              </motion.div>
+              </m.div>
               <span
                 className="text-xs font-medium tracking-widest uppercase"
                 style={{ fontFamily: "var(--font-mono)" }}
               >
                 {t("scrollHint")}
               </span>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
 
           {/* Right: Photo with bottom-up clip-path reveal */}
-          <motion.div className="relative w-full lg:w-[45%]" style={{ y: photoY }}>
-            <motion.div
+          <m.div className="relative w-full lg:w-[45%]" style={{ y: photoY }}>
+            <m.div
               className="relative aspect-[3/4] w-full overflow-hidden"
               initial={{ clipPath: shouldReduceMotion ? "inset(0 0 0 0)" : "inset(100% 0 0 0)" }}
               animate={isInView ? { clipPath: "inset(0 0 0 0)" } : {}}
@@ -438,10 +435,10 @@ export default function About() {
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 45vw"
                 priority
               />
-            </motion.div>
+            </m.div>
 
             <RailShapesContainer isInView={isInView} />
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>
@@ -479,12 +476,12 @@ function ScrollWord({
   const isHighlight = highlights.includes(word);
 
   return (
-    <motion.span
+    <m.span
       className="mr-[0.3em] inline-block"
       style={{ opacity, color: isHighlight ? ACCENT_HEX : color }}
       aria-hidden="true"
     >
       {word}
-    </motion.span>
+    </m.span>
   );
 }

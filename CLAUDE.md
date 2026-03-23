@@ -89,6 +89,10 @@ Portfolio for a Senior Frontend Engineer. Next.js 16, React 19, TypeScript, Tail
 - **No transparency on solid UI elements** — cards, buttons, containers use solid colors. Transparency only on decorative/background elements.
 - Components: default export + barrel file (`index.ts`) re-export. Follow existing patterns.
 
+## Spec Files
+
+All spec files live in `/spec` at the project root. Create a new spec file before starting any feature or improvement work.
+
 ## Pre-Implementation Checklist
 
 Before considering any work complete:

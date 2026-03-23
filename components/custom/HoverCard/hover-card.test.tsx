@@ -25,21 +25,25 @@ const filterMotionProps = (props: Record<string, unknown>) => {
   return filtered;
 };
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    div: React.forwardRef(
-      (
-        { children, ...props }: React.PropsWithChildren<Record<string, unknown>>,
-        ref: React.Ref<HTMLDivElement>
-      ) => (
-        <div ref={ref} {...filterMotionProps(props)}>
-          {children}
-        </div>
-      )
-    ),
-  },
-  useReducedMotion: () => false,
-}));
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      div: React.forwardRef(
+        (
+          { children, ...props }: React.PropsWithChildren<Record<string, unknown>>,
+          ref: React.Ref<HTMLDivElement>
+        ) => (
+          <div ref={ref} {...filterMotionProps(props)}>
+            {children}
+          </div>
+        )
+      ),
+    },
+    useReducedMotion: () => false,
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 import { HoverCard } from "./hover-card";
 

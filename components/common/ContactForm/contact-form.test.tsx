@@ -23,27 +23,33 @@ const filterMotionProps = (props: Record<string, unknown>) => {
   return filtered;
 };
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    label: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <label {...filterMotionProps(props)}>{children}</label>
-    ),
-    input: React.forwardRef((props: Record<string, unknown>, ref: React.Ref<HTMLInputElement>) => (
-      <input ref={ref} {...filterMotionProps(props)} />
-    )),
-    textarea: React.forwardRef(
-      (props: Record<string, unknown>, ref: React.Ref<HTMLTextAreaElement>) => (
-        <textarea ref={ref} {...filterMotionProps(props)} />
-      )
-    ),
-    button: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <button {...filterMotionProps(props)}>{children}</button>
-    ),
-    p: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <p {...filterMotionProps(props)}>{children}</p>
-    ),
-  },
-}));
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      label: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <label {...filterMotionProps(props)}>{children}</label>
+      ),
+      input: React.forwardRef(
+        (props: Record<string, unknown>, ref: React.Ref<HTMLInputElement>) => (
+          <input ref={ref} {...filterMotionProps(props)} />
+        )
+      ),
+      textarea: React.forwardRef(
+        (props: Record<string, unknown>, ref: React.Ref<HTMLTextAreaElement>) => (
+          <textarea ref={ref} {...filterMotionProps(props)} />
+        )
+      ),
+      button: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <button {...filterMotionProps(props)}>{children}</button>
+      ),
+      p: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <p {...filterMotionProps(props)}>{children}</p>
+      ),
+    },
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 const mockAddToast = jest.fn();
 jest.mock("../Toast", () => ({

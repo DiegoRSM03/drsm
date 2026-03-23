@@ -6,9 +6,10 @@ import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 
 import { ThemeProvider } from "@/contexts";
 import { LenisProvider } from "@/components/custom/LenisProvider";
+import { MotionProvider } from "@/components/custom/MotionProvider";
 import { LazyCursor } from "@/components/custom/CustomCursor/lazy-cursor";
 import { ToastProvider } from "@/components/common/Toast";
-import { locales } from "@/i18n/config";
+import { locales, defaultLocale } from "@/i18n/config";
 
 import "../globals.css";
 
@@ -45,15 +46,22 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: t("title"),
     description: t("description"),
     alternates: {
-      canonical: `https://drsm.vercel.app/${locale}`,
-      languages: Object.fromEntries(locales.map((l) => [l, `https://drsm.vercel.app/${l}`])),
+      canonical:
+        locale === defaultLocale ? "https://drsm.vercel.app" : `https://drsm.vercel.app/${locale}`,
+      languages: Object.fromEntries(
+        locales.map((l) => [
+          l,
+          l === defaultLocale ? "https://drsm.vercel.app" : `https://drsm.vercel.app/${l}`,
+        ])
+      ),
     },
     openGraph: {
       title: t("ogTitle"),
       description: t("ogDescription"),
       locale: locale === "es" ? "es_AR" : "en_US",
       alternateLocale: locale === "es" ? "en_US" : "es_AR",
-      url: `https://drsm.vercel.app/${locale}`,
+      url:
+        locale === defaultLocale ? "https://drsm.vercel.app" : `https://drsm.vercel.app/${locale}`,
       siteName: "Diego Sanchez",
       type: "website",
     },
@@ -83,12 +91,14 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
       >
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider>
-            <ToastProvider>
-              <LenisProvider>
-                <LazyCursor />
-                {children}
-              </LenisProvider>
-            </ToastProvider>
+            <MotionProvider>
+              <ToastProvider>
+                <LenisProvider>
+                  <LazyCursor />
+                  {children}
+                </LenisProvider>
+              </ToastProvider>
+            </MotionProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

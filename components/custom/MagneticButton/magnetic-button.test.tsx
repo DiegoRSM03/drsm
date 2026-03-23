@@ -1,56 +1,60 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MagneticButton } from "./magnetic-button";
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    div: ({
-      children,
-      className,
-      onMouseMove,
-      onMouseEnter,
-      onMouseLeave,
-    }: {
-      children: React.ReactNode;
-      className?: string;
-      onMouseMove?: () => void;
-      onMouseEnter?: () => void;
-      onMouseLeave?: () => void;
-    }) => (
-      <div
-        className={className}
-        onMouseMove={onMouseMove}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-      >
-        {children}
-      </div>
-    ),
-    button: ({
-      children,
-      onClick,
-      className,
-      disabled,
-      type,
-      ref,
-    }: {
-      children: React.ReactNode;
-      onClick?: () => void;
-      className?: string;
-      disabled?: boolean;
-      type?: string;
-      ref?: React.Ref<HTMLButtonElement>;
-    }) => (
-      <button ref={ref} onClick={onClick} className={className} disabled={disabled} type={type}>
-        {children}
-      </button>
-    ),
-    span: ({ children, className }: { children: React.ReactNode; className?: string }) => (
-      <span className={className}>{children}</span>
-    ),
-  },
-  useMotionValue: () => ({ set: jest.fn(), get: () => 0 }),
-  useSpring: () => ({ set: jest.fn() }),
-}));
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      div: ({
+        children,
+        className,
+        onMouseMove,
+        onMouseEnter,
+        onMouseLeave,
+      }: {
+        children: React.ReactNode;
+        className?: string;
+        onMouseMove?: () => void;
+        onMouseEnter?: () => void;
+        onMouseLeave?: () => void;
+      }) => (
+        <div
+          className={className}
+          onMouseMove={onMouseMove}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+        >
+          {children}
+        </div>
+      ),
+      button: ({
+        children,
+        onClick,
+        className,
+        disabled,
+        type,
+        ref,
+      }: {
+        children: React.ReactNode;
+        onClick?: () => void;
+        className?: string;
+        disabled?: boolean;
+        type?: string;
+        ref?: React.Ref<HTMLButtonElement>;
+      }) => (
+        <button ref={ref} onClick={onClick} className={className} disabled={disabled} type={type}>
+          {children}
+        </button>
+      ),
+      span: ({ children, className }: { children: React.ReactNode; className?: string }) => (
+        <span className={className}>{children}</span>
+      ),
+    },
+    useMotionValue: () => ({ set: jest.fn(), get: () => 0 }),
+    useSpring: () => ({ set: jest.fn() }),
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 describe("MagneticButton", () => {
   it("renders children", () => {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 import { cn } from "@/utils";
 
@@ -32,7 +32,7 @@ function ScrollToTop({ threshold = 400, className }: ScrollToTopProps) {
   return (
     <AnimatePresence>
       {isVisible && (
-        <motion.button
+        <m.button
           onClick={scrollToTop}
           className={cn(
             "magnetic border-border bg-surface hover:border-accent hover:bg-elevated focus-visible:ring-accent focus-visible:ring-offset-background fixed right-6 bottom-6 z-40 flex h-12 w-12 items-center justify-center border shadow-lg transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
@@ -48,7 +48,7 @@ function ScrollToTop({ threshold = 400, className }: ScrollToTopProps) {
           whileTap={{ scale: 0.95 }}
           aria-label="Scroll to top"
         >
-          <motion.div
+          <m.div
             animate={shouldReduceMotion ? {} : { y: [0, -2, 0] }}
             transition={
               shouldReduceMotion
@@ -62,8 +62,8 @@ function ScrollToTop({ threshold = 400, className }: ScrollToTopProps) {
             }
           >
             <ArrowUp className="text-accent h-5 w-5" />
-          </motion.div>
-        </motion.button>
+          </m.div>
+        </m.button>
       )}
     </AnimatePresence>
   );
