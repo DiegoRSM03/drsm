@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { X, CheckCircle, AlertCircle, Info } from "lucide-react";
 import { cn } from "@/utils";
 
@@ -107,7 +107,7 @@ function ToastItem({ toast, onDismiss }: ToastItemProps) {
   const Icon = config.icon;
 
   return (
-    <motion.div
+    <m.div
       layout
       initial={{ opacity: 0, y: 20, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -127,6 +127,6 @@ function ToastItem({ toast, onDismiss }: ToastItemProps) {
       >
         <X className="h-4 w-4" />
       </button>
-    </motion.div>
+    </m.div>
   );
 }

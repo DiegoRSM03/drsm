@@ -3,55 +3,59 @@ import { LoadingScreen } from "./loading-screen";
 
 const mockSessionStorage: Record<string, string> = {};
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    div: ({
-      children,
-      className,
-      role,
-      "aria-label": ariaLabel,
-      "aria-hidden": ariaHidden,
-      style,
-    }: {
-      children?: React.ReactNode;
-      className?: string;
-      role?: string;
-      "aria-label"?: string;
-      "aria-hidden"?: string;
-      style?: React.CSSProperties;
-    }) => (
-      <div
-        className={className}
-        role={role}
-        aria-label={ariaLabel}
-        aria-hidden={ariaHidden}
-        style={style}
-      >
-        {children}
-      </div>
-    ),
-    span: ({
-      children,
-      className,
-      style,
-    }: {
-      children?: React.ReactNode;
-      className?: string;
-      style?: React.CSSProperties;
-    }) => (
-      <span className={className} style={style}>
-        {children}
-      </span>
-    ),
-    p: ({ children, className }: { children?: React.ReactNode; className?: string }) => (
-      <p className={className}>{children}</p>
-    ),
-  },
-  useMotionValue: () => ({ set: jest.fn(), get: () => 0 }),
-  useSpring: () => ({ set: jest.fn() }),
-  useReducedMotion: () => false,
-  AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-}));
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      div: ({
+        children,
+        className,
+        role,
+        "aria-label": ariaLabel,
+        "aria-hidden": ariaHidden,
+        style,
+      }: {
+        children?: React.ReactNode;
+        className?: string;
+        role?: string;
+        "aria-label"?: string;
+        "aria-hidden"?: string;
+        style?: React.CSSProperties;
+      }) => (
+        <div
+          className={className}
+          role={role}
+          aria-label={ariaLabel}
+          aria-hidden={ariaHidden}
+          style={style}
+        >
+          {children}
+        </div>
+      ),
+      span: ({
+        children,
+        className,
+        style,
+      }: {
+        children?: React.ReactNode;
+        className?: string;
+        style?: React.CSSProperties;
+      }) => (
+        <span className={className} style={style}>
+          {children}
+        </span>
+      ),
+      p: ({ children, className }: { children?: React.ReactNode; className?: string }) => (
+        <p className={className}>{children}</p>
+      ),
+    },
+    useMotionValue: () => ({ set: jest.fn(), get: () => 0 }),
+    useSpring: () => ({ set: jest.fn() }),
+    useReducedMotion: () => false,
+    AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 describe("LoadingScreen", () => {
   beforeEach(() => {

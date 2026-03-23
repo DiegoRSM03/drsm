@@ -1,7 +1,7 @@
 "use client";
 
 import { forwardRef } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 
 interface AnimatedLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -22,7 +22,7 @@ const AnimatedLink = forwardRef<HTMLAnchorElement, AnimatedLinkProps>(
       "relative inline-flex items-center gap-1 text-accent transition-colors hover:text-accent-hover focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none";
 
     const content = (
-      <motion.span
+      <m.span
         className={`${baseStyles} ${className}`}
         initial="rest"
         whileHover="hover"
@@ -31,7 +31,7 @@ const AnimatedLink = forwardRef<HTMLAnchorElement, AnimatedLinkProps>(
         <span className="relative">
           {children}
           {underlineStyle === "slide" && (
-            <motion.span
+            <m.span
               className="absolute bottom-0 left-0 h-[1px] bg-current"
               variants={{
                 rest: { width: 0 },
@@ -41,7 +41,7 @@ const AnimatedLink = forwardRef<HTMLAnchorElement, AnimatedLinkProps>(
             />
           )}
           {underlineStyle === "fade" && (
-            <motion.span
+            <m.span
               className="absolute bottom-0 left-0 h-[1px] w-full bg-current"
               variants={{
                 rest: { opacity: 0 },
@@ -52,7 +52,7 @@ const AnimatedLink = forwardRef<HTMLAnchorElement, AnimatedLinkProps>(
           )}
         </span>
         {external && (
-          <motion.svg
+          <m.svg
             className="h-4 w-4"
             viewBox="0 0 24 24"
             fill="none"
@@ -67,9 +67,9 @@ const AnimatedLink = forwardRef<HTMLAnchorElement, AnimatedLinkProps>(
             transition={{ duration: 0.2 }}
           >
             <path d="M7 17L17 7M17 7H7M17 7V17" />
-          </motion.svg>
+          </m.svg>
         )}
-      </motion.span>
+      </m.span>
     );
 
     if (external) {

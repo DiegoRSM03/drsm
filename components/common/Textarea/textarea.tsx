@@ -1,7 +1,7 @@
 "use client";
 
 import { forwardRef, useState } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { cn } from "@/utils";
 
 interface TextareaProps {
@@ -51,7 +51,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 
     return (
       <div className={cn("relative", className)}>
-        <motion.label
+        <m.label
           htmlFor={name}
           className={cn(
             "text-muted pointer-events-none absolute left-4 origin-left transition-colors",
@@ -70,9 +70,9 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         >
           {label}
           {required && <span className="text-accent ml-1">*</span>}
-        </motion.label>
+        </m.label>
 
-        <motion.textarea
+        <m.textarea
           ref={ref}
           id={name}
           name={name}
@@ -101,7 +101,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         />
 
         {error && (
-          <motion.p
+          <m.p
             className="mt-1.5 text-sm text-red-500"
             initial={{ opacity: 0, y: -4 }}
             animate={{ opacity: 1, y: 0 }}
@@ -109,7 +109,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             role="alert"
           >
             {error}
-          </motion.p>
+          </m.p>
         )}
       </div>
     );

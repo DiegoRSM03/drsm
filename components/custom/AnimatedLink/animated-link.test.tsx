@@ -23,16 +23,20 @@ const filterMotionProps = (props: Record<string, unknown>) => {
   return filtered;
 };
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    span: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <span {...filterMotionProps(props)}>{children}</span>
-    ),
-    svg: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <svg {...filterMotionProps(props)}>{children}</svg>
-    ),
-  },
-}));
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      span: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <span {...filterMotionProps(props)}>{children}</span>
+      ),
+      svg: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <svg {...filterMotionProps(props)}>{children}</svg>
+      ),
+    },
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 jest.mock("next/link", () => ({
   __esModule: true,

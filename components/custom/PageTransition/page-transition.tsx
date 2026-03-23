@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 
 interface PageTransitionProps {
   children: React.ReactNode;
@@ -11,7 +11,7 @@ export function PageTransition({ children, className = "" }: PageTransitionProps
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <motion.div
+    <m.div
       className={className}
       initial={{ opacity: shouldReduceMotion ? 1 : 0 }}
       animate={{
@@ -32,7 +32,7 @@ export function PageTransition({ children, className = "" }: PageTransitionProps
       }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -45,7 +45,7 @@ export function PageTransitionItem({ children, className = "" }: PageTransitionI
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <motion.div
+    <m.div
       className={className}
       initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
       animate={{
@@ -58,6 +58,6 @@ export function PageTransitionItem({ children, className = "" }: PageTransitionI
       }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { forwardRef } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { cn } from "@/utils";
 
 interface BadgeProps {
@@ -27,7 +27,7 @@ const sizeClasses = {
 
 const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
   ({ children, variant = "default", size = "md", className, animated = false }, ref) => {
-    const Component = animated ? motion.span : "span";
+    const Component = animated ? m.span : "span";
 
     return (
       <Component

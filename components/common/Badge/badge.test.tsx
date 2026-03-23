@@ -1,30 +1,34 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    span: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => {
-      const motionKeys = [
-        "initial",
-        "animate",
-        "exit",
-        "transition",
-        "whileHover",
-        "whileTap",
-        "whileInView",
-        "viewport",
-        "variants",
-      ];
-      const filtered: Record<string, unknown> = {};
-      for (const key in props) {
-        if (!motionKeys.includes(key)) {
-          filtered[key] = props[key];
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      span: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => {
+        const motionKeys = [
+          "initial",
+          "animate",
+          "exit",
+          "transition",
+          "whileHover",
+          "whileTap",
+          "whileInView",
+          "viewport",
+          "variants",
+        ];
+        const filtered: Record<string, unknown> = {};
+        for (const key in props) {
+          if (!motionKeys.includes(key)) {
+            filtered[key] = props[key];
+          }
         }
-      }
-      return <span {...filtered}>{children}</span>;
+        return <span {...filtered}>{children}</span>;
+      },
     },
-  },
-}));
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 import { Badge } from "./badge";
 

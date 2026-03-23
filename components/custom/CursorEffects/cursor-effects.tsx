@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
+import { m, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 import { useIsTouchDevice } from "@/hooks";
 import { useTheme } from "@/contexts";
 
@@ -150,7 +150,7 @@ export function CursorGlow() {
       className="pointer-events-none absolute inset-0 z-30 overflow-hidden"
       aria-hidden="true"
     >
-      <motion.div
+      <m.div
         className="absolute h-[400px] w-[400px] rounded-full"
         style={{
           left: smoothX,

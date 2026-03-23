@@ -22,21 +22,25 @@ const filterMotionProps = (props: Record<string, unknown>) => {
   return filtered;
 };
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <div {...filterMotionProps(props)}>{children}</div>
-    ),
-    span: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <span {...filterMotionProps(props)}>{children}</span>
-    ),
-    nav: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <nav {...filterMotionProps(props)}>{children}</nav>
-    ),
-  },
-  useReducedMotion: () => false,
-  useInView: () => true,
-}));
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <div {...filterMotionProps(props)}>{children}</div>
+      ),
+      span: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <span {...filterMotionProps(props)}>{children}</span>
+      ),
+      nav: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <nav {...filterMotionProps(props)}>{children}</nav>
+      ),
+    },
+    useReducedMotion: () => false,
+    useInView: () => true,
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 jest.mock("@/i18n/routing", () => ({
   Link: ({

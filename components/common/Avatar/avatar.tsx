@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import NextImage from "next/image";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { cn } from "@/utils";
 
 interface AvatarProps {
@@ -55,7 +55,7 @@ function Avatar({
   const showFallback = !src || hasError;
 
   return (
-    <motion.div
+    <m.div
       className={cn(
         "bg-elevated relative flex shrink-0 items-center justify-center overflow-hidden",
         sizeClasses[size],
@@ -87,7 +87,7 @@ function Avatar({
           />
         </>
       )}
-    </motion.div>
+    </m.div>
   );
 }
 

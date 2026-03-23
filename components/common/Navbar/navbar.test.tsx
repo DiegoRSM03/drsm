@@ -51,91 +51,95 @@ jest.mock("@/i18n/routing", () => ({
   usePathname: () => "/",
 }));
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    div: ({
-      children,
-      className,
-      onClick,
-      role,
-      "aria-modal": ariaModal,
-      "aria-label": ariaLabel,
-    }: {
-      children: React.ReactNode;
-      className?: string;
-      onClick?: () => void;
-      role?: string;
-      "aria-modal"?: boolean;
-      "aria-label"?: string;
-    }) => (
-      <div
-        className={className}
-        onClick={onClick}
-        role={role}
-        aria-modal={ariaModal}
-        aria-label={ariaLabel}
-      >
-        {children}
-      </div>
-    ),
-    span: ({ children, className }: { children: React.ReactNode; className?: string }) => (
-      <span className={className}>{children}</span>
-    ),
-    button: ({
-      children,
-      onClick,
-      className,
-      "aria-label": ariaLabel,
-      "aria-expanded": ariaExpanded,
-      "aria-controls": ariaControls,
-    }: {
-      children: React.ReactNode;
-      onClick?: () => void;
-      className?: string;
-      "aria-label"?: string;
-      "aria-expanded"?: boolean;
-      "aria-controls"?: string;
-    }) => (
-      <button
-        onClick={onClick}
-        className={className}
-        aria-label={ariaLabel}
-        aria-expanded={ariaExpanded}
-        aria-controls={ariaControls}
-      >
-        {children}
-      </button>
-    ),
-    a: ({
-      children,
-      href,
-      className,
-      onClick,
-    }: {
-      children: React.ReactNode;
-      href: string;
-      className?: string;
-      onClick?: () => void;
-    }) => (
-      <a href={href} className={className} onClick={onClick}>
-        {children}
-      </a>
-    ),
-    li: ({ children, className }: { children: React.ReactNode; className?: string }) => (
-      <li className={className}>{children}</li>
-    ),
-    path: ({ fill, d }: { fill: string; d: string }) => <path fill={fill} d={d} />,
-    svg: ({ children, className }: { children?: React.ReactNode; className?: string }) => (
-      <svg className={className}>{children}</svg>
-    ),
-  },
-  useMotionValue: () => ({ set: jest.fn(), get: () => 0, on: () => () => {} }),
-  useSpring: () => ({ set: jest.fn(), get: () => 0 }),
-  useTransform: () => ({ set: jest.fn(), get: () => 0 }),
-  useReducedMotion: () => false,
-  useAnimationFrame: () => {},
-  AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-}));
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      div: ({
+        children,
+        className,
+        onClick,
+        role,
+        "aria-modal": ariaModal,
+        "aria-label": ariaLabel,
+      }: {
+        children: React.ReactNode;
+        className?: string;
+        onClick?: () => void;
+        role?: string;
+        "aria-modal"?: boolean;
+        "aria-label"?: string;
+      }) => (
+        <div
+          className={className}
+          onClick={onClick}
+          role={role}
+          aria-modal={ariaModal}
+          aria-label={ariaLabel}
+        >
+          {children}
+        </div>
+      ),
+      span: ({ children, className }: { children: React.ReactNode; className?: string }) => (
+        <span className={className}>{children}</span>
+      ),
+      button: ({
+        children,
+        onClick,
+        className,
+        "aria-label": ariaLabel,
+        "aria-expanded": ariaExpanded,
+        "aria-controls": ariaControls,
+      }: {
+        children: React.ReactNode;
+        onClick?: () => void;
+        className?: string;
+        "aria-label"?: string;
+        "aria-expanded"?: boolean;
+        "aria-controls"?: string;
+      }) => (
+        <button
+          onClick={onClick}
+          className={className}
+          aria-label={ariaLabel}
+          aria-expanded={ariaExpanded}
+          aria-controls={ariaControls}
+        >
+          {children}
+        </button>
+      ),
+      a: ({
+        children,
+        href,
+        className,
+        onClick,
+      }: {
+        children: React.ReactNode;
+        href: string;
+        className?: string;
+        onClick?: () => void;
+      }) => (
+        <a href={href} className={className} onClick={onClick}>
+          {children}
+        </a>
+      ),
+      li: ({ children, className }: { children: React.ReactNode; className?: string }) => (
+        <li className={className}>{children}</li>
+      ),
+      path: ({ fill, d }: { fill: string; d: string }) => <path fill={fill} d={d} />,
+      svg: ({ children, className }: { children?: React.ReactNode; className?: string }) => (
+        <svg className={className}>{children}</svg>
+      ),
+    },
+    useMotionValue: () => ({ set: jest.fn(), get: () => 0, on: () => () => {} }),
+    useSpring: () => ({ set: jest.fn(), get: () => 0 }),
+    useTransform: () => ({ set: jest.fn(), get: () => 0 }),
+    useReducedMotion: () => false,
+    useAnimationFrame: () => {},
+    AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 jest.mock("lucide-react", () => ({
   Globe: () => <span data-testid="globe-icon">Globe</span>,

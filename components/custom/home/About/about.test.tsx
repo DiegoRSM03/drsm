@@ -42,29 +42,33 @@ const filterMotionProps = (props: Record<string, unknown>) => {
   return filtered;
 };
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <div {...filterMotionProps(props)}>{children}</div>
-    ),
-    span: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <span {...filterMotionProps(props)}>{children}</span>
-    ),
-    p: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <p {...filterMotionProps(props)}>{children}</p>
-    ),
-    section: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <section {...filterMotionProps(props)}>{children}</section>
-    ),
-  },
-  useScroll: () => ({ scrollYProgress: { get: () => 0 } }),
-  useTransform: () => ({ get: () => 0 }),
-  useSpring: () => ({ get: () => 0, set: () => {} }),
-  useMotionValue: () => ({ get: () => 0, set: () => {} }),
-  useReducedMotion: () => false,
-  useInView: () => true,
-  useAnimationFrame: () => {},
-}));
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <div {...filterMotionProps(props)}>{children}</div>
+      ),
+      span: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <span {...filterMotionProps(props)}>{children}</span>
+      ),
+      p: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <p {...filterMotionProps(props)}>{children}</p>
+      ),
+      section: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <section {...filterMotionProps(props)}>{children}</section>
+      ),
+    },
+    useScroll: () => ({ scrollYProgress: { get: () => 0 } }),
+    useTransform: () => ({ get: () => 0 }),
+    useSpring: () => ({ get: () => 0, set: () => {} }),
+    useMotionValue: () => ({ get: () => 0, set: () => {} }),
+    useReducedMotion: () => false,
+    useInView: () => true,
+    useAnimationFrame: () => {},
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 jest.mock("next/image", () => ({
   __esModule: true,

@@ -24,17 +24,21 @@ const filterMotionProps = (props: Record<string, unknown>) => {
   return filtered;
 };
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    article: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <article {...filterMotionProps(props)}>{children}</article>
-    ),
-    div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <div {...filterMotionProps(props)}>{children}</div>
-    ),
-  },
-  useReducedMotion: () => false,
-}));
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      article: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <article {...filterMotionProps(props)}>{children}</article>
+      ),
+      div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <div {...filterMotionProps(props)}>{children}</div>
+      ),
+    },
+    useReducedMotion: () => false,
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 jest.mock("next/image", () => ({
   __esModule: true,

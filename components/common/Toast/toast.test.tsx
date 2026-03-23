@@ -23,14 +23,18 @@ const filterMotionProps = (props: Record<string, unknown>) => {
   return filtered;
 };
 
-jest.mock("framer-motion", () => ({
-  motion: {
-    div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <div {...filterMotionProps(props)}>{children}</div>
-    ),
-  },
-  AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-}));
+jest.mock("framer-motion", () => {
+  const _mock = {
+    motion: {
+      div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+        <div {...filterMotionProps(props)}>{children}</div>
+      ),
+    },
+    AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  };
+  _mock.m = _mock.motion;
+  return _mock;
+});
 
 jest.mock("lucide-react", () => ({
   X: ({ className }: { className?: string }) => <svg data-testid="x-icon" className={className} />,

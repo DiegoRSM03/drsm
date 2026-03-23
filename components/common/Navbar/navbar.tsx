@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import {
-  motion,
+  m,
   useMotionValue,
   useSpring,
   useTransform,
@@ -73,7 +73,7 @@ function MagneticLetter({
   const magneticY = useTransform(springY, (val) => (enableMotion ? val * factor.y : 0));
 
   return (
-    <motion.span
+    <m.span
       className="inline-block"
       animate={{
         x: enableMotion && isHovered ? position.x : 0,
@@ -81,10 +81,10 @@ function MagneticLetter({
       }}
       transition={{ duration: enableMotion ? 0.35 : 0, ease: EASE }}
     >
-      <motion.span className="inline-block" style={{ x: magneticX, y: magneticY }}>
+      <m.span className="inline-block" style={{ x: magneticX, y: magneticY }}>
         {letter}
-      </motion.span>
-    </motion.span>
+      </m.span>
+    </m.span>
   );
 }
 
@@ -117,7 +117,7 @@ function MagneticLogo() {
   };
 
   return (
-    <motion.div
+    <m.div
       ref={containerRef}
       className="relative -ml-2 cursor-pointer px-2 py-4 select-none"
       onMouseEnter={() => setIsHovered(true)}
@@ -125,7 +125,7 @@ function MagneticLogo() {
       onMouseLeave={handleMouseLeave}
       aria-label={t("home")}
     >
-      <motion.div
+      <m.div
         className="text-foreground flex items-center text-2xl font-black tracking-tight"
         style={{ fontFamily: "var(--font-display)" }}
         aria-hidden="true"
@@ -141,8 +141,8 @@ function MagneticLogo() {
             enableMotion={enableMotion}
           />
         ))}
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }
 
@@ -193,7 +193,7 @@ function LanguageToggle({
   const menuIconColor = isMenuOpen ? (theme === "dark" ? "#ffffff" : "#000000") : undefined;
 
   return (
-    <motion.button
+    <m.button
       ref={buttonRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -208,7 +208,7 @@ function LanguageToggle({
       whileTap={enableMotion ? { scale: 0.95 } : {}}
       aria-label={t("toggleLanguage")}
     >
-      <motion.div
+      <m.div
         style={{
           x: enableMotion ? springX : 0,
           y: enableMotion ? springY : 0,
@@ -216,8 +216,8 @@ function LanguageToggle({
         }}
       >
         <Globe className="h-5 w-5" />
-      </motion.div>
-    </motion.button>
+      </m.div>
+    </m.button>
   );
 }
 
@@ -230,7 +230,7 @@ function Hamburger({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }
   const t = useTranslations("nav");
 
   return (
-    <motion.button
+    <m.button
       className="focus-visible:ring-accent focus-visible:ring-offset-background relative -mr-[10px] flex h-11 w-11 flex-col items-center justify-center gap-1.5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
       onClick={onClick}
       whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
@@ -238,25 +238,25 @@ function Hamburger({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }
       aria-expanded={isOpen}
       aria-controls="main-menu"
     >
-      <motion.span
+      <m.span
         className="bg-foreground block h-0.5 w-6"
         animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 8 : 0 }}
         transition={{ duration: shouldReduceMotion ? 0 : 0.3, ease: EASE }}
         aria-hidden="true"
       />
-      <motion.span
+      <m.span
         className="bg-foreground block h-0.5 w-6"
         animate={{ opacity: isOpen ? 0 : 1, scaleX: isOpen ? 0 : 1 }}
         transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
         aria-hidden="true"
       />
-      <motion.span
+      <m.span
         className="bg-foreground block h-0.5 w-6"
         animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -8 : 0 }}
         transition={{ duration: shouldReduceMotion ? 0 : 0.3, ease: EASE }}
         aria-hidden="true"
       />
-    </motion.button>
+    </m.button>
   );
 }
 
@@ -600,7 +600,7 @@ function RailShape({
 
   if (config.type === "triangle") {
     return (
-      <motion.div
+      <m.div
         className="pointer-events-auto absolute cursor-grab active:cursor-grabbing"
         style={{ width: s, height: s, ...baseStyle }}
         {...baseAnim}
@@ -609,12 +609,12 @@ function RailShape({
         <svg width={s} height={s} viewBox={`0 0 ${s} ${s}`} aria-hidden="true">
           <polygon points={`${s / 2},0 ${s},${s} 0,${s}`} fill={c} />
         </svg>
-      </motion.div>
+      </m.div>
     );
   }
 
   return (
-    <motion.div
+    <m.div
       className={`pointer-events-auto absolute cursor-grab active:cursor-grabbing ${config.type === "circle" ? "rounded-full" : ""}`}
       style={{ width: s, height: s, backgroundColor: c, ...baseStyle }}
       {...baseAnim}
@@ -872,7 +872,7 @@ function MagneticNavLink({
       onMouseEnter={() => onHover(index)}
       onMouseLeave={handleMouseLeave}
     >
-      <motion.a
+      <m.a
         href={`#${navKey}`}
         className="group relative block cursor-pointer focus-visible:outline-none"
         style={{ x: enableMotion ? springX : 0, y: enableMotion ? springY : 0 }}
@@ -884,7 +884,7 @@ function MagneticNavLink({
         onBlur={() => onFocus(null)}
       >
         <span className="relative inline-block">
-          <motion.span
+          <m.span
             className="relative z-10 flex items-center justify-center text-5xl font-black md:text-6xl"
             style={{
               fontFamily: "var(--font-display)",
@@ -896,8 +896,8 @@ function MagneticNavLink({
             transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
           >
             {t(navKey)}
-          </motion.span>
-          <motion.span
+          </m.span>
+          <m.span
             className="absolute -inset-x-5 -inset-y-2 -z-0"
             style={{ backgroundColor: highlightColor, originX: 0 }}
             initial={{ scaleX: 0 }}
@@ -906,7 +906,7 @@ function MagneticNavLink({
             aria-hidden="true"
           />
         </span>
-      </motion.a>
+      </m.a>
     </div>
   );
 }
@@ -934,7 +934,7 @@ function CurtainContent({ onClose }: { onClose: (navKey: string) => void }) {
       <nav className="relative z-10" aria-label="Main navigation">
         <ul className="flex flex-col items-center justify-center gap-8 pt-20" role="list">
           {NAV_KEYS.map((key, i) => (
-            <motion.li
+            <m.li
               key={key}
               initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -954,7 +954,7 @@ function CurtainContent({ onClose }: { onClose: (navKey: string) => void }) {
                 onFocus={setFocusedIndex}
                 onClose={onClose}
               />
-            </motion.li>
+            </m.li>
           ))}
         </ul>
       </nav>
@@ -1050,7 +1050,7 @@ function Navbar({ className }: NavbarProps) {
         style={{ paddingRight: scrollbarWidth > 0 ? scrollbarWidth : undefined }}
         role="banner"
       >
-        <motion.div
+        <m.div
           className="bg-border absolute right-0 bottom-0 left-0 h-px"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: scrolled && !isOpen ? 1 : 0 }}
@@ -1076,7 +1076,7 @@ function Navbar({ className }: NavbarProps) {
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
             id="main-menu"
             className="bg-accent fixed inset-0 z-40"
             initial={{ clipPath: "inset(0 0 100% 0)" }}
@@ -1088,7 +1088,7 @@ function Navbar({ className }: NavbarProps) {
             aria-label="Navigation menu"
           >
             <CurtainContent onClose={closeMenu} />
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

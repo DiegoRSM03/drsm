@@ -3,7 +3,7 @@
 import { useState } from "react";
 import NextImage from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/utils";
 
@@ -38,7 +38,7 @@ function ProjectCard({
         className
       )}
     >
-      <motion.article
+      <m.article
         className={cn(
           "border-border bg-surface relative overflow-hidden border",
           featured && "md:col-span-2"
@@ -56,7 +56,7 @@ function ProjectCard({
       >
         <div className="relative aspect-video overflow-hidden">
           {!imageLoaded && <div className="bg-elevated absolute inset-0 animate-pulse" />}
-          <motion.div
+          <m.div
             className="h-full w-full"
             animate={{ scale: isHovered ? 1.05 : 1 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
@@ -68,8 +68,8 @@ function ProjectCard({
               className="object-cover"
               onLoad={() => setImageLoaded(true)}
             />
-          </motion.div>
-          <motion.div
+          </m.div>
+          <m.div
             className="from-surface absolute inset-0 bg-gradient-to-t via-transparent to-transparent"
             animate={{ opacity: isHovered ? 0.8 : 0.6 }}
             transition={{ duration: 0.3 }}
@@ -81,7 +81,7 @@ function ProjectCard({
             <h3 className="text-xl font-semibold" style={{ fontFamily: "var(--font-display)" }}>
               {title}
             </h3>
-            <motion.div
+            <m.div
               animate={{
                 x: isHovered ? 0 : -4,
                 y: isHovered ? 0 : 4,
@@ -90,7 +90,7 @@ function ProjectCard({
               transition={{ duration: 0.2 }}
             >
               <ArrowUpRight className="text-accent h-5 w-5" />
-            </motion.div>
+            </m.div>
           </div>
 
           <p className="text-muted mb-4 line-clamp-2 text-sm">{description}</p>
@@ -105,7 +105,7 @@ function ProjectCard({
         </div>
 
         {isHovered && (
-          <motion.div
+          <m.div
             className="pointer-events-none absolute inset-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -117,7 +117,7 @@ function ProjectCard({
             aria-hidden="true"
           />
         )}
-      </motion.article>
+      </m.article>
     </Link>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { m, useInView, useReducedMotion } from "framer-motion";
 
 interface AnimatedTextProps {
   children: string;
@@ -39,7 +39,7 @@ export function AnimatedText({
       style={style}
     >
       {items.map((item, index) => (
-        <motion.span
+        <m.span
           key={index}
           className="inline-block"
           initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
@@ -56,7 +56,7 @@ export function AnimatedText({
         >
           {item}
           {splitBy === "words" && index < items.length - 1 ? "\u00A0" : ""}
-        </motion.span>
+        </m.span>
       ))}
     </Component>
   );
@@ -102,7 +102,7 @@ export function FadeIn({
   };
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={className}
       initial={{ opacity: shouldReduceMotion ? 1 : 0, ...getInitialPosition() }}
@@ -118,7 +118,7 @@ export function FadeIn({
       }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -142,7 +142,7 @@ export function StaggerContainer({
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={className}
       initial={shouldReduceMotion ? "visible" : "hidden"}
@@ -158,7 +158,7 @@ export function StaggerContainer({
       }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -172,7 +172,7 @@ export function StaggerItem({
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <motion.div
+    <m.div
       className={className}
       variants={{
         hidden: { opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 },
@@ -187,6 +187,6 @@ export function StaggerItem({
       }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import NextImage from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { cn } from "@/utils";
 
 interface ExperienceCardProps {
@@ -28,13 +28,13 @@ function ExperienceCard({
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <motion.article
+    <m.article
       className={cn("relative flex gap-6", className)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative flex flex-col items-center">
-        <motion.div
+        <m.div
           className="border-accent bg-background relative z-10 flex h-4 w-4 items-center justify-center border-2"
           animate={{
             scale: isHovered ? 1.25 : 1,
@@ -45,7 +45,7 @@ function ExperienceCard({
         <div className="bg-border absolute top-4 h-full w-px" />
       </div>
 
-      <motion.div
+      <m.div
         className="border-border bg-surface flex-1 border p-6 pb-8"
         animate={{
           borderColor: isHovered ? "rgba(139, 92, 246, 0.5)" : "var(--color-border)",
@@ -81,8 +81,8 @@ function ExperienceCard({
             ))}
           </div>
         )}
-      </motion.div>
-    </motion.article>
+      </m.div>
+    </m.article>
   );
 }
 
