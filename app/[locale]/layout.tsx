@@ -64,6 +64,20 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         locale === defaultLocale ? "https://drsm.vercel.app" : `https://drsm.vercel.app/${locale}`,
       siteName: "Diego Sanchez",
       type: "website",
+      images: [
+        {
+          url: "https://drsm.vercel.app/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: "Diego Sanchez - Senior Frontend Engineer",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("ogTitle"),
+      description: t("ogDescription"),
+      images: ["https://drsm.vercel.app/og-image.png"],
     },
   };
 }
