@@ -46,16 +46,27 @@
     "titleWord1": "CRAFT IN",
     "titleWord2": "CONTEXT",
     "description": "Real teams, real constraints — where the craft gets tested and the details matter most.",
-    "inaza": {
-      "role": "Software Engineer",
-      "period": "Jan 2026 - Present",
-      "duration": "3 mos",
-      "description": "Insurtech company automating insurance processes end-to-end — building AI-powered workflows that replace manual operations across departments.",
+    "uberall": {
+      "role": "Senior Frontend Engineer",
+      "period": "Sep 2026 - Present",
+      "description": "Location marketing platform for multi-location enterprise brands — part of the Websites team building the Locator & Local Pages products.",
       "highlights": [
-        "Built end-to-end email intake automation with OCR text extraction, LLM categorization via Vertex AI, and automated responses through Graph API and Gmail",
-        "Developed Python automation workflows processing hundreds of insurance claims weekly, eliminating manual data entry across entire departments",
-        "Engineered intelligent document processing pipelines with AI-powered categorization, filtering, and routing of employee benefits claims",
-        "Adopted a Spec-Driven Development workflow with Claude Code and Cursor as daily drivers, turning detailed specifications into production-ready automation pipelines"
+        "Building the next-generation Locator on Next.js 16 and React 19 — a multi-tenant, config-driven store locator and local pages product for enterprise brands",
+        "Shipping to the embeddable store-finder widget, where every merge goes live for all embedded clients, and contributing to its new server-side rendering service",
+        "Raising accessibility to WCAG 2.2 AA with real screen-reader verification, alongside structured data and SEO work on location pages",
+        "Running an AI-augmented engineering workflow with Claude Code — custom agents, skills, and verification loops that take a ticket from spec to a reviewed merge request"
+      ]
+    },
+    "inaza": {
+      "role": "Software Engineer & AI Adoption Lead",
+      "period": "Jan 2026 - Sep 2026",
+      "duration": "9 mos",
+      "description": "Insurtech company automating insurance processes end-to-end — built AI-powered workflows replacing manual operations, and led AI coding tool adoption company-wide.",
+      "highlights": [
+        "Appointed by the CEO to lead AI adoption company-wide — evaluated Claude Code, Cursor, and Windsurf, and standardized the engineering team on Claude Code",
+        "Authored the full Claude Code onboarding playbook — skills, agents, subagents, rules, hooks, and CLAUDE.md conventions — and ran a dedicated Slack channel guiding the IT team",
+        "Built email intake automation with OCR extraction, Vertex AI categorization, and automated responses through Graph API and Gmail — eliminating manual triage across departments",
+        "Engineered document processing pipelines with AI-powered routing of hundreds of insurance claims weekly, replacing manual data entry with Python and Pydantic validation"
       ]
     },
     "litebox": {
@@ -88,7 +99,7 @@
     "titleLine1": "The Person",
     "titleLine2": "Behind The Pixels",
     "description": "The perspective that shapes the work — where curiosity meets discipline and nothing ships without intention.",
-    "bio": "I'm Diego — a Frontend Engineer with almost 5 years crafting high-performance web applications. Based in Argentina, shipping globally. The details most people skip are the ones I obsess over — render performance, animation timing, design fidelity, and the kind of polish that makes an app feel alive.",
+    "bio": "I'm Diego — a Frontend Engineer with 5+ years crafting high-performance web applications. Based in Argentina, shipping globally. The details most people skip are the ones I obsess over — render performance, animation timing, design fidelity, and the kind of polish that makes an app feel alive.",
     "scrollHint": "Scroll to reveal"
   },
   "contact": {

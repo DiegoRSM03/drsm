@@ -27,14 +27,25 @@ interface ExperienceData {
   color: string;
   numberColorDark: string;
   numberColorLight: string;
+  isCurrent?: boolean;
 }
 
 const EXPERIENCES: ExperienceData[] = [
   {
+    company: "Uberall",
+    i18nKey: "uberall",
+    highlightCount: 4,
+    skills: ["Next.js", "React", "TypeScript", "TanStack Query", "SSR", "Claude Code"],
+    color: GREEN_HEX,
+    numberColorDark: "#134E3A",
+    numberColorLight: "#D1FAE5",
+    isCurrent: true,
+  },
+  {
     company: "Inaza",
     i18nKey: "inaza",
     highlightCount: 4,
-    skills: ["Python", "Vertex AI", "Claude", "Graph API", "Gmail API", "OCR"],
+    skills: ["Python", "Vertex AI", "Claude Code", "Pydantic", "Graph API", "OCR"],
     color: PINK_HEX,
     numberColorDark: "#5C2A45",
     numberColorLight: "#FCE7F3",
@@ -291,8 +302,12 @@ function ExperienceCard({
           </p>
           <p className="text-foreground/50 mb-4 font-mono text-xs sm:mb-6 sm:text-sm">
             <time>{t(`${exp.i18nKey}.period`)}</time>
-            <span aria-hidden="true"> · </span>
-            <span>{t(`${exp.i18nKey}.duration`)}</span>
+            {!exp.isCurrent && (
+              <>
+                <span aria-hidden="true"> · </span>
+                <span>{t(`${exp.i18nKey}.duration`)}</span>
+              </>
+            )}
           </p>
 
           <p className="text-foreground/70 mb-4 text-sm sm:mb-6 sm:text-base">
