@@ -88,6 +88,7 @@ describe("Experience", () => {
 
   it("renders all experience companies", () => {
     render(<Experience />);
+    expect(screen.getByText("UBERALL")).toBeInTheDocument();
     expect(screen.getByText("INAZA")).toBeInTheDocument();
     expect(screen.getByText("LITEBOX")).toBeInTheDocument();
     expect(screen.getByText("AXON")).toBeInTheDocument();
@@ -101,19 +102,29 @@ describe("Experience", () => {
   it("renders experience cards as articles", () => {
     render(<Experience />);
     const articles = screen.getAllByRole("article");
-    expect(articles.length).toBe(3);
+    expect(articles.length).toBe(4);
   });
 
   it("each card has an accessible heading", () => {
     render(<Experience />);
+    expect(screen.getByRole("heading", { name: /uberall/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /litebox/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /axon/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /inaza/i })).toBeInTheDocument();
   });
 
+  it("shows a duration for past roles only", () => {
+    render(<Experience />);
+    expect(screen.getByText("experience.uberall.period")).toBeInTheDocument();
+    expect(screen.queryByText("experience.uberall.duration")).not.toBeInTheDocument();
+    expect(screen.getByText("experience.inaza.duration")).toBeInTheDocument();
+    expect(screen.getByText("experience.litebox.duration")).toBeInTheDocument();
+    expect(screen.getByText("experience.axon.duration")).toBeInTheDocument();
+  });
+
   it("skills lists have accessible label", () => {
     render(<Experience />);
     const skillsLists = screen.getAllByRole("list", { name: /technologies used/i });
-    expect(skillsLists.length).toBe(3);
+    expect(skillsLists.length).toBe(4);
   });
 });

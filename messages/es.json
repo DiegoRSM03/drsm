@@ -46,16 +46,27 @@
     "titleWord1": "ARTE EN",
     "titleWord2": "CONTEXTO",
     "description": "Equipos reales, restricciones reales — donde el oficio se pone a prueba y los detalles importan más.",
-    "inaza": {
-      "role": "Software Engineer",
-      "period": "Ene 2026 - Presente",
-      "duration": "3 meses",
-      "description": "Empresa insurtech automatizando procesos de seguros end-to-end — construyendo workflows con IA que reemplazan operaciones manuales en departamentos enteros.",
+    "uberall": {
+      "role": "Senior Frontend Engineer",
+      "period": "Sep 2026 - Presente",
+      "description": "Plataforma de location marketing para marcas enterprise con múltiples sucursales — parte del equipo de Websites, construyendo los productos Locator y Local Pages.",
       "highlights": [
-        "Automatización end-to-end de ingesta de emails con extracción OCR, categorización LLM vía Vertex AI y respuestas automatizadas a través de Graph API y Gmail",
-        "Workflows de automatización en Python procesando cientos de reclamos de seguros semanalmente, eliminando la carga manual de datos en departamentos enteros",
-        "Pipelines inteligentes de procesamiento de documentos con categorización, filtrado y enrutamiento de reclamos de beneficios impulsados por IA",
-        "Adopción de Spec-Driven Development con Claude Code y Cursor como herramientas diarias, transformando especificaciones detalladas en pipelines de automatización listos para producción"
+        "Desarrollo del Locator de nueva generación en Next.js 16 y React 19 — store locator y páginas locales multi-tenant, configurables por cliente, para marcas enterprise",
+        "Entregas sobre el widget store-finder embebible, donde cada merge llega a producción para todos los clientes que lo integran, y aportes a su nuevo servicio de server-side rendering",
+        "Mejora de la accesibilidad hacia WCAG 2.2 AA, verificada con lectores de pantalla reales, junto con datos estructurados y SEO en las páginas de sucursales",
+        "Flujo de ingeniería potenciado por IA con Claude Code — agentes, skills y loops de verificación a medida que llevan un ticket desde la spec hasta un merge request revisado"
+      ]
+    },
+    "inaza": {
+      "role": "Software Engineer & AI Adoption Lead",
+      "period": "Ene 2026 - Sep 2026",
+      "duration": "9 meses",
+      "description": "Empresa insurtech automatizando procesos de seguros end-to-end — workflows con IA que reemplazan operaciones manuales, y liderazgo de la adopción de herramientas de IA para desarrollo en toda la compañía.",
+      "highlights": [
+        "Designado por el CEO para liderar la adopción de IA en toda la compañía — evaluación de Claude Code, Cursor y Windsurf, y estandarización del equipo en Claude Code",
+        "Redacción del playbook completo de onboarding a Claude Code — skills, agentes, subagentes, reglas, hooks y convenciones de CLAUDE.md — y gestión de un canal de Slack dedicado para guiar al equipo de IT",
+        "Automatización de ingesta de emails con extracción OCR, categorización con Vertex AI y respuestas automatizadas vía Graph API y Gmail — eliminando el triage manual entre departamentos",
+        "Pipelines de procesamiento de documentos con enrutamiento por IA de cientos de reclamos de seguros por semana, reemplazando la carga manual de datos con validación en Python y Pydantic"
       ]
     },
     "litebox": {
@@ -88,7 +99,7 @@
     "titleLine1": "La Persona",
     "titleLine2": "Detrás de los Píxeles",
     "description": "La perspectiva que da forma al trabajo — donde la curiosidad se encuentra con la disciplina y nada ocurre sin querer.",
-    "bio": "Soy Diego — Ingeniero Frontend con casi 5 años creando aplicaciones web de alto rendimiento. Desde Argentina, con alcance global. Los detalles que la mayoría pasa por alto son los que más me importan — rendimiento de renderizado, timing de animaciones, fidelidad de diseño, y ese nivel de pulido que hace que una app cobre vida.",
+    "bio": "Soy Diego — Ingeniero Frontend con más de 5 años creando aplicaciones web de alto rendimiento. Desde Argentina, con alcance global. Los detalles que la mayoría pasa por alto son los que más me importan — rendimiento de renderizado, timing de animaciones, fidelidad de diseño, y ese nivel de pulido que hace que una app cobre vida.",
     "scrollHint": "Deslizá para ver"
   },
   "contact": {
